@@ -1,0 +1,38 @@
+<app-grid
+  [title]="'Vendor Nature Management'"
+  [layoutKey]="'vendor-nature-grid-layout'"
+  [columnDefs]="columnDefs"
+  [rowData]="filteredVendorNatures"
+  [enableSearch]="true"
+  [showActions]="true"
+  (onAdd)="onAdd()"
+  (onUpdate)="onUpdate($event)"
+  (onRefresh)="onRefresh()"
+  (onSearch)="onSearch($event)"
+  (rowClicked)="onRowClicked($event)">
+  
+  <ng-container headerActions>
+    <div class="status-btn-group btn-group btn-group-sm me-2" role="group">
+      <button class="btn status-btn all" [class.active]="selectedStatus === 'all'" (click)="setStatusFilter('all')">
+        <i class="bi bi-grid-fill me-1"></i> All
+      </button>
+      <button class="btn status-btn active" [class.active]="selectedStatus === 'active'" (click)="setStatusFilter('active')">
+        <i class="bi bi-check-circle-fill me-1"></i> Active
+      </button>
+      <button class="btn status-btn inactive" [class.active]="selectedStatus === 'inactive'" (click)="setStatusFilter('inactive')">
+        <i class="bi bi-x-circle-fill me-1"></i> Inactive
+      </button>
+    </div>
+  </ng-container>
+</app-grid>
+
+<!-- ✅ Standalone Pagination -->
+<div class="mt-3 d-flex justify-content-end">
+  <nz-pagination
+    [nzPageIndex]="pageNumber"
+    [nzTotal]="totalCount"
+    [nzPageSize]="pageSize"
+    [nzShowSizeChanger]="false"
+    (nzPageIndexChange)="onPageChange($event)">
+  </nz-pagination>
+</div>

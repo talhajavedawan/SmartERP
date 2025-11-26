@@ -1,0 +1,28 @@
+# Exclude publish folder
+publish/
+**/publish/
+
+# Exclude bin folder
+bin/
+**/bin/
+
+# Exclude dist folder
+dist/
+**/dist/
+
+# Exclude obj folder
+obj/
+**/obj/
+
+
+# Ignore Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Ignore .angular
+.angular/
+**/.angular/
+
+# Visual Studio folder
+.vs/
+**/.vs/

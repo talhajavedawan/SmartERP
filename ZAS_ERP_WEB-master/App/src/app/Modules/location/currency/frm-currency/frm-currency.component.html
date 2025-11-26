@@ -1,0 +1,97 @@
+<div class="button-space">
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="onCancel()"
+  ></button>
+
+<div class="card-body">
+  <h5 class="section-title mt-2 mb-3">
+    <i class="bi bi-buildings-fill text-primary me-2"></i>
+    {{ isCreateMode ? 'Create Currency' : 'Update Currency' }}
+  </h5>
+
+  <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()" class="row g-4">
+    <div class="col-md-6">
+      <label for="name" class="form-label">Currency Name <span class="text-danger">*</span></label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-control"
+        placeholder="Enter currency name"
+        autocomplete="off"
+      />
+      <div *ngIf="currencyForm.get('name')?.invalid && currencyForm.get('name')?.touched" class="text-danger small">
+        <small *ngIf="currencyForm.get('name')?.hasError('required')">Currency name is required.</small>
+        <small *ngIf="currencyForm.get('name')?.hasError('maxlength')">Currency name can't exceed 150 characters.</small>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="symbol" class="form-label">Currency Symbol <span class="text-danger">*</span></label>
+      <input
+        type="text"
+        id="symbol"
+        formControlName="symbol"
+        class="form-control"
+        placeholder="Enter symbol"
+        autocomplete="off"
+      />
+      <div *ngIf="currencyForm.get('symbol')?.invalid && currencyForm.get('symbol')?.touched" class="text-danger small">
+        Symbol is required.
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="abbreviation" class="form-label">Abbreviation <span class="text-danger">*</span></label>
+      <input
+        type="text"
+        id="abbreviation"
+        formControlName="abbreviation"
+        class="form-control"
+        placeholder="Enter abbreviation"
+        autocomplete="off"
+      />
+      <div *ngIf="currencyForm.get('abbreviation')?.invalid && currencyForm.get('abbreviation')?.touched" class="text-danger small">
+        Abbreviation is required.
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="countryId" class="form-label">Country <span class="text-danger">*</span></label>
+      <select
+        id="countryId"
+        formControlName="countryId"
+        class="form-control"
+        [ngClass]="{'is-invalid': currencyForm.get('countryId')?.invalid && currencyForm.get('countryId')?.touched}"
+      >
+        <option value="" disabled>Select a country</option>
+        <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+      </select>
+      <div *ngIf="currencyForm.get('countryId')?.invalid && currencyForm.get('countryId')?.touched" class="text-danger small">
+        Country is required.
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="footer-bar" (click)="onSubmit()" [class.disabled]="currencyForm.invalid || isLoading">
+  <span *ngIf="!isLoading && !currencyForm.invalid">
+    <i class="bi bi-save me-2"></i>
+    {{ isCreateMode ? "Save Currency" : "Update Currency" }}
+  </span>
+  <span *ngIf="isLoading">
+    <span class="spinner-border spinner-border-sm me-2"></span> Saving...
+  </span>
+  <span *ngIf="currencyForm.invalid && !isLoading" class="opacity-75">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    Please fill all required fields
+  </span>
+</div>
+
+<!-- Close Button -->
+
+</div>

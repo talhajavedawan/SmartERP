@@ -1,0 +1,222 @@
+<div class="button-space">
+  <!-- ❌ Top Close Button -->
+<button type="button" class="custom-close-btn" (click)="onCancel()">×</button>
+
+
+  <div class="card-body pt-4">
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <!-- =================== HEADER TITLE =================== -->
+      <!-- <h5 class="section-title mb-3">
+        <i class="bi bi-shield-lock-fill text-primary me-2"></i>
+        {{ isEditMode ? "Update Role" : "Add New Role" }}
+      </h5> -->
+
+      <nz-tabset [(nzSelectedIndex)]="selectedTabIndex">
+        <!-- =================== ROLE DETAILS =================== -->
+        <nz-tab nzTitle="Role Details">
+          <div class="tab-content mt-3">
+            <h6 class="section-title">
+              <i class="bi bi-info-circle-fill text-primary me-2"></i> Role Information
+            </h6>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label">Role Name <span class="text-danger">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Enter role name"
+                />
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="description"
+                  placeholder="Enter role description"
+                />
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Active</label>
+                <div class="form-check mt-2">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="isActive"
+                    formControlName="isActive"
+                  />
+                  <label for="isActive" class="form-check-label">Is Active</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-3">
+              <div class="col-md-4">
+                <label class="form-label">Is Subsidiary</label>
+                <div class="form-check mt-2">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="isSubsidiary"
+                    formControlName="isSubsidiary"
+                  />
+                  <label for="isSubsidiary" class="form-check-label">Subsidiary Role?</label>
+                </div>
+              </div>
+
+              <div class="col-12 mt-2" *ngIf="roleForm.get('isSubsidiary')?.value">
+                <label class="form-label">Parent Role</label>
+                <nz-tree-select
+                  style="width: 100%"
+                  formControlName="parentRoleId"
+                  [nzNodes]="roleTreeNodes"
+                  nzPlaceHolder="-- Select Parent Role --"
+                  [nzAllowClear]="true"
+                  [nzShowSearch]="true"
+                ></nz-tree-select>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-3" *ngIf="isEditMode">
+              <div class="col-md-4">
+                <label class="form-label">Last Modified</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="lastModified"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </nz-tab>
+
+        <!-- =================== ASSIGN PERMISSIONS =================== -->
+        <nz-tab nzTitle="Assign Permissions">
+          <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+            <input
+              type="text"
+              class="form-control form-control-sm w-auto flex-grow-1"
+              placeholder="Search permissions..."
+              [(ngModel)]="permissionSearch"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="onPermissionSearch($event)"
+            />
+
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                (click)="selectAllPermissions()"
+              >
+                <i class="bi bi-check2-square me-1"></i> Select All
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary btn-sm"
+                (click)="deselectAllPermissions()"
+              >
+                <i class="bi bi-x-square me-1"></i> Deselect All
+              </button>
+            </div>
+          </div>
+
+          <!-- Permissions Tree Table -->
+          <div class="content-container">
+            <nz-table
+              [nzData]="
+                permissionSearch.trim()
+                  ? filteredPermissionRows
+                  : permissionRows
+              "
+              nzBordered
+              nzShowPagination="false"
+            >
+              <thead>
+                <tr>
+                  <th>Permission Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container
+                  *ngFor="let row of permissionSearch.trim()
+                    ? filteredPermissionRows
+                    : permissionRows"
+                >
+                  <ng-container
+                    *ngTemplateOutlet="permissionRow; context: { $implicit: row }"
+                  ></ng-container>
+                </ng-container>
+
+                <ng-template #permissionRow let-row>
+                  <tr *ngIf="isPermissionRowVisible(row)">
+                    <td [style.paddingLeft.px]="row.level * 20">
+                      <span
+                        *ngIf="(row.children?.length ?? 0) > 0"
+                        (click)="togglePermissionExpand(row)"
+                        style="cursor: pointer; margin-right: 6px"
+                      >
+                        {{ row.expand ? "-" : "+" }}
+                      </span>
+                      <input
+                        type="checkbox"
+                        [checked]="selectedPermissionIds.includes(row.id)"
+                        (change)="onPermissionCheck($event, row.id)"
+                      />
+                      {{ row.name }}
+                    </td>
+                    <td>{{ row.description }}</td>
+                    <td>
+                      <nz-tag [nzColor]="row.isActive ? 'success' : 'default'">
+                        {{ row.isActive ? 'Active' : 'Inactive' }}
+                      </nz-tag>
+                    </td>
+                    <td>
+                      {{ row.creationDate | date: "dd-MMM-yyyy hh:mm a" }}
+                    </td>
+                  </tr>
+
+                  <ng-container *ngFor="let child of row.children ?? []">
+                    <ng-container
+                      *ngTemplateOutlet="permissionRow; context: { $implicit: child }"
+                    ></ng-container>
+                  </ng-container>
+                </ng-template>
+              </tbody>
+            </nz-table>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+
+      <!-- 🌈 Footer Save Bar -->
+    <!-- 🌈 Footer Save Bar -->
+<div
+  class="footer-bar"
+  (click)="onSubmit()"
+  [class.disabled]="isLoading || roleForm.invalid"
+>
+  <!-- Show when form is valid and not loading -->
+  <span *ngIf="!isLoading && !roleForm.invalid">
+    <i class="bi bi-save me-2"></i>
+    {{ isEditMode ? "Update Role" : "Add Role" }}
+  </span>
+
+  <!-- Show while loading -->
+  <span *ngIf="isLoading">
+    <span class="spinner-border spinner-border-sm me-2"></span>
+    Saving...
+  </span>
+
+  <!-- Show warning if invalid -->
+  <span *ngIf="roleForm.invalid && !isLoading" class="opacity-75">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    Please fill all required fields
+  </span>
+</div>

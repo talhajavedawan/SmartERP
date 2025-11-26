@@ -1,0 +1,161 @@
+/* Reuse same structure as company form */
+.button-space {
+  position: relative;
+  padding: 3px 0;
+  width: 100%;
+}
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  border: none;
+  background: transparent;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  border-left: 4px solid #0d6efd;
+  padding-left: 0.5rem;
+}
+
+/* Footer Save Bar */
+/* =================== FOOTER BAR =================== */
+.footer-bar {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  background: linear-gradient(90deg, #004aad, #007bff, #00c2ff);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 32px;
+  letter-spacing: 0.4px;
+  z-index: 1050;
+  box-shadow: 0 -1px 8px rgba(0, 102, 255, 0.35);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  background-size: 200% 200%;
+  animation: footerGradient 5s ease infinite;
+  border-radius: 4px 4px 0 0;
+}
+
+@keyframes footerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.footer-bar:hover {
+  box-shadow: 0 0 16px rgba(0, 123, 255, 0.6);
+  background: linear-gradient(90deg, #0066ff, #0099ff, #00d4ff);
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+.footer-bar.disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+
+
+/* Container look */
+.content-container {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 6px;
+  overflow: hidden; /* prevent outer scroll */
+}
+
+/* 🎯 Scroll only inside the table body */
+.content-container nz-table {
+  display: block;
+  max-height: 400px; /* Adjust as needed */
+  overflow-y: auto;
+  border-radius: 6px;
+}
+
+/* Table visual style */
+nz-table {
+  font-size: 0.85rem;
+  width: 100%;
+}
+nz-table thead th {
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: white;
+  z-index: 10;
+}
+nz-table tbody tr:hover {
+  background-color: #f1f6ff;
+}
+
+/* Inputs and forms */
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.form-control {
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* 🎨 Improved Button Styles */
+.btn-outline-primary,
+.btn-outline-secondary {
+  font-size: 0.8rem;
+  border-radius: 20px;
+  padding: 3px 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-primary {
+  border-color: #2575fc;
+  color: #2575fc;
+}
+.btn-outline-primary:hover {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: #fff;
+  box-shadow: 0 0 6px rgba(37, 117, 252, 0.5);
+}
+
+.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: #fff;
+  box-shadow: 0 0 6px rgba(108, 117, 125, 0.5);
+}
+
+.custom-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  z-index: 2000;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #000; /* ✅ always black */
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+.custom-close-btn:hover {
+  color: #ff4d4f;
+  transform: scale(1.15);
+}
+
+

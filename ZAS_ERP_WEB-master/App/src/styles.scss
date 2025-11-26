@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+@use '@coreui/coreui/scss/coreui' as * with (
+  $enable-deprecation-messages: false
+);
+@use '@coreui/chartjs/scss/coreui-chartjs';
+@use 'scss/theme';
+@use 'scss/custom';
+@use 'scss/scrollbar';
+@use 'scss/charts';
+@use 'custom-theme.scss';
+html[data-mat-theme="light"] {
+  // override surface/background tokens only for light theme
+  --mat-sys-surface: #ffffff;
+  --mat-sys-background: #ffffff;
+}
+
+body[data-mat-theme="light"] {
+  background-color: #ffffff !important; // only light theme
+  color-scheme: light;
+}
+
+body[data-mat-theme="dark"] {
+  // keep dark theme defaults (optional, just for clarity)
+  background-color: var(--mat-sys-surface);
+  color-scheme: dark;
+}
+  .ant-message {
+  top: 90px !important; /* Adjust to your header height */
+  z-index: 2000 !important; /* Make sure it's above navbar */
+}

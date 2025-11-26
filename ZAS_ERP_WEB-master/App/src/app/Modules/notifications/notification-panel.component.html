@@ -1,0 +1,422 @@
+<div class="notification-panel-container">
+  <c-card class="h-100">
+    <c-card-header class="d-flex justify-content-between align-items-center py-2">
+      <h5 class="mb-0">
+        <svg cIcon name="cilBell" class="me-2"></svg>
+        Notification Center
+      </h5>
+    </c-card-header>
+
+    <c-card-body class="p-0">
+      <div class="d-flex h-100">
+        <!-- Main Grid Area -->
+        <div class="flex-grow-1 d-flex flex-column">
+          <!-- Top Row: All Tab Buttons -->
+          <div class="border-bottom bg-light p-2">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <button
+                cButton
+                [color]="activeTab === 'inbox' ? 'primary' : 'light'"
+                size="sm"
+                (click)="onTabChange('inbox')"
+              >
+                <img src="assets/icons/notification/Inbox_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Inbox">
+                Inbox
+              </button>
+
+              <button
+                cButton
+                color="light"
+                size="sm"
+                (click)="saveLayout()"
+              >
+                <img src="assets/icons/notification/Save_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Save">
+                Save Layout
+              </button>
+
+              <button
+                cButton
+                [color]="activeTab === 'unread' ? 'primary' : 'light'"
+                size="sm"
+                (click)="onTabChange('unread')"
+              >
+                <img src="assets/icons/notification/NextComment_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Unread">
+                Unread
+                @if (unreadCount > 0) {
+                <c-badge color="danger" shape="rounded-pill" class="ms-1">
+                  {{ unreadCount }}
+                </c-badge>
+                }
+              </button>
+
+              <button
+                cButton
+                [color]="activeTab === 'pending' ? 'primary' : 'light'"
+                size="sm"
+                (click)="onTabChange('pending')"
+              >
+                <img src="assets/icons/notification/NextComment_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Pending">
+                Pending
+                @if (pendingCount > 0) {
+                <c-badge color="warning" shape="rounded-pill" class="ms-1">
+                  {{ pendingCount }}
+                </c-badge>
+                }
+              </button>
+
+              <button
+                cButton
+                color="light"
+                size="sm"
+                (click)="refreshCurrentView()"
+              >
+                <img src="assets/icons/notification/Refresh2_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Refresh">
+                Refresh
+              </button>
+
+              <button
+                cButton
+                [color]="activeTab === 'sent' ? 'primary' : 'light'"
+                size="sm"
+                (click)="onTabChange('sent')"
+              >
+                <img src="assets/icons/notification/Outbox_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Sent">
+                Sent
+              </button>
+            </div>
+          </div>
+
+          <!-- AG Grid -->
+          <div class="flex-grow-1 position-relative">
+            @if (loading) {
+            <div class="loading-overlay">
+              <c-spinner color="primary"></c-spinner>
+              <p class="mt-2">Loading notifications...</p>
+            </div>
+            }
+
+            @if (error && !loading) {
+            <div class="loading-overlay">
+              <svg cIcon name="cilWarning" size="3xl" class="text-danger mb-3"></svg>
+              <h5 class="text-danger mb-3">{{ error }}</h5>
+              @if (error.includes('logged in')) {
+              <button cButton color="primary" routerLink="/login">
+                Go to Login
+              </button>
+              } @else {
+              <button cButton color="primary" (click)="refreshCurrentView()">
+                <svg cIcon name="cilReload" class="me-1"></svg>
+                Try Again
+              </button>
+              }
+            </div>
+            }
+
+            <ag-grid-angular
+              class="ag-theme-alpine"
+              style="width: 100%; height: 100%"
+              [rowData]="notifications"
+              [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef"
+              [rowSelection]="'multiple'"
+              [animateRows]="true"
+              [pagination]="false"
+              [suppressCellFocus]="false"
+              (gridReady)="onGridReady($event)"
+              (selectionChanged)="onSelectionChanged($event)"
+              (rowClicked)="onRowClicked($event)"
+              (rowDoubleClicked)="onRowDoubleClicked($event)"
+              (cellClicked)="onCellClicked($event)"
+              (filterChanged)="updateFilteredCount()"
+            >
+            </ag-grid-angular>
+          </div>
+
+          <!-- Action Buttons Row 1 (BELOW GRID) -->
+         <div class="border-top bg-light p-2">
+  <div class="d-flex align-items-center gap-2 flex-wrap">
+
+    <button
+      cButton
+      color="success"
+      size="sm"
+      (click)="markSelectedAsRead()"
+      [disabled]="selectedCount === 0"
+    >
+      <img src="assets/icons/notification/CheckBox_32x32.png" class="me-1" style="width: 18px; height: 18px;" alt="Mark Read">
+      Mark Read
+    </button>
+
+    <button
+      class="btn btn-sm count-btn"
+      [class.active]="totalCount > 0"
+      [disabled]="true"
+    >
+      Count: {{ totalCount }}
+    </button>
+
+    <button
+      class="btn btn-sm count-btn"
+      [class.active]="selectedCount > 0"
+      [disabled]="true"
+    >
+      <img src="assets/icons/notification/CheckBox2_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Selected">
+      Selected: {{ selectedCount }}
+    </button>
+
+    <button
+      class="btn btn-sm count-btn"
+      [class.active]="filteredCount > 0"
+      [disabled]="true"
+    >
+      <img src="assets/icons/notification/CheckBox2_16x16.png" class="me-1" style="width: 16px; height: 16px;" alt="Filtered">
+      Filtered: {{ filteredCount }}
+    </button>
+
+    <!-- Date Filters -->
+    <div class="d-flex align-items-center gap-2 ms-auto flex-fill">
+
+      <!-- FROM -->
+      <div class="d-flex align-items-center gap-1 flex-fill">
+        <span class="text-nowrap">From:</span>
+        <input
+          type="date"
+          class="form-control form-control-sm"
+          [(ngModel)]="dateFrom"
+        />
+      </div>
+
+      <!-- TO -->
+      <div class="d-flex align-items-center gap-1 flex-fill">
+        <span class="text-nowrap">To:</span>
+        <input
+          type="date"
+          class="form-control form-control-sm"
+          [(ngModel)]="dateTo"
+        />
+      </div>
+
+      <!-- BUTTONS -->
+      <button
+        cButton
+        color="primary"
+        size="sm"
+        (click)="loadMoreNotifications()"
+      >
+        Load
+      </button>
+
+      <button
+        cButton
+        color="primary"
+        size="sm"
+        (click)="loadAllNotifications()"
+      >
+        Load All
+      </button>
+    </div>
+
+    <button
+      cButton
+      color="warning"
+      size="sm"
+      (click)="markSelectedAsUnread()"
+      [disabled]="selectedCount === 0"
+    >
+      <img src="assets/icons/notification/CheckBox_32x32.png" class="me-1" style="width: 18px; height: 18px;" alt="Mark Unread">
+      Mark Unread
+    </button>
+
+  </div>
+</div>
+
+          <!-- Action Buttons Row 2 (BELOW ROW 1) -->
+          <div class="border-top bg-light p-2">
+            <div class="d-flex align-items-center gap-2 w-100">
+  <button
+    cButton
+    color="warning"
+    size="sm"
+    class="flex-fill"
+    (click)="markSelectedAsPending()"
+    [disabled]="selectedCount === 0"
+  >
+    <img src="assets/icons/notification/CheckBox_32x32.png" class="me-1" style="width: 18px; height: 18px;" alt="Mark Pending">
+    Mark Pending
+  </button>
+
+  <button
+    cButton
+    color="secondary"
+    size="sm"
+    class="flex-fill"
+    (click)="unmarkSelectedAsPending()"
+    [disabled]="selectedCount === 0"
+  >
+    <img src="assets/icons/notification/CheckBox_32x32.png" class="me-1" style="width: 18px; height: 18px;" alt="Unmark Pending">
+    Unmark Pending
+  </button>
+</div>
+
+          </div>
+        </div>
+
+        <!-- Right Side Detail Panel -->
+        <div class="notification-detail-panel border-start">
+          @if (selectedNotification) {
+          <div class="h-100 d-flex flex-column">
+            <!-- Close Button -->
+            <div class="d-flex justify-content-end p-2 border-bottom">
+              <button
+                cButton
+                color="light"
+                size="sm"
+                (click)="selectedNotification = null"
+              >
+                <svg cIcon name="cilX"></svg>
+              </button>
+            </div>
+
+            <!-- Notification Details -->
+            <div class="flex-grow-1 p-3 overflow-auto">
+              <!-- User Info -->
+              <div class="text-center mb-3">
+                <div class="user-avatar mb-2">
+                  <svg cIcon name="cilUser" size="3xl" class="text-primary"></svg>
+                </div>
+                <h6 class="mb-1">{{ selectedNotification.sendingUser?.userName || 'Unknown User' }}</h6>
+                <small class="text-muted">Sent {{ getTimeAgo(selectedNotification.timestamp) }}</small>
+              </div>
+
+              <!-- Flag -->
+              @if (selectedNotification.notificationFlag) {
+              <div class="mb-3">
+                <label class="form-label fw-bold">Flag:</label>
+                <div>
+                  <c-badge [style.background-color]="selectedNotification.notificationFlag.backColor">
+                    {{ selectedNotification.notificationFlag.flag }}
+                  </c-badge>
+                </div>
+              </div>
+              }
+
+              <!-- Module -->
+              <div class="mb-3">
+                <label class="form-label fw-bold">Module:</label>
+                <div>{{ selectedNotification.transactionType }}</div>
+              </div>
+
+              <!-- Title -->
+              <div class="mb-3">
+                <label class="form-label fw-bold">Title:</label>
+                <div>{{ selectedNotification.title }}</div>
+              </div>
+
+              <!-- Description -->
+              @if (selectedNotification.description) {
+              <div class="mb-3">
+                <label class="form-label fw-bold">Description:</label>
+                <div class="notification-description">
+                  {{ selectedNotification.description }}
+                </div>
+              </div>
+              }
+
+              <!-- Info -->
+              @if (selectedNotification.info) {
+              <div class="mb-3">
+                <label class="form-label fw-bold">Additional Info:</label>
+                <div>{{ selectedNotification.info }}</div>
+              </div>
+              }
+
+              <!-- Transaction Details -->
+              <div class="mb-3">
+                <label class="form-label fw-bold">Transaction ID:</label>
+                <div>{{ selectedNotification.transactionId }}</div>
+              </div>
+
+              <!-- References -->
+              @if (selectedNotification.billReferenceNo) {
+              <div class="mb-3">
+                <label class="form-label fw-bold">Bill Reference:</label>
+                <div>{{ selectedNotification.billReferenceNo }}</div>
+              </div>
+              }
+
+              @if (selectedNotification.poReferenceNo) {
+              <div class="mb-3">
+                <label class="form-label fw-bold">PO Reference:</label>
+                <div>{{ selectedNotification.poReferenceNo }}</div>
+              </div>
+              }
+
+              <!-- Status -->
+              <div class="mb-3">
+                <label class="form-label fw-bold">Status:</label>
+                <div class="d-flex gap-2">
+                  @if (!selectedNotification.isRead) {
+                  <c-badge color="primary">Unread</c-badge>
+                  } @else {
+                  <c-badge color="secondary">Read</c-badge>
+                  }
+
+                  @if (selectedNotification.isPending) {
+                  <c-badge color="warning">Pending</c-badge>
+                  }
+
+                  @if (selectedNotification.glow) {
+                  <c-badge color="danger">Urgent</c-badge>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="p-3 border-top">
+              <button
+                cButton
+                color="primary"
+                class="w-100 mb-2"
+                (click)="navigateToTransaction(selectedNotification!)"
+              >
+                <svg cIcon name="cilArrowRight" class="me-1"></svg>
+                Open Transaction
+              </button>
+
+              @if (!selectedNotification.isRead) {
+              <button
+                cButton
+                color="success"
+                class="w-100"
+                (click)="markSelectedAsRead()"
+              >
+                <svg cIcon name="cilCheckCircle" class="me-1"></svg>
+                Mark as Read
+              </button>
+              } @else {
+              <button
+                cButton
+                color="warning"
+                class="w-100"
+                (click)="markSelectedAsUnread()"
+              >
+                <svg cIcon name="cilEnvelopeClosed" class="me-1"></svg>
+                Mark as Unread
+              </button>
+              }
+            </div>
+          </div>
+          } @else {
+          <div class="h-100 d-flex align-items-center justify-content-center text-muted">
+            <div class="text-center">
+              <svg cIcon name="cilCursor" size="3xl" class="mb-3"></svg>
+              <p>Select a notification to view details</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </c-card-body>
+  </c-card>
+</div>

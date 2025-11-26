@@ -1,0 +1,177 @@
+<app-grid
+  [title]="'Users\' List'"
+  [columnDefs]="userColumnDefs"
+  [rowData]="users"
+  [enableSearch]="true"
+  [searchPlaceholder]="'Search Users...'"
+  [showActions]="true"
+  [layoutKey]="'UserGridSettings'"
+  [domLayout]="'autoHeight'"
+  (rowClicked)="onUserRowClicked($event)"
+  (onRowSelected)="onUserSelectedFromCheckbox($event)"
+  (onAdd)="goToAddUser()"
+  (onUpdate)="editUser($event)"
+  (onRefresh)="RefreshUsers()"
+>
+  <ng-container headerActions>
+    <div class="status-btn-group btn-group btn-group-sm me-2" role="group">
+      <button
+        class="btn status-btn all"
+        [class.active]="filterState === 'all'"
+        (click)="setStatusFilter('all')"
+      >
+        <i class="bi bi-grid-fill me-1"></i> All
+      </button>
+      <button
+        class="btn status-btn active"
+        [class.active]="filterState === 'active'"
+        (click)="setStatusFilter('active')"
+      >
+        <i class="bi bi-check-circle-fill me-1"></i> Active
+      </button>
+      <button
+        class="btn status-btn inactive"
+        [class.active]="filterState === 'inactive'"
+        (click)="setStatusFilter('inactive')"
+      >
+        <i class="bi bi-slash-circle-fill me-1"></i> Inactive
+      </button>
+    </div>
+  </ng-container>
+</app-grid>
+
+<!-- Roles + Permissions Hierarchy -->
+<div class="row g-0 mt-2">
+  <!-- Roles Table -->
+  <div class="col-md-6 border-end">
+    <div class="p-3 h-100 d-flex flex-column">
+      <h6 class="fw-bold text-primary mb-2">
+        Roles for {{ selectedUser?.userName || "Selected User" }}
+      </h6>
+      <div class="flex-grow-1 border rounded bg-white">
+        <nz-table
+          #userRolesTable
+          [nzData]="flatUserRoles"
+          [nzShowPagination]="false"
+          [nzLoading]="isLoadingRoles"
+          class="table table-bordered table-hover m-0"
+          nzTableLayout="fixed"
+          [nzNoResult]="
+            selectedUser
+              ? isLoadingRoles
+                ? 'Loading roles...'
+                : 'No roles assigned'
+              : ''
+          "
+        >
+          <thead>
+            <tr>
+              <th class="fw-bolder" [nzWidth]="'50%'">Role Name</th>
+              <th class="fw-bolder" [nzWidth]="'50%'">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (role of userRolesTable.data; track role.key) {
+            <tr (click)="selectRole(role)" class="cursor-pointer">
+              <td
+                [nzShowExpand]="role.isParent"
+                [(nzExpand)]="role.expand"
+                (nzExpandChange)="onUserRoleExpandChange(role, $event)"
+                [nzIndentSize]="role.level * 24"
+                class="position-relative"
+              >
+                <span [style.padding-left.px]="role.level * 24">
+                  @if (role.isParent && !role.expand) {
+                  <i class="bi bi-chevron-right me-1"></i>
+                  } @if (role.isParent && role.expand) {
+                  <i class="bi bi-chevron-down me-1"></i>
+                  }
+                  {{ role.title }}
+                </span>
+              </td>
+              <td>{{ role.description || "N/A" }}</td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="2" class="text-center text-muted">
+                {{
+                  selectedUser
+                    ? "No roles assigned"
+                    : "Select a user to view roles"
+                }}
+              </td>
+            </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Permissions Table -->
+  <div class="col-md-6">
+    <div class="p-3 h-100 d-flex flex-column">
+      <h6 class="fw-bold text-primary mb-2">
+        Permissions for {{ selectedRole?.name || "Selected Role" }}
+      </h6>
+      <div class="flex-grow-1 border rounded bg-white">
+        <nz-table
+          #userPermissionsTable
+          [nzData]="flatPermissions"
+          [nzShowPagination]="false"
+          [nzLoading]="isLoadingPermissions"
+          class="table table-bordered table-hover m-0"
+          nzTableLayout="fixed"
+          [nzNoResult]="
+            selectedRole
+              ? isLoadingPermissions
+                ? 'Loading permissions...'
+                : 'No permissions for this role'
+              : ''
+          "
+        >
+          <thead>
+            <tr>
+              <th class="fw-bolder" [nzWidth]="'50%'">Permission Name</th>
+              <th class="fw-bolder" [nzWidth]="'50%'">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (permission of userPermissionsTable.data; track permission.key)
+            {
+            <tr>
+              <td
+                [nzShowExpand]="permission.isParent"
+                [(nzExpand)]="permission.expand"
+                (nzExpandChange)="onPermissionExpandChange(permission, $event)"
+                [nzIndentSize]="permission.level * 24"
+                class="position-relative"
+              >
+                <span [style.padding-left.px]="permission.level * 24">
+                  @if (permission.isParent && !permission.expand) {
+                  <i class="bi bi-chevron-right me-1"></i>
+                  } @if (permission.isParent && permission.expand) {
+                  <i class="bi bi-chevron-down me-1"></i>
+                  }
+                  {{ permission.title }}
+                </span>
+              </td>
+              <td>{{ permission.description || "N/A" }}</td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="2" class="text-center text-muted">
+                {{
+                  selectedRole
+                    ? "No permissions"
+                    : "Select a role to view permissions"
+                }}
+              </td>
+            </tr>
+            }
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</div>

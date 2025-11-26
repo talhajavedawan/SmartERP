@@ -1,0 +1,111 @@
+/* ============================= */
+/* SPLIT LAYOUT – FIXED UNDER HEADER */
+/* ============================= */
+.split-container {
+  display: flex;
+  height: calc(100vh - var(--header-height, 64px)); /* header height (adjust if needed) */
+  overflow: hidden;
+  position: fixed;
+  top: var(--header-height, 64px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* ---------- MAIN PANES ---------- */
+.pane {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-pane  { flex-basis: 75%; }
+.right-pane { flex-basis: 25%; }
+
+/* ---------- HORIZONTAL SPLITTER ---------- */
+.splitter {
+  background: #e5e7eb;
+  cursor: col-resize;
+  user-select: none;
+  position: relative;
+  z-index: 10;
+}
+.h-splitter {
+  width: 6px;
+}
+.h-splitter:hover { background: #a5b4fc; }
+.h-splitter::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 40px;
+  background: #6366f1;
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- RIGHT SIDE – VERTICAL SPLIT ---------- */
+.right-pane {
+  display: flex;
+  flex-direction: column;
+}
+.sub-pane {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+}
+.top-sub-pane    { flex-basis: 50%; }
+.bottom-sub-pane { flex-basis: 50%; }
+
+.v-splitter {
+  height: 6px;
+  cursor: row-resize;
+  background: #e5e7eb;
+  position: relative;
+}
+.v-splitter:hover { background: #a5b4fc; }
+.v-splitter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 4px;
+  background: #6366f1;
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- CARD & LIST STYLES ---------- */
+.modern-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.modern-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+.modern-item {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+.modern-item:last-child { border-bottom: none; }
+
+/* ---------- AG-GRID CONTAINER ---------- */
+.ag-grid-container {
+  flex: 1;
+  height: 100% !important;
+  overflow: hidden;
+}

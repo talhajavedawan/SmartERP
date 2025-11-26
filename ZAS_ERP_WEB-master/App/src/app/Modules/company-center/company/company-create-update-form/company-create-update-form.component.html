@@ -1,0 +1,565 @@
+<!-- ✅ Global Alert Message -->
+<div
+  *ngIf="alert.message"
+  class="alert-container"
+  [ngClass]="{
+    'alert-success': alert.type === 'success',
+    'alert-error': alert.type === 'error',
+    'alert-warning': alert.type === 'warning'
+  }"
+>
+  <i
+    class="bi"
+    [ngClass]="{
+      'bi-check-circle-fill': alert.type === 'success',
+      'bi-exclamation-triangle-fill': alert.type === 'warning',
+      'bi-x-circle-fill': alert.type === 'error'
+    }"
+  ></i>
+  <span class="alert-message">{{ alert.message }}</span>
+  <button
+    type="button"
+    class="alert-close"
+    (click)="alert = { type: '', message: '' }"
+  >
+    &times;
+  </button>
+</div>
+
+<div class="button-space">
+  <!-- Close Button -->
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="closePopup()"
+  ></button>
+
+  <!-- Tabs -->
+  <div class="card-body">
+    <form [formGroup]="registrationForm" (ngSubmit)="submitForm()" novalidate>
+      <nz-tabset [(nzSelectedIndex)]="selectedIndex">
+        <!-- =================== COMPANY DETAILS =================== -->
+        <nz-tab nzTitle="Company Details">
+          <div class="tab-content mt-3">
+            <h5 class="section-title">
+              <i class="bi bi-building text-primary me-2"></i> Company
+              Information
+            </h5>
+
+            <div class="row g-3">
+              <!-- Company Name -->
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Company Name <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['CompanyName'].invalid
+                  }"
+                  formControlName="CompanyName"
+                  placeholder="Enter company name"
+                />
+                <div
+                  *ngIf="submitted && f['CompanyName'].invalid"
+                  class="invalid-feedback"
+                >
+                  Company name is required and must be at least 3 characters.
+                </div>
+              </div>
+
+              <!-- NTN -->
+              <div class="col-md-4">
+                <label class="form-label"
+                  >NTN <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['Ntn'].invalid }"
+                  formControlName="Ntn"
+                  placeholder="Enter NTN"
+                />
+                <div
+                  *ngIf="submitted && f['Ntn'].invalid"
+                  class="invalid-feedback"
+                >
+                  Valid NTN (3–15 digits) is required.
+                </div>
+              </div>
+
+              <!-- Industry Type -->
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Industry Type <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['IndustryTypeId'].invalid
+                  }"
+                  formControlName="IndustryTypeId"
+                >
+                  <option value="">Select Industry Type</option>
+                  <option *ngFor="let ind of industryTypes" [value]="ind.id">
+                    {{ ind.industryTypeName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['IndustryTypeId'].invalid"
+                  class="invalid-feedback"
+                >
+                  Industry type is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+              <!-- Business Type -->
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Business Type <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['BusinessTypeId'].invalid
+                  }"
+                  formControlName="BusinessTypeId"
+                >
+                  <option value="">Select Business Type</option>
+                  <option *ngFor="let b of businessTypes" [value]="b.id">
+                    {{ b.businessTypeName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['BusinessTypeId'].invalid"
+                  class="invalid-feedback"
+                >
+                  Business type is required.
+                </div>
+              </div>
+
+              <!-- Company Type -->
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Company Type <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['CompanyType'].invalid
+                  }"
+                  formControlName="CompanyType"
+                >
+                  <option value="">Select Type</option>
+                  <option *ngFor="let t of companyTypeOptions" [value]="t.id">
+                    {{ t.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['CompanyType'].invalid"
+                  class="invalid-feedback"
+                >
+                  Company type is required.
+                </div>
+              </div>
+
+              <!-- Group (Conditional) -->
+              <div class="col-md-4" *ngIf="showGroupDropdown">
+                <label class="form-label">Select Group</label>
+                <select
+                  class="form-select"
+                  formControlName="GroupId"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['GroupId'].invalid
+                  }"
+                >
+                  <option value="">Select Group</option>
+                  <option *ngFor="let g of groups" [value]="g.id">
+                    {{ g.groupName }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['GroupId'].invalid"
+                  class="invalid-feedback"
+                >
+                  Group selection is required for Group Company type.
+                </div>
+              </div>
+            </div>
+
+            <!-- Active & Subsidiary -->
+            <div class="row mt-3">
+              <div class="col-md-6 d-flex align-items-center gap-4">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="IsActive"
+                    formControlName="IsActive"
+                  />
+                  <label for="IsActive" class="form-check-label"
+                    >Active Company?</label
+                  >
+                </div>
+
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="IsSubsidiary"
+                    formControlName="IsSubsidiary"
+                  />
+                  <label for="IsSubsidiary" class="form-check-label"
+                    >Is Subsidiary?</label
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Parent Company (Conditional) -->
+            <div *ngIf="showSubsidiaryFields" class="mt-3">
+              <label class="form-label fw-medium">Parent Company</label>
+              <div class="d-flex gap-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  readonly
+                  [value]="
+                    selectedParentCompany?.companyName ||
+                    'Select Parent Company'
+                  "
+                  (click)="toggleParentCompanyDropdown()"
+                />
+                <button
+                  *ngIf="selectedParentCompany"
+                  type="button"
+                  class="btn btn-outline-danger"
+                  (click)="clearParentCompany()"
+                >
+                  <i class="bi bi-x"></i>
+                </button>
+              </div>
+
+              <div *ngIf="showParentCompanyGrid" class="content-container mt-2">
+                <div class="scrollable-grid">
+                  <nz-table
+                    #parentCompanyTable
+                    [nzData]="flattenedTree"
+                    [nzFrontPagination]="false"
+                    nzBordered
+                    [nzSize]="'small'"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Company Name</th>
+                        <th>NTN</th>
+                        <th>Business Type</th>
+                        <th>Industry Type</th>
+                        <th>Active</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr
+                        *ngFor="let company of flattenedTree"
+                        (click)="selectParentCompany(company)"
+                        [class.ant-table-row-selected]="
+                          selectedParentCompany?.id === company.id
+                        "
+                      >
+                        <td>
+                          <span
+                            [style.padding-left.px]="(company.level ?? 0) * 20"
+                          >
+                            <i
+                              *ngIf="company.children?.length"
+                              class="bi"
+                              [ngClass]="{
+                                'bi-caret-down-fill': company.isExpanded,
+                                'bi-caret-right-fill': !company.isExpanded
+                              }"
+                              (click)="
+                                $event.stopPropagation(); toggleExpand(company)
+                              "
+                            ></i>
+                            {{ company.companyName }}
+                          </span>
+                        </td>
+                        <td>{{ company.ntn }}</td>
+                        <td>
+                          {{ company.businessType?.businessTypeName || "N/A" }}
+                        </td>
+                        <td>
+                          {{ company.industryType?.industryTypeName || "N/A" }}
+                        </td>
+                        <td>
+                          <nz-tag
+                            [nzColor]="company.isActive ? 'success' : 'default'"
+                          >
+                            {{ company.isActive ? "Yes" : "No" }}
+                          </nz-tag>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </nz-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nz-tab>
+
+        <!-- =================== ADDRESS INFO =================== -->
+        <nz-tab nzTitle="Address">
+          <div class="tab-content mt-3">
+            <h5 class="section-title">
+              <i class="bi bi-geo-alt-fill text-primary me-2"></i> Address
+              Information
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Zone <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  formControlName="zoneId"
+                  (change)="onZoneChange($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f['zoneId'].invalid }"
+                >
+                  <option value="">Select Zone</option>
+                  <option *ngFor="let z of zones" [value]="z.id">
+                    {{ z.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['zoneId'].invalid"
+                  class="invalid-feedback"
+                >
+                  Zone is required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Country <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  formControlName="countryId"
+                  (change)="onCountryChange($event)"
+                  [disabled]="!countries.length"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['countryId'].invalid
+                  }"
+                >
+                  <option value="">Select Country</option>
+                  <option *ngFor="let c of countries" [value]="c.id">
+                    {{ c.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['countryId'].invalid"
+                  class="invalid-feedback"
+                >
+                  Country is required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label"
+                  >State <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  formControlName="stateId"
+                  (change)="onStateChange($event)"
+                  [disabled]="!states.length"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['stateId'].invalid
+                  }"
+                >
+                  <option value="">Select State</option>
+                  <option *ngFor="let s of states" [value]="s.id">
+                    {{ s.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['stateId'].invalid"
+                  class="invalid-feedback"
+                >
+                  State is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+              <div class="col-md-4">
+                <label class="form-label"
+                  >City <span class="text-danger">*</span></label
+                >
+                <select
+                  class="form-select"
+                  formControlName="cityId"
+                  [disabled]="!cities.length"
+                  [ngClass]="{ 'is-invalid': submitted && f['cityId'].invalid }"
+                >
+                  <option value="">Select City</option>
+                  <option *ngFor="let city of cities" [value]="city.id">
+                    {{ city.name }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="submitted && f['cityId'].invalid"
+                  class="invalid-feedback"
+                >
+                  City is required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label"
+                  >ZIP Code <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="zipCode"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['zipCode'].invalid
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f['zipCode'].invalid"
+                  class="invalid-feedback"
+                >
+                  Valid ZIP code is required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Address Line 1 <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="addressLine1"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['addressLine1'].invalid
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f['addressLine1'].invalid"
+                  class="invalid-feedback"
+                >
+                  Address line 1 is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <label class="form-label">Address Line 2</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="addressLine2"
+                />
+              </div>
+            </div>
+          </div>
+        </nz-tab>
+
+        <!-- =================== CONTACT INFO =================== -->
+        <nz-tab nzTitle="Contact Info">
+          <div class="tab-content mt-3">
+            <h5 class="section-title">
+              <i class="bi bi-telephone-fill text-primary me-2"></i> Contact
+              Information
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Phone Number <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="phoneNumber"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['phoneNumber'].invalid
+                  }"
+                  placeholder="Enter phone number"
+                />
+                <div
+                  *ngIf="submitted && f['phoneNumber'].invalid"
+                  class="invalid-feedback"
+                >
+                  Valid phone number (10–15 digits) is required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Email Address <span class="text-danger">*</span></label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="Email"
+                  [ngClass]="{ 'is-invalid': submitted && f['Email'].invalid }"
+                  placeholder="Enter email"
+                />
+                <div
+                  *ngIf="submitted && f['Email'].invalid"
+                  class="invalid-feedback"
+                >
+                  Valid email address is required.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label"
+                  >Website <span class="text-danger">*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="WebsiteUrl"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['WebsiteUrl'].invalid
+                  }"
+                  placeholder="https://example.com"
+                />
+                <!-- Removed validation message -->
+              </div>
+            </div>
+          </div>
+        </nz-tab>
+      </nz-tabset>
+
+      <!-- Save Button -->
+      <div
+        class="footer-bar"
+        (click)="submitForm()"
+        [class.disabled]="isLoading"
+        [attr.aria-disabled]="isLoading"
+      >
+        <span *ngIf="!isLoading">
+          <i class="bi bi-save me-2"></i>
+          {{ mode === "create" ? "Save Company" : "Update Company" }}
+        </span>
+        <span *ngIf="isLoading">
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Saving...
+        </span>
+      </div>
+    </form>
+  </div>
+</div>

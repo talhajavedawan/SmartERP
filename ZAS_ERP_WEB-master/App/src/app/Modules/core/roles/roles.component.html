@@ -1,0 +1,81 @@
+<!-- ?? Roles + Assigned Permissions Side by Side -->
+<div
+  class="roles-container d-flex border rounded shadow-sm overflow-hidden bg-white position-relative"
+  style="min-height: 600px;"
+>
+  <!-- ? Left: Roles Grid -->
+  <div
+    class="roles-grid flex-grow-1 border-end position-relative"
+    style="background-color: #fdfdfd;"
+  >
+    <app-ag-grid-layout
+      [title]="'Roles List'"
+      [layoutKey]="'roles-grid-layout'"
+      [columnDefs]="roleColumnDefs"
+      [rowData]="displayRoles"
+      [enableSearch]="true"
+      [showActions]="true"
+      searchPlaceholder="Search roles..."
+      (rowClicked)="onRoleRowClicked($event)"
+      (onAdd)="showAddModal()"
+      (onUpdate)="showEditModal()"
+      (onDelete)="deleteRole()"
+      (onRefresh)="refreshRoles()"
+
+    ></app-ag-grid-layout>
+  </div>
+
+  <!-- ? Right: Assigned Permissions Panel -->
+  <div
+    class="permissions-panel flex-shrink-0 d-flex flex-column align-items-stretch"
+    style="width: 400px; background-color: #fdfdfd;"
+  >
+    <!-- ?? When Role Selected -->
+    <div
+      *ngIf="selectedRoleId && selectedRolePermissions?.length; else emptyPermissions"
+      class="permissions-inner h-100 bg-white p-3"
+      style="border-left: 1px solid #e5e5e5;"
+    >
+      <h6
+        class="fw-bold text-primary mb-3 d-flex align-items-center"
+        style="font-size: 15px;"
+      >
+        <i class="bi bi-shield-check me-2"></i> Assigned Permissions
+      </h6>
+
+      <div
+        class="border rounded shadow-sm"
+        style="height: calc(100% - 45px); min-height: 400px; overflow: hidden;"
+      >
+        <ag-grid-angular
+          class="ag-theme-alpine"
+          style="width: 100%; height: 100%;"
+          [rowData]="displayPermissions"
+          [columnDefs]="permissionColumnDefs"
+          [defaultColDef]="{
+            resizable: true,
+            sortable: true,
+            filter: true
+          }"
+          (rowClicked)="onPermissionRowClicked($event)"
+        ></ag-grid-angular>
+      </div>
+    </div>
+
+    <!-- ?? Empty State when No Role Selected -->
+    <ng-template #emptyPermissions>
+      <div
+        class="d-flex flex-column justify-content-center align-items-center h-100 bg-light text-muted p-4 border-start"
+      >
+        <i
+          class="bi bi-person-lock text-secondary mb-3"
+          style="font-size: 2rem;"
+        ></i>
+        <h6 class="fw-semibold text-secondary mb-1">No Role Selected</h6>
+        <p class="text-center small mb-0">
+          Select a role from the list to view its assigned permissions here.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div>

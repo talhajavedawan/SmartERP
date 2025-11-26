@@ -1,0 +1,559 @@
+/* ================== SHARED STYLES ================== */
+.content-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 16px 0;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .content-container {
+    flex-direction: column;
+  }
+
+  .form-card-wrapper,
+  .table-card-wrapper {
+    flex: 1 1 100%;
+  }
+}
+
+/* Layout Wrappers - Used Only in Lists */
+.form-card-wrapper,
+.table-card-wrapper {
+  flex: 1 1 calc(50% - 12px);
+  min-width: 300px;
+}
+
+/* Card Design - Used in Lists */
+.card.form-card,
+.card.table-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  overflow: hidden;
+  padding: 0;
+  max-width: none;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #05618D, #1594bb);
+  color: #ffffff;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 0;
+}
+
+.card-body {
+  padding: 15px;
+  padding-left: 50px;
+}
+
+/* Buttons + Forms - Used Globally (Lists, Login/Register, Dashboard) */
+.btn.custom-primary,
+.custom-primary {
+  background: linear-gradient(135deg, #05618D, #1594bb);
+  color: white;
+  border: none;
+  border-radius: 0;
+}
+
+.btn.custom-primary:hover,
+.custom-primary:hover {
+  opacity: 0.9;
+}
+
+.btn.custom-primary:disabled,
+.custom-primary:disabled {
+  opacity: 0.4;
+}
+
+.btn.action-btn {
+  color: #6c757d;
+  border-radius: 0;
+}
+
+.btn.action-btn:hover {
+  color: #495057;
+}
+
+.btn-close.close-button,
+.btn.btn-outline-secondary.close-button {
+  border-radius: 0;
+}
+
+.form-control {
+  border-radius: 0;
+}
+
+.input-group-text {
+  background-color: #ffffff;
+  border-radius: 0;
+}
+
+/* pretty buttons */
+.btn-container-fixed {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 1000;
+  padding: 0.5rem;
+}
+
+.btn-gradient-save {
+  background: linear-gradient(90deg, #007bff, #00b7eb);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 2.5rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn-gradient-save:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #0069d9, #00a1c9);
+}
+button-space {
+  padding-bottom: 20px;
+}
+
+/* Table + Actions - Used in Lists */
+.form-actions {
+  margin-top: 16px;
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.table-responsive {
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 0;
+}
+
+.table {
+  margin-bottom: 0;
+  width: 100%;
+  border-radius: 0;
+}
+
+th,
+td {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* ================== LOGIN / REGISTER / MODALS ================== */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px !important;
+  position: relative;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.logo {
+  height: 70px;
+}
+
+.modal-content {
+  border-radius: 0 !important;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* ================== SIDEBAR + HEADER (Used Globally) ================== */
+.custom-header {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 0 24px;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  overflow-x: hidden;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.sidebar {
+  height: 100%;
+  overflow: hidden;
+  /* background-color: #1a1a2e; */
+  background-color: #1a1a2e;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  z-index: 1000;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.nz-menu-item {
+  color: #ffffff;
+}
+
+.nz-menu-item:hover,
+.nz-menu-item-active {
+  background-color: #2e2e4d;
+  color: #ffffff;
+}
+
+.nz-submenu-title {
+  color: #ffffff;
+}
+
+/* ================== DASHBOARD COMPONENTS ================== */
+.search-and-actions {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+}
+
+.search-and-actions .min-width-200 {
+  min-width: 200px;
+}
+.search-and-actions::-webkit-scrollbar {
+  display: none;
+}
+.ant-table-tbody > tr > td:first-child i[nz-icon] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.scrollable-grid {
+  padding: 20px;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  height: calc(100vh - 264px);
+  overflow: auto;
+}
+  /* Ensure the scrollable-grid and custom-scroll-x classes work responsively */
+  .scrollable-grid.custom-scroll-x {
+    overflow-x: auto;
+    overflow-y: visible; /* Remove vertical scroll to fit content */
+    height: auto; /* Fit to content */
+    width: 100%;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+  }
+
+  /* Responsive styles for small screens */
+  @media (max-width: 768px) {
+    .scrollable-grid.custom-scroll-x {
+      overflow-x: auto;
+      white-space: nowrap; /* Prevent text wrapping */
+    }
+
+    .scrollable-grid.custom-scroll-x .table {
+      min-width: 400px; /* Ensure table doesn't collapse too much */
+    }
+
+    .scrollable-grid.custom-scroll-x .table th,
+    .scrollable-grid.custom-scroll-x .table td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+/* ================== MAIN LANDING COMPONENT ================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  flex-wrap: wrap;
+}
+
+.header .logo {
+  height: 48px;
+  object-fit: contain;
+}
+
+.header .nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.header .nav a {
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.header .nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background-color: #4f46e5;
+  transition: width 0.3s ease;
+}
+
+.header .nav a:hover::after,
+.header .nav a.active::after {
+  width: 100%;
+}
+
+.header .nav a:hover {
+  color: #4f46e5;
+}
+
+.header .action {
+  display: flex;
+  gap: 1rem;
+}
+
+.main-hero {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 4rem 2rem;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-hero .text {
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.main-hero .description {
+  font-size: 1.2rem;
+  color: #4b5563;
+  max-width: 700px;
+}
+
+.main-hero .pic {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.main-hero .started {
+  background-color: #2563eb;
+}
+
+.main-hero .started:hover {
+  background-color: #1d4ed8;
+}
+
+/* Responsive - Main Landing */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .header .nav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .header .action {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .main-hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .main-hero .text {
+    font-size: 2.2rem;
+  }
+
+  .main-hero .description {
+    font-size: 1rem;
+  }
+
+  .main-hero .pic {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-hero .text {
+    font-size: 1.8rem;
+  }
+
+  .cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .header .action {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .header .nav {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .header .nav a {
+    padding: 0.5rem 0;
+  }
+  
+}
+
+/* FOR EMPLOYEE DASHBOARD TABLE */
+/* Make table scroll horizontally */
+.custom-scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+/* Force table cells to align nicely */
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap; /* keep columns in single line */
+  padding: 8px 12px;
+}
+.table-responsive {
+  max-height: 80vh;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+
+/* POPUPS FOR EMPLOYEE */
+.modal-content {
+  width: 100%;
+  height: 100%;
+  margin: 0; /* Remove margin */
+  padding: 0; /* Remove padding */
+  border: none;
+  border-radius: 0; /* Remove any border radius */
+}
+
+.card.form-card {
+   height: 100%;
+  border-radius: 0; /* Remove border radius */
+  margin: 0; /* Remove margin */
+  overflow: auto; /* Allow scrolling if content overflows */
+}
+
+.btn-close.close-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background-color: white; /* Ensure it's visible */
+  padding: 10px;
+  border-radius: 50%;
+}
+.popup-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #d0d7db;
+  z-index: 1050; /* Ensure it's above other content */
+  overflow: auto;
+  padding: 0; /* Remove padding */
+}
+.nav a {
+  text-decoration: none;
+  color: #333;
+  margin-right: 1rem;
+transition: none; 
+}
+
+nav-link.active 
+{ 
+  background-color: #007bff;
+  color: white; 
+}
+
+/* tree dropdown */
+.modal {
+  z-index: 1000;
+}
+
+.modal-backdrop {
+  z-index: 999;
+}
+
+nz-tree-select .ant-select-dropdown {
+  z-index: 1003 !important;
+}
+
+.edit-tree-select .ant-select-dropdown {
+  z-index: 1003 !important;
+}

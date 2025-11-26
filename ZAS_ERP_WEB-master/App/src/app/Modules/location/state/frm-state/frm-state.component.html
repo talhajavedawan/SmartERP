@@ -1,0 +1,131 @@
+<div class="button-space">
+  <!-- Close Button -->
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="onReset()"
+  ></button>
+
+  <div class="card-body">
+    <form [formGroup]="stateForm" (ngSubmit)="onSubmit()" class="row g-4">
+      <!-- =================== HEADER =================== -->
+      <h5 class="section-title mt-2 mb-3">
+        <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+        {{ isEdit ? "Update State" : "Add New State" }}
+      </h5>
+
+      <!-- =================== STATE INFO =================== -->
+      <div class="row g-3 mt-1">
+        <!-- 🏷️ State Name -->
+        <div class="col-md-4">
+          <label class="form-label">State Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter state name"
+            formControlName="name"
+            autocomplete="off"
+          />
+          <div
+            *ngIf="stateForm.get('name')?.invalid && stateForm.get('name')?.touched"
+            class="text-danger small"
+          >
+            Please enter a valid state name.
+          </div>
+        </div>
+
+        <!-- 🌍 Country Dropdown -->
+        <div class="col-md-4">
+          <label class="form-label">Country <span class="text-danger">*</span></label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select
+              formControlName="countryId"
+              panelClass="custom-select-panel"
+              placeholder="Select country"
+            >
+              <!-- Search field inside dropdown -->
+              <mat-option>
+                <ngx-mat-select-search
+                  [formControl]="countryFilter"
+                  [placeholderLabel]="'Search countries...'"
+                  [noEntriesFoundLabel]="'No countries found'"
+                ></ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="let country of filteredCountries"
+                [value]="country.id"
+              >
+                {{ country.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- 🏙️ City Dropdown -->
+        <div class="col-md-4">
+          <label class="form-label">Cities</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select
+              formControlName="cityIds"
+              multiple
+              [compareWith]="compareCities"
+              panelClass="custom-select-panel"
+              placeholder="Select one or more cities"
+              (openedChange)="onCitySearchOpen($event)"
+            >
+              <!-- Search field inside dropdown -->
+              <mat-option>
+                <ngx-mat-select-search
+                  [formControl]="cityFilter"
+                  [placeholderLabel]="'Search cities...'"
+                  [noEntriesFoundLabel]="'No matching cities found'"
+                ></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let city of pagedCities" [value]="city.id">
+                {{ city.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <small class="text-muted">Select one or more cities (optional)</small>
+        </div>
+      </div>
+
+      <!-- =================== CODE INFO =================== -->
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <label class="form-label">State Code</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter state code"
+            formControlName="stateCode"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =================== FOOTER BAR =================== -->
+<div class="footer-bar" (click)="onSubmit()">
+  <!-- ✅ When form is valid -->
+  <span *ngIf="stateForm.valid && !isLoading">
+    <i class="bi bi-save me-2"></i>
+    {{ isEdit ? "Update State" : "Save State" }}
+  </span>
+
+  <!-- 🔄 When loading -->
+  <span *ngIf="isLoading">
+    <span class="spinner-border spinner-border-sm me-2"></span>
+    Saving...
+  </span>
+
+  <!-- ⚠️ When form is invalid -->
+  <span *ngIf="stateForm.invalid && !isLoading" class="opacity-75">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    Please fill all required fields
+  </span>
+</div>
+
+
