@@ -1,0 +1,58 @@
+body {
+  background: linear-gradient(135deg, #0a2463, #1e3b8a);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif; 
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  margin: 1.5rem auto; 
+  max-width: 1200px;
+}
+
+.nav a {
+  margin: 0 1.2rem; 
+  text-decoration: none;
+  color: #333;
+  font-weight: 600; /* Bold text */
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #005b82; 
+}
+
+.action {
+  display: flex;
+  gap: 1rem; /* Adds space between buttons */
+}
+
+.cta-btn {
+  padding: 0.6rem 1.8rem; 
+  border: 2px solid #005b82;
+  background-color: transparent;
+  color: #005b82;
+  border-radius: 30px; 
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background-color: #005b82;
+  color: white;
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.register-btn {
+  background-color:white; 
+  color: white;
+}
+

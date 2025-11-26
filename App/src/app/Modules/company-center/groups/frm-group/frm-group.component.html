@@ -1,0 +1,80 @@
+<div class="button-space">
+  <!-- 🔹 Close Button -->
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="cancel()"
+  ></button>
+
+  <div class="card-body">
+    <!-- =================== HEADER =================== -->
+    <h5 class="section-title mt-2 mb-3">
+      <i class="bi bi-people-fill text-primary me-2"></i>
+      {{ isEdit ? "Update Group" : "Add New Group" }}
+    </h5>
+
+    <!-- =================== FORM =================== -->
+    <form [formGroup]="groupForm" (ngSubmit)="submitForm()" class="row g-4">
+      <div class="row g-3 mt-1">
+        <!-- 🏷️ Group Name -->
+        <div class="col-md-6">
+          <label class="form-label">Group Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="groupName"
+            placeholder="Enter group name"
+            autocomplete="off"
+          />
+          <div
+            *ngIf="groupForm.get('groupName')?.invalid && groupForm.get('groupName')?.touched"
+            class="text-danger small"
+          >
+            <small *ngIf="groupForm.get('groupName')?.errors?.['required']">
+              Please enter a group name.
+            </small>
+            <small *ngIf="groupForm.get('groupName')?.errors?.['minlength']">
+              Minimum 3 characters required.
+            </small>
+          </div>
+        </div>
+
+        <!-- ✅ Active Switch -->
+        <div class="col-md-6 d-flex align-items-center mt-4">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isActive"
+              formControlName="isActive"
+            />
+            <label class="form-check-label" for="isActive">Active Group</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =================== FOOTER BAR =================== -->
+<div
+  class="footer-bar"
+  (click)="submitForm()"
+  [class.disabled]="groupForm.invalid || isLoading"
+>
+  <span *ngIf="!isLoading && !groupForm.invalid">
+    <i class="bi bi-save me-2"></i>
+    {{ isEdit ? "Update Group" : "Save Group" }}
+  </span>
+
+  <span *ngIf="isLoading">
+    <span class="spinner-border spinner-border-sm me-2"></span>
+    Saving...
+  </span>
+
+  <span *ngIf="groupForm.invalid && !isLoading" class="opacity-75">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    Please fill all required fields
+  </span>
+</div>

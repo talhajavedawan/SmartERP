@@ -1,0 +1,181 @@
+<div class="ag-grid-layout-container">
+  <!-- Header Section -->
+  <div
+    class="dashboard-header d-flex align-items-center justify-content-between flex-wrap px-1 py-1 rounded-top"
+  >
+    <!-- Title and Header Actions -->
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-columns-gap text-primary fs-5"></i>
+        <span class="fw-semibold fs-6">{{ title }}</span>
+      </div>
+      <ng-content select="[headerActions]"></ng-content>
+    </div>
+
+    <!-- Search Bar -->
+    <div
+      class="search-wrapper d-flex align-items-center ms-auto me-2"
+      *ngIf="enableSearch"
+    >
+      <div class="input-group input-group-sm">
+        <input
+          *ngIf="enableSearch"
+          type="text"
+          class="form-control form-control-sm"
+          [formControl]="searchValue"
+          [placeholder]="searchPlaceholder"
+          (input)="handleSearchInput($event.target.value)"
+        />
+        <button class="btn btn-light">
+          <i class="bi bi-search text-secondary"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-2 ms-2" *ngIf="showActions">
+      <!-- First Button Group: Add + Edit -->
+      <div class="button-group-compact">
+        <!-- Add Button -->
+        <button
+          class="btn btn-sm btn-gradient-primary d-flex align-items-center gap-1"
+          (click)="onAdd.emit()"
+          nz-tooltip
+          nzTooltipTitle="Add Record"
+        >
+          <i class="bi bi-plus-circle"></i>
+          Add
+        </button>
+        <!-- Edit Button -->
+        <button
+          class="btn btn-sm btn-gradient-warning d-flex align-items-center gap-1"
+          [disabled]="!canEdit"
+          (click)="updateSelectedRow()"
+          nz-tooltip
+          nzTooltipTitle="Edit Selected"
+        >
+          <i class="bi bi-pencil-square"></i>
+          Edit
+        </button>
+        <!-- Height toggle button -->
+        <button
+          class="btn btn-sm btn-gradient-height d-flex align-items-center justify-content-center"
+          (click)="toggleHeight()"
+          [title]="
+            domLayout === 'autoHeight'
+              ? 'Switch to Fixed Height'
+              : 'Switch to Auto Height'
+          "
+        >
+          <i
+            class="bi"
+            [ngClass]="
+              domLayout === 'autoHeight'
+                ? 'bi-arrows-collapse'
+                : 'bi-arrows-expand'
+            "
+          ></i>
+          Height
+        </button>
+      </div>
+
+      <!-- Second Button Group: Refresh + Export -->
+      <div class="button-group-compact">
+        <!-- Refresh Button -->
+        <button
+          class="btn btn-sm btn-gradient-refresh d-flex align-items-center justify-content-center"
+          (click)="triggerRefresh()"
+          nz-tooltip
+          nzTooltipTitle="Refresh Data"
+        >
+          <i
+            class="bi"
+            [ngClass]="
+              isRefreshing ? 'bi-arrow-clockwise spin' : 'bi-arrow-clockwise'
+            "
+          ></i>
+        </button>
+        <!-- Export Button -->
+        <button
+          class="btn btn-sm btn-gradient-export d-flex align-items-center gap-1"
+          [disabled]="!canExport"
+          (click)="exportSelectedRows()"
+          nz-tooltip
+          nzTooltipTitle="Export Selected"
+        >
+          <i class="bi bi-download"></i>
+          Export
+        </button>
+      </div>
+
+      <!-- Third Button Group: Columns + Save Layout -->
+      <div class="button-group-compact">
+        <!-- Manage Columns Button -->
+        <button
+          class="btn btn-sm btn-gradient-info d-flex align-items-center justify-content-center"
+          (click)="openColumnVisibilityManager()"
+          nz-tooltip
+          nzTooltipTitle="Manage Columns"
+        >
+          <i class="bi bi-eye"></i>
+          Columns
+        </button>
+        <!-- Save Layout Button -->
+        <button
+          class="btn btn-sm btn-gradient-save d-flex align-items-center justify-content-center"
+          (click)="saveLayout()"
+          nz-tooltip
+          nzTooltipTitle="Save Current Layout"
+        >
+          <i class="bi bi-layout-text-sidebar-reverse"></i>
+          Save Layout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AG Grid -->
+  <div class="ag-grid-container" style="width: 100%; height: 85vh">
+    <ag-grid-angular
+      class="ag-theme-alpine ag-custom-theme"
+      [gridOptions]="gridOptions"
+      [domLayout]="'normal'"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [domLayout]="domLayout"
+      [pagination]="true"
+      [paginationPageSize]="25"
+      (gridReady)="onGridReady($event)"
+      (rowClicked)="rowClicked.emit($event)"
+      style="width: 100%; height: 100%"
+    ></ag-grid-angular>
+  </div>
+
+  <!-- Column Manager Modal -->
+  <ng-template #columnManagerTemplate>
+    <div
+      cdkDropList
+      class="list-group"
+      (cdkDropListDropped)="onColumnDrop($event)"
+    >
+      <div
+        *ngFor="let col of columnManagerList"
+        cdkDrag
+        class="list-group-item d-flex align-items-center justify-content-between"
+      >
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [(ngModel)]="col.visible"
+            id="{{ col.colId }}"
+          />
+          <label class="form-check-label" [for]="col.colId">
+            {{ col.headerName || col.colId }}
+          </label>
+        </div>
+        <i class="bi bi-grip-vertical"></i>
+      </div>
+    </div>
+  </ng-template>
+</div>

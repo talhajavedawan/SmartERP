@@ -1,0 +1,37 @@
+<app-grid
+  [title]="'Customer List'"
+  [columnDefs]="columns"
+  [rowData]="customers"
+  [enableSearch]="true"
+  [searchPlaceholder]="'Search customers...'"
+  [layoutKey]="gridLayoutKey"
+  (onAdd)="navigateToCreateCustomer()"
+  (onUpdate)="navigateToUpdateCustomer($event)"
+  (onRefresh)="refreshCustomers()"
+>
+  <ng-container headerActions>
+    <div class="status-btn-group btn-group btn-group-sm me-2" role="group">
+      <button
+        class="btn status-btn all"
+        [class.active]="selectedStatus === 'all'"
+        (click)="setStatusFilter('all')"
+      >
+        <i class="bi bi-grid-fill me-1"></i> All
+      </button>
+      <button
+        class="btn status-btn active"
+        [class.active]="selectedStatus === 'active'"
+        (click)="setStatusFilter('active')"
+      >
+        <i class="bi bi-check-circle-fill me-1"></i> Active
+      </button>
+      <button
+        class="btn status-btn inactive"
+        [class.active]="selectedStatus === 'inactive'"
+        (click)="setStatusFilter('inactive')"
+      >
+        <i class="bi bi-slash-circle-fill me-1"></i> Inactive
+      </button>
+    </div>
+  </ng-container>
+</app-grid>

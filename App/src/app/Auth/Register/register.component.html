@@ -1,0 +1,116 @@
+<!-- 🔹 Splash Background Video -->
+<div class="register-bg-container">
+  <video autoplay muted loop playsinline preload="none" class="background-video">
+    <source src="assets/videos/splashScreen.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 🔹 Registration Card (glass style) -->
+  <div class="register-overlay">
+    <div class="card">
+      <button class="btn-close close-button" (click)="closePopup()"></button>
+
+      <div class="logo-wrapper">
+        <img src="assets/images/logo.png" alt="Logo" class="logo" />
+      </div>
+
+      <h3 class="text-center fw-bold mb-4">Admin Registration</h3>
+
+      <form [formGroup]="adminForm" (ngSubmit)="register()">
+
+        <!-- Username -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="bi bi-person-fill"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              formControlName="UserName"
+              placeholder="Enter your username"
+              [class.is-invalid]="
+                adminForm.get('UserName')?.invalid &&
+                adminForm.get('UserName')?.touched
+              "
+            />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 position-relative">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="password"
+              formControlName="Password"
+              placeholder="Enter your password"
+              [class.is-invalid]="
+                adminForm.get('Password')?.invalid &&
+                adminForm.get('Password')?.touched
+              "
+            />
+            <button
+              type="button"
+              class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent"
+              (click)="togglePasswordVisibility()"
+              tabindex="-1"
+            >
+              <i
+                class="bi"
+                [class.bi-eye]="!showPassword"
+                [class.bi-eye-slash]="showPassword"
+              ></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3 position-relative">
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              class="form-control"
+              id="confirmPassword"
+              formControlName="ConfirmPassword"
+              placeholder="Confirm your password"
+              [class.is-invalid]="
+                adminForm.get('ConfirmPassword')?.invalid &&
+                adminForm.get('ConfirmPassword')?.touched
+              "
+            />
+            <button
+              type="button"
+              class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent"
+              (click)="toggleConfirmPasswordVisibility()"
+              tabindex="-1"
+            >
+              <i
+                class="bi"
+                [class.bi-eye]="!showConfirmPassword"
+                [class.bi-eye-slash]="showConfirmPassword"
+              ></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between gap-3 mt-4">
+          <button type="submit" class="btn custom-primary flex-grow-1" [disabled]="adminForm.invalid">
+            Sign Up
+          </button>
+          <button type="button" class="btn btn-outline-secondary close-button flex-grow-1" (click)="closePopup()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

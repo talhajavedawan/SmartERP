@@ -1,0 +1,160 @@
+/* --- Fix header alignment and spacing --- */
+.card-body {
+  padding-top: 2rem !important;
+  margin-top: 0 !important;
+}
+
+/* =================== HEADER STYLING =================== */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, #f8f9fa, #eef3ff);
+  padding: 20px 20px;
+  border-left: 4px solid #0d6efd;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #212529;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-top: 0 !important;
+  margin-bottom: 1rem;
+}
+
+.section-title:hover {
+  background: linear-gradient(90deg, #f0f4ff, #e7edff);
+  transform: translateY(-1px);
+  transition: all 0.25s ease;
+}
+
+/* Close Button */
+.button-space {
+  position: relative;
+  padding: 3px 0;
+  width: 100%;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  z-index: 1000;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form Labels */
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 28px;
+  width: 100%;
+  background: linear-gradient(90deg, #004aad, #007bff, #00c2ff);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 28px;
+  letter-spacing: 0.4px;
+  z-index: 1050;
+  box-shadow: 0 -1px 8px rgba(0, 102, 255, 0.35);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  background-size: 200% 200%;
+  animation: footerGradient 5s ease infinite;
+}
+
+/* When sidebar expands, footer shifts and resizes accordingly */
+.sidebar-expanded .footer-bar {
+  margin-left: 240px; /* sidebar width */
+  width: calc(100% - 240px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* When sidebar collapses */
+.sidebar-collapsed .footer-bar {
+  margin-left: 60px; /* collapsed sidebar width */
+  width: calc(100% - 60px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Gradient animation */
+@keyframes footerGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.footer-bar:hover {
+  box-shadow: 0 0 16px rgba(0, 123, 255, 0.6);
+  background: linear-gradient(90deg, #0066ff, #0099ff, #00d4ff);
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+/* === Match mat-select to form-control === */
+::ng-deep .mat-mdc-form-field {
+  --mat-form-field-container-height: 38px;
+  --mat-form-field-outline-thickness: 1px;
+  width: 100%;
+  margin-top: 0;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 38px !important;
+  border-radius: 6px !important;
+  padding: 0 !important;
+  border: 1px solid #ced4da !important;
+  background-color: #fff !important;
+}
+
+::ng-deep .mat-mdc-select-trigger {
+  height: 36px !important;
+  padding-left: 8px;
+  font-size: 0.9rem !important;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  transform: scale(0.7);
+  margin-right: 6px;
+}
+
+/* Dropdown Panel */
+::ng-deep .custom-select-panel {
+  max-height: 220px !important;
+  overflow-y: auto !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Search Input inside dropdown */
+::ng-deep .ngx-mat-select-search-inner {
+  padding: 4px 8px !important;
+}
+::ng-deep .ngx-mat-select-search-input {
+  height: 30px !important;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid #ccc !important;
+  padding: 3px 8px !important;
+  margin-top: 4px;
+}

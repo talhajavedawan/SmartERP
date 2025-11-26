@@ -1,0 +1,151 @@
+<div class="apply-leave-container p-4 shadow-sm bg-white rounded-3">
+  <h5 class="fw-semibold text-primary mb-4">
+    <i class="bi bi-calendar-check me-2"></i>Apply for Leave
+  </h5>
+
+  <!-- ⚠️ Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- ✅ Debug Info (optional; hide in production) -->
+  <p class="text-muted small mb-3">
+    Applying as Employee ID:
+    <strong>{{ newLeave.employeeId || 'Not Loaded' }}</strong>
+  </p>
+
+  <form #leaveForm="ngForm" (ngSubmit)="submitLeave(leaveForm)" novalidate>
+    <!-- 🔹 Hidden Employee ID -->
+    <input type="hidden" name="employeeId" [(ngModel)]="newLeave.employeeId" />
+
+    <div class="row g-3">
+      <!-- 🔹 Leave Type -->
+      <div class="col-md-6">
+        <label for="leaveType" class="form-label fw-semibold">Leave Type</label>
+        <select
+          id="leaveType"
+          class="form-select"
+          [(ngModel)]="newLeave.leaveTypeId"
+          name="leaveTypeId"
+          required
+        >
+          <option [ngValue]="null" disabled selected>Select Leave Type</option>
+          <option *ngFor="let type of leaveTypes" [ngValue]="type.leaveTypeId">
+            {{ type.leaveTypeName }}
+          </option>
+        </select>
+        <div
+          *ngIf="leaveForm.submitted && !newLeave.leaveTypeId"
+          class="text-danger small mt-1"
+        >
+          Please select a leave type.
+        </div>
+      </div>
+
+      <!-- 🔹 Start Date -->
+      <div class="col-md-3">
+        <label for="startDate" class="form-label fw-semibold">Start Date</label>
+        <input
+          id="startDate"
+          type="date"
+          class="form-control"
+          [(ngModel)]="newLeave.startDate"
+          name="startDate"
+          (change)="calculateDays()"
+          required
+          [max]="newLeave.endDate || ''"
+        />
+        <div
+          *ngIf="leaveForm.submitted && !newLeave.startDate"
+          class="text-danger small mt-1"
+        >
+          Please select a valid start date.
+        </div>
+      </div>
+
+      <!-- 🔹 End Date -->
+      <div class="col-md-3">
+        <label for="endDate" class="form-label fw-semibold">End Date</label>
+        <input
+          id="endDate"
+          type="date"
+          class="form-control"
+          [(ngModel)]="newLeave.endDate"
+          name="endDate"
+          (change)="calculateDays()"
+          required
+          [min]="newLeave.startDate || ''"
+        />
+        <div
+          *ngIf="leaveForm.submitted && !newLeave.endDate"
+          class="text-danger small mt-1"
+        >
+          Please select a valid end date.
+        </div>
+      </div>
+
+      <!-- 🔹 Reason -->
+      <div class="col-12">
+        <label for="reason" class="form-label fw-semibold">Reason</label>
+        <textarea
+          id="reason"
+          class="form-control"
+          rows="3"
+          [(ngModel)]="newLeave.leaveDescription"
+          name="leaveDescription"
+          required
+          placeholder="Enter reason for leave"
+        ></textarea>
+        <div
+          *ngIf="leaveForm.submitted && !newLeave.leaveDescription"
+          class="text-danger small mt-1"
+        >
+          Please provide a reason.
+        </div>
+      </div>
+
+      <!-- 🔹 Half Day -->
+      <div class="col-md-4 d-flex align-items-center mt-2">
+        <input
+          id="halfDay"
+          type="checkbox"
+          class="form-check-input me-2"
+          [(ngModel)]="newLeave.isHalfDay"
+          name="isHalfDay"
+          (change)="calculateDays()"
+        />
+        <label for="halfDay" class="form-check-label">Half Day</label>
+      </div>
+
+      <!-- 🔹 Total Days -->
+      <div class="col-md-4 mt-2">
+        <label class="form-label fw-semibold">Total Days</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="newLeave.totalDays"
+          name="totalDays"
+          readonly
+        />
+      </div>
+
+      <!-- 🔹 Submit -->
+      <div class="col-12 text-end mt-4">
+        <button
+          type="submit"
+          class="btn btn-primary px-4"
+          [disabled]="isSubmitting || leaveForm.invalid"
+        >
+          <i
+            class="bi"
+            [ngClass]="{
+              'bi-hourglass-split': isSubmitting,
+              'bi-send': !isSubmitting
+            }"
+          ></i>
+          {{ isSubmitting ? 'Submitting...' : 'Submit Leave' }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

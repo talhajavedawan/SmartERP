@@ -1,0 +1,232 @@
+/* ──────────────────────────────────────────────── */
+/* CITY PAGE LAYOUT — FULL SCREEN GRID FIX         */
+/* ──────────────────────────────────────────────── */
+
+.city-container {
+  height: calc(100vh - 80px);   /* Header height adjustment */
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background-color: #f8f9fc;
+}
+
+/* MAIN LAYOUT (inside sidebar + header) */
+.main-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  margin-top: 80px;
+  margin-left: 250px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fc;
+  min-height: calc(100vh - 80px);
+}
+
+.main-layout.collapsed {
+  margin-left: 70px;
+}
+
+/* Main content wrapper for form + grid */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0; /* VERY IMPORTANT for AG Grid */
+}
+
+/* ──────────────────────────────────────────────── */
+/* AG GRID WRAPPER FIX (Full Screen)               */
+/* ──────────────────────────────────────────────── */
+
+app-grid-layout,
+app-grid-layout > .ag-grid-layout-container {
+  flex: 1 !important;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.ag-grid-layout-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100% !important;
+}
+
+.grid-area {
+  flex: 1 !important;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ag-theme-alpine {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* ──────────────────────────────────────────────── */
+/* FORM UI — Your Existing Styling (Improved)      */
+/* ──────────────────────────────────────────────── */
+
+.btn-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.page-hero {
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero .hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f5f7ff 0%, #ffffff 60%);
+  z-index: 0;
+}
+
+.page-hero .card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(67, 97, 238, 0.1);
+  color: #4361ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.hero-title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #212529;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.table-modern thead th {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-icon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.modal-header {
+  background-color: #4361ee;
+  color: #ffffff;
+  padding: 1.25rem;
+  border-bottom: none;
+  font-size: 1.2rem;
+}
+
+.modal-body {
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.modal-body .form-label {
+  font-size: 1rem;
+  color: #495057;
+}
+
+.form-control-lg {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.form-control-lg:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+.form-select-lg {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.form-select-lg:focus {
+  border-color: #4361ee;
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+}
+
+.text-danger {
+  font-size: 0.875rem;
+  color: #f72585;
+}
+
+button[type="submit"] {
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:disabled {
+  background-color: #b0c4de;
+}
+
+button[type="submit"]:not(:disabled):hover {
+  background-color: #3aa8d8;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 0.15rem rgba(67, 97, 238, 0.4);
+}
+
+.alert-danger {
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-close-white {
+  filter: invert(1);
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+}

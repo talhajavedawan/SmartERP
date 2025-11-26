@@ -1,0 +1,56 @@
+<!-- 
+  The entire footer content (tabs + static text) is wrapped in a single 
+  Flexbox container to ensure everything stays on one line.
+-->
+<div class="app-footer-bar">
+  <!-- 1. Scroll Backward Button (Fixed width) -->
+  <button class="scroll-arrow left-arrow" (click)="scrollTabs('left')">
+    <svg fill="currentColor" width="16" height="16" viewBox="0 0 24 24">
+      <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" />
+    </svg>
+  </button>
+
+  <!-- 2. Tab Container (Takes up remaining horizontal space - flex-grow: 1) -->
+  <div class="workspace-tabs-bar" *ngIf="tabs$ | async as tabs">
+    <ng-container *ngIf="tabs.length > 0">
+      <!-- Scrollable Content with ViewChild reference -->
+      <div #tabListScrollContainer class="tab-list scrollable-content">
+        <button
+          *ngFor="let tab of tabs"
+          [class.active]="workspaceService.isTabActive(tab.route)"
+          (click)="router.navigate([tab.route])"
+          class="workspace-tab"
+        >
+          <span>{{ tab.title }}</span>
+          <span
+            class="close-btn"
+            (click)="
+              workspaceService.closeTab(tab.route); $event.stopPropagation()
+            "
+          >
+            &times;
+          </span>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- 3. Scroll Forward Button (Fixed width) -->
+  <button class="scroll-arrow right-arrow" (click)="scrollTabs('right')">
+    <svg fill="currentColor" width="16" height="16" viewBox="0 0 24 24">
+      <path d="M8.59 16.59L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.59Z" />
+    </svg>
+  </button>
+
+  <!-- 4. Static Footer Content (Fixed width and always on the right) -->
+  <div class="static-footer-content">
+    <a href="https://coreui.io/" target="_blank">ZAS ERP</a>
+    <span> &copy; 2025 </span>
+    <div class="ms-auto">
+      Owned by
+      <a href="https://coreui.io/angular" target="_blank">
+        <span>ZAS Agencies</span>
+      </a>
+    </div>
+  </div>
+</div>

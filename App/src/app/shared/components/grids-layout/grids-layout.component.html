@@ -1,0 +1,153 @@
+<div class="ag-grid-layout-container position-relative">
+
+<div class="dashboard-header d-flex align-items-center justify-content-between flex-wrap px-1 py-1 rounded-top">
+
+  <div class="d-flex align-items-center gap-3">
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-columns-gap text-primary fs-5"></i>
+      <span class="fw-semibold text-dark fs-6">{{ title }}</span>
+    </div>
+    <ng-content select="[headerActions]"></ng-content>
+  </div>
+  <div class="search-wrapper d-flex align-items-center ms-auto me-2" *ngIf="enableSearch">
+    <div class="input-group input-group-sm rounded-pill overflow-hidden">
+  <input
+  type="text"
+  class="form-control border-0"
+  [placeholder]="searchPlaceholder || 'Search records...'"
+  [(ngModel)]="searchValue"
+  (input)="onSearch(searchValue)"
+/>
+
+      <button class="btn btn-light border-0">
+        <i class="bi bi-search text-secondary"></i>
+      </button>
+    </div>
+  </div>
+
+  <!--  Right-side Action Buttons -->
+  <div class="d-flex gap-2 ms-2" *ngIf="showActions">
+
+
+
+ 
+   <div class="d-flex align-items-center overflow-hidden" style="border-radius: 18px;">
+    <!-- Add Button -->
+    <button
+      class="btn btn-sm btn-gradient-primary d-flex align-items-center gap-1"
+      style="border-top-right-radius: 0; border-bottom-right-radius: 0; height: 30px; padding: 5px 12px;"
+      (click)="onAdd.emit()"
+      nz-tooltip
+      nzTooltipTitle="Add Record"
+    >
+      <i class="bi bi-plus-circle"></i>
+      Add
+    </button>
+
+    <!-- Refresh Button (attached flush to Add) -->
+<button
+  class="btn btn-sm btn-gradient-refresh d-flex align-items-center justify-content-center"
+  style="border-top-left-radius: 0; border-bottom-left-radius: 0; height: 30px; width: 34px; padding: 0;"
+  (click)="triggerRefresh()"
+  nz-tooltip
+  nzTooltipTitle="Refresh Data"
+>
+  <i class="bi" [ngClass]="isRefreshing ? 'bi-arrow-clockwise spin' : 'bi-arrow-clockwise fs-6'"></i>
+</button>
+
+  </div>
+<div class="d-flex align-items-center overflow-hidden" style="border-radius: 18px;">
+<!-- ✏️ Edit -->
+ <button
+    class="btn btn-sm btn-gradient-warning d-flex align-items-center gap-1"
+    style="border-top-right-radius: 0; border-bottom-right-radius: 0; height: 30px; padding: 5px 12px;"
+    (click)="onUpdate.emit()"
+    [disabled]="!selectedRowId"
+    nz-tooltip
+    nzTooltipTitle="Edit Selected"
+  >
+    <i class="bi bi-pencil-square"></i>
+    Edit
+  </button>
+
+  <button
+    class="btn btn-sm btn-gradient-save d-flex align-items-center justify-content-center"
+    style="border-top-left-radius: 0; border-bottom-left-radius: 0; height: 30px; padding: 5px 12px;"
+    (click)="saveLayout()"
+    nz-tooltip
+    nzTooltipTitle="Save Current Layout"
+  >
+    <i class="bi bi-layout-text-sidebar-reverse"></i>
+    Save Layout
+  </button>
+</div>
+  </div>
+
+</div>
+
+
+
+  <!--  AG Grid -->
+  <div class="ag-grid-container rounded-bottom overflow-hidden">
+<ag-grid-angular
+  class="ag-theme-alpine ag-custom-theme"
+  style="width: 100%; height: 78vh;"
+  [rowData]="rowData"
+[columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [pagination]="true"
+  [paginationPageSize]="25"
+  [rowSelection]="'multiple'"
+  (gridReady)="onGridReady($event)"
+  (rowClicked)="onRowClicked($event)"
+></ag-grid-angular>
+
+  </div>
+
+  <ul
+    nz-menu
+    nzMode="inline"
+    nzTriggerSubMenuAction="click"
+    class="custom-context-menu shadow-lg"
+    [ngStyle]="{ left: contextMenuX + 'px', top: contextMenuY + 'px' }"
+    *ngIf="colContextMenuVisible"
+  >
+    <li
+      nz-submenu
+      nzTitle="Manage Columns"
+      [nzOpen]="showColumnsMenu"
+      (nzOpenChange)="toggleShowColumns()"
+    >
+      <ul
+        cdkDropList
+        [cdkDropListData]="columnDefs"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <li
+          *ngFor="let col of columnDefs"
+          cdkDrag
+          class="d-flex align-items-center px-3 py-1"
+        >
+          <i class="bi bi-list drag-handle me-2" cdkDragHandle></i>
+          <input
+            type="checkbox"
+            class="me-2"
+            [checked]="col.visible"
+            (change)="toggleColumn(col)"
+          />
+          {{ col.headerName || col.field }}
+        </li>
+      </ul>
+    </li>
+
+    <!-- 💾 Save Layout Button -->
+    <li nz-menu-item class="text-center mt-1">
+      <button
+        class="btn btn-sm btn-gradient-save w-100"
+        (click)="saveLayout(); closeContextMenu()"
+      >
+        <i class="bi bi-save me-1"></i> Save Layout
+      </button>
+    </li>
+  </ul>
+</div>

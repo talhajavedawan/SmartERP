@@ -1,0 +1,179 @@
+<div class="button-space">
+  <!-- Close Button -->
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="cancel()"
+  ></button>
+
+  <div class="form-container">
+    <!-- Header -->
+    <h2 class="section-title">
+      <i class="bi bi-person-lines-fill text-primary me-2"></i>
+      {{ isEditMode ? 'Edit Vendor Contact' : 'Add Vendor Contact' }}
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="off">
+      <div class="row g-3">
+        <!-- Vendor -->
+        <div class="col-md-6">
+          <label class="form-label">Vendor <span class="text-danger">*</span></label>
+          <nz-select
+            formControlName="vendorId"
+            nzPlaceHolder="Select Vendor"
+            nzShowSearch
+            nzAllowClear
+            class="w-100"
+          >
+            <nz-option *ngFor="let v of vendors" [nzValue]="v.id" [nzLabel]="v.companyName"></nz-option>
+          </nz-select>
+          <div *ngIf="form.get('vendorId')?.invalid && form.get('vendorId')?.touched" class="text-danger small">
+            <small>Vendor selection is required.</small>
+          </div>
+        </div>
+
+        <!-- Designation -->
+        <div class="col-md-6">
+          <label class="form-label">Designation <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="designation"
+            placeholder="Enter designation"
+          />
+          <div *ngIf="form.get('designation')?.invalid && form.get('designation')?.touched" class="text-danger small">
+            <small *ngIf="form.get('designation')?.hasError('required')">Designation is required.</small>
+            <small *ngIf="form.get('designation')?.hasError('maxlength')">Designation must be under 100 characters.</small>
+          </div>
+        </div>
+
+        <!-- Primary Contact -->
+        <div class="col-md-3 d-flex align-items-center mt-3">
+          <label class="form-label me-2">Primary Contact</label>
+          <nz-switch formControlName="isPrimary"></nz-switch>
+        </div>
+
+        <!-- Active -->
+        <div class="col-md-3 d-flex align-items-center mt-3">
+          <label class="form-label me-2">Active</label>
+          <nz-switch formControlName="isActive"></nz-switch>
+        </div>
+
+        <!-- First Name -->
+        <div class="col-md-6">
+          <label class="form-label">First Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="firstName"
+            placeholder="Enter first name"
+          />
+          <div *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="text-danger small">
+            <small>First name is required.</small>
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="col-md-6">
+          <label class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="lastName"
+            placeholder="Enter last name"
+          />
+        </div>
+
+        <!-- Nationality -->
+        <div class="col-md-6">
+          <label class="form-label">Nationality</label>
+          <nz-select
+            formControlName="nationality"
+            nzPlaceHolder="Select Country"
+            nzShowSearch
+            nzAllowClear
+            class="w-100"
+          >
+            <nz-option *ngFor="let c of countries" [nzValue]="c.name" [nzLabel]="c.name"></nz-option>
+          </nz-select>
+        </div>
+
+        <!-- Religion -->
+        <div class="col-md-6">
+          <label class="form-label">Religion</label>
+          <nz-select
+            formControlName="religion"
+            nzPlaceHolder="Select Religion"
+            nzAllowClear
+            class="w-100"
+          >
+            <nz-option *ngFor="let r of religions" [nzValue]="r" [nzLabel]="r"></nz-option>
+          </nz-select>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phoneNumber"
+            placeholder="Enter phone number"
+          />
+          <div *ngIf="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched" class="text-danger small">
+            <small *ngIf="form.get('phoneNumber')?.hasError('required')">Phone number is required.</small>
+            <small *ngIf="form.get('phoneNumber')?.hasError('pattern')">Please enter a valid phone number.</small>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+          <label class="form-label">Email <span class="text-danger">*</span></label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter email"
+          />
+          <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-danger small">
+            <small *ngIf="form.get('email')?.hasError('required')">Email is required.</small>
+            <small *ngIf="form.get('email')?.hasError('email')">Please enter a valid email address.</small>
+          </div>
+        </div>
+
+        <!-- Website -->
+        <div class="col-md-6">
+          <label class="form-label">Website</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="websiteUrl"
+            placeholder="Enter website URL"
+          />
+        </div>
+      </div>
+    </form>
+
+    <!-- Floating Save Bar -->
+    <div
+      class="footer-bar"
+      (click)="submit()"
+      [class.disabled]="form.invalid || isLoading"
+    >
+      <span *ngIf="!isLoading && !form.invalid">
+        <i class="bi bi-save me-2"></i>
+        {{ isEditMode ? "Update Vendor Contact" : "Save Vendor Contact" }}
+      </span>
+      <span *ngIf="isLoading">
+        <span class="spinner-border spinner-border-sm me-2"></span> Saving...
+      </span>
+      <span *ngIf="form.invalid && !isLoading" class="opacity-75">
+        <i class="bi bi-exclamation-triangle me-2"></i> Please fill all required fields
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<!--  -->

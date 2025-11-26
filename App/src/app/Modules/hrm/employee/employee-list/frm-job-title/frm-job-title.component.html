@@ -1,0 +1,135 @@
+<div class="button-space">
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="closeModal()"
+  ></button>
+
+  <!-- Header -->
+  <div class="header border-bottom mb-3">
+    <div class="d-flex gap-3">
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none px-2 py-2 fw-semibold text-primary"
+      >
+        Job Title Info
+      </button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+    <form [formGroup]="jobTitleForm" (ngSubmit)="onSubmit()">
+      <h5 class="section-title">
+        <i class="bi bi-briefcase-fill me-2 text-primary"></i> Job Title Info
+      </h5>
+
+      <div class="row g-3">
+        <!-- Job Title Name -->
+        <div class="col-md-3">
+          <label class="form-label">
+            Job Title Name <span class="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="jobTitleName"
+            formControlName="jobTitleName"
+            placeholder="Enter Job Title Name"
+            [class.is-invalid]="
+              jobTitleForm.get('jobTitleName')?.invalid &&
+              jobTitleForm.get('jobTitleName')?.touched
+            "
+          />
+          @if (jobTitleForm.get('jobTitleName')?.touched &&
+          jobTitleForm.get('jobTitleName')?.hasError('required')) {
+          <div class="invalid-feedback">Job Title Name is required.</div>
+          } @if (jobTitleForm.get('jobTitleName')?.touched &&
+          jobTitleForm.get('jobTitleName')?.hasError('maxlength')) {
+          <div class="invalid-feedback">Must not exceed 100 characters.</div>
+          }
+        </div>
+
+        <!-- Metadata Display (read-only, use DTO fields) -->
+        @if (jobTitle) {
+        <!-- Created By -->
+        <div class="col-md-3">
+          <label class="form-label">Created By</label>
+          <input
+            type="text"
+            class="form-control"
+            [value]="jobTitle.createdByUserName || '-'"
+            readonly
+          />
+        </div>
+
+        <!-- Creation Date -->
+        <div class="col-md-3">
+          <label class="form-label">Creation Date</label>
+          <input
+            type="text"
+            class="form-control"
+            [value]="
+              jobTitle.createdDate ? formatDate(jobTitle.createdDate) : '-'
+            "
+            readonly
+          />
+        </div>
+
+        <!-- Last Modified By -->
+        <div class="col-md-3">
+          <label class="form-label">Last Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            [value]="jobTitle.lastModifiedByUserName || '-'"
+            readonly
+          />
+        </div>
+
+        <!-- Last Modified -->
+        <div class="col-md-3">
+          <label class="form-label">Last Modified</label>
+          <input
+            type="text"
+            class="form-control"
+            [value]="
+              jobTitle.lastModifiedDate
+                ? formatDate(jobTitle.lastModifiedDate)
+                : '-'
+            "
+            readonly
+          />
+        </div>
+
+        }
+
+        <!-- Is Active -->
+        <div class="col-md-3 d-flex align-items-center mt-4">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isActive"
+              formControlName="isActive"
+            />
+            <label class="form-check-label" for="isActive">Active</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- =================== FOOTER SAVE BAR =================== -->
+      <div class="footer-bar" (click)="onSubmit()">
+        @if (!isLoading && jobTitleForm.valid) {
+        <i class="bi {{ isEdit ? 'bi-pencil-square' : 'bi-save' }} me-2"></i>
+        {{ isEdit ? "Update" : "Save" }}
+        } @else if (isLoading) {
+        <span class="spinner-border spinner-border-sm me-2"></span>
+        Saving... } @else if (jobTitleForm.invalid && !isLoading) {
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        Please fill all required fields }
+      </div>
+    </form>
+  </div>
+</div>

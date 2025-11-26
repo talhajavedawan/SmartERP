@@ -1,0 +1,224 @@
+<div class="button-space">
+  <button
+    type="button"
+    class="btn-close close-button"
+    aria-label="Close"
+    (click)="closeModal()"
+  ></button>
+
+  <div class="header border-bottom mb-3">
+    <div class="d-flex gap-3">
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none px-2 py-2 fw-semibold text-primary"
+      >
+        Employee Status Info
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+      <h5 class="section-title">
+        <i class="bi bi-person-badge-fill me-2 text-primary"></i> Employee
+        Status
+      </h5>
+
+      <div class="row g-3">
+        <!-- Status Name -->
+        <div class="col-md-3">
+          <label class="form-label">
+            Status Name <span class="text-danger">*</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="statusName"
+            placeholder="Enter Status Name"
+            [class.is-invalid]="
+              statusNameCtrl?.invalid && statusNameCtrl?.touched
+            "
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="statusNameCtrl?.touched && statusNameCtrl?.errors?.['required']"
+          >
+            Status Name is required.
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="statusNameCtrl?.touched && statusNameCtrl?.errors?.['maxlength']"
+          >
+            Must not exceed 100 characters.
+          </div>
+        </div>
+
+        <!-- READ-ONLY AUDIT FIELDS -->
+        <ng-container *ngIf="status?.id">
+          <div class="col-md-3">
+            <label class="form-label">Transaction Type</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="status?.transactionItemType || '-'"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Created By</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="status?.createdBy || '-'"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Creation Date</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="formatDate(status?.creationDate)"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Last Modified By</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="status?.lastModifiedBy || '-'"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">Last Modified Date</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="formatDate(status?.modifiedDate)"
+              readonly
+            />
+          </div>
+        </ng-container>
+        <!-- Fore Color -->
+        <div class="col-md-3">
+          <label class="form-label">Fore Color</label>
+          <input
+            type="color"
+            class="form-control form-control-color"
+            formControlName="foreColor"
+            title="Choose text color"
+          />
+        </div>
+
+        <!-- Active Switch -->
+        <div class="col-md-3 d-flex align-items-center mt-4">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="isActive"
+              formControlName="isActive"
+            />
+            <label class="form-check-label" for="isActive">Active</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div
+        class="footer-bar btn btn-primary mt-3 d-flex align-items-center justify-content-center"
+        [class.disabled]="isLoading || statusForm.invalid"
+        (click)="onSubmit()"
+      >
+        <ng-container *ngIf="!isLoading && statusForm.valid">
+          <i class="bi {{ isEdit ? 'bi-pencil-square' : 'bi-save' }} me-2"></i>
+          {{ isEdit ? "Update" : "Save" }}
+        </ng-container>
+
+        <ng-container *ngIf="isLoading">
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Saving...
+        </ng-container>
+
+        <ng-container *ngIf="!isLoading && statusForm.invalid">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          Please fill all required fields
+        </ng-container>
+      </div>
+    </form>
+    <!-- ============== STATUS CLASS LIST ============== -->
+    <div *ngIf="statusClasses.length > 0" class="mt-4">
+      <h5 class="section-title">
+        <i class="bi bi-list-ul me-2 text-primary"></i> Status Class List
+      </h5>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-sm align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Class Name</th>
+              <th>Approved</th>
+              <th>Active</th>
+              <th>Back Color</th>
+              <th>Fore Color</th>
+              <th>Created By</th>
+              <th>Creation Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cls of statusClasses; index as i">
+              <td>{{ i + 1 }}</td>
+              <td>{{ cls.className }}</td>
+              <td>
+                <span
+                  class="badge bg-{{
+                    cls.isApproved ? 'success' : 'secondary'
+                  }}"
+                >
+                  {{ cls.isApproved ? "Yes" : "No" }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="badge bg-{{ cls.isActive ? 'primary' : 'danger' }}"
+                >
+                  {{ cls.isActive ? "Active" : "Inactive" }}
+                </span>
+              </td>
+              <td>
+                <div
+                  *ngIf="cls.backColor"
+                  [style.backgroundColor]="cls.backColor"
+                  class="rounded"
+                  style="width: 25px; height: 25px"
+                ></div>
+              </td>
+              <td>
+                <div
+                  *ngIf="cls.foreColor"
+                  [style.backgroundColor]="cls.foreColor"
+                  class="rounded"
+                  style="width: 25px; height: 25px"
+                ></div>
+              </td>
+              <td>{{ cls.createdBy || "-" }}</td>
+              <td>{{ formatDate(cls.creationDate) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="!statusClasses.length" class="mt-3 text-muted">
+      <i class="bi bi-info-circle me-2"></i> No Status Classes found for this
+      status.
+    </div>
+  </div>
+</div>

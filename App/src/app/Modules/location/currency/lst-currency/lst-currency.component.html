@@ -1,0 +1,26 @@
+<app-grid
+  [title]="'Currency List'"
+  [layoutKey]="'currency-grid-layout'"
+  [columnDefs]="columnDefs"
+  [rowData]="currencies"
+  [enableSearch]="true"
+  [showActions]="true"
+  (onAdd)="onAdd()"
+  (onUpdate)="onUpdate($event)"
+  (onRefresh)="onRefresh()"
+  (onSearch)="onSearch($event)"
+  (rowClicked)="onRowClicked($event)">
+  
+
+</app-grid>
+
+<!-- ✅ Standalone Pagination -->
+<div class="mt-3 d-flex justify-content-end">
+  <nz-pagination
+    [nzPageIndex]="pageNumber"
+    [nzTotal]="totalCount"
+    [nzPageSize]="pageSize"
+    [nzShowSizeChanger]="false"
+    (nzPageIndexChange)="onPageChange($event)">
+  </nz-pagination>
+</div>

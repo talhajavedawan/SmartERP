@@ -1,0 +1,36 @@
+<div class="city-wrapper" [ngClass]="{ collapsed: isCollapsed }">
+
+  <!-- FORM PANEL -->
+  <div *ngIf="showModal; else cityGrid">
+    <app-frm-city
+      [isEdit]="isEditing"
+      [cityData]="editCityData"
+      [states]="states"
+      (formSubmit)="onFormSubmit()"
+      (cancel)="onCancelForm()">
+    </app-frm-city>
+  </div>
+
+  <!-- GRID PANEL -->
+  <ng-template #cityGrid>
+    <app-grid-layout
+      title="City Management"
+      layoutKey="city-grid-layout"
+      [columnDefs]="columnDefs"
+      [rowData]="cities"
+      [pageNumber]="pageNumber"
+      [pageSize]="pageSize"
+      [totalCount]="totalCount"
+
+      (rowClicked)="onRowClicked($event)"
+      (onAdd)="onAdd()"
+      (onUpdate)="onUpdate()"
+      (onDelete)="onDelete()"
+      (onSearch)="onSearch($event)"
+      (onRefresh)="onRefresh()"
+      (onPageChange)="onPageChange($event)"
+      (onPageSizeChange)="onPageSizeChange($event)">
+    </app-grid-layout>
+  </ng-template>
+
+</div>

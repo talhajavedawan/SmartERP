@@ -1,0 +1,15 @@
+<app-grid
+  [title]="'Country Management'"
+  [layoutKey]="'country-grid-layout'"
+  [columnDefs]="columnDefs"
+  [rowData]="filteredCountries"
+  [enableSearch]="true"
+  [searchPlaceholder]="'Search country...'"
+  [showActions]="true"
+  (rowClicked)="onRowClicked($event)"
+  (onAdd)="onAdd()"
+  (onUpdate)="onUpdate($event)"
+  (onRefresh)="onRefresh()"
+  (onSearch)="onSearch($event)"
+>
+</app-grid>

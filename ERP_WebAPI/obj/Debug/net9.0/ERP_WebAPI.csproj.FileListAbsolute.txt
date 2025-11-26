@@ -1,0 +1,5 @@
+E:\Projects\ZAS_ERP_API\ZAS_ERP_WEB\ERP_WebAPI\obj\Debug\net9.0\ERP_WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\ZAS_ERP_API\ZAS_ERP_WEB\ERP_WebAPI\obj\Debug\net9.0\ERP_WebAPI.AssemblyInfoInputs.cache
+E:\Projects\ZAS_ERP_API\ZAS_ERP_WEB\ERP_WebAPI\obj\Debug\net9.0\ERP_WebAPI.AssemblyInfo.cs
+E:\Projects\ZAS_ERP_API\ZAS_ERP_WEB\ERP_WebAPI\obj\Debug\net9.0\ERP_WebAPI.csproj.CoreCompileInputs.cache
+E:\Projects\ZAS_ERP_API\ZAS_ERP_WEB\ERP_WebAPI\obj\Debug\net9.0\ERP_WebAPI.MvcApplicationPartsAssemblyInfo.cache
