@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\MSC\\Dissertation\\ZAS_ERP_WEB-master\\ERP_BL\\ERP_BL.csproj": {}
+    "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj": {}
   },
   "projects": {
-    "D:\\MSC\\Dissertation\\ZAS_ERP_WEB-master\\ERP_BL\\ERP_BL.csproj": {
+    "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\MSC\\Dissertation\\ZAS_ERP_WEB-master\\ERP_BL\\ERP_BL.csproj",
+        "projectUniqueName": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj",
         "projectName": "ERP_BL",
-        "projectPath": "D:\\MSC\\Dissertation\\ZAS_ERP_WEB-master\\ERP_BL\\ERP_BL.csproj",
+        "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\MSC\\Dissertation\\ZAS_ERP_WEB-master\\ERP_BL\\obj\\",
+        "outputPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -100,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.309\\RuntimeIdentifierGraph.json"
         }
       }
     }
