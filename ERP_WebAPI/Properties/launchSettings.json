@@ -22,7 +22,11 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DbUser": "sa",
+        "DbPassword": "Zas367@",
+        "DbName": "SmartERP",
+        "DbHost": "FSOCIETY96"
       }
     }
   },
