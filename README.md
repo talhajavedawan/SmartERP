@@ -33,11 +33,11 @@ SmartERP is designed for:
 
 SmartERP follows a modular design where each functional component can operate independently while remaining seamlessly integrable:
 
-- Finance Module** – Financial tracking and reporting  
-- Bookkeeping Module** – Ledger and transaction management  
-- Procurement Module** – Purchase and expense workflows  
-- Inventory Module** – Stock and resource monitoring  
-- Admin Expenses Module** – Operational expense management  
+- Finance Module – Financial tracking and reporting  
+- Bookkeeping Module – Ledger and transaction management  
+- Procurement Module – Purchase and expense workflows  
+- Inventory Module – Stock and resource monitoring  
+- Admin Expenses Module – Operational expense management  
 
 This modular approach reduces implementation complexity and allows incremental system adoption.
 
@@ -63,7 +63,7 @@ The solution follows a structured multi-layer design to ensure modularity and cl
 - ERP_BL (Business Logic Layer) 
   Contains core application rules, workflows, and domain logic.
 
-- ERP_REPO (Repository / Data Access Layer)**  
+- ERP_REPO (Repository / Data Access Layer)  
   Handles database operations, entity persistence, and CRUD logic.
 
 - ERP_WebAPI (API Layer)  
