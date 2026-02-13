@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Softwares\\Dissertation\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj": {}
+    "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj": {}
   },
   "projects": {
-    "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
+    "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj",
+        "projectUniqueName": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj",
         "projectName": "ERP_BL",
-        "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj",
+        "projectPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\obj\\",
+        "outputPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -100,18 +100,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.309\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Softwares\\Dissertation\\SmartERP\\ERP_REPO\\ERP_REPO.csproj": {
+    "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_REPO\\ERP_REPO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_REPO\\ERP_REPO.csproj",
+        "projectUniqueName": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_REPO\\ERP_REPO.csproj",
         "projectName": "ERP_REPO",
-        "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_REPO\\ERP_REPO.csproj",
+        "projectPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_REPO\\ERP_REPO.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_REPO\\obj\\",
+        "outputPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_REPO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -135,8 +135,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
-                "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj"
+              "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
+                "projectPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj"
               }
             }
           }
@@ -204,18 +204,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.309\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Softwares\\Dissertation\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj": {
+    "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj",
+        "projectUniqueName": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj",
         "projectName": "ERP_WebAPI",
-        "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj",
+        "projectPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_WebAPI\\ERP_WebAPI.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_WebAPI\\obj\\",
+        "outputPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
@@ -239,11 +239,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
-                "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_BL\\ERP_BL.csproj"
+              "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj": {
+                "projectPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_BL\\ERP_BL.csproj"
               },
-              "D:\\Softwares\\Dissertation\\SmartERP\\ERP_REPO\\ERP_REPO.csproj": {
-                "projectPath": "D:\\Softwares\\Dissertation\\SmartERP\\ERP_REPO\\ERP_REPO.csproj"
+              "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_REPO\\ERP_REPO.csproj": {
+                "projectPath": "D:\\MSC\\Dissertation\\ERP_WEB\\SmartERP\\ERP_REPO\\ERP_REPO.csproj"
               }
             }
           }
@@ -326,7 +326,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.309\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311\\RuntimeIdentifierGraph.json"
         }
       }
     }
