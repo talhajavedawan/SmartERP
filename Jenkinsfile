@@ -10,7 +10,7 @@ pipeline {
                 echo 'Welcome'
 
                 bat '''
-                    echo The multiline shell steps are working
+                    echo My testing file has been added to test the pipeline
                     dir
                 '''
             }
