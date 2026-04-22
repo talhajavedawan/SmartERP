@@ -1,16 +1,17 @@
-// Jenkinsfile (Declarative Pipeline)
+// Jenkinsfile (Windows-compatible Declarative Pipeline)
 
 pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
-                sh 'echo "Welcome"'
+                echo 'Welcome'
 
-                sh '''
-                    echo "The multiline shell steps are working"
-                    ls -lah
+                bat '''
+                    echo The multiline shell steps are working
+                    dir
                 '''
             }
         }
