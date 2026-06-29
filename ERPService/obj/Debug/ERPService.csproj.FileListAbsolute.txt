@@ -1,0 +1,34 @@
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\bin\Debug\ERPService.exe.config
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\bin\Debug\ERPService.exe
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\bin\Debug\ERPService.pdb
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\obj\Debug\ERPService.csproj.CoreCompileInputs.cache
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\obj\Debug\ERPService.exe
+E:\Projects c#\waqas\New folder\MK-ERP\ERPService\obj\Debug\ERPService.pdb
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\bin\Debug\ERPService.exe.config
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\bin\Debug\ERPService.exe
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\bin\Debug\ERPService.pdb
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\obj\Debug\ERPService.csproj.CoreCompileInputs.cache
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\obj\Debug\ERPService.exe
+D:\WPF\ZAS_ERP\MK-ERP\ERPService\obj\Debug\ERPService.pdb
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\bin\Debug\ERPService.exe.config
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\bin\Debug\ERPService.exe
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\bin\Debug\ERPService.pdb
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\obj\Debug\ERPService.csproj.CoreCompileInputs.cache
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\obj\Debug\ERPService.exe
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\obj\Debug\ERPService.pdb
+E:\Projects c#\waqas\Zas-Erp\MK-ERP\ERPService\obj\Debug\ERPService.csprojAssemblyReference.cache
+E:\Projects\ZAS-ERP-Repo\MK-ERP\MK-ERP\ERPService\obj\Debug\ERPService.csprojAssemblyReference.cache
+E:\Projects\ZAS-ERP-Repo\MK-ERP\MK-ERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
+E:\Projects\ZAS-ERP-Repo\MK-ERP\MK-ERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache
+E:\Projects\ZAS-ERP-Repo\MK-ERP\MK-ERP\ERPService\obj\Debug\ERPService.exe
+E:\Projects\ZAS-ERP-Repo\MK-ERP\MK-ERP\ERPService\obj\Debug\ERPService.pdb
+E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.csproj.AssemblyReference.cache
+E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.exe.config
+E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
+E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache
