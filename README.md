@@ -1,2 +1,2 @@
-# MK-ERP
-this is dedicated for ZAS ERP custom solution. 
+# Smart-ERP
+this is dedicated for Smart ERP custom solution. 
