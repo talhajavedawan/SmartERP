@@ -1,0 +1,257 @@
+﻿<UserControl x:Class="ZAS_ERP.ChartofAccounts.UserControls.ucTransactions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.ChartofAccounts.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:loc="clr-namespace:ZAS_ERP"
+             mc:Ignorable="d" 
+            d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="alternativeHoursActiveDisplayTemplate">
+            <Border Background="Transparent">
+                <ProgressBar Margin="1" Minimum="0" Maximum="1" Value="{Binding EditValue}"/>
+            </Border>
+        </ControlTemplate>
+        <loc:MyConv x:Key="valueconverter"/>
+    </UserControl.Resources>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ucTransactions}, Mode=FindAncestor}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid"
+              Grid.ColumnSpan="3">
+            <MenuItem Header="_Print Preview"
+                      x:Name="mbtnPrintPreview"
+                      Click="MbtnPrintPreview_Click"
+                     />
+            <MenuItem Header="Export To Report"
+                      x:Name="mbtnExportToReport"
+                      />
+            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="MbtnRefresh_Click"
+                      />
+            <MenuItem Header="Direct Close"
+                      x:Name="mbtnDriectClose"
+                      Click="MbtnDriectClose_Click"
+                      />
+            <MenuItem Header="Approve"
+                          x:Name="mbtnApprove"
+                      Click="MbtnApprove_Click"
+                          />
+            <MenuItem 
+                          x:Name="mbtnPending"
+                Click="MbtnPending_Click"
+                          >
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Approvals" ToolTip="List of PurchaseOrder which needs approval"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtApprovalcount" Text="{Binding ApprovalCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+            <MenuItem 
+                          x:Name="mbtnReApprovals"
+                Click="MbtnReApprovals_Click"
+                          >
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ReApprovals" ToolTip="List of PurchaseOrder which needs ReApproval due to Cost sheet"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtReApprovalcount" Text="{Binding ReApprovalCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+            <MenuItem 
+                          x:Name="mbtnPendingClosing"
+                Click="MbtnPendingClosing_Click"
+                          >
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Pending for Closing"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtClosingcount" Text="{Binding ClosingCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+            <MenuItem 
+                          x:Name="mbtnApprovedUnapproved"
+                Click="MbtnApprovedUnapproved_Click"
+                          >
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="JV Register"></TextBlock>
+
+                           
+
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtApproveUnapproved" Text="{Binding ApproveunapprovedCount}" Foreground="Blue"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+            <MenuItem Header="Save Layout"
+                          x:Name="mbtnSaveLayout"
+                      Click="MbtnSaveLayout_Click"
+                         />
+            <MenuItem  x:Name="mbtnVoid"
+                       Click="MbtnVoid_Click"
+                       >
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Void"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtVoidcount" Text="{Binding VoidCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+        </Menu>
+        <TextBlock x:Name="lblHeading" Text="Journal Voucher" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+        <dxg:GridControl x:Name="grdListTransactions"
+                    Margin="5,5,5,5"        
+                          SelectionMode="Row"
+                          Grid.Row="2"
+                          Grid.ColumnSpan="3"
+                         MouseDoubleClick="GrdListTransactions_MouseDoubleClick"
+                          CustomUnboundColumnData="GrdListTransactions_CustomUnboundColumnData"       
+                         dx:DXSerializer.SerializationID="grid">
+            <dxg:GridControl.View>
+                <dxg:TableView AutoWidth="True"
+                           ShowGroupPanel="True"
+                           AllowColumnFiltering="True"
+                           ShowHorizontalLines="True"
+                           ShowVerticalLines="True"
+                           ColumnFilterPopupMode="Excel"
+                           NavigationStyle="Row"
+                           ShowAutoFilterRow="True"       
+                           Width="auto"   
+                           RowAnimationKind="None" WaitIndicatorType="Panel"
+                           ShowFixedTotalSummary="True"
+                           ShowTotalSummary="True"
+                           AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                           x:Name="view1">
+                    <dxg:TableView.RowCellMenuCustomizations>
+                        <!--<dxb:BarButtonItem Name="deleteRowItem"
+                               Content="Delete"
+                               Glyph="{dx:DXImage Image=Cancel_32x32.png}"
+                               ItemClick="deleteRowItem_ItemClick" />-->
+                        <dxb:BarButtonItem Name="deleteRowItema1"
+                                   Content="Delete"
+                                   Glyph="{dx:DXImage Image=Delete_32x32.png}"
+                                   Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
+                    </dxg:TableView.RowCellMenuCustomizations>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+
+            <dxg:GridColumn FieldName="Id"
+                          ReadOnly="True"
+                          Visible="False"  
+                          VisibleIndex="1"  
+                          Header="Id" />
+            <dxg:GridColumn Header="Company"
+                            FieldName="company.CompanyName"
+                            IsSmart="True"
+                            VisibleIndex="2"  
+                          />
+            <dxg:GridColumn Header="Department"
+                FieldName="department.DeptName" 
+                           
+                            VisibleIndex="3"  
+                            UnboundExpression="[department.parentDepartment.DeptName] +' '+ [department.DeptName]"/>
+            <dxg:GridColumn x:Name="colstatus"
+                      FieldName="JournalVoucherStatus.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                     Visible ="True"
+                        VisibleIndex="4"    AllowColumnFiltering="Default" ColumnFilterMode="DisplayText" SortOrder="Ascending" SortIndex="0">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.JournalVoucherStatus.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.JournalVoucherStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="postingDate"
+                          ReadOnly="True"
+                          VisibleIndex="5"          
+                          Header="Posting Date" />
+            <dxg:GridColumn FieldName="entryNo"
+                          ReadOnly="True"
+                          VisibleIndex="6"  
+                          Header="Entry No." />
+
+            <dxg:GridColumn FieldName="voucherRefno"
+                        ReadOnly="True"
+                         VisibleIndex="7"       
+                        Header="Voucher Reference" >
+            </dxg:GridColumn>
+            <dxg:GridColumn 
+                        FieldName="isVoid" 
+                        ReadOnly="True"
+                VisibleIndex="8"
+                        Header="isVoid" />
+            <dxg:GridColumn FieldName="user.userName"
+                          ReadOnly="True"
+                          VisibleIndex="9"  
+                          Visible="True"                    
+                          Header="Creator" SortOrder="Ascending" SortIndex="0" >
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="dCredit"
+                                    Visible="True"
+                                     UnboundType="String"
+                                      VisibleIndex="10"      
+                          Header="DEBIT/CREDIT(+/-)" SortOrder="Ascending" SortIndex="0" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName=""
+                          ReadOnly="True"
+                          Visible="False"          
+                          UnboundType="Decimal"   
+                          VisibleIndex="11"  
+                          Header="debit" SortOrder="Ascending" SortIndex="0" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+           
+        </dxg:GridControl>
+    </Grid>
+</UserControl>

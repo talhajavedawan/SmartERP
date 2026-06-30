@@ -1,0 +1,1873 @@
+﻿<UserControl x:Class="ZAS_ERP.ToDoTasks.Taskks.UserControls.TaxTasks.ucTaxTaskAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.Taskks.UserControls.TaxTasks"
+             xmlns:loc="clr-namespace:ZAS_ERP"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded"
+             d:DesignHeight="700" d:DesignWidth="950">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="loc:CustomCommands.ReplytoComment" CanExecute="Command_CanExecute" Executed="Command_Executed" />
+    </UserControl.CommandBindings>
+
+    <Grid>
+
+        <!--comment-->
+        <Border x:Name="txtDaysIndicator" BorderBrush="Green" Width="250" Height="45" BorderThickness="2" CornerRadius="5 5 20 20" Background="DeepSkyBlue" Padding="20 5 20 5"
+                HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" Panel.ZIndex="10" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TextBlock  x:Name="txtDays" Text="0" FontWeight="Bold" FontSize="30" Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock x:Name="txtDaysRemaining" Text="Days Remaining" Margin="10 0 0 0" FontWeight="Bold" FontSize="18" Foreground="White" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1"  Panel.ZIndex="5" VerticalAlignment="Top" 
+                 Grid.Column="0" Orientation="Horizontal" Margin="0 5 0 0">
+            <Button x:Name="btnInfo" Height="30" Width="30" Grid.Column="3" ToolTip="Info" Click="BtnInfo_Click">
+                <Image Source="/ZAS_ERP;component/images/log.png"></Image>
+            </Button>
+            <Button Height="30" Width="30" Margin="5,0,0,0" x:Name="btnMarkReviewed" Visibility="Visible" Grid.Column="1"  Click="BtnMarkReviewed_Click"  ToolTip="Approve - Mark as Reviewed">
+                <Image Source="/ZAS_ERP;component/images/approve.png"></Image>
+            </Button>
+            <Button Height="30" Width="30" Margin="5,0,0,0" x:Name="btnClose" Click="BtnClose_Click" Grid.Column="2" ToolTip="Reject">
+                <Image Source="/ZAS_ERP;component/images/block-icon.png"></Image>
+            </Button>
+            <Button Height="30" Width="30" Margin="5,0,0,0" x:Name="btnAddComment" Grid.Column="2" ToolTip="Add New Comment" Click="BtnAddComment_Click">
+                <Image Source="/ZAS_ERP;component/images/CommentAdd.png"></Image>
+            </Button>
+            <Button Height="30" Width="30" Margin="5,0,0,0" x:Name="btnCommentLog" Grid.Column="2"  ToolTip="CommentLog" Click="BtnCommentLog_Click">
+                <Image Source="/ZAS_ERP;component/images/comments.png" ></Image>
+            </Button>
+            <Button x:Name="btnAttachNew" Visibility="Collapsed" Height="30" Width="30" Margin="5,0,5,0" Grid.Column="3" ToolTip="Info" Click="BtnAttachNew_Click">
+                <Image x:Name="imgAttachNew" Source="/ZAS_ERP;component/images/clipattachment.png"></Image>
+            </Button>
+            <Button x:Name="btnAttachmentList"  Width="30" Height="30" Grid.Column="3" ToolTip="Info" Click="BtnAttachmentList_Click">
+                <Image  Source="/ZAS_ERP;component/images/ListAttachment.png"></Image>
+            </Button>
+            <Button Height="30" Width="30"  Margin="5,0,0,0" x:Name="btnTrackingWindow" Click="BtnTrackingWindow_Click" Grid.Column="2" ToolTip="360 View">
+                <Image  Source="/ZAS_ERP;component/images/360Arrow.png" ></Image>
+            </Button>
+            <Button Height="30" Width="30"  Margin="5,0,0,0" x:Name="btnSetVoid" Visibility="Visible" Click="BtnSetVoid_Click" Grid.Column="2" ToolTip="360 View">
+                <Image  Source="/ZAS_ERP;component/images/void_order.png" ></Image>
+            </Button>
+            <Button x:Name="btnAttachNew1" Height="30" Width="30" Margin="5,0,5,0" Grid.Column="3" ToolTip="Attach document" Click="BtnAttachNew1_Click">
+                <Image x:Name="imgAttachNew1"  Source="{dx:DXImage Image=Attachment_32x32.png}"></Image>
+            </Button>
+            <Button x:Name="btnAttachmentList1"  Width="30" Height="30" Grid.Column="3" ToolTip="List of Attachments" Click="BtnAttachmentList1_Click">
+                <Image  Source="{dx:DXImage Image=ListNumbers_32x32.png}"></Image>
+            </Button>
+
+
+        </StackPanel>
+
+        <Grid Panel.ZIndex="5" Visibility="Collapsed" x:Name="gridTracker" Width="500" Margin="35"  HorizontalAlignment="Left" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="btnCollapse" Click="BtnCollapse_Click" Content="Collapse"></Button>
+                <TextBlock Text="Activity Tracker" FontWeight="Bold" FontSize="26" Foreground="Black" Margin="30,5"></TextBlock>
+                <Button x:Name="btnexpand" Click="Btnexpand_Click" Content="Expand"></Button>
+
+            </StackPanel>
+            <dxg:GridControl x:Name="grdUsers" Visibility="Visible"
+                     Grid.Row="1" MaxHeight="520"
+                     Grid.RowSpan="5" HorizontalAlignment="Left"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                             
+                     SelectionMode="Row" 
+                             
+                             
+                      CustomUnboundColumnData="GrdUsers_CustomUnboundColumnData"   
+                    AutoGenerateColumns="None">
+                <dxg:GridControl.View>
+                    <dxg:TableView x:Name="tableView"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       
+                                   AutoWidth="True"
+                       Width="auto"
+                       AllowGrouping="False"
+                                   ShowGroupPanel="False"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       
+                       >
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn Header="User Name"
+                            FieldName="User.userName"
+                            IsSmart="True"
+                            Width="auto" />
+                <!--<dxg:GridColumn FieldName="Name" UnboundType="String" ReadOnly="True" >
+                    -->
+                <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                <!--
+                </dxg:GridColumn>-->
+                <dxg:GridColumn FieldName="Timestamp" UnboundType="String" ReadOnly="True" Width="auto">
+                    <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Info"
+                            FieldName="Info"
+                            IsSmart="True"
+                            Width="auto" />
+                <dxg:GridColumn 
+                            FieldName="Comment"
+                            IsSmart="True"
+                            Width="auto" />
+                <!--<dxg:GridColumn FieldName="isActive"  >
+                    -->
+                <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                <!--
+                </dxg:GridColumn>-->
+                <!--<dxg:GridColumn FieldName="SupervisorName" UnboundType="String" ReadOnly="True" >
+                    -->
+                <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                <!--
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Departments" UnboundType="String" ReadOnly="True" >
+                    -->
+                <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                <!--
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Companies" UnboundType="String" ReadOnly="True" >
+                    -->
+                <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                <!--
+                </dxg:GridColumn>-->
+            </dxg:GridControl>
+        </Grid>
+
+        <Grid x:Name="grdComments"  Visibility="Collapsed" Width="400" Background="Gray" Panel.ZIndex="5" VerticalAlignment="Stretch" Margin="35" HorizontalAlignment="Left">
+            <dxg:GridControl AutoExpandAllGroups="True" Height="auto" VerticalAlignment="Stretch" Grid.Row="1"  dx:ScrollBarExtensions.ScrollBarMode="TouchOverlap" x:Name="grdCommentss">
+                <!--#region Columns-->
+                <dxg:GridControl.Columns>
+
+
+                    <dxg:GridColumn Width="Auto" FieldName="employee.person.FName" Header="Sender"/>
+                    <dxg:GridColumn Width="Auto" FieldName="Asignee.person.FName" Header="Asignee"/>
+                    <dxg:GridColumn Width="Auto" FieldName="Subject" />
+                    <dxg:GridColumn Width="Auto" FieldName="Comment"/>
+                    <dxg:GridColumn Width="Auto" FieldName="Category.category" Header="Category"/>
+                    <dxg:GridColumn
+                            Width="Auto" FieldName="Timestamp" GroupIndex="1" Header="Date" ShowGroupedColumn="True" GroupInterval="DateRange"
+                            SortOrder="Descending" />
+                </dxg:GridControl.Columns>
+                <!--#endregion-->
+                <dxg:GridControl.View>
+                    <dxg:TableView 
+                            x:Name="GrdCommenttableView" AllowEditing="False" DataRowCompactTemplate="{StaticResource CommentRowTemplate}"
+                                    DataRowTemplate="{StaticResource CommentRowTemplate}"
+                            LeftGroupAreaIndent="0" RowStyle="{StaticResource RowStyle}" ShowSearchPanelMode="Always" SearchPanelNullText="Search Comment Box"
+                            ShowGroupPanel="True" ShowIndicator="False" ShowVerticalLines="False"
+                            CompactPanelShowMode="Always" SwitchToCompactModeWidth="700"
+                             NavigationStyle="Row"
+                           >
+
+                        <dxg:TableView.FormatConditions>
+                            <dxg:FormatCondition ApplyToRow="True" Expression="[isRead] = False">
+                                <dxg:FormatCondition.Format>
+                                    <dxg:Format FontWeight="Bold" Foreground="#FF0072C6" />
+                                </dxg:FormatCondition.Format>
+                            </dxg:FormatCondition>
+
+                            <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Status Changed')">
+                                <dxg:FormatCondition.Format>
+                                    <dxg:Format FontWeight="Bold" Background="LightCoral" />
+
+                                </dxg:FormatCondition.Format>
+                            </dxg:FormatCondition>
+
+                            <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task Approved')">
+                                <dxg:FormatCondition.Format>
+                                    <dxg:Format FontWeight="Bold" Background="LightGreen" />
+
+                                </dxg:FormatCondition.Format>
+                            </dxg:FormatCondition>
+
+                            <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task UnApproved')">
+                                <dxg:FormatCondition.Format>
+                                    <dxg:Format FontWeight="Bold" Background="LightGreen" />
+
+                                </dxg:FormatCondition.Format>
+                            </dxg:FormatCondition>
+
+                            <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task Voided')">
+                                <dxg:FormatCondition.Format>
+                                    <dxg:Format FontWeight="Bold" Background="Orange" />
+
+                                </dxg:FormatCondition.Format>
+                            </dxg:FormatCondition>
+
+                            <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task UnVoided')">
+                                <dxg:FormatCondition.Format>
+                                    <dxg:Format FontWeight="Bold" Background="Orange" />
+
+                                </dxg:FormatCondition.Format>
+                            </dxg:FormatCondition>
+
+                        </dxg:TableView.FormatConditions>
+                        <!--#region CompactModeFilterItems-->
+                        <!--<dxg:TableView.CompactModeFilterItems>
+                            <dxg:CompactModeFilterItem DisplayValue="All" />
+                            <dxg:CompactModeFilterItem DisplayValue="Read" EditValue="[isRead] = True" />
+                            <dxg:CompactModeFilterItem DisplayValue="Unread" EditValue="[isRead] = False" />
+
+                        </dxg:TableView.CompactModeFilterItems>-->
+                        <!--#endregion-->
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+
+        </Grid>
+
+        <Grid x:Name="grdAttachments"   Width="300" Visibility="Collapsed" Background="Gray" Panel.ZIndex="5" VerticalAlignment="Top" Margin="210,30,65,35" HorizontalAlignment="Left">
+            <TreeView x:Name="treeViewAttachments" >
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate  DataType="{x:Type loc:TreeItem}" ItemsSource="{Binding Items}">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding name}"
+                         Grid.Column="0"
+                         
+                         HorizontalAlignment="Stretch" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text=" [" Foreground="Blue" />
+                                <TextBlock Text="{Binding Items.Count}" Foreground="Blue" />
+                                <TextBlock Text="]" Foreground="Blue" />
+                            </StackPanel>
+                        </Grid>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate  DataType="{x:Type loc:cmbitem}" >
+                        <StackPanel>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="1*" />
+
+                                </Grid.ColumnDefinitions>
+                                <!--<CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>-->
+                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                <Button Content="Open" Margin="5,0" x:Name="btnDownloadAttachment" Click="BtnDownloadAttachment_Click" Foreground="Blue"  Tag="{Binding description}"></Button>
+
+                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="0,0,5,0" Grid.Column="1"/>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" >
+                                    <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+
+                                    <!--<TextBlock Text=" [" Foreground="Blue" />-->
+                                    <TextBlock Text="{Binding fcolor}" Margin="5,0" Foreground="Blue" />
+                                    <!--<TextBlock Text="]" Foreground="Blue" />-->
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                    <!--<HierarchicalDataTemplate DataType="{x:Type self:cmbitem}"  >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                    
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>
+                                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="0,0,5,0" Grid.Column="1"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+                                                
+                                                    <TextBlock Text=" [" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding fcolor}" Foreground="Blue" />
+                                                    <TextBlock Text="]" Foreground="Blue" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>-->
+                </TreeView.Resources>
+            </TreeView>
+        </Grid>
+
+        <Grid x:Name="grdAttach1"   Width="250" Visibility="Collapsed"  Background="White"  Panel.ZIndex="5" VerticalAlignment="Top" Margin="360,40,65,35" HorizontalAlignment="Left">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+
+                    <ColumnDefinition Width="1*" />
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Category"
+                         
+                         
+                         Margin="5,0,5,0" Grid.Column="0"/>
+                <ComboBox x:Name="cmbCategory1"
+                      Grid.Column="3"
+                      VerticalAlignment="Center"
+                          Margin="5,5"
+                      Grid.Row="0"
+                      TabIndex="0"
+                      >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="{Binding id}"
+                               Visibility="Hidden" />
+                                <TextBlock Text="{Binding name}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+
+                <!--<TextBlock Text=" [" Foreground="Blue" />-->
+                <TextBlock Text="{Binding fcolor}" Margin="5,0" Foreground="Blue" />
+                <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2" Content="Select file" Margin="5" x:Name="btnAttachment1" Click="BtnAttachment1_Click" Foreground="Blue"  Tag="{Binding description}"></Button>
+                <!--<TextBlock Text="]" Foreground="Blue" />-->
+
+            </Grid>
+
+        </Grid>
+
+        <Grid x:Name="grdAttach"   Width="250" Visibility="Collapsed"  Background="White"  Panel.ZIndex="5" VerticalAlignment="Top" Margin="175,32,65,35" HorizontalAlignment="Left">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+
+                    <ColumnDefinition Width="1*" />
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Category"
+                         
+                         
+                         Margin="5,0,5,0" Grid.Column="0"/>
+                <ComboBox x:Name="cmbCategory"
+                      Grid.Column="3"
+                      VerticalAlignment="Center"
+                          Margin="5,5"
+                      Grid.Row="0"
+                      TabIndex="0"
+                      >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="{Binding id}"
+                               Visibility="Hidden" />
+                                <TextBlock Text="{Binding name}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+
+                <!--<TextBlock Text=" [" Foreground="Blue" />-->
+                <TextBlock Text="{Binding fcolor}" Margin="5,0" Foreground="Blue" />
+                <Button VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="2" Content="Select file" Margin="5" x:Name="btnAttachment" Click="BtnAttachment_Click" Foreground="Blue"  Tag="{Binding description}"></Button>
+                <!--<TextBlock Text="]" Foreground="Blue" />-->
+
+            </Grid>
+
+        </Grid>
+
+        <Grid x:Name="grdAttachments1"   Width="300" Visibility="Collapsed" Background="Gray" Panel.ZIndex="5" VerticalAlignment="Top" Margin="390,40,65,35" HorizontalAlignment="Left">
+            <TreeView x:Name="treeViewAttachments1" >
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate  DataType="{x:Type loc:TreeItem}" ItemsSource="{Binding Items}">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding name}"
+                         Grid.Column="0"
+                         
+                         HorizontalAlignment="Stretch" />
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock Text=" [" Foreground="Blue" />
+                                <TextBlock Text="{Binding Items.Count}" Foreground="Blue" />
+                                <TextBlock Text="]" Foreground="Blue" />
+                            </StackPanel>
+                        </Grid>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate  DataType="{x:Type loc:cmbitem}" >
+                        <StackPanel>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="1*" />
+
+                                </Grid.ColumnDefinitions>
+                                <!--<CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>-->
+                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                <Button Content="Open" Margin="5,0" x:Name="btnDownloadAttachment" Click="BtnDownloadAttachment_Click" Foreground="Blue"  Tag="{Binding description}"></Button>
+
+                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="0,0,5,0" Grid.Column="1"/>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" >
+                                    <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+
+                                    <!--<TextBlock Text=" [" Foreground="Blue" />-->
+                                    <TextBlock Text="{Binding fcolor}" Margin="5,0" Foreground="Blue" />
+                                    <!--<TextBlock Text="]" Foreground="Blue" />-->
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                    <!--<HierarchicalDataTemplate DataType="{x:Type self:cmbitem}"  >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                    
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>
+                                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="0,0,5,0" Grid.Column="1"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+                                                
+                                                    <TextBlock Text=" [" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding fcolor}" Foreground="Blue" />
+                                                    <TextBlock Text="]" Foreground="Blue" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>-->
+                </TreeView.Resources>
+            </TreeView>
+        </Grid>
+
+        <Grid Panel.ZIndex="5" x:Name="grdVoid" Visibility="Collapsed" 
+              VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <!--<TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>-->
+            <TextBlock IsHitTestVisible="False" x:Name="txtVoid" 
+                       Text="-VOID-" FontSize="200" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Chocolate" Opacity="0.3">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                <TextBlock.RenderTransform>
+
+                    <RotateTransform CenterX="0" CenterY="0" Angle="-45" />
+
+                </TextBlock.RenderTransform>
+            </TextBlock>
+        </Grid>
+
+        <Grid Margin="0 0 0 40" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <!--<RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>-->
+            </Grid.RowDefinitions>
+            <dx:DXTabControl Margin="0 40 0 0" Padding="10" Panel.ZIndex="6" >
+                <dx:DXTabItem x:Name="tabLoansAdavncesInfo">
+                    <dx:DXTabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{dx:DXImage Image=Info_32x32.png}" Width="18" Height="18"  Margin="0,0,5,0"/>
+
+
+
+
+                            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Task Info" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </dx:DXTabItem.Header>
+                    <dxlc:LayoutGroup
+                        x:Name="grpTaskInfo"
+                        Grid.Row="2"     
+                        View="Group" 
+                        IsCollapsible="False" 
+                        IsCollapsed="False"                
+                        Orientation="Vertical">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="5"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="5">
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <!--<Image Source="{dx:DXImage Image=Task_32x32.png}"  Margin="0,0,5,0"/>-->
+                                        <!--<dxe:ImageEdit Grid.Column="0" Width="60" Height="60" ShowMenu="False" x:Name="imgAssignedTo" HorizontalAlignment="Center" Margin="0 0 5 0"/>-->
+
+                                        <Border Height="60" Width="60" CornerRadius="30,30,30,30" BorderBrush="DeepSkyBlue" Margin="0 0 5 0" HorizontalAlignment="Center" BorderThickness="1">
+                                            <Border.Background>
+                                                <ImageBrush  x:Name="imgAssignedTo" ImageSource="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg"/>
+                                            </Border.Background>
+                                        </Border>
+
+                                        <TextBlock Text="Task"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="22"
+                                       Foreground="Black"
+                                           FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <TextBlock Text=" (ref no.)"
+                                       x:Name="lblRefNo"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="16"
+                                       Foreground="Black"/>
+                                </StackPanel>
+
+                            </Grid>
+
+                            <Grid Grid.Row="6" Visibility="Visible" Grid.Column="0" Margin="0 0 0 5" Grid.RowSpan="2" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Center" >
+
+                                    <TextBlock Text="Status"
+                                       x:Name="lblStage"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="16"
+                                       Foreground="Black"/>
+                                </StackPanel>
+
+                                <Border CornerRadius="10" Grid.Column="0" Background="LightGray" x:Name="grdUnderApproval">
+                                    <TextBlock Text="Under Approval" Padding="5 5 5 5" TextAlignment="Center" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Center"/>
+                                </Border>
+
+                                <Border CornerRadius="10" Grid.Column="1" Background="LightGray" x:Name="grdApproved" Margin="2 0 0 0">
+                                    <TextBlock Text="Approved" Padding="5 5 5 5" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Center"/>
+                                </Border>
+
+                                <Border CornerRadius="10" Grid.Column="2" Background="LightGray" x:Name="grdUnderClosing" Margin="2 0 0 0">
+                                    <TextBlock Text="Under Closing" Padding="5 5 5 5" Grid.Column="2" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Center"/>
+                                </Border>
+
+                                <Border CornerRadius="10" Grid.Column="3" Background="LightGray" x:Name="grdClosed" Margin="2 0 0 0">
+                                    <TextBlock Text="Closed" Padding="5 5 5 5" Grid.Column="3" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Foreground="Black" HorizontalAlignment="Center"/>
+                                </Border>
+
+                            </Grid>
+
+                            <Grid Grid.Column="0" Grid.Row="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=Time_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+
+
+
+
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Creation date " VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <dxe:DateEdit Grid.Column="1" 
+                                              Height="22"
+                                              Name="datCreationDate"
+                                              TabIndex="2" 
+                                              IsEnabled="False" 
+                                              FontWeight="Black"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2" Grid.Row="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                               
+
+                                <!--<DatePicker Grid.Column="1" SelectedDate="" Name="datePickercreationDate"/>-->
+
+
+                            </Grid>
+
+                            <Grid Grid.Column="4" Grid.Row="0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="105"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=HighlightField_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="System ref # " VerticalAlignment="Center"/>
+
+
+                                </StackPanel>
+
+                                <dxe:TextEdit Grid.Column="1" IsReadOnly="True" TabIndex="8" Height="22" x:Name="txtSystemRef"/>
+
+                            </Grid>
+
+                            <Grid Grid.Column="4" Grid.Row="2" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="107"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=HighlightField_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Task ref # " VerticalAlignment="Center"/>
+
+
+                                </StackPanel>
+
+                                <dxe:TextEdit Grid.Column="1" IsReadOnly="False" TabIndex="8" Height="22" x:Name="txtTaskRef"/>
+
+                            </Grid>
+
+                            <Grid Grid.Column="4" Grid.Row="4" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="107"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=HighlightField_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Notice ref # " VerticalAlignment="Center"/>
+
+
+                                </StackPanel>
+
+                                <dxe:TextEdit Grid.Column="1" IsReadOnly="False" TabIndex="8" Height="22" x:Name="txtNoticeRef"/>
+
+                            </Grid>
+
+                            <Grid Grid.Column="4" Grid.Row="6" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="107"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="/ZAS_ERP;component/images/efficiency.png" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Efficiency Points" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <dxe:TextEdit Grid.Column="1" Text="0" TabIndex="8" Height="22" x:Name="txtEfficiencyPoints" 
+                                              IsReadOnly="True" FontWeight="Bold"/>
+
+                                <Button Content="Add" Grid.Column="2" Padding="5 0 5 0" x:Name="btnAddEfficiencyPoints"
+                                        Click="BtnAddEfficiencyPoints_Click" Visibility="Collapsed"/>
+                            </Grid>
+
+
+
+
+                            <Grid Grid.Column="2" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=BOTask_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+
+                                    <TextBlock  Text="Template" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <dxe:ComboBoxEdit Grid.Column="1" IsReadOnly="False" x:Name="cmbxTaskTemplate" SelectedIndexChanged="CmbxTaskTemplate_SelectedIndexChanged"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=Home_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock  Text="Company " VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <dxg:LookUpEdit Grid.Row="2" Grid.Column="1" Height="22" x:Name="lookupCompany" 
+                                SelectedIndexChanged="LookupCompany_SelectedIndexChanged" 
+                                DisplayMember="CompanyName" 
+                                ValueMember="Id"
+                                AutoPopulateColumns="False">
+                                    <dxg:LookUpEdit.PopupContentTemplate>
+                                        <ControlTemplate>
+                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None">
+                                                <dxg:GridControl.View>
+                                                    <dxg:TableView/>
+                                                </dxg:GridControl.View>
+
+                                                <dxg:GridColumn Header="Company"
+                                    FieldName="CompanyName"
+                                                AllowEditing="false"/>
+                                            </dxg:GridControl>
+                                        </ControlTemplate>
+                                    </dxg:LookUpEdit.PopupContentTemplate>
+                                </dxg:LookUpEdit>
+                            </Grid>
+
+                            <Grid Grid.Column="2" Grid.Row="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=BO_Department.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Row="3" Text="Department " VerticalAlignment="Center" />
+                                </StackPanel>
+                                <dxg:LookUpEdit Grid.Row="3" Grid.Column="1" 
+                                                Height="22" 
+                                                x:Name="lookupDepartment" 
+                                                GotFocus="LookupDepartment_GotFocus"
+                                DisplayMember="DeptName" SelectedIndexChanged="LookupDepartment_SelectedIndexChanged"
+                                ValueMember="Id"
+                                AutoPopulateColumns="False">
+                                    <dxg:LookUpEdit.PopupContentTemplate>
+                                        <ControlTemplate>
+                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None">
+                                                <dxg:GridControl.View>
+                                                    <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentID"/>
+                                                </dxg:GridControl.View>
+
+                                                <dxg:GridColumn Header="Department"
+                                    FieldName="DeptName"
+                                                AllowEditing="false"/>
+                                            </dxg:GridControl>
+                                        </ControlTemplate>
+                                    </dxg:LookUpEdit.PopupContentTemplate>
+                                </dxg:LookUpEdit>
+                            </Grid>
+
+
+
+                            <Grid Grid.Column="2" Grid.Row="6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=BO_Department.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Row="3" Text="Vendor " VerticalAlignment="Center" />
+                                </StackPanel>
+                                <dxg:LookUpEdit Grid.Row="0" Grid.Column="1" 
+                                                Height="22"
+                                                x:Name="lookupVendor" 
+                                                GotFocus="LookupVendor_GotFocus"
+                                DisplayMember="company.CompanyName"
+                                ValueMember="Id"
+                                AutoPopulateColumns="False">
+                                    <dxg:LookUpEdit.PopupContentTemplate>
+                                        <ControlTemplate>
+                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None">
+                                                <dxg:GridControl.View>
+                                                    <dxg:TreeListView KeyFieldName="Id" ParentFieldName="ParentID"/>
+                                                </dxg:GridControl.View>
+
+                                                <dxg:GridColumn Header="Customer"
+                                    FieldName="company.CompanyName"
+                                                AllowEditing="false"/>
+                                            </dxg:GridControl>
+                                        </ControlTemplate>
+                                    </dxg:LookUpEdit.PopupContentTemplate>
+                                </dxg:LookUpEdit>
+
+
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                                    <Image Source="{dx:DXImage Image=Task_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Text="Task Type " Grid.Row="2" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <dxg:LookUpEdit Grid.Row="1" Grid.Column="1" Height="22" 
+                                x:Name="lookupTaskType" 
+                                                GotFocus="lookupTaskType_GotFocus"
+                                                SelectedIndexChanged="LookupTaskType_SelectedIndexChanged"
+                                DisplayMember="TypeName" 
+                                ValueMember="Id"
+                                AutoPopulateColumns="False">
+                                    <dxg:LookUpEdit.PopupContentTemplate>
+                                        <ControlTemplate>
+                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None">
+                                                <dxg:GridControl.View>
+                                                    <dxg:TableView/>
+                                                </dxg:GridControl.View>
+
+                                                <dxg:GridColumn Header="Task Type"
+                                    FieldName="TypeName"
+                                                AllowEditing="false"/>
+                                            </dxg:GridControl>
+                                        </ControlTemplate>
+                                    </dxg:LookUpEdit.PopupContentTemplate>
+                                </dxg:LookUpEdit>
+
+
+                               
+                            </Grid>
+
+                            <Grid Grid.Column="2" Grid.Row="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="95"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                                    <Image Source="{dx:DXImage Image=Status_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Task Status " VerticalAlignment="Center"/>
+
+
+                                </StackPanel>
+                                <ComboBox VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"
+                                        TabIndex="12" x:Name="cmbStatus" Height="22" >
+                                    <ComboBox.ItemTemplate>
+
+                                        <DataTemplate>
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding id}" Visibility="Hidden" />
+                                                <TextBlock Text="   " Background="{Binding bcolor}"
+                                                Width="20" Margin="10,0" />
+                                                <TextBlock Text="{Binding name}" Grid.Column="1"
+                                                Foreground="{Binding fcolor}"
+                                                HorizontalAlignment="Stretch"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+
+
+
+
+
+
+
+
+                            <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <dxlc:LayoutGroup View="GroupBox" Grid.Column="2">
+                                    <dxlc:LayoutGroup.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="{dx:DXImage Image=Currency2_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                            <TextBlock  Text="Amount" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </dxlc:LayoutGroup.Header>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="105"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=Currency2_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock  Text="Taxable Income " VerticalAlignment="Center"/>
+                                            </StackPanel>
+
+                                            <dxe:TextEdit Grid.Column="1" TabIndex="8" Height="22" x:Name="txtTaxableIncome"
+                                               Text="0"
+                                              MaskType="Numeric" 
+                                              Mask="n2" 
+                                              MaskUseAsDisplayFormat="True"/>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="105"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=Action_Show_PivotGrid_Designer.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Tax Chargeable " VerticalAlignment="Center"/>
+
+
+                                            </StackPanel>
+
+                                            <dxe:TextEdit Grid.Column="1" TabIndex="8" Height="22" x:Name="txtTaxChargeable"
+                                               Text="0"
+                                              MaskType="Numeric" 
+                                              Mask="n2" 
+                                              MaskUseAsDisplayFormat="True"/>
+
+                                        </Grid>
+
+                                        <Grid Grid.Row="2" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="107"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=Action_Show_PivotGrid_Designer.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="NTN no." VerticalAlignment="Center"/>
+
+
+                                            </StackPanel>
+
+                                            <dxe:TextEdit Grid.Column="1" TabIndex="8" Height="22" x:Name="txtNTNnumber"/>
+
+                                        </Grid>
+
+                                        <TextBlock Grid.Row="3" Height="25" Margin="0 0 0 0"/>
+
+                                    </Grid>
+                                </dxlc:LayoutGroup>
+
+                                <dxlc:LayoutGroup View="GroupBox" Grid.Column="4">
+                                    <dxlc:LayoutGroup.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="{dx:DXImage Image=Currency2_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                            <TextBlock  Text="Tax Details" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </dxlc:LayoutGroup.Header>
+                                    <Grid>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Row="0" Visibility="Visible">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=Time_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Text="Tax Year" Grid.Row="2" VerticalAlignment="Center"/>
+
+
+                                            </StackPanel>
+
+                                            <dxe:DateEdit Grid.Column="1" 
+                                              Height="22"
+                                              Name="datTaxYear"
+                                              TabIndex="2" 
+                                              FontWeight="Black"
+                                                          MaskType="DateTime"
+                                                          Mask="yyyy"
+                                                          MaskUseAsDisplayFormat="True">
+                                                <dxe:DateEdit.StyleSettings>
+                                                    <dxe:DateEditPickerStyleSettings/>
+                                                </dxe:DateEdit.StyleSettings>
+                                            </dxe:DateEdit>
+
+                                            <TextBlock Text="Tax Quarter" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
+                                            <dxe:SpinEdit VerticalAlignment="Center"
+                                                          x:Name="spnQuarter"
+                                                          Grid.Column="3"
+                                                          Grid.Row="0"                          
+                                                          MinValue="1"
+                                                          MaxValue="4"/>
+                                        </Grid>
+
+                                        <Grid  Grid.Row="1" Visibility="Visible"  Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=User_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Text="Is Employee" Grid.Row="2" VerticalAlignment="Center"/>
+                                            </StackPanel>
+
+                                            <dxe:CheckEdit Grid.Column="1" x:Name="chkIsFilerEmployee" Checked="ChkIsFilerEmployee_Checked" Unchecked="ChkIsFilerEmployee_Unchecked"/>
+                                        </Grid>
+
+                                        <Grid  Grid.Row="2" Visibility="Visible"  Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="90"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=User_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Text="Filer Name" Grid.Row="2" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <dxe:TextEdit Grid.Column="1" 
+                                              Height="22"
+                                              Name="txtFilerName"
+                                              FontWeight="Black"/>
+
+                                            <ComboBox x:Name="cmbEmployee"
+                                                VerticalAlignment="Top"
+                                                Grid.Column="1"
+                                                GotFocus="cmbEmployee_GotFocus"
+                                                Margin="0,2,0,0" Visibility="Collapsed">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel  Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding id}"
+                                                                Visibility="Hidden" />
+                                                            <TextBlock Text="{Binding name}"></TextBlock>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </Grid>
+
+                                        <Grid Grid.Row="3" Visibility="Visible" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{dx:DXImage Image=Currency2_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Text="Deposited Tax" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <dxe:TextEdit Text="0" x:Name="txtDepositedTax" Grid.Column="1" Height="22"  MaskType="Numeric" 
+                                              Mask="n2" 
+                                              MaskUseAsDisplayFormat="True"/>
+                                        </Grid>
+
+
+                                        <Grid Grid.Row="3" Visibility="Visible" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="115"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"/>
+                                        </Grid>
+
+
+                                    </Grid>
+
+                                </dxlc:LayoutGroup>
+
+                                <dxlc:LayoutGroup View="GroupBox" Grid.Column="0" Grid.Row="0">
+                                    <dxlc:LayoutGroup.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="{dx:DXImage Image=BO_Department.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                            <TextBlock  Text="Users Involved" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </dxlc:LayoutGroup.Header>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid Grid.Column="0" Grid.Row="0" x:Name="grdCreator">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="98"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=User_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                                <TextBlock Grid.Row="1" Text="Creator "/>
+
+
+                                            </StackPanel>
+
+                                            <dxe:TextEdit Grid.Row="1" Grid.Column="1" Height="22" x:Name="txtCreator" IsReadOnly="True"/>
+                                        </Grid>
+
+
+                                        <Grid Grid.Row="1" x:Name="grdUpervisedBy" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="98"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=BO_User.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+
+                                                <TextBlock Text="Supervised By" Grid.Row="0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <dxg:LookUpEdit x:Name="lookUpSupervisedBy" 
+                                            Grid.Row="5" 
+                                            Grid.Column="1" 
+                                            Margin="0 2 0 0"
+                                                DisplayMember="userName"
+                                                            ValueMember="id"
+                                                            AutoPopulateColumns="False">
+
+                                                <dxg:LookUpEdit.PopupContentTemplate>
+                                                    <ControlTemplate>
+                                                        <Grid>
+                                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None"
+                                                                            CustomRowFilter="GrdCntrlSupervisedBy_CustomRowFilter">
+                                                                <dxg:GridControl.View>
+                                                                    <dxg:TableView Name="treeViewAssignedToUsers"/>
+                                                                </dxg:GridControl.View>
+
+                                                                <dxg:GridColumn  Width="auto" FieldName="employee.person.Photo" Header="Photo" >
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:ImageEditSettings MaxWidth="35"/>
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+
+                                                                <dxg:GridColumn x:Name="coluserName"
+                                    FieldName="userName" VisibleIndex="1"
+                                    Header="User"
+                                    IsSmart="True"/>
+
+                                                                <dxg:GridColumn
+                                    FieldName="employee.isTaskType" VisibleIndex="2"
+                                    Header="Task Type"
+                                    IsSmart="True"
+                                        Visible="False"
+                                        ShowInColumnChooser="False"/>
+
+                                                                <dxg:GridColumn FieldName="UserType"
+                                                    Header="User Type"
+                                                    IsSmart="True"
+                                                    VisibleIndex="2"
+                                                    UnboundType="String" UnboundExpression="Iif([employee.isTaskType] = True, 'Alien', 'Normal')"/>
+                                                            </dxg:GridControl>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </dxg:LookUpEdit.PopupContentTemplate>
+                                            </dxg:LookUpEdit>
+
+
+                                        </Grid>
+
+                                        <Grid Grid.Row="2" x:Name="grdAssignedBy" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="98"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=BO_User.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+
+                                                <TextBlock Text="Assigned By" Grid.Row="0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <dxg:LookUpEdit x:Name="lookUpAssignedBy" 
+                                            Grid.Row="5" 
+                                            Grid.Column="1" 
+                                            Margin="0 2 0 0"
+                                                DisplayMember="userName"
+                                                            ValueMember="id"
+                                                            AutoPopulateColumns="False">
+
+                                                <dxg:LookUpEdit.PopupContentTemplate>
+                                                    <ControlTemplate>
+                                                        <Grid>
+
+                                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None"
+                                                                             CustomRowFilter="GrdCntrlAssignedBy_CustomRowFilter">
+                                                                <dxg:GridControl.View>
+                                                                    <dxg:TableView Name="treeViewAssignedToUsers"/>
+                                                                </dxg:GridControl.View>
+
+                                                                <dxg:GridColumn FieldName="id"
+                                    x:Name="colId"
+                                    IsSmart="True"
+                                    Visible="False"/>
+
+                                                                <dxg:GridColumn VisibleIndex="0" Width="auto" FieldName="employee.person.Photo" Header="Photo" >
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:ImageEditSettings MaxWidth="40"/>
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+
+                                                                <dxg:GridColumn x:Name="coluserName"
+                                    FieldName="userName" VisibleIndex="1"
+                                    Header="User"
+                                    IsSmart="True"/>
+
+                                                                <dxg:GridColumn
+                                    FieldName="employee.isTaskType" VisibleIndex="2"
+                                    Header="Task Type"
+                                    IsSmart="True"
+                                        Visible="False"
+                                        ShowInColumnChooser="False"/>
+
+                                                                <dxg:GridColumn FieldName="UserType"
+                                                    Header="User Type"
+                                                    IsSmart="True"
+                                                    VisibleIndex="2"
+                                                    UnboundType="String" UnboundExpression="Iif([employee.isTaskType] = True, 'Alien', 'Normal')"/>
+                                                            </dxg:GridControl>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </dxg:LookUpEdit.PopupContentTemplate>
+                                            </dxg:LookUpEdit>
+
+
+                                        </Grid>
+
+                                        <Grid Grid.Row="3" x:Name="grdAssignedTo" Margin="0 0 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="98"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=BO_User.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+
+                                                <TextBlock Text="Assigned To" Grid.Row="0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <dxg:LookUpEdit x:Name="lookUpAssignedTo" 
+                                            Grid.Row="5" 
+                                            Grid.Column="1" 
+                                            Margin="0 2 0 0"
+                                                            AutoPopulateColumns="False"
+                                                DisplayMember="userName"
+                                                            ValueMember="id"
+                                                            SelectedIndexChanged="LookUpAssignedTo_SelectedIndexChanged">
+
+                                                <dxg:LookUpEdit.PopupContentTemplate>
+                                                    <ControlTemplate>
+                                                        <Grid>
+                                                            <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None"
+                                                                             CustomRowFilter="GrdCntrlAssignedTo_CustomRowFilter">
+                                                                <dxg:GridControl.View>
+                                                                    <dxg:TableView Name="treeViewAssignedToUsers"/>
+                                                                </dxg:GridControl.View>
+
+                                                                <dxg:GridColumn FieldName="id"
+                                    x:Name="colId"
+                                    IsSmart="True"
+                                    Visible="False"/>
+
+                                                                <dxg:GridColumn VisibleIndex="0" Width="auto" FieldName="employee.person.Photo" Header="Photo" >
+                                                                    <dxg:GridColumn.EditSettings>
+                                                                        <dxe:ImageEditSettings MaxWidth="40"/>
+                                                                    </dxg:GridColumn.EditSettings>
+                                                                </dxg:GridColumn>
+
+                                                                <dxg:GridColumn x:Name="coluserName"
+                                    FieldName="userName" VisibleIndex="1"
+                                    Header="User"
+                                    IsSmart="True"/>
+
+                                                                <dxg:GridColumn
+                                    FieldName="employee.isTaskType" VisibleIndex="2"
+                                    Header="Task Type"
+                                    IsSmart="True"
+                                        Visible="False"
+                                        ShowInColumnChooser="False"/>
+
+                                                                <dxg:GridColumn FieldName="UserType"
+                                                    Header="User Type"
+                                                    IsSmart="True"
+                                                    VisibleIndex="2"
+                                                    UnboundType="String" UnboundExpression="Iif([employee.isTaskType] = True, 'Alien', 'Normal')"/>
+                                                            </dxg:GridControl>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </dxg:LookUpEdit.PopupContentTemplate>
+                                            </dxg:LookUpEdit>
+
+
+                                        </Grid>
+
+                                    </Grid>
+
+                                </dxlc:LayoutGroup>
+                            </Grid>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="16">
+                                <dxlc:LayoutGroup View="GroupBox" Grid.Column="2">
+                                    <dxlc:LayoutGroup.Header>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Image Source="{dx:DXImage Image=Currency2_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                            <TextBlock  Text="Sale Tax Details" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </dxlc:LayoutGroup.Header>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="Input Tax: " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <dxe:TextEdit x:Name="txtInputTax" Grid.Column="1" Text="0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="Output Tax: " Grid.Column="2" Margin="15 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <dxe:TextEdit x:Name="txtOutputTax" Grid.Column="3" Text="0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="Refund Amount Claim: " Grid.Column="4" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                        <dxe:TextEdit x:Name="txtRefundAmount" Grid.Column="5" Text="0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="Credit Carried Forward: " Grid.Row="0" Grid.Column="6" Margin="15 0 0 0" VerticalAlignment="Center"/>
+                                        <dxe:TextEdit x:Name="txtCreditCarriedForward" Text="0" Grid.Row="0" Grid.Column="7" 
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+
+                                        <TextBlock Text="Accumulated Credit: " VerticalAlignment="Center" Grid.Row="1" Margin="0 5 0 0"/>
+                                        <dxe:TextEdit x:Name="txtAccumulatedCredit" Text="0" Grid.Column="1" Grid.Row="1" Margin="0 5 0 0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="Accumulated Debit: " Grid.Row="1" Grid.Column="2" Margin="15 5 0 0" VerticalAlignment="Center"/>
+                                        <dxe:TextEdit x:Name="txtAccumulatedDebit" Text="0" Grid.Row="1" Grid.Column="3" Margin="0 5 0 0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="FED Payeble: " Grid.Row="1" Grid.Column="4" Margin="15 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <dxe:TextEdit x:Name="txtFEDpayable" Text="0" Grid.Row="1" Grid.Column="5" Margin="0 5 0 0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="Sale Tax Payable: " Grid.Row="2" Grid.Column="0" Margin="0 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <dxe:TextEdit x:Name="txtSaleTaxPayable" Text="0" Grid.Row="2" Grid.Column="1" Margin="0 5 0 0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+
+
+                                        <TextBlock Text="PL Payable: " VerticalAlignment="Center" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Right" Margin="0 5 0 0"/>
+                                        <dxe:TextEdit x:Name="txtPLpayable" Text="0" Grid.Column="7" Grid.Row="1" Margin="0 5 0 0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+                                        <TextBlock Text="Total Amount Paid: " Grid.Row="2" Grid.Column="2" Margin="15 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                        <dxe:TextEdit x:Name="txtTotalAmountPaid" Text="0" Grid.Row="2" Grid.Column="3"  Margin="0 5 0 0"
+                                                      Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+
+
+                                        <Border Grid.Column="4" Grid.ColumnSpan="4" Grid.Row="2" Margin="15 5 0 0" BorderBrush="DeepSkyBlue" BorderThickness="2" Padding="1">
+                                            <Grid >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text=" Period:           From " VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                                <dxe:DateEdit Grid.Column="1" 
+                                                              x:Name="datFrom"/>
+
+                                                <TextBlock Text="    To " Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                                <dxe:DateEdit Grid.Column="3"
+                                                              x:Name="datTo"/>
+
+                                            </Grid>
+                                        </Border>
+
+                                    </Grid>
+                                </dxlc:LayoutGroup>
+                            </Grid>
+                            
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="18" Visibility="Visible">
+
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="2*"/>
+
+                                </Grid.ColumnDefinitions>
+
+                                <dx:DXTabControl Grid.Column="0" Padding="5">
+                                    <dx:DXTabItem
+                          x:Name="tabDescription">
+
+                                        <dx:DXTabItem.Header>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Image Source="{dx:DXImage Image=ModelEditor_DetailView.png}" Width="18" Height="18"  Margin="0,0,5,0"/>
+
+
+
+
+                                                <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Description" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </dx:DXTabItem.Header>
+                                        <Border Grid.Row="1" Padding="1" BorderBrush="DeepSkyBlue" BorderThickness="2" CornerRadius="0">
+                                            <!--<Border.Style>                                                <Style TargetType="Border">                                                    <Setter Property="Effect">                                                        <Setter.Value>                                                            <DropShadowEffect BlurRadius="8" Color="Blue" ShadowDepth="0"/>                                                        </Setter.Value>                                                    </Setter>                                                </Style>                                            </Border.Style>-->
+                                            <TextBox x:Name="txtDescription" FontSize="16" FontWeight="DemiBold" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextChanged="TxtDescription_TextChanged" />
+                                        </Border>
+                                    </dx:DXTabItem>
+                                </dx:DXTabControl>
+
+                                <!--<Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 5">
+                                    <Image Source="{dx:DXImage Image=ModelEditor_DetailView.png}" Width="20" Height="20"  Margin="0,0,5,0"/>
+                                    <TextBlock Text="Description" FontSize="16" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                    <Border Grid.Row="1" Padding="5" BorderBrush="BlueViolet" BorderThickness="1" CornerRadius="10">
+                                        <Border.Style>                                            <Style TargetType="Border">                                                <Setter Property="Effect">                                                    <Setter.Value>                                                        <DropShadowEffect BlurRadius="14" Color="Blue" ShadowDepth="0"/>                                                    </Setter.Value>                                                </Setter>                                            </Style>                                        </Border.Style>
+                                        <TextBox x:Name="txtDescription" FontSize="16" FontWeight="DemiBold" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" TextChanged="TxtDescription_TextChanged" />
+                                    </Border>
+                                </Grid>-->
+
+
+
+                                <Grid Grid.Column="2">
+                                    <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 5">
+                                        <Image Source="/ZAS_ERP;component/images/tracking.png" Width="20" Height="20"  Margin="0,2,5,0"/>
+                                        <TextBlock Text="Tracking Details" FontSize="16" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center" />
+                                    </StackPanel>-->
+
+                                    <dx:DXTabControl Grid.Column="0" Padding="5">
+                                        <dx:DXTabItem
+                          x:Name="tabTrackingDetails">
+                                            <dx:DXTabItem.Header>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <Image Source="/ZAS_ERP;component/images/tracking.png" Width="18" Height="18"  Margin="0,0,5,0"/>
+
+
+
+
+                                                    <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Tracking Details" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </dx:DXTabItem.Header>
+
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="30"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <Border Grid.Row="0" Padding="1" BorderBrush="DeepSkyBlue" BorderThickness="2" CornerRadius="5">
+                                                    <!--<Border.Style>                                            <Style TargetType="Border">                                                <Setter Property="Effect">                                                    <Setter.Value>                                                        <DropShadowEffect BlurRadius="14" Color="Blue" ShadowDepth="0"/>                                                    </Setter.Value>                                                </Setter>                                            </Style>                                        </Border.Style>-->
+                                                    <dxg:GridControl x:Name="grdTaskTracking"
+                                                     Grid.Row="1"
+                                                     SelectionMode="Row"
+                                                     CustomUnboundColumnData="GrdTaskTracking_CustomUnboundColumnData">
+
+                                                        <dxg:GridControl.View>
+                                                            <dxg:TableView
+                                                           ShowGroupPanel="False"
+                                                           AllowColumnFiltering="False"
+                                                           VerticalScrollbarVisibility="Auto"
+                                                           ShowHorizontalLines="True"
+                                                           ShowVerticalLines="True"
+                                                           x:Name="viewItem" BestFitMode="VisibleRows"  
+                        BestFitMaxRowCount="100"  
+                        AutoWidth="False"
+                                                                         ShowIndicator="False"/>
+                                                        </dxg:GridControl.View>
+
+                                                        <dxg:GridColumn FieldName="UpdateDateTime"
+                                                        Header="Date Time"
+                                                        VisibleIndex="0"
+                                                        AllowEditing="false" Width="auto">
+                                                            <dxg:GridColumn.EditSettings>
+                                                                <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                                                            </dxg:GridColumn.EditSettings>
+                                                        </dxg:GridColumn>
+
+                                                        <dxg:GridColumn FieldName="UpdatedByy"
+                                                        Header="Updated By"
+                                                        VisibleIndex="1"
+                                                        UnboundType="string"
+                                                        AllowEditing="false" Width="auto">
+                                                            <dxg:GridColumn.EditSettings>
+                                                                <dxe:TextEditSettings TextWrapping="Wrap"/>
+                                                            </dxg:GridColumn.EditSettings>
+                                                        </dxg:GridColumn>
+
+                                                        <dxg:GridColumn FieldName="Description"
+                                                        Header="Details"
+                                                        VisibleIndex="2"
+                                                        AllowEditing="false" Width="auto"/>
+                                                    </dxg:GridControl>
+                                                </Border>
+
+                                                <dx:SimpleButton Grid.Row="1" Grid.Column="1" x:Name="btnSaveTracking" Click="BtnSaveTracking_Click" FontWeight="Bold" FontSize="14">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="{dx:DXImage Image=Add_32x32.png}" Width="20" Height="20"  Margin="0,0,5,0"/>
+                                                        <TextBlock Text="Add Tracking"/>
+                                                    </StackPanel>
+                                                </dx:SimpleButton>
+                                            </Grid>
+                                        </dx:DXTabItem>
+                                    </dx:DXTabControl>
+                                </Grid>
+                            </Grid>
+
+
+                        </Grid>
+                    </dxlc:LayoutGroup>
+                </dx:DXTabItem>
+
+                <dx:DXTabItem
+                          x:Name="tabUsers"
+                          GotFocus="TabUsers_GotFocus"
+                          LostFocus="TabUsers_LostFocus" >
+
+                    <dx:DXTabItem.Header>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Image Source="{dx:DXImage Image=User_16x16.png}" Width="18" Height="18"  Margin="0,0,5,0"/>
+
+
+
+
+                            <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Allowed Users" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </dx:DXTabItem.Header>
+                    <Border Grid.Row="1" Padding="1" BorderBrush="DeepSkyBlue" BorderThickness="2" CornerRadius="5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Row="0"  Grid.Column="0">
+                                <TextBlock  Text="Allowed User List" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="DemiBold" Background="Beige" FontSize="14"/>
+
+                            </Grid>
+
+                            <Grid Grid.Row="0"   Grid.Column="2">
+                                <TextBlock  Text="Allowed Selected User" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="DemiBold" Background="Beige" FontSize="14"/>
+
+                            </Grid>
+
+
+                            <Grid Grid.Row="1" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="337*"/>
+                                    <ColumnDefinition Width="99*"/>
+                                </Grid.ColumnDefinitions>
+                                <dxg:GridControl x:Name="grdCntrlUsers" Margin="8"
+                                 AutoGenerateColumns="None"
+                                 SelectionMode="Row"
+                                                 CustomRowFilter="GrdCntrlUsers_CustomRowFilter"
+                                 AllowInitiallyFocusedRow="False" Grid.ColumnSpan="2">
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView x:Name="gridUsersView"
+                                          AutoWidth="True"
+                                          ShowGroupPanel="False"
+                                          IsSynchronizedWithCurrentItem="True"
+                                          AllowEditing="False"
+                                          UseIndicatorForSelection="True"
+                                          FadeSelectionOnLostFocus="False"
+                                          ShowSelectionRectangle="True"       
+                                          ShowAutoFilterRow="True"
+                                          ShowIndicator="False" >
+                                        </dxg:TableView>
+                                    </dxg:GridControl.View>
+
+                                    <dxg:GridColumn FieldName="id"
+                                    x:Name="colId"
+                                    IsSmart="True"
+                                    Visible="False"/>
+
+                                    <dxg:GridColumn VisibleIndex="0" Width="auto" FieldName="employee.person.Photo" Header="Photo" >
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:ImageEditSettings MaxWidth="40"/>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+
+                                    <dxg:GridColumn x:Name="coluserName"
+                                    FieldName="userName" VisibleIndex="1"
+                                    Header="User"
+                                    IsSmart="True"/>
+
+                                    <dxg:GridColumn
+                                    FieldName="employee.isTaskType" VisibleIndex="2"
+                                    Header="Task Type"
+                                    IsSmart="True"
+                                        Visible="False"
+                                        ShowInColumnChooser="False"/>
+
+                                    <dxg:GridColumn FieldName="UserType"
+                                                    Header="User Type"
+                                                    IsSmart="True"
+                                                    VisibleIndex="2"
+                                                    UnboundType="String" UnboundExpression="Iif([employee.isTaskType] = True, 'Alien', 'Normal')"/>
+                                </dxg:GridControl>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Image Source="/ZAS_ERP;component/images/Forward_32x32.png" Grid.Row="1"  x:Name="imgLeftToRight" MouseDown="imgLeftToRight_MouseDown" Width="32" Height="32"  MouseUp="imgLeftToRight_MouseUp" Margin="10,0,10,0"/>
+                                <Image Source="/ZAS_ERP;component/images/Backward_32x32.png" MouseDown="btnLeftMoveCustomer_MouseDown" MouseUp="btnLeftMoveCustomer_MouseUp"  Grid.Row="2" Name="imgRightToLeft"  Height="32" Width="32"  Margin="10,0,10,0"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="2">
+                                <dxg:GridControl x:Name="grdCntrlUsersSelected" Margin="8"
+                                 AutoGenerateColumns="None"
+                                 SelectionMode="Row"
+                                 AllowInitiallyFocusedRow="False"
+                                                 CustomRowFilter="GrdCntrlUsersSelected_CustomRowFilter">
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView x:Name="gridUsersViewSelected"
+                                          AutoWidth="True"
+                                          ShowGroupPanel="False"
+                                          IsSynchronizedWithCurrentItem="True"
+                                          AllowEditing="False"
+                                          
+                                          UseIndicatorForSelection="True"
+                                          FadeSelectionOnLostFocus="False"
+                                          ShowSelectionRectangle="True"       
+                                          ShowAutoFilterRow="True"
+                                          ShowIndicator="False" >
+                                        </dxg:TableView>
+                                    </dxg:GridControl.View>
+
+                                    <dxg:GridColumn FieldName="id"
+                                    x:Name="colIds"
+                                    IsSmart="True"
+                                    Visible="False"/>
+
+                                    <dxg:GridColumn VisibleIndex="0" Width="auto" FieldName="employee.person.Photo" Header="Photo" >
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:ImageEditSettings MaxWidth="40"/>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+
+                                    <dxg:GridColumn x:Name="coluserNameSelected"
+                                    FieldName="userName" VisibleIndex="1"
+                                    Header="User"
+                                    IsSmart="True"/>
+
+                                    <dxg:GridColumn
+                                    FieldName="employee.isTaskType" VisibleIndex="2"
+                                    Header="Task Type"
+                                    IsSmart="True"
+                                        Visible="False"
+                                        ShowInColumnChooser="False"/>
+
+                                    <dxg:GridColumn FieldName="UserType"
+                                                    Header="User Type"
+                                                    IsSmart="True"
+                                                    VisibleIndex="2"
+                                                    UnboundType="String" UnboundExpression="Iif([employee.isTaskType] = True, 'Alien', 'Normal')"/>
+                                </dxg:GridControl>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+        </Grid>
+
+        <Grid  VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <dx:SimpleButton Grid.Column="0" x:Name="btnSave" Click="BtnSave_Click" Height="40" FontWeight="Bold" FontSize="20">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{dx:DXImage Image=Action_Validation_Validate_32x32.png}" Width="25" Height="25"  Margin="0,0,5,0"/>
+                    <TextBlock Text="Save"/>
+                </StackPanel>
+            </dx:SimpleButton>
+
+
+        </Grid>
+
+        <Grid Name="grdProgressBar" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100" Width="300" Background="LightGray">
+            <ProgressBar x:Name="pbarDownloading" Grid.ColumnSpan="2" IsIndeterminate="True" HorizontalAlignment="Center" VerticalAlignment="Center"  Minimum="0" Maximum="100" Height="25" Width="280" Foreground="LightGreen"/>
+            <Label Content="Downloading..." HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Blue"/>
+            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Margin="10,5" x:Name="txtInvoiced" Foreground="Blue" Text="Downloading" FontSize="16" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" />
+                <TextBlock Margin="10,5" x:Name="txtPbarValue" Foreground="Blue" FontWeight="DemiBold" FontSize="16"  Text="{Binding ElementName=pbarTarget , Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" />
+            </StackPanel>-->
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,67 @@
+﻿<Window x:Class="ZAS_ERP.BackgroundUpload.frmSelectGroups"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.BackgroundUpload" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d" Loaded="Window_Loaded"
+        Title="Background Groups" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <dxg:GridControl x:Name="grdCntrlGroupList" Visibility="Visible" Grid.Row="0" AutoGenerateColumns="None" 
+                        
+            EnableSmartColumnsGeneration="True">
+
+           
+            <dxg:GridControl.View>
+                <dxg:TreeListView CustomUnboundColumnData="tblGroupListView_CustomUnboundColumnData"
+                        x:Name="tblGroupListView"
+                            ShowSearchPanelFindButton="True"
+                    ShowSearchPanelMode="Always"
+                            KeyFieldName="Id"
+                        ParentFieldName="parentId"
+                    
+                    />
+            </dxg:GridControl.View>
+
+            <dxg:GridColumn FieldName="creationDate"
+                                    Header="Creation Date"
+                                    VisibleIndex="0"
+                                    AllowEditing="false"
+                                Visible="False"/>
+
+            <dxg:GridColumn FieldName="GroupName" 
+                                    Header="Group Name"
+                                    VisibleIndex="1"
+                                    AllowEditing="false"/>
+            <dxg:GridColumn FieldName="dept" 
+                                    Header="Department Name"
+                                    VisibleIndex="2"
+                                    AllowEditing="false" UnboundType="String"/>
+            <dxg:GridColumn FieldName="comp" 
+                                    Header="Company Name"
+                                    VisibleIndex="3"
+                                    AllowEditing="false" UnboundType="String"/>
+            <dxg:GridColumn FieldName="emp" 
+                                    Header="Employee Name"
+                                    VisibleIndex="4"
+                                    AllowEditing="false" UnboundType="String"/>
+
+
+
+
+            <dxg:GridColumn FieldName="Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+            <dxg:GridColumn FieldName="GroupCreatorId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+            <dxg:GridColumn FieldName="GroupCreator" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+            <dxg:GridColumn FieldName="users" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+            <dxg:GridColumn FieldName="parentId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+            <dxg:GridColumn FieldName="parentGroup" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+            <dxg:GridColumn FieldName="isBackground" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+        </dxg:GridControl>
+
+        <dx:SimpleButton Grid.Row="1" Content="Save" FontWeight="DemiBold" FontSize="16" x:Name="btnSave" Click="btnSave_Click"/>
+    </Grid>
+</Window>

@@ -1,0 +1,362 @@
+﻿<dx:DXWindow xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"   xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.Offerss.winComparativeStatements"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Offerss" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" Loaded="DXWindow_Loaded"
+        mc:Ignorable="d"
+        Title="Comparative Statement" Height="450" Width="1200" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v"/>
+    </Window.Resources>
+    <Grid  Grid.Row="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
+            <!--<MenuItem Height="30" Header="_Create SaleOrder" x:Name="btnCreateSO"
+                  Click="btnCreateSO_Click" IsEnabled="True"  >
+                <MenuItem.Icon>
+                    <Image Source="/ZAS_ERP;component/images/SalesOrder.png"/>
+                </MenuItem.Icon>
+            </MenuItem>-->
+        </StackPanel>
+        <dxe:ToggleSwitch  
+            UncheckedStateContent="Grid View" 
+            Unchecked="ToggleSwitch_Unchecked" 
+            Checked="ToggleSwitch_Checked"
+            CheckedStateContent="Pivot View" 
+            Grid.Row="1" 
+            Grid.Column="3"
+            Margin="5,5,20,5"
+            />
+        <dx:SimpleButton 
+     x:Name="btnPrint"
+            Content="Print Preview"
+            Grid.Row="1" 
+            Grid.Column="2"
+            Margin="5"
+            Click="btnPrint_Click"
+            />
+        <TextBlock x:Name="lblHeading" Text="Vendors Comparative Statement"    
+                   FontWeight="Bold"  
+                   Background="Beige" 
+                   FontSize="15"   
+                   Margin="5"
+                   Grid.ColumnSpan="4"  
+                   HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  ></TextBlock>
+
+
+        <dxpg:PivotGridControl Name="grdPivotComparativeStatement" 
+                               CustomUnboundFieldData="grdPivotComparativeStatement_CustomUnboundFieldData"
+                               Grid.Row="2"
+                               Grid.ColumnSpan="4" 
+                               
+                               DataProcessingEngine="Default" 
+                               VerticalAlignment="Stretch"
+                               RowFieldValuesAlignment="Stretch"
+                               RowTreeMinWidth="100" 
+                               ShowDataHeaders="False"
+                               ShowFilterHeaders="False" 
+                               ShowRowGrandTotals="True"
+                               PrintColumnHeaders="True"
+                               
+                               ShowRowGrandTotalHeader="False"
+                               ShowRowHeaders="True"
+                               ShowRowTotals="True" 
+                              MouseDoubleClick="grdPivotComparativeStatement_MouseDoubleClick"
+                               ShowColumnHeaders="True"
+                               ShowColumnGrandTotalHeader="True" 
+                               ShowColumnGrandTotals="False"
+                               ColumnFieldValuesAlignment="Center"
+                               RowTreeWidth="100" PrintLayoutMode="MultiplePagesLayout"
+                               >
+            <dxpg:PivotGridControl.Fields >
+                <dxpg:PivotGridField Name="product" 
+                                     FieldName="product.inquiryProduct.ownDiscription" 
+                                     Caption="Offer Items"
+                                     
+                                     GroupIndex="1"
+                                     Area="RowArea"  >
+
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField Name="vendor" 
+                                     FieldName="vendor.vendorName" 
+                                     GroupName="Own Description"
+                                     Caption="Vendor"                     
+                                     Area="FilterArea">
+
+                </dxpg:PivotGridField>
+
+                <dxpg:PivotGridField  x:Name="pivoteVendorName"
+                                     FieldName="vendorName" 
+                                     GroupName="Vendor Name"
+                                     Caption="Vendor Name"  
+                                     AreaIndex="0"
+                                     Area="ColumnArea">
+
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField x:Name="pivoteOfferValue"
+                                     FieldName="offerValue" 
+                                     GroupName="Offer Value"
+                                     Caption="Offer Value"
+                                     Area="ColumnArea" BestFitMode="VisibleRows" RunningTotal="True" ShowGrandTotal="True" ShowTotals="False"  >
+
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField  x:Name="pivoteOfferCurrency"
+                                     FieldName="offerCurrency.CurrencyName" 
+                                     Caption="Offer Currency"
+                                     Area="FilterArea" AreaIndex="2" >
+
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField x:Name="offerTotalAmountOC"
+                                     FieldName="totalAmountOC" 
+                                     Caption="Total Cost (VC)"
+                                     UnboundType="String"
+                                     RunningTotal="True" 
+                                     ShowGrandTotal="True"
+                                     ShowTotals="False"
+                                     Area="DataArea"  >
+
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField  x:Name="pivottotalAmountMER"
+                                     FieldName="totalAmountMER" 
+                                     Caption="Total Cost (COFC)"
+                                    RunningTotal="True" 
+                                    ShowGrandTotal="True" 
+                                    ShowTotals="False"
+                                    UnboundType="String"
+                                    Area="DataArea"  >
+
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField  x:Name="incoTerm"
+                                     FieldName="incoTerm.term" 
+                                     Caption="Offer IncoTerm"
+                                     AreaIndex="1"
+                                     Area="ColumnArea"  >
+                </dxpg:PivotGridField>
+                <dxpg:PivotGridField FieldName="itemIncoTerm.term" 
+                                     Caption="Vendor IncoTerm"
+                                     AreaIndex="1"
+                                     Area="ColumnArea"  >
+
+
+                </dxpg:PivotGridField>
+            </dxpg:PivotGridControl.Fields>
+        </dxpg:PivotGridControl>
+
+        <dxg:GridControl x:Name="grdComparativeStatement"
+                       AutoGenerateColumns="None"
+                       Grid.Row="2"
+                     
+                       Grid.ColumnSpan="4"
+                       AutoExpandAllGroups="True"
+                       SelectionMode="Row"
+                       ItemsSource="comparativeStatements"       
+                       MouseDoubleClick="grdComparativeStatement_MouseDoubleClick"
+                       CustomUnboundColumnData="grdComparativeStatement_CustomUnboundColumnData"  
+                       >
+
+            <dxg:GridControl.View>
+                <dxg:TableView ShowFixedTotalSummary="True" ShowGroupFooters="False"   AutoWidth="True"  ShowGroupPanel="False" ShowTotalSummary="True">
+                    <dxg:TableView.FormatConditions>
+                        <dxg:FormatCondition ApplyToRow="false" Expression="[totalAmountOC] &gt; '0'" FieldName="totalAmountOC">
+                            <dx:Format Background="#FFF5F5DC"/>
+                        </dxg:FormatCondition>
+                        <dxg:FormatCondition ApplyToRow="false" Expression="[totalAmountMER] &gt; '0'" FieldName="totalAmountMER">
+                            <dx:Format Background="#FFF5F5DC"/>
+                        </dxg:FormatCondition>
+                        <dxg:FormatCondition ApplyToRow="false" Expression="[offerValue] &gt; '0'" FieldName="offerValue">
+                            <dx:Format Background="#FFF5F5DC"/>
+                        </dxg:FormatCondition>
+                        <dxg:ColorScaleFormatCondition ApplyToRow="true" FieldName="totalAmountOC">
+                            <dx:ColorScaleFormat ColorMax="#FFADD8E6" ColorMin="#FFADD8E6"/>
+                        </dxg:ColorScaleFormatCondition>
+                        <dxg:FormatCondition Expression="[isSelect] = 'True'" FieldName="isSelect"  ApplyToRow="false">
+                            <dx:Format Background="#FF008000" />
+                        </dxg:FormatCondition>
+                        <dxg:FormatCondition Expression="[isSelect] = 'False'" FieldName="isSelect" ApplyToRow="false">
+                            <dx:Format Background="#FFFF0000" />
+                        </dxg:FormatCondition>
+                    </dxg:TableView.FormatConditions>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridControl.TotalSummary >
+                <dxg:GridSummaryItem x:Name="amountOC" FieldName="amountOC"  SummaryType="Sum"   DisplayFormat="{}{0:n2}" />
+                <dxg:GridSummaryItem x:Name="amountMER" FieldName="amountMER"  SummaryType="Sum"   DisplayFormat="{}{0:n2}" />
+
+            </dxg:GridControl.TotalSummary>
+            <dxg:GridControl.DetailDescriptor>
+                <dxg:DataControlDetailDescriptor ShowHeader="False"
+                                         x:Name="grdComparativeStatementItems"
+                                         ItemsSourcePath="comparativeStatementItems">
+                    <dxg:DataControlDetailDescriptor.DataControl>
+                        <dxg:GridControl x:Name="grdComparativeStatements" 
+                                         SelectionMode="None" 
+                                         ShowBorder="False"  >
+                            <dxg:GridControl.View>
+                                <dxg:TableView 
+                                              ShowGroupPanel="False"
+                                               AllowBandMoving="False"
+                                               AllowColumnMoving="False"
+                                               AllowSorting="False"   
+                                               AllowFilterEditor="False"
+                                               AllowColumnFiltering="True"
+                                               ShowHorizontalLines="True"
+                                               ShowVerticalLines="False"
+                                               AutoWidth="True"
+                                               HorizontalScrollbarVisibility="Visible"
+                                             >
+
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+
+                            <dxg:GridColumn FieldName="costSheetField.Title" 
+                                            Header="Account Head" 
+                                            ReadOnly="True"
+                                            VisibleIndex="0"/>
+                            <dxg:GridColumn FieldName="ownDescription" 
+                                            Header="Own Description" 
+                                                                                        ReadOnly="True"
+
+                                            VisibleIndex="1"/>
+                            <dxg:GridColumn FieldName="itemCurrency.CurrencyName"
+                                            Header="VC"                                             ReadOnly="True"
+
+                                            VisibleIndex="3"/>
+                            <dxg:GridColumn FieldName="convertedCurrency.CurrencyName"
+                                            Header="COC" 
+                                                                                        ReadOnly="True"
+
+                                            VisibleIndex="4"/>
+                            <dxg:GridColumn x:Name="MER" 
+                                            FieldName="MER" 
+                                            VisibleIndex="5"
+                                            UnboundType="Decimal"
+
+                                            ReadOnly="True" 
+                                            SortOrder="Ascending"
+                                            SortIndex="0">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="amountOC"                                             
+                                            ReadOnly="True"
+                                            Header="Cost (VC)" 
+                                            VisibleIndex="6">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="amountMER" ReadOnly="True" Header="Cost (COFC)" VisibleIndex="7" UnboundExpression="[amountOC] * [MER]">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                        </dxg:GridControl>
+                    </dxg:DataControlDetailDescriptor.DataControl>
+                </dxg:DataControlDetailDescriptor>
+            </dxg:GridControl.DetailDescriptor>
+
+            <dxg:GridColumn FieldName="vendor.company.CompanyName" 
+                            Header="Vendor" 
+                            ReadOnly="True" 
+                            VisibleIndex="0"/>
+            <dxg:GridColumn FieldName="vendorName" 
+                           
+                            Header="Vendor Name" 
+                            ReadOnly="True" 
+                            VisibleIndex="1"/>
+            <dxg:GridColumn FieldName="creator.userName" Header="Creator" ReadOnly="True" VisibleIndex="2">
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="incoTerm.term"
+                            Header="Offer IncoTerm" 
+                            ReadOnly="True" 
+                            VisibleIndex="3"/>
+            <dxg:GridColumn FieldName="itemIncoTerm.term" 
+                                            Header="Vendor IncoTerm" 
+                                            ReadOnly="True"
+                                            VisibleIndex="4"/>
+
+            <dxg:GridColumn FieldName="offerCurrency.CurrencyName"
+                            Header="Offer Currency"
+                            ReadOnly="True" 
+                            VisibleIndex="5"/>
+            <dxg:GridColumn FieldName="offerValue"
+                                        x:Name="offerValue"
+                                        IsSmart="True"
+                                        ReadOnly="True"
+                                        Header="Offer Value"
+                                        VisibleIndex="6"       
+                                        AllowSorting="false" 
+                                        AllowMoving="false"  
+                                        Visible="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="totalAmountOC"
+                                        x:Name="totalAmountOC"
+                                        IsSmart="True"
+                            ReadOnly="True"
+                                        Header="Total Cost (VC)"
+                                        UnboundType="Decimal"
+                                        VisibleIndex="7"       
+                                        AllowMoving="false"  
+                                        Visible="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="totalAmountMER"
+                                        x:Name="totalAmountMER"
+                                        IsSmart="True"
+                                        ReadOnly="True"
+                                        Header="Total Cost (COFC)"
+                                        UnboundType="Decimal"
+                                        VisibleIndex="8"       
+                                        AllowSorting="false" 
+                                        AllowMoving="false"  
+                                        Visible="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="isSelect"
+                                        x:Name="isSelect"
+                                        IsSmart="True"
+                            
+                                        ReadOnly="True"
+                                        Header="Selected"
+                                        VisibleIndex="10"     
+                                        ImageAlignment="Center"                            
+                                        AllowSorting="false" 
+                                        AllowMoving="false"  
+                                        Visible="True">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:ImageEditSettings/>
+                </dxg:GridColumn.EditSettings>
+
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="product.inquiryProduct.ownDiscription" 
+                           GroupIndex="1"
+                            Header="Prodct" 
+                            
+                            ReadOnly="True" 
+                            VisibleIndex="1"/>
+
+        </dxg:GridControl>
+
+    </Grid>
+</dx:DXWindow>

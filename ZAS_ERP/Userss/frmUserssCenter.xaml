@@ -1,0 +1,197 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="ZAS_ERP.Userss.frmUserssCenter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Userss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        mc:Ignorable="d"
+        Title="Users Center"
+        x:Name="winusersscenter"
+        Unloaded="Winusersscenter_Unloaded"
+        Loaded="winusersscenter_Loaded"
+        Height="500"
+        Width="800">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="1*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <!--<RowDefinition Height=".1*" />-->
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <!--<dx:DXDockPanel 
+                      Grid.Column="0">
+        <dx:DropDownButton HorizontalAlignment="Right"
+                           MinWidth="210" />
+        <dx:SimpleButton Content="GO"
+                         HorizontalAlignment="Right" />
+      </dx:DXDockPanel>-->
+      <dxg:GridControl x:Name="grdemployee"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       SelectionChanged="grdemployee_SelectionChanged"
+                       SelectionMode="Row">
+        <dxg:GridControl.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Add New "
+                      x:Name="btnNew"
+                      Click="btnNew_Click" />
+            <MenuItem Header="Change Password"
+                      x:Name="btnEdit"
+                      Click="btnEdit_Click" />
+            <!--<Separator />
+            <MenuItem Header="Delete Offer Status"
+                      x:Name="btnDeleteOfferStatus" />-->
+          </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+      </dxg:GridControl>
+      <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="1*" />
+          <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <dxlc:GroupBox Header="Employee Information"
+                       Background="White"
+                       Margin="5">
+          <dxlc:GroupBox.TitleBackground>
+            <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+              <GradientStop Color="#FFE6E8EB"
+                            Offset="0" />
+              <GradientStop Color="#FF6CA6FB"
+                            Offset="1" />
+            </LinearGradientBrush>
+          </dxlc:GroupBox.TitleBackground>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width=".5*" />
+              <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="50" />
+              <RowDefinition Height="50" />
+              <RowDefinition Height="50" />
+              <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Name"
+                   ToolTip="Name"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right" />
+            <Label Content="Last Name"
+                   ToolTip="Last Name"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="1" />
+            <Label Content="Employee Id"
+                   ToolTip="ID"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="2" />
+            <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+            <TextBlock x:Name="lblconatctname"
+                       Text="{Binding ElementName=grdemployee,Path=CurrentItem.person.FName }"
+                       ToolTip="contact Name"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,0" />
+            <TextBlock x:Name="lblcnic"
+                       VerticalAlignment="Center"
+                       Text="{Binding ElementName=grdemployee,Path=CurrentItem.person.LName}"
+                       ToolTip="Last Name"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="20,0" />
+            <TextBlock x:Name="lblid"
+                       ToolTip="Id"
+                       VerticalAlignment="Center"
+                       Text="{Binding ElementName=grdemployee,Path=CurrentItem.EmpId}"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Margin="20,0" />
+          </Grid>
+        </dxlc:GroupBox>
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+          </Grid.RowDefinitions>
+          <dxlc:GroupBox Header="User"
+                         Background="White"
+                         Margin="5">
+            <dxlc:GroupBox.TitleBackground>
+              <LinearGradientBrush EndPoint="0.5,1"
+                                   StartPoint="0.5,0">
+                <GradientStop Color="#FFE6E8EB"
+                              Offset="0" />
+                <GradientStop Color="#FF6CA6FB"
+                              Offset="1" />
+              </LinearGradientBrush>
+            </dxlc:GroupBox.TitleBackground>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="1*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Label Content="User Name"
+                     ToolTip="User Name"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Right" />
+              <Label Content="Password"
+                     ToolTip="Password"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="1" />
+              <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+              <TextBox x:Name="txtusername"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,5" />
+              <dxe:PasswordBoxEdit          VerticalAlignment="Center"
+                         x:Name="txtpassword"
+                         ToolTip="Enter old Password"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         Margin="20,5"  />
+              <Label Content="New Password"
+                     x:Name="lblnewpassword"
+                     ToolTip="New Password"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="2" />
+              <dxe:PasswordBoxEdit          VerticalAlignment="Center"
+                                            x:Name="txtnewpassword"
+                                            ToolTip="Enter new Password"
+                                            Grid.Row="2"
+                                            Grid.Column="1" 
+                                            Margin="20,5" />
+              <Label Content="is Active"
+                     ToolTip="isActive"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="3" />
+              <CheckBox 
+                        Grid.Row="3" x:Name="chkisActive"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Margin="20,5" />
+              <Button Grid.Column="1" Grid.Row="4" Margin="20,10" Content="Add User" x:Name="btnadduser" Click="btnadduser_Click"/>
+            </Grid>
+          </dxlc:GroupBox>
+        </Grid>
+      </Grid>
+    </Grid>
+  </Grid>
+</Window>

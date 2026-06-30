@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="ZAS_ERP.SaleOrderFolder.UserControls.ucBranchList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.SaleOrderFolder.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <!--<UserControl.DataContext>
+        <local:GetAllBanks/>
+    </UserControl.DataContext>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid">
+            <MenuItem Header="Add New" >
+                <MenuItem Header="Add New"
+                    Click="Add_New_BankClick" >
+                    <MenuItem.Icon>
+                        <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit Bank"
+                    Click="Edit_BankClick" >
+                    <MenuItem.Icon>
+                        <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Add Contact Person"
+                    Click="Add_New_ContactClick">
+                    <MenuItem.Icon>
+                        <Image Source="/ZAS_ERP;component/images/14.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <!--<MenuItem Header="Update Contact Person"
+                              Click="Edit_ContactClick" />-->
+
+            </MenuItem>
+            <!--<MenuItem Header="All"
+                      x:Name="mbtnAllContacts"
+                      Click="MbtnAllContacts_Click"
+                      />
+            <MenuItem Header="Active"
+                      x:Name="mbtnActiveContacts"
+                      Click="MbtnActiveContacts_Click"
+                      />
+
+            <MenuItem Header="InActive"
+                      x:Name="mbtnInActiveContacts"
+                      Click="MbtnInActiveContacts_Click"
+                      />-->
+
+            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="BtnRefresh_Click"
+                      />
+
+            <MenuItem Header="Save Layout"
+                      x:Name="mbtnSaveLayout"
+                      Click="MbtnSaveLayout_Click"/>
+        </Menu>
+
+
+        <TextBlock x:Name="lblHeading" Text="Branch List" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+        <!--<Grid Panel.ZIndex="1" Grid.Row="1">
+            <StackPanel  Orientation="Horizontal" Margin="10 5 0 0"  VerticalAlignment="Top" Height="20" >
+                <RadioButton x:Name="chkAllContacts" GroupName="View" Padding="5 1 5 1" Content="All" Style="{StaticResource {x:Type ToggleButton}}"  VerticalAlignment="Top" Checked="ChkAllContacts_Checked"/>
+                <RadioButton x:Name="chkActiveContacts"  GroupName="View" Padding="5 1 5 1" Content="Active" Style="{StaticResource {x:Type ToggleButton}}" VerticalAlignment="Top" Checked="ChkActiveContacts_Checked"/>
+                <RadioButton x:Name="chkInActiveContacts" GroupName="View" Padding="5 1 5 1" VerticalAlignment="Top" Content="InActive" Style="{StaticResource {x:Type ToggleButton}}" Checked="ChkInActiveContacts_Checked"/>
+        </StackPanel>
+        </Grid>-->
+        <!--Bank list Usercontrol-->
+        <Grid Background="White" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="301*"/>
+                <ColumnDefinition Width="499*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <dxg:GridControl AutoGenerateColumns="None" 
+                         EnableSmartColumnsGeneration="True" 
+                          CustomUnboundColumnData="GrdCtrlBankList_CustomUnboundColumnData"
+                         Name="grdCtrlBankList" Grid.ColumnSpan="2"
+                             MouseDoubleClick="UserControl_MouseDoubleClick">
+
+
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                    Click="Add_New_BankClick">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Edit Bank"
+                    x:Name="btnEditSaleOrder"
+                    Click="Edit_BankClick">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Add Contact Person"
+                    Click="Add_New_ContactClick">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/14.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="View Contact Persons"
+                              Click="View_ContactPersonsClick">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/contactsBtn.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowPerPixelScrolling="True" 
+                                    ShowTotalSummary="True"
+                                    ShowAutoFilterRow="True" 
+                                    RowAnimationKind="None" 
+                                    WaitIndicatorType="Panel"
+                                    AllowEditing="False"
+                                    Name="tblViewLandTypeLst">
+                        <dxg:TableView.RowCellMenuCustomizations>
+
+                            <!--<dxb:BarButtonItem Content="Item 1" IsVisible="{Binding Column.IsSorted}" />
+                            <dxb:BarButtonItem Content="Add New Bank" ItemClick="Add_New_ItemClick" x:Name="mbtnAddBank"/>
+                            <dxb:BarButtonItem Content="Update Bank" ItemClick="Edit_ItemClick" x:Name="mbtnUpdateBank"/>
+                            <dxb:BarButtonItem Content="Add Contact Person" ItemClick="Add_Contact_Person_ItemClick" x:Name="mbtnAddContPerson"/>
+                            <dxb:BarButtonItem Content="Update Contact Person" ItemClick="Update_Contact_Person_ItemClick" x:Name="mbtnUpdateContPerson"/>-->
+
+                        </dxg:TableView.RowCellMenuCustomizations>
+                    </dxg:TableView>
+
+                    <!--<dxg:TreeListView Name="treeListView1"
+                                                ShowAutoFilterRow="True"
+                                                TreeDerivationMode="Selfreference"
+                                                
+                                                ParentFieldName="Id"/>-->
+
+
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn FieldName="mainBank.BankName"
+                                Header="Bank Name"
+                                VisibleIndex="1"
+                                AllowEditing="false"/>
+                
+                <dxg:GridColumn FieldName="BankName"
+                                Header="Branch Name"
+                                VisibleIndex="1"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="BranchCode"
+                                Header="Branch Code"
+                                VisibleIndex="2"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="Companiess"
+                                Header="Companies"
+                                UnboundType="string"
+                                VisibleIndex="3"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="SwiftCode"
+                                Header="Swift Code"
+                                VisibleIndex="4"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="address.Line1"
+                                Header="Address"
+                                VisibleIndex="5"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="address.Country"
+                                Header="Country"
+                                VisibleIndex="6"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="address.City"
+                                Header="City"
+                                VisibleIndex="7"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="contact.ContactNo"
+                                Header="Phone No"
+                                VisibleIndex="8"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="contact.SecondaryContact"
+                                Header="Secondary Phone"
+                                VisibleIndex="9"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="contact.Email"
+                                Header="Email"
+                                VisibleIndex="10"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="contact.Website"
+                                Header="Website"
+                                VisibleIndex="11"
+                                AllowEditing="false"/>
+
+                <dxg:GridColumn FieldName="Id" Visible="False" ShowInColumnChooser="False" VisibleIndex="11" AllowEditing="false"/>
+                <dxg:GridColumn FieldName="contact" Visible="False" ShowInColumnChooser="False" Header="Website" VisibleIndex="11" AllowEditing="false"/>
+                <dxg:GridColumn FieldName="address" Visible="False" ShowInColumnChooser="False" Header="Website" VisibleIndex="11" AllowEditing="false"/>
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,526 @@
+﻿<UserControl x:Class="ZAS_ERP.FilesAndDocss.TravellingRecords.UserControls.ucTravelingRecordList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.FilesAndDocss.TravellingRecords.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid" Grid.Row="0">
+            <MenuItem Header="_Print Preview"
+                      x:Name="mbtnPrintPreview"
+                      Click="mbtnPrintPreview_Click"/>
+            <MenuItem Header="Export To Report"
+                      x:Name="mbtnExportToReport"
+                      Click="mbtnExportToReport_Click"
+                      />
+            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="mbtnRefresh_Click"/>
+
+            <MenuItem Header="Save Layout"
+                      x:Name="mbtnSaveLayout"
+                      Click="mbtnSaveLayout_Click"/>
+
+            <MenuItem Header="Direct Close"
+                      x:Name="mbtnDriectClose"
+                      Click="mbtnDriectClose_Click"/>
+            <MenuItem Header="Approve"
+                          x:Name="mbtnApprove" Click="mbtnApprove_Click"/>
+            <MenuItem x:Name="mbtnPending" Click="mbtnPending_Click">
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Approvals">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtApprovalcount" Text="{Binding ApprovalCount}" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+            <MenuItem x:Name="mbtnReApprovals" Click="MbtnReApprovals_Click">
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ReApprovals" ToolTip="List of Sale Receipts which needs ReApproval due to Cost sheet">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtReApprovalcount" Text="{Binding ReApprovalCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+            <MenuItem x:Name="mbtnPendingClosing" Click="MbtnPendingClosing_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Pending for Closing">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtClosingcount" Text="{Binding ClosingCount}" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+            <MenuItem 
+                          x:Name="mbtnApprovedUnapproved"
+                          Click="MbtnApprovedUnapproved_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Traveling Record Register">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtApproveUnapproved" Text="{Binding ApproveunapprovedCount}" Foreground="Blue"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+
+            <MenuItem x:Name="mbtnVoid" Click="MbtnVoid_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Void">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtVoidcount" Text="{Binding VoidCount}" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+        </Menu>
+        <TextBlock x:Name="lblHeading" Text="Traveling Records" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  ></TextBlock>
+
+        <dxg:GridControl Grid.Row="2"
+                         AutoGenerateColumns="None"
+                         EnableSmartColumnsGeneration="True"
+                         Name="grdTravelingRecordRegister"
+                         MouseDoubleClick="grdTravelingRecordRegister_MouseDoubleClick"
+                         CustomUnboundColumnData="grdTravelingRecordRegister_CustomUnboundColumnData">
+
+            <dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add New"
+                                Click="MbtnAdd_Click" x:Name="mbtnAdd">
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Update"
+                                    x:Name="mbtnUpdate" Click="mbtnUpdate_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+
+            <dxg:GridControl.View>
+                <dxg:TableView
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                        Name="tblViewTravelingRecord"
+                        RowAnimationKind="None"
+                    
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel">
+
+                    <dxg:TableView.FormatConditions>
+                        <dxg:FormatCondition ApplyToRow="True" Expression="[itineraryStatus] = 'Closed'" FieldName="itineraryStatus" IsEnabled="True">
+                            <dx:Format Background="#FFF76457">
+                                <dx:Format.Icon>
+                                    <BitmapImage CacheOption="OnLoad" UriSource="pack://application:,,,/DevExpress.Xpf.Core.v21.2;component/Core/ConditionalFormatting/Images/IconSets/Symbols23_1.png" UriCachePolicy="{x:Null}"/>
+                                </dx:Format.Icon>
+                            </dx:Format>
+                        </dxg:FormatCondition>
+                    </dxg:TableView.FormatConditions>
+
+                </dxg:TableView>
+            </dxg:GridControl.View>
+
+            <dxg:GridColumn x:Name="colstatus"
+                      FieldName="travelingRecord.Status.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="1"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.travelingRecord.Status.backcolor}"/>
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.travelingRecord.Status.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="colCreationDate"
+                      FieldName="travelingRecord.CreationDate"
+                      Header="Creation Date"
+                      UnboundType="Bound"
+                            AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="travelingRecord.residentYear"
+                            VisibleIndex="2" 
+                                SortOrder="Ascending"
+                            Header="Resident Year"
+                            AllowEditing="false"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings MaskUseAsDisplayFormat="True" Mask="yyyy" MaskType="DateTime"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="colCompany"
+                      FieldName="travelingRecord.company.CompanyName"
+                      Header="Company"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="3"/>
+
+            <dxg:GridColumn x:Name="colDepartment"
+                      FieldName="travelingRecord.department.DeptName"
+                      Header="Department"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="4"/>
+
+           
+
+
+            <dxg:GridColumn x:Name="colTravelerName"
+                      FieldName="travelingRecord.travelerName.Name"
+                      Header="Traveler Name"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="5"/>
+
+            <dxg:GridColumn 
+                      FieldName="transactionGroupId"
+                      Header="Itinerary Id"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="5"/>
+
+            <dxg:GridColumn 
+                      FieldName="sequence"
+                      Header="Sequence"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="5"/>
+
+            <dxg:GridColumn 
+                      FieldName="departingCountry.CountryName"
+                      Header="Departing Country"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="5"/>
+
+            <dxg:GridColumn 
+                      FieldName="visitingCountry.CountryName"
+                      Header="Staying Country"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="5"/>
+
+            <dxg:GridColumn 
+                      FieldName="DepartureDate"
+                      Header="Departure Date"
+                      UnboundType="Bound"
+                            AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn 
+                            FieldName="airline.Name" 
+                            VisibleIndex="2" 
+                            Header="Airline"
+                            AllowEditing="false"/>
+
+            <dxg:GridColumn 
+                      FieldName="ArrivalDate"
+                      Header="Arrival Date"
+                      UnboundType="Bound"
+                            AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn 
+                      FieldName="LeavingDate"
+                      Header="Leaving Date"
+                      UnboundType="Bound"
+                            AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="colSystemRefNo"
+                      FieldName="travelingRecord.SystemRefNo"
+                      Header="System Ref #"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="6"/>
+
+            <dxg:GridColumn 
+                      FieldName="SystemRefNo"
+                      Header="Itinerary System Ref"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="6"/>
+
+            <dxg:GridColumn 
+                            FieldName="TicketNo" 
+                            VisibleIndex="5" 
+                            Header="Ticket #"
+                            AllowEditing="false"/>
+
+            <dxg:GridColumn 
+                      FieldName="itineraryStatus"
+                      Header="Itinerary Status"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="6"/>
+
+            <dxg:GridColumn
+                      FieldName="End"
+                      Header="End"
+                      UnboundType="String"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="16"/>
+
+            <dxg:GridColumn x:Name="colIsVoid"
+                      FieldName="travelingRecord.isVoid"
+                      Header="Is Void"
+                      UnboundType="String"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="16"/>
+
+            <dxg:GridColumn x:Name="colPendingForClosing"
+                      FieldName="travelingRecord.PendingForClosing"
+                      Header="Pending For Closing"
+                      UnboundType="Bound"
+                            AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="17"/>
+
+            <dxg:GridColumn x:Name="colPendingForReApproval"
+                      FieldName="travelingRecord.PendingForReApproval"
+                      Header="Pending For Re-Approval"
+                      UnboundType="Bound"
+                            AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="18"/>
+
+            <dxg:GridColumn x:Name="colIsApproved"
+                      FieldName="travelingRecord.isApproved"
+                      Header="Is Approved"
+                      UnboundType="String"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="19"/>
+
+            <dxg:GridColumn x:Name="colApprovedDate"
+                      FieldName="travelingRecord.ApprovedDate"
+                      Header="Approved Date"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="21" 
+                            AllowEditing="false">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings MaskUseAsDisplayFormat="True" Mask="MMM yyyy" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="colIsReApproved"
+                      FieldName="travelingRecord.isReApproved"
+                      Header="Is ReApproved"
+                      UnboundType="String"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="22"/>
+
+
+            <dxg:GridColumn x:Name="colReApprovalDate"
+                      FieldName="travelingRecord.ReApprovalDate"
+                      Header="Re-Approval Date"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="23" 
+                            AllowEditing="false">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings MaskUseAsDisplayFormat="True" Mask="MMM yyyy" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="NumberOfDays"
+                            AllowEditing="false"
+                            Header="No of Days"
+                            UnboundType="integer"
+                            VisibleIndex="9"/>
+
+            <dxg:GridColumn FieldName="TicketCost"
+                            AllowEditing="false"
+                            Header="Cost"
+                            VisibleIndex="13"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+            <dxg:GridColumn FieldName="currency.CurrencyName"
+                            AllowEditing="false"
+                            Header="Currency"
+                            VisibleIndex="14"/>
+
+            <dxg:GridColumn FieldName="MER"
+                            AllowEditing="false"
+                            Header="MER"
+                            VisibleIndex="15"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="TicketCostMER"
+                            AllowEditing="false"
+                            Header="Cost (MER)"
+                            VisibleIndex="16"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="NumberOfDays" SummaryType="Sum" DisplayFormat="n0"/>
+            </dxg:GridControl.TotalSummary>
+
+        </dxg:GridControl>
+    </Grid>
+</UserControl>

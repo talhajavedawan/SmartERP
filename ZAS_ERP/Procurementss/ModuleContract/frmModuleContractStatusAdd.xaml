@@ -1,0 +1,16 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.ModuleContract.frmModuleContractStatusAdd"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.ModuleContract.UserControls"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="Module Contract Status" Height="200" Width="320">
+    <Grid>
+        <local:ucModuleContractStatusAdd>
+            
+        </local:ucModuleContractStatusAdd>
+    </Grid>
+</Window>

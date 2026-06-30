@@ -1,0 +1,26 @@
+﻿<Window x:Class="ZAS_ERP.Calender.accordionMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Calender"
+        xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+        mc:Ignorable="d"
+        Title="accordionMenu" Height="450" Width="800">
+    <Grid>
+        
+        <!--<dxa:AccordionControl >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <dxa:AccordionItem>
+                    <TextBlock Text="Test"/>
+                </dxa:AccordionItem>
+            </Grid>
+         
+            
+        </dxa:AccordionControl>-->
+    </Grid>
+</Window>

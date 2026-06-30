@@ -1,0 +1,265 @@
+﻿<UserControl x:Class="ZAS_ERP.SaleOrderFolder.UserControls.ucBankContactPersons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.SaleOrderFolder.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid">
+            <MenuItem Header="Add New" >
+               
+                <MenuItem Header="Add Contact Person"
+                          x:Name="mbtnAddContPerson"
+                    Click="Add_New_ContactClick" />
+                
+                <MenuItem Header="Update Contact Person"
+                          x:Name="mbtnupdatecontperson"
+                              Click="Edit_ContactClick" />
+
+            </MenuItem>
+            <MenuItem Header="All"
+                      x:Name="mbtnAllContacts"
+                      Click="MbtnAllContacts_Click"
+                      />
+            <MenuItem Header="Active"
+                      x:Name="mbtnActiveContacts"
+                      Click="MbtnActiveContacts_Click"
+                      />
+
+            <MenuItem Header="InActive"
+                      x:Name="mbtnInActiveContacts"
+                      Click="MbtnInActiveContacts_Click"
+                      />
+
+            <MenuItem Header="View"
+                      x:Name="mbtnView">
+                <MenuItem Header="List view" x:Name="mbtnListView" Click="MbtnListView_Click"/>
+                <MenuItem Header="Grid view" x:Name="mbtnGridView" Click="MbtnGridView_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="BtnRefresh_Click"
+                      />
+        </Menu>
+
+        <TextBlock x:Name="lblHeading" Text="Bank Name" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+
+        <Grid Grid.Row="2">
+            <dxg:GridControl x:Name="grdContactPersonsGrid"
+                                     AutoGenerateColumns="None"
+                                     CustomUnboundColumnData="GrdContactPerson_CustomUnboundColumnData"
+                                     SelectionMode="Row">
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add Contact Person"
+                                  x:Name="btnAddContactPerson" Click="Add_New_ContactClick" />
+                        <MenuItem Header="Update Contact Person"
+                                  x:Name="btnEditContactPerson" Click="Edit_ContactClick" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View>
+                    <dxg:CardView ShowTotalSummary="False"
+                                  ShowGroupPanel="False"
+                                  SeparatorThickness="0"
+                                  CardAlignment="Center"
+                                  CardMargin="10,5,10,5"
+                                  MaxCardCountInRow="5"
+                                  AllowEditing="False"
+                                  AllowGrouping="False"/>
+                </dxg:GridControl.View>
+                
+                <dxg:GridColumn Header="Photo"
+                                IsSmart="True"
+                                VisibleIndex="0">
+                                <dxg:GridColumn.DisplayTemplate>
+                                    <ControlTemplate>
+                                        <Image  Stretch="UniformToFill"
+                                            Source="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg" />
+                                    </ControlTemplate>
+                                </dxg:GridColumn.DisplayTemplate>
+                                <dxg:GridColumn.CellStyle>
+                                    <Style TargetType="dxg:CellContentPresenter">
+                                        <Setter Property="Width" Value="60" />
+                                        <Setter Property="Height" Value="60" />
+                                    </Style>
+                                </dxg:GridColumn.CellStyle>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn FieldName="Id"
+                                IsSmart="True"
+                                Header="Id"
+                                Visible="False"
+                                VisibleIndex="1"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="bank.BankName"
+                                IsSmart="True"
+                                Header="Bank Name"
+                                VisibleIndex="2"
+                                SortIndex="0" />
+                
+                <dxg:GridColumn FieldName="person.FName"
+                                IsSmart="True"
+                                Header="Person Name"
+                                VisibleIndex="3"
+                                SortIndex="0" />
+                
+                <dxg:GridColumn FieldName="person.DOB"
+                                IsSmart="True"
+                                x:Name="colDob"
+                                Header="DOB"
+                                Width="auto" 
+                                VisibleIndex="4"
+                                SortIndex="0" />
+                
+                <dxg:GridColumn FieldName="person.CNIC"
+                                IsSmart="True"
+                                x:Name="colCnic"       
+                                Header="CNIC"
+                                Width="auto" 
+                                VisibleIndex="5"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="contact.ContactNo" 
+                                IsSmart="True"
+                                x:Name="colContactNo"        
+                                Header="Phone 1"
+                                Width="auto" 
+                                VisibleIndex="6"
+                                SortIndex="0"/>
+
+                <dxg:GridColumn FieldName="contact.SecondaryContact" 
+                                IsSmart="True"
+                                x:Name="colContactNo2"        
+                                Header="Phone 2"
+                                Width="auto" 
+                                VisibleIndex="7"
+                                SortIndex="0"/>
+
+                <dxg:GridColumn FieldName="contact.Email" 
+                                IsSmart="True"
+                                x:Name="colEmail"        
+                                Header="Email"
+                                Width="auto" 
+                                VisibleIndex="8"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="designation" 
+                                IsSmart="True"
+                                x:Name="colDesignation"        
+                                Header="Designation"
+                                Width="auto" 
+                                VisibleIndex="9"
+                                SortIndex="0" />
+            </dxg:GridControl>
+
+
+            <dxg:GridControl x:Name="grdContactPersonsList"
+                             Visibility="Collapsed"
+                                     AutoGenerateColumns="None"
+                                     CustomUnboundColumnData="GrdContactPerson_CustomUnboundColumnData"
+                                     SelectionMode="Row">
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add Contact Person"
+                                  x:Name="btnAddContactPerson1" Click="Add_New_ContactClick" />
+                        <MenuItem Header="Update Contact Person"
+                                  x:Name="btnEditContactPerson1" Click="Edit_ContactClick" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View >
+                    <dxg:TableView AllowPerPixelScrolling="True" 
+                               ShowTotalSummary="True"
+                               ShowAutoFilterRow="True" 
+                               RowAnimationKind="None" 
+                               WaitIndicatorType="Panel"
+                               AllowEditing="False"
+                               Name="tblViewLandTypeLst">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                
+
+                <dxg:GridColumn FieldName="Id"
+                                IsSmart="True"
+                                Header="Id"
+                                Visible="False"
+                                VisibleIndex="1"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="bank.BankName"
+                                IsSmart="True"
+                                Header="Bank Name"
+                                VisibleIndex="2"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="person.FName"
+                                IsSmart="True"
+                                Header="Person Name"
+                                VisibleIndex="3"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="person.DOB"
+                                IsSmart="True"
+                                x:Name="colDob1"
+                                Header="DOB"
+                                Width="auto" 
+                                VisibleIndex="4"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="person.CNIC"
+                                IsSmart="True"
+                                x:Name="colCnic1"       
+                                Header="CNIC"
+                                Width="auto" 
+                                VisibleIndex="5"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="contact.ContactNo" 
+                                IsSmart="True"
+                                x:Name="colContactNo1"        
+                                Header="Phone 1"
+                                Width="auto" 
+                                VisibleIndex="6"
+                                SortIndex="0"/>
+
+                <dxg:GridColumn FieldName="contact.SecondaryContact" 
+                                IsSmart="True"
+                                x:Name="colContactNo12"        
+                                Header="Phone 2"
+                                Width="auto" 
+                                VisibleIndex="7"
+                                SortIndex="0"/>
+
+                <dxg:GridColumn FieldName="contact.Email" 
+                                IsSmart="True"
+                                x:Name="colEmail1"        
+                                Header="Email"
+                                Width="auto" 
+                                VisibleIndex="8"
+                                SortIndex="0" />
+
+                <dxg:GridColumn FieldName="designation" 
+                                IsSmart="True"
+                                x:Name="colDesignation1"        
+                                Header="Designation"
+                                Width="auto" 
+                                VisibleIndex="9"
+                                SortIndex="0" />
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+</UserControl>

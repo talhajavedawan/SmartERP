@@ -1,0 +1,443 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.Offerss.UserControls.ucOffersReportViewFav"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Offerss.UserControls"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        xmlns:loc="clr-namespace:ZAS_ERP"
+        xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation" 
+
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <loc:MyConv x:Key="valueconverter"/>
+        <Style x:Key="SecondLevelTileItemStyle" TargetType="{x:Type dxnav:TileBarItem}">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="20" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox>
+            <Grid x:Name="reportMainGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <dxr:RibbonControl Grid.Row="0" DockPanel.Dock="Top" MinimizationButtonVisibility="Visible"  RibbonStyle="TabletOffice"  ToolbarShowMode="Hide" >
+                    <dxr:RibbonControl.PageHeaderItems>
+                    </dxr:RibbonControl.PageHeaderItems>
+                    <dxr:RibbonDefaultPageCategory>
+                        <dxr:RibbonPage x:Name="lblHeading" Caption="Home">
+                            <dxr:RibbonPageGroup  Caption="Clipboard">
+                                <dxb:BarButtonItem x:Name="btnDelete" KeyGesture="Delete" Cursor="Hand" Content="Delete Report" ItemClick="MbtnDeleteReport1_Click" Glyph="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                                <dxb:BarButtonItem x:Name="btnPrintPreview" KeyGesture="Ctrl+P"  Alignment="Far"  Cursor="Hand" Content="Print Preview" ItemClick="BtnPrintPreview_ItemClick"  Glyph="{dx:DXImage Image=Printer_32x32.png}" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnSaveAsNew" KeyGesture="Ctrl+N" Cursor="Hand" Content="Save as new" ItemClick="MbtnSaveAsNew1_Click" LargeGlyph="{dx:DXImage Image=Paste_32x32.png}" Glyph="{dx:DXImage Image=Paste_16x16.png}"/>
+                                <dxb:BarButtonItem x:Name="btnRename" KeyGesture="Ctrl+X" Cursor="Hand" Content="Rename" ItemClick="MbtnRenameReport1_Click" Glyph="{dx:DXImage Image=Edit_32x32.png}" />
+                                <dxb:BarButtonItem x:Name="btnUpdate" KeyGesture="Ctrl+U" Cursor="Hand" Content="Update" ItemClick="MbtnUpdateReport1_Click" Glyph="{dx:DXImage Image=Reset_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}" />
+                                <dxb:BarButtonItem x:Name="btnCopy2"  KeyGesture="Ctrl+R" Cursor="Hand" Content="Refresh" ItemClick="MbtnRefreshReport1_Click" Glyph="{dx:DXImage Image=Refresh2_32x32.png}" LargeGlyph="{dx:DXImage Image=Refresh2_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnExportToMemorizedReport1" Cursor="Hand" Content="Export to memorized" ItemClick="MbtnExportToMemorizedReport1_Click" Glyph="{dx:DXImage Image=Previous_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnExportToStandardReport1" Cursor="Hand" ItemClick="MbtnExportToStandardReport1_Click" Content="Export to standard" Glyph="{dx:DXImage Image=Previous_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnShareReport" Cursor="Hand" ItemClick="mbtnShareReport_ItemClick" Content="Share Report" Glyph="{dx:DXImage Image=Convert_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnFav" Cursor="Hand" ItemClick="btnFav_ItemClick" Content="Mark Fav/Unmark Fav" />
+                            </dxr:RibbonPageGroup>
+                            <!--<dxr:RibbonPageGroup Caption="Font">
+                                <dxr:BarButtonGroup>
+                                    <dxb:BarButtonItem Content="Export to Standard" Glyph="{dx:DXImage Image=Bold_16x16.png}"/>
+                                    <dxb:BarButtonItem Content="Italic" Glyph="{dx:DXImage Image=Italic_16x16.png}"/>
+                                    <dxb:BarButtonItem Content="Underline" Glyph="{dx:DXImage Image=Underline_16x16.png}"/>
+                                </dxr:BarButtonGroup>
+
+                            </dxr:RibbonPageGroup>-->
+                        </dxr:RibbonPage>
+
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+
+
+
+                <dxg:GridControl Grid.Row="2" x:Name="grdofferReport"
+                     
+                 MouseDoubleClick="Grdoffer_MouseDoubleClick"
+                     SelectionMode="Row"
+                                 CustomUnboundColumnData="grdoffer_CustomUnboundColumnData"
+                      MouseEnter="Grdoffer_MouseEnter"           
+                      >
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem DisplayFormat="###,###,###.##" FieldName="totalBaseCFRValue" SummaryType="Sum"/>
+                    </dxg:GridControl.TotalSummary>
+                    <dxg:GridControl.View>
+                        <dxg:TableView x:Name="tableView"
+                             ShowGroupPanel="True" ShowIndicator="True" ShowVerticalLines="False"
+                             SwitchToCompactModeWidth="700"
+                             NavigationStyle="Row"
+                             ShowAutoFilterRow="True"
+                              ShowSearchPanelMode="Always"         
+                             ShowFixedTotalSummary="True"
+                             SearchPanelNullText="Search"
+                             ShowTotalSummary="True"  >
+                            <dxg:TableView.FormatConditions>
+                                <dxg:FormatCondition ApplyToRow="True" Expression="[isApproved] = False">
+                                    <dxg:FormatCondition.Format>
+                                        <dxg:Format FontWeight="Bold" Foreground="#FF0072C6" />
+                                    </dxg:FormatCondition.Format>
+                                </dxg:FormatCondition>
+                            </dxg:TableView.FormatConditions>
+                            <!--#region CompactModeFilterItems-->
+                            <dxg:TableView.CompactModeFilterItems>
+                                <dxg:CompactModeFilterItem DisplayValue="All" />
+                                <dxg:CompactModeFilterItem DisplayValue="Approved" EditValue="[isApproved] = True" />
+                                <dxg:CompactModeFilterItem DisplayValue="Pending for Approvals" EditValue="[isApproved] = false" />
+                                <dxg:CompactModeFilterItem DisplayValue="Pending for Closing" EditValue="[PendingForClosing] = true" />
+                                <dxg:CompactModeFilterItem DisplayValue="Pending for ReApproval" EditValue="[PendingForReApproval] = true" />
+                            </dxg:TableView.CompactModeFilterItems>
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+
+
+                    <dxg:GridColumn Header="Company"
+                            FieldName="company.CompanyName"
+                            IsSmart="True"
+                                                                                                                                                                                    Image="{dx:DXImage Image=Home_16x16.png}"
+
+                            Width="auto" />
+                    <dxg:GridColumn Header="Customer"
+                            FieldName="customerCompany.company.CompanyName"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=Customer_16x16.png}"
+
+                            Width="auto" />
+                    <dxg:GridColumn Header="Vendor"
+                            FieldName="vendor.company.CompanyName"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=Employee_16x16.png}"
+
+                            Width="auto" />
+                    <dxg:GridColumn Header="Principal"
+                            FieldName="principal.company.CompanyName"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn FieldName="Department" 
+                            UnboundType="String"
+                                                                                                    Image="{dx:DXImage Image=BODepartment_16x16.png}"
+
+                            UnboundExpression="[department.parentDepartment.DeptName] +' '+ [department.DeptName]"/>
+
+                    <!--<dxg:GridColumn Header="Department"
+                            FieldName="department.DeptName"
+                            IsSmart="True"
+                            Width="auto" />-->
+                    <dxg:GridColumn Header="Employee"
+                            FieldName="employee.person.FName"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=User_16x16.png}"
+
+                            Width="auto" />
+                    <dxg:GridColumn Header="Origin"
+                            FieldName="origin"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=BOCountry_16x16.png}"
+
+                            Width="auto"
+                            />
+
+                    <dxg:GridColumn Header="Incoterm"
+                            FieldName="incoterm.term"
+                            IsSmart="True"
+                                                                                                   Image="{dx:DXImage Image=BONote_16x16.png}"
+
+                            Width="auto" />
+                    <dxg:GridColumn Header="PaymentTerm"
+                            FieldName="paymentTerm.term"
+                                                                                                   Image="{dx:DXImage Image=BONote_16x16.png}"
+
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Currency"
+                            FieldName="currency.CurrencyName"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=Currency2_16x16.png}"
+
+                            Width="auto"
+                            />
+                    <dxg:GridColumn Header="Total FOB Value"
+                            FieldName="totalFOBValue"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=Currency2_16x16.png}"
+
+                            Width="auto"
+                            UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total CFR Value"
+                            FieldName="totalCFRValue"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=Currency2_16x16.png}"
+
+                            Width="auto"
+                            UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total Base FOB Value"
+                            FieldName="totalBaseFOBValue"
+                            IsSmart="True"
+                                                                        Image="{dx:DXImage Image=Currency2_16x16.png}"
+
+                            Width="auto"
+                            UnboundType="Decimal"
+                            >
+                        <!--<dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <dxe:TextEdit Text="{Binding RowData.Row.totalBaseFOBValue}" MaskType="Numeric" Mask="n" MaskUseAsDisplayFormat="True"></dxe:TextEdit>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>-->
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="Margin"
+                            FieldName="margin"
+                                                                        Image="{dx:DXImage Image=Currency2_16x16.png}"
+
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Commision"
+                            FieldName="commision"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total Cfr Base Value"
+                            FieldName="totalBaseCFRValue"
+                            IsSmart="True"
+                            Width="auto"
+                                                                        Image="{dx:DXImage Image=Currency2_16x16.png}"
+
+                            UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total Weight"
+                            FieldName="TotalWeight"
+                            IsSmart="True"
+                            Width="auto"
+                               Image="{dx:DXImage Image=BOProduct_16x16.png}"                         >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="Total Quantity"
+                            FieldName="TotalQuantity"
+                            IsSmart="True"
+                            Width="auto"
+                            Image="{dx:DXImage Image=BOSaleItem_16x16.png}"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="CreationDate"
+                            FieldName="CreationDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="ApprovedDate"
+                            FieldName="ApprovedDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="LastStatusChangeDate"
+                            FieldName="LastStatusChangeDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="InquiryDate"
+                            FieldName="InquiryDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="offerValidityDate"
+                            FieldName="offerValidityDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="deliveryDate"
+                            FieldName="deliveryDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="responseDate"
+                            FieldName="responseDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="bidOpenDate"
+                            FieldName="bidOpenDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Stage"
+                            FieldName="Stage"
+                                    UnboundType="String"
+                                    
+                            IsSmart="True"/>
+                    <dxg:GridColumn Header="Own Description"
+                            FieldName="OwnDescription"
+                                    
+                            IsSmart="True"/>
+                    <dxg:GridColumn Header="Maker"
+                            FieldName="maker"
+                                  
+                                    
+                            IsSmart="True"/>
+                    <dxg:GridColumn Header="InquiryReferenceNo"
+                            FieldName="InquiryReferenceNo"
+                                  
+                                    
+                            IsSmart="True"/>
+                    <dxg:GridColumn Header="Sales Reference"
+                            FieldName="SalesReferenceNo"
+                                  
+                                    
+                            IsSmart="True"/>
+                    <dxg:GridColumn Header="Offer Reference"
+                            FieldName="offerReferenceNo"
+                                  
+                                    
+                            IsSmart="True"/>
+                    <dxg:GridColumn Header="OfferDate"
+                            FieldName="OfferDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="alertDate"
+                            FieldName="alertDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="closingDate"
+                            FieldName="closingDate"
+                            Image="{dx:DXImage Image=Time_16x16.png}"        
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn FieldName="offerStatus.isActive"
+                      x:Name="colisOpen"
+                      IsSmart="True"
+                      Header="Open"
+                      Visible="False"
+                      Width="auto">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Center"
+                       Text="{Binding RowData.Row.offerStatus.isActive, Converter={StaticResource valueconverter}}" />
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn x:Name="colstatus"
+                      FieldName="offerStatus.Status"
+                      Header="Status"
+                                                                        Image="{dx:DXImage Image=Status_16x16.png}" 
+
+                      IsSmart="True"
+                      Visible="False"
+                      VisibleIndex="6">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.offerStatus.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.offerStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <!--<dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New"
+                    x:Name="btnNewSaleOrder"
+                    Click="btnNewSaleOrder_Click" />
+                                <MenuItem Header="Edit SaleOrder"
+                    x:Name="btnEditSaleOrder"
+                    Click="btnEditSaleOrder_Click" />
+                                <Separator />
+                                <MenuItem Header="Delete SaleOrder"
+                    x:Name="btnDeleteSaleOrder" />
+                                <Separator />
+                                <MenuItem Header="Print"
+                              x:Name="mbtnPrintGrid" Click="Button_Click" />
+                                -->
+                    <!--<MenuItem Header="Create Report"
+                              x:Name="mbtnReportCreate"
+                              Click="MbtnReportCreate_Click" />-->
+                    <!--
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>-->
+                </dxg:GridControl>
+
+
+
+            </Grid>
+        </GroupBox>
+        <Image
+        x:Name="loadingGif"     
+        Visibility="Hidden"
+        Grid.Row="2"
+            
+         gif:AnimationBehavior.SourceUri="/ZAS_ERP;component/images/loadingReports.gif"   
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center" RenderTransformOrigin="12.987,0.793" Margin="5,100,5,5" Width="60" />
+        <dx:WaitIndicator x:Name="Loader"  DeferedVisibility="{Binding IsWaitIndicatorVisible}"  Content="{Binding WaitIndicatorText}">
+            <dx:WaitIndicator.ContentTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="2" BorderBrush="PowderBlue" Padding="2" CornerRadius="6">
+                        <StackPanel Orientation="Vertical"  >
+                            <TextBlock Text="Please Wait"  FontSize="20"/>
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </Border>
+
+                </DataTemplate>
+            </dx:WaitIndicator.ContentTemplate>
+        </dx:WaitIndicator>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,228 @@
+﻿<dx:DXWindow
+    x:Class="ZAS_ERP.Reportss.frmReportGroupList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    WindowStartupLocation="CenterScreen"
+    utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title="Report Groups List"
+        x:Name="winGroupsList"
+        Loaded="winGroupsList_Loaded"
+        Unloaded="WinGroupsList_Unloaded"
+    Icon="/ZAS_ERP;component/images/icon-Group-List.png"
+    ResizeMode="CanResize"
+    
+        Height="500"
+        Width="450">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <dx:DXTabControl Margin="0,0,0.2,0.4"   >
+            <dx:DXTabItem  BorderColor="Orange" Visibility="Visible" Padding="2" ToolTip="Standard Groups" BackgroundColor="LightBlue" Cursor="Hand" x:Name="tabBtnStandardReport"    Glyph="/ZAS_ERP;component/images/Team_32x32.png" >
+                <Grid x:Name="grdStandardGroups">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".7*" />
+                    
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="1.4*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Text="Standard Groups"/>
+
+
+                    <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.Row="1">
+                        <MenuItem Header="_Groups"
+                  x:Name="mbtnGroups">
+                            <MenuItem Header="Add new ReportGroup"                             
+                    x:Name="mbtnNewReportGroup"
+                    Click="mbtnNewReportGroup_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/Team_32x32.png"/>
+                            </MenuItem.Icon>
+
+
+                            
+                        </MenuItem>
+         
+                    </Menu>
+
+
+
+
+
+                    <dxg:GridControl x:Name="grdGroups"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="2"
+                                  
+                       SelectionMode="Row"
+                      
+                >
+                      
+                        <dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New Group"
+                      x:Name="btnNewGroups"
+                      Click="mbtnNewReportGroup_Click" >
+                                    <MenuItem.Icon>
+                                        <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit Group"
+                      x:Name="btnEditGroups"
+                      Click="mbtnEditReportGroup_Click" >
+
+                                    <MenuItem.Icon>
+                                        <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Delete Group"
+                      x:Name="btnDeleteGroups"
+                      Click="BtnStandardDeleteGroups_Click" >
+
+                                    <MenuItem.Icon>
+                                        <Image Source="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>
+                        <dxg:GridControl.View>
+
+                            <dxg:TreeListView x:Name="viewgrdGroups"
+                            KeyFieldName="Id"            
+                            ParentFieldName="parentId"
+                            AllowEditing="False"
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoExpandAllNodes="False"
+                            AutoPopulateServiceColumns="True"
+                            ColumnFilterPopupMode="Excel"
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True" />
+                        </dxg:GridControl.View>
+
+                    </dxg:GridControl>
+                    <!--<Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="1*" />
+          
+        </Grid.RowDefinitions>
+        -->
+                   
+                </Grid>
+
+            </dx:DXTabItem>
+            <dx:DXTabItem   x:Name="tabBtnMemorized" ToolTip="Memorized Groups" BackgroundColor="LightBlue" Cursor="Hand" BorderColor="LawnGreen" HeaderMenuIcon="" Padding="2"  Glyph="/ZAS_ERP;component/images/UserGroup_32x32.png"  >
+
+
+
+                <Grid x:Name="grdMemorized">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".7*" />
+                      
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="1.4*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Text="Memorized Groups"/>
+                    <Menu DockPanel.Dock="Top"
+                         Grid.Row="1" 
+            x:Name="menuMemorizedFormList">
+                        <MenuItem Header="_Groups"
+                  x:Name="mbtnMemorizedGroups">
+                            <MenuItem Header="Add new ReportGroup"
+                                      
+                    x:Name="mbtnNewMemorizedReportGroup"
+                    Click="MbtnNewMemorizedReportGroup_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/UserGroup_32x32.png"/>
+                            </MenuItem.Icon>
+
+
+
+                        </MenuItem>
+                      
+                    </Menu>
+
+
+                    <dxg:GridControl x:Name="grdMemorizedGroups"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="2"
+                       SelectionMode="Row"       
+                >
+                    
+                        <dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New"
+                      x:Name="btnNewMemorizedGroups"
+                       Click="MbtnNewMemorizedReportGroup_Click">
+
+                                    <MenuItem.Icon>
+                                        <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Edit"
+                      x:Name="btnEditMemorizedGroups"
+                         Click="BtnEditMemorizedGroups_Click"
+                       >
+                                    <MenuItem.Icon>
+                                        <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Delete Group"
+                      x:Name="btnDeleteMemorizedGroups"
+                         Click="BtnMemorizedDeleteGroups_Click"
+                       >
+                                    <MenuItem.Icon>
+                                        <Image Source="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>
+                        <dxg:GridControl.View>
+
+                            <dxg:TreeListView x:Name="viewgrdMemorizedGroups"
+                            KeyFieldName="Id"            
+                            ParentFieldName="parentId"
+                            AllowEditing="False"
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoExpandAllNodes="False"
+                            AutoPopulateServiceColumns="True"
+                            ColumnFilterPopupMode="Excel"
+                            FilterMode="Extended"
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True" />
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+    </Grid>
+</dx:DXWindow>

@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ZAS_ERP.SaleOrderFolder.UserControls.ucContactPerson"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.SaleOrderFolder.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <local:MainWindowViewModel2/>
+    </UserControl.DataContext>
+    <Grid>
+        
+        <!--Contact Person Usercontrol-->
+        <Grid Margin="0 0 0 50">
+            <ScrollViewer Padding="10 0 10 0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="380"/>
+                </Grid.RowDefinitions>
+
+                
+                <Grid Background="White" Grid.Row="1" Height="auto">
+
+                    <dxg:GridControl AutoGenerateColumns="AddNew" 
+                         EnableSmartColumnsGeneration="True" 
+                         ItemsSource="{Binding Customers}" 
+                         Name="grdCntrlSalesReceipt">
+
+                        <!--<dxg:GridControl.Columns>
+                    -->
+                        <!-- -->
+                        <!--
+                    <dxg:GridColumn FieldName="SUM" UnboundType="Decimal" UnboundExpression="Round([OriginalAmount] + [AmountDue])">
+                    </dxg:GridColumn>
+                </dxg:GridControl.Columns>-->
+
+                        <dxg:GridControl.View >
+                            <dxg:TableView AllowPerPixelScrolling="True" 
+                               ShowTotalSummary="True"
+                               ShowAutoFilterRow="True" 
+                               RowAnimationKind="None" 
+                               WaitIndicatorType="Panel"
+                               AllowEditing="False"
+                               Name="tblViewLandTypeLst">
+                                    <dxg:TableView.RowCellMenuCustomizations>
+                                        <dxb:BarButtonItem Content="Item 1" IsVisible="{Binding Column.IsSorted}" />
+                                        <dxb:BarButtonItem Content="Edit" />
+                                        <dxb:BarButtonItem Content="Add new" ItemClick="Add_New_Cntct_Person_ItemClick"/>
+                                    </dxg:TableView.RowCellMenuCustomizations>
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                        <dxg:GridControl.TotalSummary>
+                            <dxg:GridSummaryItem  FieldName="Discount" x:Name="smmryDisc" SummaryType="Sum" />
+                            <dxg:GridSummaryItem x:Name="originalAmountSummary" FieldName="LD_Charges" SummaryType="Sum" />
+                            <dxg:GridSummaryItem FieldName="CreditedAmount" SummaryType="Sum" />
+                            <dxg:GridSummaryItem FieldName="BankCharges" SummaryType="Sum" />
+                            <dxg:GridSummaryItem FieldName="Total" SummaryType="Sum" />
+                        </dxg:GridControl.TotalSummary>
+                    </dxg:GridControl>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+        </Grid>
+        <Grid>
+            <Button Height="50" Content="Save" VerticalAlignment="Bottom"/>
+        </Grid>
+    </Grid>
+</UserControl>

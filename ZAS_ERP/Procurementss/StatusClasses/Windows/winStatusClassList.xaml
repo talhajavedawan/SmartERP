@@ -1,0 +1,156 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.StatusClasses.Windows.winStatusClassList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.StatusClasses.Windows" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="Status Class List" Height="600"
+        Width="1000" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".4*" />
+                <ColumnDefinition Width=".2*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19" Background="LightGray" Text="Linked Statuses"/>
+            <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            >
+                <MenuItem Header="Status Class"
+                  x:Name="mbtnBudgetStatus">
+                    <MenuItem Header="Add new Status Class"
+                    x:Name="mbtnNewStatusClass"
+                    Click="mbtnNewStatusClass_Click"></MenuItem>
+                    <MenuItem Header="Edit Status Class"
+                    x:Name="mbtnEditStatusClass" 
+                    Click="mbtnEditStatusClass_Click"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Refresh"
+                  x:Name="mbtnRefresh" Click="mbtnRefresh_Click">
+                    
+                </MenuItem>
+
+            </Menu>
+
+            <dxg:GridControl x:Name="grdStatusClass"
+                       AutoGenerateColumns="None"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       SelectionMode="Row"
+                             SelectionChanged="grdStatusClass_SelectionChanged"
+                       MouseDoubleClick="grdStatusClass_MouseDoubleClick" >
+
+                <dxg:GridControl.View>
+                    <dxg:TableView CompactPanelShowMode="Always" SwitchToCompactModeWidth="700">
+                        <dxg:TableView.CompactModeFilterItems  >
+                            <dxg:CompactModeFilterItem DisplayValue="All"/>
+                            <dxg:CompactModeFilterItem DisplayValue="Enabled" EditValue="[isDisable] = False"/>
+                            <dxg:CompactModeFilterItem DisplayValue="Disabled" EditValue="[isDisable] = True" />
+                            <dxg:CompactModeFilterItem DisplayValue="Active" EditValue="[isActive] = True"/>
+                            <dxg:CompactModeFilterItem DisplayValue="inActive" EditValue="[isActive] = False" />
+                        </dxg:TableView.CompactModeFilterItems>
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+            <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewStatusClass"
+                      Click="btnNewStatusClass_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditStatusClass"
+                      Click="btnEditStatusClass_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+               
+                <dxg:GridColumn Header="Id"
+                            FieldName="Id"
+                                Visible="False"
+                            UnboundType="Integer"/> 
+                <dxg:GridColumn Header="Class Name"
+                            FieldName="ClassName"
+                            />  
+                <dxg:GridColumn Header="Module Type"
+                            FieldName="transactionType"
+                            />    
+
+                <dxg:GridColumn Header="Background Color"
+                            FieldName="backcolor"
+                            />   
+                <dxg:GridColumn Header="Foreground Color"
+                            FieldName="forecolor"
+                            />
+                <dxg:GridColumn Header="isApproved"
+                            FieldName="isApproved"
+                            />
+                <dxg:GridColumn Header="isActive"
+                            FieldName="isActive"
+                            />
+                <dxg:GridColumn Header="is Disable"
+                            FieldName="isDisable"
+                            />
+            </dxg:GridControl>
+            <dxg:GridControl x:Name="grdStatuses"
+                       AutoGenerateColumns="None"
+                       Grid.Row="1" 
+                       Grid.Column="1"
+                             
+                       SelectionMode="Row">
+                <dxg:GridControl.View>
+
+
+                    <dxg:TableView x:Name="tableView"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       IsGroupFooterMenuEnabled="False"
+                       ShowGroupFooters="False" 
+                                   
+                       ShowGroupPanel="False"            
+                       RowAnimationKind="None" WaitIndicatorType="Panel"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       ShowFixedTotalSummary="True"
+                       ShowTotalSummary="True">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn 
+                      FieldName="Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                     Visible ="True"
+                    Width="auto"
+                      VisibleIndex="6"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+            </dxg:GridControl>
+            
+
+        </Grid>
+    </Grid>
+</dx:DXWindow>

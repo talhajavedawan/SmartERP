@@ -1,0 +1,34 @@
+﻿<Window xmlns:my="http://schemas.devexpress.com/winfx/2008/xaml/charts/rangecontrolclient"  xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  x:Class="ZAS_ERP.ChartofAccounts.Windows.formAddOpeningBalance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.ChartofAccounts.Windows"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d"
+        Title="Enter Opening Balance"  Height="150" Width="450" MaxHeight="217" MaxWidth="440" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <dxlc:LayoutControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center"  Content="Opening Balance" Margin="5,5,5,5"/>
+                <dxe:TextEdit  x:Name="txtOpeningBalance"  Grid.Column="1" VerticalAlignment="Center"   MaskUseAsDisplayFormat="True"  Mask="n2" TextWrapping="Wrap"  AcceptsReturn="True" Margin="5,5,5,5" MaskType="Numeric" NullText="0.00"  />
+                <Label Grid.Column="2" VerticalAlignment="Center" FontWeight="DemiBold"  Content="as of" Margin="5,5,5,5"/>
+                <dxe:DateEdit VerticalAlignment="Center"
+                        x:Name="datAccountCreation"
+                        Grid.Column="3"/>
+            </Grid>
+        </dxlc:LayoutControl>
+        <Button x:Name="btnSaveOpeningBalance" Content="Save" Grid.Row="1" Click="BtnSaveOpeningBalance_Click"/>
+
+    </Grid>
+</Window>

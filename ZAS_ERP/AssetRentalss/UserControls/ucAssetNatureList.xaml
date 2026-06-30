@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ZAS_ERP.AssetRentalss.UserControls.ucAssetNatureList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.AssetRentalss.UserControls" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid>
+        <!--comment-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="Add">
+                <MenuItem Header="Add New" Click="MbtnAdd_Click"/>
+                <MenuItem Header="Update" Click="MbtnEdit_Click"/>
+            </MenuItem>
+            <MenuItem Header="Refresh" x:Name="mbtnRefresh" Click="mbtnRefresh_Click"/>
+        </Menu>
+
+        <TextBlock x:Name="lblHeading" Text="Asset Nature List" FontSize="22" 
+                   FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+
+
+        <Grid Background="White" Grid.Row="2" Height="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="451*"/>
+                <ColumnDefinition Width="349*"/>
+            </Grid.ColumnDefinitions>
+            <dxg:GridControl AutoGenerateColumns="None" 
+                         EnableSmartColumnsGeneration="True" 
+                         Name="grdCntrlAssetNatureList" Grid.ColumnSpan="2">
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                            x:Name="mbtnAdd"
+                            Click="MbtnAdd_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Update"
+                            x:Name="mbtnEdit"
+                            Click="MbtnEdit_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View>
+                    <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="parentId"/>
+                </dxg:GridControl.View>
+                
+                <dxg:GridColumn FieldName="Id" Visible="False" ShowInColumnChooser="False" AllowEditing="false"/>
+                <dxg:GridColumn FieldName="NatureName" Header="Nature Name" AllowEditing="false"/>
+                <dxg:GridColumn FieldName="isActive" Header="Is Active" AllowEditing="false"/>
+                <dxg:GridColumn FieldName="isSubsdary" Header="Is Subsidary" AllowEditing="false"/>
+                <dxg:GridColumn FieldName="parentNature.NatureName" Header="Parent Nature" AllowEditing="false"/>
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+</UserControl>

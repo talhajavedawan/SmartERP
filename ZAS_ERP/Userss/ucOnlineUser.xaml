@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ZAS_ERP.Userss.ucOnlineUser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Userss"
+             mc:Ignorable="d" 
+             
+             Height="35" Width="auto">
+    <Grid Name="grid" MouseEnter="Grid_MouseEnter" 
+          MouseLeave="Grid_MouseLeave"
+          >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="10"/>
+
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Source="/ZAS_ERP;component/images/onlineUser64x64.png" Height="25" Width="25"/>
+
+        <TextBlock Text="" VerticalAlignment="Center" 
+                   Name="txtbxUserName"  
+                   Grid.Column="2" Width="115" 
+                   FontSize="12" 
+                   TextTrimming="CharacterEllipsis"
+                   />
+        <!--<Image Grid.Column="1" Source="/ZAS_ERP;component/images/online-icon.png" Height="25" Width="25"/>-->
+    </Grid>
+</UserControl>

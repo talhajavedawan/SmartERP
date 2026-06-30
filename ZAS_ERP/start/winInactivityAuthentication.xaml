@@ -1,0 +1,31 @@
+﻿<dx:ThemedWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.start.winInactivityAuthentication"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.start"
+        mc:Ignorable="d"
+         Title="User Authentication" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Height="430" Width="330" Loaded="Window_Loaded" Closing="ThemedWindow_Closing">
+
+    <Grid>
+
+        <Frame x:Name="main" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+        <dx:SimpleButton x:Name="btnlogindb"
+                     Margin="0,310,0,60"
+                     Click="btnlogindb_Click"
+                     FontWeight="Bold"
+                         Background="Red"
+                        
+                     Content="Authenticate"
+                     ToolTip="Authenticate Yourself" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                     >
+            <dx:SimpleButton.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFFF0A0A" Offset="1"/>
+                </LinearGradientBrush>
+            </dx:SimpleButton.BorderBrush>
+        </dx:SimpleButton>
+
+    </Grid>
+</dx:ThemedWindow>

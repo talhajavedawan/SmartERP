@@ -1,0 +1,162 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.Budget.winSelectBudget"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Budget" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+              mc:Ignorable="d"
+        Title="Select Budget" Height="450" Width="800" Loaded="DXWindow_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+
+        <TextBlock x:Name="lblHeading" Text= "Select Budget" Background="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+        <Grid Background="White" Grid.Row="2" Height="auto">
+            <dxg:GridControl x:Name="grdbudget"
+                    
+                     Grid.Row="4"
+                     Grid.ColumnSpan="3"
+                     SelectionMode="Row"
+                     AutoGenerateColumns="None"
+                     ShowLoadingPanel="False"
+                    >
+
+                <dxg:GridControl.View>
+                    <dxg:TableView x:Name="tableView"
+                       
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                      ShowCheckBoxSelectorColumn="True"
+                       RowAnimationKind="None" WaitIndicatorType="Panel"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"              
+                       ShowFixedTotalSummary="True"
+                       ShowTotalSummary="True"
+                               >
+
+
+                        <!--<dxg:TableView.FormatConditions>
+                        <dxg:DataBarFormatCondition FieldName="Sales" PredefinedFormatName="BlueGradientDataBar"/>
+                        <dxg:TopBottomRuleFormatCondition FieldName="Sales" Rule="TopItems" Threshold="5" PredefinedFormatName="BoldText" />
+
+
+                    </dxg:TableView.FormatConditions>-->
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn x:Name="colstatus"
+                      FieldName="budgetCostSheetStatus.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                     Visible ="True"
+                       AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.budgetCostSheetStatus.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.budgetCostSheetStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Creation Date"
+                            FieldName="CreationDate"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="Company"
+                            FieldName="company.CompanyName"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="Department"
+                            FieldName="Department.DeptName"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="From"
+                            FieldName="From"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="To"
+                            FieldName="To"
+                            Visible="True"
+                            />
+
+
+
+                <dxg:GridColumn Header="ReApprovalDate"
+                            FieldName="ReApproval Date"
+                            Visible="False"
+                            />
+
+                <dxg:GridColumn Header="ApprovedDate"
+                            FieldName="Approved Date"
+                            Visible="False"
+                            />
+
+
+                <dxg:GridColumn Header="stage"
+                            FieldName="stage"
+                            Visible="True"
+                            />
+
+                <dxg:GridColumn Header="Employee"
+                            FieldName="Employee.person.FName"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="LastStatusChangeDate"
+                            FieldName="LastStatusChangeDate"
+                            IsSmart="True"
+                            Visible="False"
+                            
+                            />
+                <dxg:GridColumn Header="ClosingDate"
+                            FieldName="ClosingDate"
+                            IsSmart="True"
+                            Visible="False"
+                            />
+                <dxg:GridColumn Header="Total Income"
+                            FieldName="TotalIncome"
+                            IsSmart="True"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="Total CGS"
+                            FieldName="TotalCGS"
+                            IsSmart="True"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="Total Expense"
+                            FieldName="TotalExpense"
+                            IsSmart="True"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="Total Gross Profit"
+                            FieldName="TotalGrossProfit"
+                            IsSmart="True"
+                            Visible="True"
+                            />
+                <dxg:GridColumn Header="Total Net Profit"
+                            FieldName="TotalNetProfit"
+                            IsSmart="True"
+                            Visible="True"
+                            />
+
+            </dxg:GridControl>
+        </Grid>
+        <dx:SimpleButton x:Name="btnContinue" Content="Continue" Grid.Row="3" Click="btnContinue_Click"/>
+    </Grid>
+</dx:DXWindow>

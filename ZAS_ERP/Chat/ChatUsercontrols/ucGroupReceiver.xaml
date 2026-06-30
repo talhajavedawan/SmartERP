@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="ZAS_ERP.Chat.ChatUsercontrols.ucGroupReceiver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Chat.ChatUsercontrols"
+             mc:Ignorable="d" 
+             Height="auto" Width="auto">
+    <Grid Width="163" HorizontalAlignment="Left" Margin="50,0,0,0"  >
+
+        <!-- Profile picture -->
+
+        <!-- Chat message container -->
+        <Grid   Width="Auto" Height="Auto" MaxWidth="300">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="13*" />
+                <RowDefinition Height="22*"/>
+                <RowDefinition Height="17" />
+            </Grid.RowDefinitions>
+            <!-- Speech bubble rectangle -->
+
+            <Border Grid.Row="0" Panel.ZIndex="2">
+                <TextBlock  Text="{Binding recName}"
+                            HorizontalAlignment="Left"
+                            Foreground="DarkBlue"
+                            FontWeight="Bold"
+                            Margin="5,5,5,5"
+                            VerticalAlignment="Top" 
+                            Opacity="0.8"/>
+            </Border>
+            <Border x:Name="msgId" Grid.Row="0" Panel.ZIndex="2">
+                <TextBlock  Text="{Binding msgId}"
+                            HorizontalAlignment="Left"
+                            Foreground="DarkBlue"
+                            FontWeight="Bold"
+                            Margin="5,5,5,5"
+                            VerticalAlignment="Top" 
+                            Visibility="Collapsed"
+                     
+                            Opacity="0.8"/>
+            </Border >
+            <Border CornerRadius="10"
+                    Padding="15"
+                    Background="DarkOrange"
+                     Opacity="0.8">
+
+                <!-- Message text -->
+                <TextBlock  VerticalAlignment="Center"
+                           TextWrapping="Wrap"
+                           
+                           Foreground="Black"
+                           FontFamily="OpenSans" 
+                           x:Name="Receiver_chatbox"
+                           Text="{Binding msgBody, IsAsync=true}" FontSize="13"
+                            
+                            Margin="10,10,10,10" />
+
+               
+            </Border>
+
+            <!-- Chat bubble anchor -->
+            <Path Grid.Row="2" 
+                      Stroke="Black"
+                      Panel.ZIndex="1"
+                      Margin="10,0,20,7.333"
+                      Data="M 0,0 L 10,10 L 20,0 L 0,0" 
+                      StrokeThickness="0"
+                      Fill="DarkOrange" Opacity="0.8" />
+
+            <TextBlock Grid.Row="2"   FontFamily="OpenSans"
+                           Text="{Binding seenStamp, IsAsync=true}"
+                           Foreground="Black"
+                           HorizontalAlignment="Right"
+                           FontSize="13" Margin="0,7,0,-5" Width="150"
+                           x:Name="time"
+                           />
+        </Grid>
+    </Grid>
+</UserControl>

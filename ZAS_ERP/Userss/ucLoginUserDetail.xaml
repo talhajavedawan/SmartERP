@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="ZAS_ERP.Userss.ucLoginUserDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Userss" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" Loaded ="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+
+      
+
+        <TextBlock x:Name="lblHeading" Text="Login User History" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+
+        <!--grid for Login User-->
+        <Grid x:Name="grdUserDetails"  Background="White" Grid.Row="2" Height="auto">
+            <dxg:GridControl AutoGenerateColumns="None" 
+                         EnableSmartColumnsGeneration="True" 
+                         Name="grdCntrlUserDetail">
+            
+
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                      Width="auto"
+                        RowAnimationKind="None"
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel" >
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn x:Name="colAllCompany"
+                      FieldName="user.employee.CoreCompany.CompanyName"
+                                Header="Core Company"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True" VisibleIndex="3"
+                     />
+
+                <dxg:GridColumn x:Name="colAllDepartment"
+                      FieldName="user.employee.CoreDepartment.DeptName"
+                                Header="Core Department"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True" VisibleIndex="4"
+                      />
+                <dxg:GridColumn MaxWidth="80" VisibleIndex="0" Header="Photo" FieldName="user.employee.person.Photo" HorizontalHeaderContentAlignment="Center">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:ImageEditSettings ShowMenu="False" MaxWidth="40" HorizontalContentAlignment="Center" />
+                    </dxg:GridColumn.EditSettings>
+                
+                </dxg:GridColumn>
+
+                <dxg:GridColumn    Header="First Name" VisibleIndex="1" FieldName="user.employee.person.FName"  >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings TextWrapping="Wrap"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn   Header="Last Name" VisibleIndex="2" FieldName="user.employee.person.LName"   >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings TextWrapping="Wrap"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn Width="auto" Header="Login Time" FieldName="LoginTime" VisibleIndex="5" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings MaskType="DateTime"   MaskUseAsDisplayFormat="True" Mask="F"/>
+                    </dxg:GridColumn.EditSettings>
+
+                </dxg:GridColumn>
+                <dxg:GridColumn Width="auto" Header="Logout Time" FieldName="LogoutTime" VisibleIndex="6" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings MaskType="DateTime"   MaskUseAsDisplayFormat="True" Mask="F"/>
+                    </dxg:GridColumn.EditSettings>
+
+                </dxg:GridColumn>
+
+                <dxg:GridColumn   Header="Crashing Detail" VisibleIndex="7" FieldName="crashingDetail"  >
+                </dxg:GridColumn>
+
+                <dxg:GridColumn 
+                      FieldName="id"
+                      
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="False"
+                              ShowInColumnChooser="false"
+                     />
+
+
+            </dxg:GridControl>
+        </Grid>
+
+    </Grid>
+</UserControl>

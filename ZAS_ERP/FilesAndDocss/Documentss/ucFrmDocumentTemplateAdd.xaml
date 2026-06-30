@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="ZAS_ERP.FilesAndDocss.Documentss.ucFrmDocumentTemplateAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.FilesAndDocss.Documentss" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+              d:DesignHeight="400" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <dx:DXTabControl Grid.Row="0">
+            <dx:DXTabItem Header="Document Info">
+                <dxlc:LayoutGroup Header="Document Template"
+                                  Margin="0 0 0 45"
+                                          View="GroupBox" 
+                                          IsCollapsible="False" 
+                                          IsCollapsed="False" 
+                                          Orientation="Vertical">
+                    <dxlc:LayoutControl Orientation="Vertical" VerticalAlignment="Center">
+                        <dxlc:LayoutItem Label="Document Template:" Width="270">
+                            <dxe:TextEdit Margin="2 0 0 0" x:Name="txtDocumentTemplate"/>
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Height="10"/>
+
+                    </dxlc:LayoutControl>
+                </dxlc:LayoutGroup>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem Header="Companies">
+                <dxlc:GroupBox Header="Companies">
+                    <dxlc:GroupBox.TitleBackground>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                            <GradientStop Color="#FFE6E8EB"
+                            Offset="0" />
+                            <GradientStop Color="#FF6CA6FB"
+                            Offset="1" />
+                        </LinearGradientBrush>
+                    </dxlc:GroupBox.TitleBackground>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <dxg:GridControl x:Name="grdCompanies"
+                             AutoGenerateColumns="None"
+                             Grid.ColumnSpan="2"
+                             SelectionMode="MultipleRow"
+                             AllowInitiallyFocusedRow="False"
+                                         SelectionChanged="grdCompanies_SelectionChanged">
+                            <dxg:GridControl.View>
+                                <dxg:TableView x:Name="gridCompanyView"
+                                              AutoWidth="True"
+                                              IsSynchronizedWithCurrentItem="True"
+                                              AllowEditing="False"
+                                              ShowCheckBoxSelectorColumn="True"
+                                              UseIndicatorForSelection="True"
+                                              FadeSelectionOnLostFocus="False"
+                                              ShowSelectionRectangle="True">
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+
+                            <dxg:GridColumn Header="Id"
+                                            FieldName="Id"
+                                            AllowEditing="false"
+                                            Visible="False"
+                                            ShowInColumnChooser="False"/>
+
+                            <dxg:GridColumn Header="Company"
+                                            FieldName="CompanyName"           
+                                            AllowEditing="false"/>
+
+                        </dxg:GridControl>
+                    </Grid>
+                </dxlc:GroupBox>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem Header="Departments">
+                <dxlc:GroupBox Header="Departments">
+                    <dxlc:GroupBox.TitleBackground>
+                        <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                            <GradientStop Color="#FFE6E8EB"
+                            Offset="0" />
+                            <GradientStop Color="#FF6CA6FB"
+                            Offset="1" />
+                        </LinearGradientBrush>
+                    </dxlc:GroupBox.TitleBackground>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <dxg:GridControl x:Name="grdDepartments"
+                             AutoGenerateColumns="None"
+                             Grid.ColumnSpan="2"
+                             SelectionMode="MultipleRow"
+                             AllowInitiallyFocusedRow="False">
+                            <dxg:GridControl.View>
+                                <dxg:TreeListView x:Name="gridDeptView"
+                                              AutoWidth="True"
+                                              IsSynchronizedWithCurrentItem="True"
+                                              AllowEditing="False"
+                                                  KeyFieldName="Id"
+                                                  ParentFieldName="ParentID"
+                                              ShowCheckboxes="True"
+                                              UseIndicatorForSelection="True"
+                                              FadeSelectionOnLostFocus="False"
+                                              ShowSelectionRectangle="True"
+                                                  NodeCheckStateChanged="gridDeptView_NodeCheckStateChanged">
+                                </dxg:TreeListView>
+                            </dxg:GridControl.View>
+
+                            <dxg:GridColumn Header="Id"
+                                            FieldName="Id"
+                                            AllowEditing="false"
+                                            Visible="False"
+                                            ShowInColumnChooser="False"/>
+
+                            <dxg:GridColumn Header="Dapartment"
+                                            FieldName="DeptName"           
+                                            AllowEditing="false"/>
+
+                        </dxg:GridControl>
+                    </Grid>
+                </dxlc:GroupBox>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+        <Button Content="Save" x:Name="btnSave" Height="40" Grid.Row="1" VerticalAlignment="Bottom" Click="btnSave_Click"/>
+
+    </Grid>
+</UserControl>

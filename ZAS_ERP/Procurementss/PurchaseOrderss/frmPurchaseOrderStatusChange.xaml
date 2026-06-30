@@ -1,0 +1,18 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.PurchaseOrderss.frmPurchaseOrderStatusChange"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.PurchaseOrderss"
+        mc:Ignorable="d"
+        Title="PurchaseOrder Status Change"
+        MinHeight="250"
+        Width="350"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None" AllowsTransparency="True">
+    <Grid x:Name="statusGrid">
+        <!--<local:ucStatuschange()>
+      
+    </local:ucStatuschange>-->
+    </Grid>
+</Window>

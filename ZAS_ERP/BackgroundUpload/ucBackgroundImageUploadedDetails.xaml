@@ -1,0 +1,178 @@
+﻿<UserControl x:Class="ZAS_ERP.BackgroundUpload.ucBackgroundImageUploadedDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.BackgroundUpload" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d"  Loaded ="UserControl_Loaded" FontWeight="DemiBold" PreviewMouseWheel="UserControl_PreviewMouseWheel" MouseWheel="UserControl_MouseWheel" SizeChanged="UserControl_SizeChanged"
+             d:DesignHeight="450" d:DesignWidth="1000" x:Name="myWindow"> 
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="auto"/>
+
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="525"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Background="#83b2f2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <dx:SimpleButton  Style="{StaticResource Simplebutton}"  Grid.Row="1" Grid.Column="1" Width="150"  Height="30" Content="View specific Histroy" Click="Button_Click" x:Name="btnViewSpecific" />
+                <dx:SimpleButton  Style="{StaticResource Simplebutton}" Grid.Row="1" Grid.Column="1" Width="150"  Height="30" Margin="0,0,10,0" Content="View ShareAll History" Click="btnViewSpecific_Click" x:Name="btnViewAll" />
+            </StackPanel>
+            <TextBlock   Padding="8,2,5,2"
+   Background="WhiteSmoke" 
+  Foreground="Navy" 
+  
+  FontFamily="Century Gothic"
+  FontSize="18"
+  FontStretch="UltraExpanded"
+  FontStyle="Italic"
+  FontWeight="UltraBold"  x:Name="lblHeading"  Text="Uploaded Details" VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Row="1"   />
+            
+        </Grid>
+        <Border Grid.Row="2" Grid.Column="1" BorderThickness="2"  Background="#bed6f6" Opacity="1" BorderBrush="#0981b5" Margin="20,40,18,42" >
+
+            <Border.Style>
+                <Style TargetType="Border">
+                
+                        
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="14" Color="Blue" ShadowDepth="0"/>
+                                </Setter.Value>
+                            </Setter>
+                      
+                  
+                </Style>
+            </Border.Style>
+            <Viewbox x:Name="ZoomViewbox" Stretch="Fill">
+                <Grid x:Name="grdPreview"     Background="#bed6f6" >
+
+                </Grid>
+            </Viewbox>
+           
+        </Border>
+        
+        
+       
+       
+        <!--grid for Login User-->
+        <Grid x:Name="grdUploadedDetail"   Grid.Row="2" Height="auto" Margin="10,10,10,10" Background="#bed6f6">
+            <dxg:GridControl AutoGenerateColumns="None" 
+                         EnableSmartColumnsGeneration="True" SelectedItemChanged ="grdCntrlUploadedDetail_SelectedItemChanged" 
+                         Name="grdCntrlUploadedDetail">
+
+
+                <dxg:GridControl.View>
+                    <dxg:TableView 
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                        RowAnimationKind="None"
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel" >
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn 
+                      FieldName="user.employee.person.FName"
+                      Header="First Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="0"
+                    
+                     />
+                <dxg:GridColumn 
+                      FieldName="user.employee.person.LName"
+                      Header="Last Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="0"
+                     />
+
+                <dxg:GridColumn 
+                      FieldName="Id"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="False"
+                      ShowInColumnChooser="false"
+                     />
+                <dxg:GridColumn  Header="Last Modified Time" VisibleIndex="3" FieldName="UploadedTime" Width="auto">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings MaskType="DateTime"   MaskUseAsDisplayFormat="True" Mask="F" HorizontalContentAlignment="Center"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+            </dxg:GridControl>
+        </Grid>
+
+
+
+        <Grid x:Name="grdUploadShareAll"  Background="White" Grid.Row="2" Height="auto" Visibility="Collapsed">
+            <dxg:GridControl AutoGenerateColumns="None" 
+                         EnableSmartColumnsGeneration="True" 
+                         Name="grdCntrlUploadedDetailAll">
+
+
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                        RowAnimationKind="None"
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel" >
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn 
+                      FieldName="user.employee.person.FName"
+                      Header="First Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="0"
+                    
+                     />
+                <dxg:GridColumn 
+                      FieldName="user.employee.person.LName"
+                      Header="First Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="0"
+                     />
+
+                <dxg:GridColumn 
+                      FieldName="Id"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="False"
+                      ShowInColumnChooser="false"
+                     />
+                <dxg:GridColumn  Header="Last Modified Time" VisibleIndex="3" FieldName="UploadedTime" Width="auto">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:DateEditSettings MaskType="DateTime"   MaskUseAsDisplayFormat="True" Mask="F" HorizontalContentAlignment="Center" />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+            </dxg:GridControl>
+        </Grid>
+
+    </Grid>
+</UserControl>

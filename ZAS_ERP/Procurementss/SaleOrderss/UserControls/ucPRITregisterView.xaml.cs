@@ -1,0 +1,1802 @@
+﻿using DevExpress.Xpf.Core;
+using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Printing;
+using ERP_BL.Databases;
+using ERP_BL.Enums;
+using ERP_BL.ExchangeRates;
+using ERP_BL.Reports;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using ZAS_ERP.Procurementss.SharedReports;
+using ZAS_ERP.Reportss;
+
+namespace ZAS_ERP.Procurementss.SaleOrderss.UserControls
+{
+    /// <summary>
+    /// Interaction logic for ucPRITregisterView.xaml
+    /// </summary>
+    public partial class ucPRITregisterView : DXWindow
+    {
+        GridReport report = new GridReport();
+        string reportTitle;
+        public MainWindow myParent = null;
+        SaleOrderRepo saleOrderRepo = new SaleOrderRepo();
+        static List<ExchangeRateGroup> exchangeRateGroupsSER = new List<ExchangeRateGroup>();
+        static List<ExchangeRateGroup> exchangeRateGroupsMER = new List<ExchangeRateGroup>();
+        ExchangeRate exchangeRateSER = null;
+        ExchangeRate exchangeRateMER = null;
+        ExchangeRate exchangeRateCMER = null;
+        public ucPRITregisterView()
+        {
+            InitializeComponent();
+        }
+        public ucPRITregisterView(GridReport reportToEdit, string title)
+        {
+            InitializeComponent();
+            report = reportToEdit;
+            reportTitle = title;
+        }
+
+        private void grdPERgridReport_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            EditSaleOrder();
+        }
+
+        private void grdPERgridReport_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void grdPERgridReport_CustomUnboundColumnData(object sender, DevExpress.Xpf.Grid.GridColumnDataEventArgs e)
+        {
+            try
+            {
+
+                if (e.Column.FieldName == "departmentLevel1" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var deptList = new List<Department>();
+                        var node = row.saleOrder.department;
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and transverse to its parent
+                                    deptList.Add(node);
+                                    node = node.parentDepartment;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    deptList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                deptList.Add(node);
+                                break;
+                            }
+
+                        }
+                        deptList.Reverse();
+                        e.Value = deptList[0].DeptName;
+                    }
+                }
+                if (e.Column.FieldName == "departmentLevel2" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var deptList = new List<Department>();
+                        var node = row.saleOrder.department;
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and transverse to its parent
+                                    deptList.Add(node);
+                                    node = node.parentDepartment;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    deptList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                deptList.Add(node);
+                                break;
+                            }
+                        }
+                        deptList.Reverse();
+                        switch (deptList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = deptList[0].DeptName;
+                                break;
+                            case 2:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                            case 3:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                            case 4:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                            case 5:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                        }
+                    }
+                }
+                if (e.Column.FieldName == "departmentLevel3" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var deptList = new List<Department>();
+                        var node = row.saleOrder.department;
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and transverse to its parent
+                                    deptList.Add(node);
+                                    node = node.parentDepartment;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    deptList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                deptList.Add(node);
+                                break;
+                            }
+                        }
+                        deptList.Reverse();
+                        switch (deptList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = deptList[0].DeptName;
+                                break;
+                            case 2:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                            case 3:
+                                e.Value = deptList[2].DeptName;
+                                break;
+                            case 4:
+                                e.Value = deptList[2].DeptName;
+                                break;
+                            case 5:
+                                e.Value = deptList[2].DeptName;
+                                break;
+                        }
+                    }
+                }
+                if (e.Column.FieldName == "departmentLevel4" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var deptList = new List<Department>();
+                        var node = row.saleOrder.department;
+
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and tranverse to its parent
+                                    deptList.Add(node);
+                                    node = node.parentDepartment;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    deptList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                deptList.Add(node);
+                                break;
+                            }
+
+                        }
+                        deptList.Reverse();
+                        switch (deptList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = deptList[0].DeptName;
+                                break;
+                            case 2:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                            case 3:
+                                e.Value = deptList[2].DeptName;
+                                break;
+                            case 4:
+                                e.Value = deptList[3].DeptName;
+                                break;
+                            case 5:
+                                e.Value = deptList[3].DeptName;
+                                break;
+                        }
+                    }
+                }
+                if (e.Column.FieldName == "departmentLevel5" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var deptList = new List<Department>();
+                        var node = row.saleOrder.department;
+
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and tranverse to its parent
+                                    deptList.Add(node);
+                                    node = node.parentDepartment;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    deptList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                deptList.Add(node);
+                                break;
+                            }
+                        }
+                        deptList.Reverse();
+
+                        switch (deptList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = deptList[0].DeptName;
+                                break;
+                            case 2:
+                                e.Value = deptList[1].DeptName;
+                                break;
+                            case 3:
+                                e.Value = deptList[2].DeptName;
+                                break;
+                            case 4:
+                                e.Value = deptList[3].DeptName;
+                                break;
+                            case 5:
+                                e.Value = deptList[4].DeptName;
+                                break;
+                        }
+                    }
+                }
+
+                if (e.Column.FieldName == "customerLevel1" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var customerList = new List<CustomerCompany>();
+                        var node = row.saleOrder.customerCompany;
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and transverse to its parent
+                                    customerList.Add(node);
+                                    node = node.parentCompany;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    customerList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                customerList.Add(node);
+                                break;
+                            }
+
+                        }
+                        customerList.Reverse();
+                        e.Value = customerList[0].company.CompanyName;
+                    }
+                }
+                if (e.Column.FieldName == "customerLevel2" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var customerList = new List<CustomerCompany>();
+                        var node = row.saleOrder.customerCompany;
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and transverse to its parent
+                                    customerList.Add(node);
+                                    node = node.parentCompany;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    customerList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                customerList.Add(node);
+                                break;
+                            }
+                        }
+                        customerList.Reverse();
+                        switch (customerList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = customerList[0].company.CompanyName;
+                                break;
+                            case 2:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                            case 3:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                            case 4:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                            case 5:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                        }
+                    }
+                }
+                if (e.Column.FieldName == "customerLevel3" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var customerList = new List<CustomerCompany>();
+                        var node = row.saleOrder.customerCompany;
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and transverse to its parent
+                                    customerList.Add(node);
+                                    node = node.parentCompany;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    customerList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                customerList.Add(node);
+                                break;
+                            }
+                        }
+                        customerList.Reverse();
+                        switch (customerList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = customerList[0].company.CompanyName;
+                                break;
+                            case 2:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                            case 3:
+                                e.Value = customerList[2].company.CompanyName;
+                                break;
+                            case 4:
+                                e.Value = customerList[2].company.CompanyName;
+                                break;
+                            case 5:
+                                e.Value = customerList[2].company.CompanyName;
+                                break;
+                        }
+                    }
+                }
+                if (e.Column.FieldName == "customerLevel4" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var customerList = new List<CustomerCompany>();
+                        var node = row.saleOrder.customerCompany;
+
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and tranverse to its parent
+                                    customerList.Add(node);
+                                    node = node.parentCompany;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    customerList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                customerList.Add(node);
+                                break;
+                            }
+
+                        }
+                        customerList.Reverse();
+                        switch (customerList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = customerList[0].company.CompanyName;
+                                break;
+                            case 2:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                            case 3:
+                                e.Value = customerList[2].company.CompanyName;
+                                break;
+                            case 4:
+                                e.Value = customerList[3].company.CompanyName;
+                                break;
+                            case 5:
+                                e.Value = customerList[3].company.CompanyName;
+                                break;
+                        }
+                    }
+                }
+                if (e.Column.FieldName == "customerLevel5" && e.IsGetData)
+                {
+                    var row = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                    if (row != null)
+                    {
+                        var customerList = new List<CustomerCompany>();
+                        var node = row.saleOrder.customerCompany;
+
+                        while (node != null)
+                        {
+                            if (node.ParentID != null)
+                            {
+                                if (node.ParentID != node.Id)
+                                {
+                                    //this will add current node to department list and tranverse to its parent
+                                    customerList.Add(node);
+                                    node = node.parentCompany;
+                                }
+                                else
+                                {
+                                    //when node is parent to itself
+                                    customerList.Add(node);
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                //parent with parent id is null
+                                customerList.Add(node);
+                                break;
+                            }
+                        }
+                        customerList.Reverse();
+
+                        switch (customerList.Count)
+                        {
+                            case 0:
+
+                                break;
+                            case 1:
+                                e.Value = customerList[0].company.CompanyName;
+                                break;
+                            case 2:
+                                e.Value = customerList[1].company.CompanyName;
+                                break;
+                            case 3:
+                                e.Value = customerList[2].company.CompanyName;
+                                break;
+                            case 4:
+                                e.Value = customerList[3].company.CompanyName;
+                                break;
+                            case 5:
+                                e.Value = customerList[4].company.CompanyName;
+                                break;
+                        }
+                    }
+                }
+
+                if (e.IsGetData)
+                    switch (e.Column.FieldName)
+                    {
+                        case "SoAmountPER":
+                            var selectedRow31 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                            e.Value = Math.Round(Convert.ToDecimal(selectedRow31.Amount) * selectedRow31.saleOrder.PER, 2);
+
+                            break;
+                        case "Vendorss":
+                            if (e.Column.FieldName == "Vendorss" && e.IsGetData)
+                            {
+                                var _SO = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                                string vendorNames = "";
+
+                                if (_SO.saleOrder.vendors != null && _SO.saleOrder.vendors.Count > 0)
+                                {
+                                    vendorNames = String.Join(" | ", _SO.saleOrder.vendors.Select(x => x.company.CompanyName));
+                                }
+                                e.Value = vendorNames;
+                            }
+                            break;
+                        case "PaymentDueAgeingDays":
+                            if (e.GetListSourceFieldValue("PaymentDueAgeing") != null)
+                            {
+                                DateTime dateTime = Convert.ToDateTime(e.GetListSourceFieldValue("PaymentDueAgeing"));
+                                Double NoDueAgeingDays = (Convert.ToDateTime(System.DateTime.Now) - dateTime).TotalDays;
+                                NoDueAgeingDays = Math.Round(NoDueAgeingDays, 0);
+                                e.Value = NoDueAgeingDays;
+                            }
+                            break;
+                        case "Department":
+                            break;
+                        case "CreationAgeing":
+                            if (e.GetListSourceFieldValue("CreationDate") != null)
+                            {
+                                DateTime dateTime = Convert.ToDateTime(e.GetListSourceFieldValue("CreationDate"));
+
+
+                                Double CreateAgeingDays = (Convert.ToDateTime(System.DateTime.Now) - dateTime).TotalDays;
+                                CreateAgeingDays = Math.Round(CreateAgeingDays, 0);
+                                e.Value = CreateAgeingDays;
+                            }
+                            break;
+                        case "SODateAgeing":
+                            if (e.GetListSourceFieldValue("saleOrderDate") != null)
+                            {
+                                DateTime dateTime = Convert.ToDateTime(e.GetListSourceFieldValue("saleOrderDate"));
+
+
+                                Double SoDateAgeingDays = (Convert.ToDateTime(System.DateTime.Now) - dateTime).TotalDays;
+                                SoDateAgeingDays = Math.Round(SoDateAgeingDays, 0);
+                                e.Value = SoDateAgeingDays;
+                            }
+                            break;
+                        case "SODeliveryAgeing":
+                            if (e.GetListSourceFieldValue("deliveryDate") != null)
+                            {
+                                DateTime dateTime = Convert.ToDateTime(e.GetListSourceFieldValue("deliveryDate"));
+
+
+                                Double SoDateAgeingDays = (Convert.ToDateTime(System.DateTime.Now) - dateTime).TotalDays;
+                                SoDateAgeingDays = Math.Round(SoDateAgeingDays, 0);
+                                e.Value = SoDateAgeingDays;
+                            }
+                            break;
+                        case "totalWeight":
+                            if (e.GetListSourceFieldValue("products") != null)
+                            {
+                                List<ProcurementProduct> products = (e.GetListSourceFieldValue("products")) as List<ProcurementProduct>;
+
+
+                                decimal? totalweight = 0;
+                                foreach (var pro in products)
+                                {
+
+                                    if (pro.inquiryProduct.Weight != null || pro.inquiryProduct.Weight != 0)
+                                    {
+                                        totalweight = pro.inquiryProduct.Weight;
+                                    }
+                                }
+                                e.Value = totalweight;
+                            }
+
+                            break;
+                        case "totalQuantity":
+                            if (e.GetListSourceFieldValue("products") != null)
+                            {
+                                List<ProcurementProduct> products = (e.GetListSourceFieldValue("products")) as List<ProcurementProduct>;
+
+
+                                double totalquantity = 0;
+                                foreach (var pro in products)
+                                {
+
+                                    if (pro.inquiryProduct.quantity != 0)
+                                    {
+                                        totalquantity = pro.inquiryProduct.quantity;
+                                    }
+                                }
+                                e.Value = totalquantity;
+                            }
+
+                            break;
+                        case "BudgetMarginOC":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                decimal total = 0;
+                                var selectedRow66 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                                if (selectedRow66.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("costCenterAmount"));
+
+                                }
+                                else
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+
+                                }
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+                                var result1 = total - Cost.TotalBudgetedMargin;
+                                e.Value = result1;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("margin"));
+                            }
+                            break;
+
+                        case "BudgetMarginSER":
+                            var selectedRow = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var budgetCost = Convert.ToDouble(e.GetListSourceFieldValue("BudgetMarginOC"));
+                            if (selectedRow.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = budgetCost * selectedRow.saleOrder.ccSER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(budgetCost) * Convert.ToDouble(selectedRow.saleOrder.marginExchangeRate);
+                            }
+
+                            break;
+                        case "BudgetMarginMER":
+                            var selectedRow1 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var budgetCostMER = Convert.ToDouble(e.GetListSourceFieldValue("BudgetMarginOC"));
+
+                            if (selectedRow1.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+
+                                e.Value = budgetCostMER * selectedRow1.saleOrder.ccMER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(budgetCostMER) * Convert.ToDouble(selectedRow1.saleOrder.exchangeRate);
+                            }
+
+                            break;
+                        case "RevisedMarginSER":
+                            var selectedRow2 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var revisedCost = Convert.ToDouble(e.GetListSourceFieldValue("RevisedMarginOC"));
+
+                            if (selectedRow2.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = revisedCost * selectedRow2.saleOrder.ccSER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(revisedCost) * Convert.ToDouble(selectedRow2.saleOrder.marginExchangeRate);
+                            }
+
+                            break;
+                        case "RevisedMarginMER":
+                            var selectedRow3 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var revisedCostMER = Convert.ToDouble(e.GetListSourceFieldValue("RevisedMarginOC"));
+
+                            if (selectedRow3.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = revisedCostMER * selectedRow3.saleOrder.ccMER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(revisedCostMER) * Convert.ToDouble(selectedRow3.saleOrder.exchangeRate);
+                            }
+
+                            break;
+                        case "actualMarginSER":
+                            var selectedRow4 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var actualMargin = Convert.ToDouble(e.GetListSourceFieldValue("ActualMarginOC"));
+
+                            if (selectedRow4.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = actualMargin * selectedRow4.saleOrder.ccSER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(actualMargin) * Convert.ToDouble(selectedRow4.saleOrder.marginExchangeRate);
+                            }
+
+                            break;
+                        case "actualMarginMER":
+                            var selectedRow5 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var actualMarginMER = Convert.ToDouble(e.GetListSourceFieldValue("ActualMarginOC"));
+
+                            if (selectedRow5.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = actualMarginMER * selectedRow5.saleOrder.ccMER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(actualMarginMER) * Convert.ToDouble(selectedRow5.saleOrder.exchangeRate);
+                            }
+
+                            break;
+                        case "SalesSystemMargin1":
+                            var selectedRow6 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var systemMargin = Convert.ToDouble(e.GetListSourceFieldValue("SystemMargin"));
+
+                            if (selectedRow6.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = systemMargin * selectedRow6.saleOrder.ccSER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(systemMargin) * Convert.ToDouble(selectedRow6.saleOrder.marginExchangeRate);
+                            }
+
+                            break;
+                        case "SalesMarketMargin1":
+                            var selectedRow7 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var systemMarginMER = Convert.ToDouble(e.GetListSourceFieldValue("SystemMargin"));
+
+                            if (selectedRow7.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                            {
+                                e.Value = systemMarginMER * selectedRow7.saleOrder.ccMER;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDouble(systemMarginMER) * Convert.ToDouble(selectedRow7.saleOrder.exchangeRate);
+                            }
+
+                            break;
+
+
+
+                        case "BudgetedMarginPercentAge":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                decimal total = 0;
+                                var selectedRow66 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                                if (selectedRow66.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("costCenterAmount"));
+
+                                }
+                                else
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+
+                                }
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+                                var result4 = ((total - Cost.TotalBudgetedMargin) / total) * 100;
+                                e.Value = result4;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("BudgetedMarginPercent"));
+                            }
+                            break;
+                        case "ActualMarginOC":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                decimal total = 0;
+                                var selectedRow66 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                                if (selectedRow66.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("costCenterAmount"));
+
+                                }
+                                else
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+
+                                }
+
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+                                var result5 = total - Cost.TotalActualMargin;
+                                e.Value = result5;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("ActualMargin"));
+                            }
+                            break;
+
+                        case "ActualMarginPercentAge":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                decimal total = 0;
+                                var selectedRow66 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                                if (selectedRow66.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("costCenterAmount"));
+
+                                }
+                                else
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+
+                                }
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+                                var result8 = ((total - Cost.TotalActualMargin) / total) * 100;
+                                e.Value = result8;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("ActualMarginPercent"));
+                            }
+                            break;
+                        case "RevisedMarginOC":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                decimal total = 0;
+                                var selectedRow66 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                                if (selectedRow66.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("costCenterAmount"));
+
+                                }
+                                else
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+
+                                }
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+                                var result9 = total - Cost.TotalRevisedMargin;
+                                e.Value = result9;
+
+
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("RevisedMargin"));
+                            }
+                            break;
+
+                        case "RevisedMarginPercentAge":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                decimal total = 0;
+                                var selectedRow66 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+
+                                if (selectedRow66.saleOrder.saleOrdertype == InquiryType.SupplyCCC)
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("costCenterAmount"));
+
+                                }
+                                else
+                                {
+                                    total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+
+                                }
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+                                var result12 = ((total - Cost.TotalRevisedMargin) / total) * 100;
+                                e.Value = result12;
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("RevisedMarginPercent"));
+                            }
+                            break;
+                        case "invoicedTotalOC":
+                            var saleOrder = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            e.Value = saleOrder.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.totalInvoiceAmount);
+                            break;
+                        case "recieptTotalOC":
+                            var saleOrder1 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            e.Value = saleOrder1.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.CollectionAmount));
+                            break;
+                        case "totalDeductionsOC":
+                            var saleOrder2 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            e.Value = saleOrder2.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.receiptDeductions.Sum(y => y.Amount)));
+                            break;
+                        case "totalCreditedOC":
+                            var saleOrder3 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            var result = saleOrder3.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.receiptDeductions.Sum(y => y.Amount)));
+                            var collection = saleOrder3.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.CollectionAmount));
+                            e.Value = collection - result;
+                            break;
+                        case "remainingCollectionOC":
+                            var saleOrder4 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (saleOrder4.saleOrder.saleOrdertype == InquiryType.DistributionBiz)
+                            {
+                                var invoicedAmount = Math.Round((saleOrder4.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(y => y.BookerStatementItems.Sum(z => z.siNetAmount))).Value, 2);
+                                var collected = Math.Round(Convert.ToDouble(saleOrder4.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.CollectionAmount))), 2);
+                                e.Value = Math.Round((Convert.ToDouble(invoicedAmount) - collected), 2);
+                            }
+                            else if (saleOrder4.saleOrder.saleOrdertype == InquiryType.Principal)
+                            {
+                                if (saleOrder4.saleOrder.SaleInvoices != null && e.GetListSourceFieldValue("commision") != null)
+                                {
+                                    var total = Convert.ToDecimal(e.GetListSourceFieldValue("commision"));
+                                    var result13 = Convert.ToDecimal(saleOrder4.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.CollectionAmount)));
+                                    e.Value = total - result13;
+                                }
+                            }
+                            else
+                            {
+                                if (saleOrder4.saleOrder.SaleInvoices != null && e.GetListSourceFieldValue("totalCFRValue") != null)
+                                {
+                                    var total = Convert.ToDecimal(e.GetListSourceFieldValue("totalCFRValue"));
+                                    var result13 = Convert.ToDecimal(saleOrder4.saleOrder.SaleInvoices?.Where(x => x.isVoid != true).Sum(x => x.salesReceipts?.Where(y => y.isVoid != true).Sum(z => z.CollectionAmount)));
+                                    e.Value = total - result13;
+                                }
+                            }
+
+                            break;
+                        case "SystemCost":
+                            var saleOrder5 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (saleOrder5.saleOrder.CostSheet_Id != null)
+                            {
+                                var systemCost = saleOrderRepo.GetSOSystemCost((int)saleOrder5.saleOrder.CostSheet_Id);
+
+                                e.Value = systemCost;
+                            }
+                            break;
+
+                        case "budgetCost":
+                            if (e.GetListSourceFieldValue("totalCFRValue") != null && e.GetListSourceFieldValue("marginExchangeRate") != null && e.GetListSourceFieldValue("CostSheet") != null)
+                            {
+                                var exchangerate = Convert.ToDecimal(e.GetListSourceFieldValue("exchangeRate"));
+                                var Cost = e.GetListSourceFieldValue("CostSheet") as ERP_BL.Databases.CostSheet;
+
+                                var fields = Cost.FieldValues.Where(x => x.Type == 1).ToList();
+                                decimal totalFieldValue = fields.Sum(x => x.Value);
+                                var result3 = totalFieldValue /** exchangerate*/;
+                                e.Value = Math.Round(result3, 2);
+                            }
+                            else
+                            {
+                                e.Value = Convert.ToDecimal(e.GetListSourceFieldValue("SalesBudgetedMargin"));
+                            }
+                            break;
+
+                        case "adjCost":
+                            {
+                                var adjCost = saleOrderRepo.GetAdjustmentCost(Convert.ToInt32(e.GetListSourceFieldValue("Id")), Convert.ToInt32(e.GetListSourceFieldValue("CostSheet_Id")));
+                                e.Value = adjCost;
+                            }
+                            break;
+                        case "SER":
+                            {
+                                var saleOrderSER = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                                double todayRate = 0;
+                                var exchangeRateGroupSER = exchangeRateGroupsSER.FirstOrDefault(x => x.transaction_currency_Id == saleOrderSER.saleOrder.currency_Id && x.base_currency_Id == saleOrderSER.saleOrder.company.CurrencyId && x.TargetYear == saleOrderSER.saleOrder.CreationDate.Value.Year);
+                                if (exchangeRateGroupSER != null)
+                                {
+                                    exchangeRateSER = exchangeRateGroupSER.exchangeRates.FirstOrDefault(x => x.company_Id == saleOrderSER.saleOrder.company_Id);
+                                    switch (saleOrderSER.saleOrder.CreationDate.Value.Month)
+                                    {
+                                        case 1:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateJan;
+                                            break;
+                                        case 2:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateFeb;
+                                            break;
+                                        case 3:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateMar;
+                                            break;
+                                        case 4:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateApr;
+                                            break;
+                                        case 5:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateMay;
+                                            break;
+                                        case 6:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateJun;
+                                            break;
+                                        case 7:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateJul;
+                                            break;
+                                        case 8:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateAug;
+                                            break;
+                                        case 9:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateSep;
+                                            break;
+                                        case 10:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateOct;
+                                            break;
+                                        case 11:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateNov;
+                                            break;
+                                        case 12:
+                                            if (exchangeRateSER != null)
+                                                todayRate = exchangeRateSER.rateDec;
+                                            break;
+                                        default:
+                                            if (exchangeRateSER != null)
+                                                todayRate = 0;
+                                            break;
+                                    }
+                                }
+                                var total = todayRate;
+                                e.Value = total;
+                            }
+                            break;
+                        case "MER":
+                            {
+                                var saleOrderMER = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                                double todayRate = 0;
+                                var exchangeRateGroupMER = exchangeRateGroupsMER.FirstOrDefault(x => x.transaction_currency_Id == saleOrderMER.saleOrder.currency_Id && x.base_currency_Id == saleOrderMER.saleOrder.company.CurrencyId && x.TargetYear == saleOrderMER.saleOrder.CreationDate.Value.Year);
+                                if (exchangeRateGroupMER != null)
+                                {
+                                    exchangeRateMER = exchangeRateGroupMER.exchangeRates.FirstOrDefault(x => x.company_Id == saleOrderMER.saleOrder.company_Id);
+                                    switch (saleOrderMER.saleOrder.CreationDate.Value.Month)
+                                    {
+                                        case 1:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateJan;
+                                            break;
+                                        case 2:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateFeb;
+                                            break;
+                                        case 3:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateMar;
+                                            break;
+                                        case 4:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateApr;
+                                            break;
+                                        case 5:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateMay;
+                                            break;
+                                        case 6:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateJun;
+                                            break;
+                                        case 7:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateJul;
+                                            break;
+                                        case 8:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateAug;
+                                            break;
+                                        case 9:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateSep;
+                                            break;
+                                        case 10:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateOct;
+                                            break;
+                                        case 11:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateNov;
+                                            break;
+                                        case 12:
+                                            if (exchangeRateMER != null)
+                                                todayRate = exchangeRateMER.rateDec;
+                                            break;
+                                        default:
+                                            if (exchangeRateMER != null)
+                                                todayRate = 0;
+                                            break;
+                                    }
+                                }
+                                var total = todayRate;
+                                e.Value = total;
+                            }
+                            break;
+                        case "CMER":
+                            {
+                                var SOCMER = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                                double todayRate = 0;
+                                var exchangeRateGroupMER = exchangeRateGroupsMER.FirstOrDefault(x => x.transaction_currency_Id == SOCMER.saleOrder.currency_Id && x.base_currency_Id == SOCMER.saleOrder.company.CurrencyId && x.TargetYear == DateTime.Now.Year);
+                                if (exchangeRateGroupMER != null)
+                                {
+                                    exchangeRateCMER = exchangeRateGroupMER.exchangeRates.FirstOrDefault(x => x.company_Id == SOCMER.saleOrder.company_Id);
+                                    switch (DateTime.Now.Month)
+                                    {
+                                        case 1:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateJan;
+                                            break;
+                                        case 2:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateFeb;
+                                            break;
+                                        case 3:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateMar;
+                                            break;
+                                        case 4:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateApr;
+                                            break;
+                                        case 5:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateMay;
+                                            break;
+                                        case 6:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateJun;
+                                            break;
+                                        case 7:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateJul;
+                                            break;
+                                        case 8:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateAug;
+                                            break;
+                                        case 9:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateSep;
+                                            break;
+                                        case 10:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateOct;
+                                            break;
+                                        case 11:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateNov;
+                                            break;
+                                        case 12:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = exchangeRateCMER.rateDec;
+                                            break;
+                                        default:
+                                            if (exchangeRateCMER != null)
+                                                todayRate = 0;
+                                            break;
+                                    }
+                                }
+                                var total = todayRate;
+                                e.Value = total;
+                            }
+                            break;
+                        case "supervisorPoints":
+                            var order = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (order.saleOrder.PerformanceSheet_Id != null)
+                            {
+                                e.Value = order.saleOrder.PerformanceSheet.performanceSheetFields.Sum(x => x.point);
+                            }
+                            //else
+                            //{
+                            //    e.Value = 0;
+                            //}
+                            break;
+                        case "depHeadPoints":
+                            var order1 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (order1.saleOrder.PerformanceSheet_Id != null)
+                            {
+                                e.Value = order1.saleOrder.PerformanceSheet.performanceSheetFields.Sum(x => x.revisedPoint);
+                            }
+                            //else
+                            //{
+                            //    e.Value = 0;
+                            //}
+                            break;
+                        case "finalPoints":
+                            var order2 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (order2.saleOrder.PerformanceSheet_Id != null)
+                            {
+                                e.Value = order2.saleOrder.PerformanceSheet.totalPoints;
+                            }
+                            //else
+                            //{
+                            //    e.Value = 0;
+                            //}
+                            break;
+                        case "totalPoints":
+                            var order3 = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (order3.saleOrder.PerformanceSheet_Id != null)
+                            {
+                                e.Value = order3.saleOrder.PerformanceSheet.performanceSheetFields.Sum(x => x.PerformanceSheetHead.totalPoints);
+                            }
+                            break;
+                        case "remainingInvoiced":
+                            var so = grdPERgridReport.GetRowByListIndex(e.ListSourceRowIndex) as SplitPER;
+                            if (so.saleOrder.SaleInvoices != null)
+                            {
+                                if (so.saleOrder.SaleInvoices.Count != 0)
+                                {
+                                    var totalInvoiced = so.saleOrder.SaleInvoices.Sum(x => x.totalInvoiceAmount);
+                                    var totalSOAmount = so.saleOrder.totalCFRValue;
+                                    var value = totalSOAmount - totalInvoiced;
+                                    e.Value = value;
+                                }
+                            }
+
+                            break;
+                    }
+            }
+            catch (Exception)
+            {
+
+
+            }
+        }
+        private void EditSaleOrder()
+        {
+            if (grdPERgridReport.SelectedItem != null)
+            {
+                var PER = grdPERgridReport.SelectedItem as SplitPER;
+
+                if (PER != null && PER.saleOrder != null)
+                {
+                    Procurementss.frmProcurmentPanel procurmentPanel = new Procurementss.frmProcurmentPanel(TransactionItemType.Sale_Order, PER.saleOrder.Id);
+                    procurmentPanel.Show();
+                }
+            }
+        }
+        private void mbtnShareReport_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Share Sale Orders Report") != null)
+            {
+
+                var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to share " + this.Title + "report" + " ?", "Information", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                {
+                    SelectSharedGroup selectSharedGroup = new SelectSharedGroup(report);
+                    selectSharedGroup.ShowDialog();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                DXMessageBox.Show("You don't have permission Share Sale Orders Report!!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+
+            }
+        }
+        private void mbtnExportToStandardReport_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to export " + this.Title + " to Standard Reports ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+
+            switch (report.gridReportType)
+            {
+                case GridReportType.MemorizedReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Export to Standard Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                //var report = repo.GetReportByName(this.Title);
+                                var type = report.gridReportType;
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+
+                                Reportss.frmSetReportName setReportName = new Reportss.frmSetReportName(report.settingkey);
+                                setReportName.ShowDialog();
+                                var exportToStandardReport = setReportName.report;
+                                if (exportToStandardReport != null && exportToStandardReport.gridReportGroup != null && exportToStandardReport.gridReportType != null && exportToStandardReport.reportName != null && report.userId != null)
+                                {
+                                    var reportGroup = exportToStandardReport.gridReportGroup;
+                                    var reportType = exportToStandardReport.gridReportType;
+                                    var reportName = exportToStandardReport.reportName;
+                                    ReportLogic.ExportToStandard(grdPERgridReport, reportName, reportType, reportGroup, report.settingkey);
+                                    DXMessageBox.Show("( " + reportName + " ) is exported to Standard reports Successfully!", "Congratulation!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+
+                            }
+                            else
+                                return;
+
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Export to Memorized report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        break;
+                    }
+
+            }
+        }
+
+        private void MbtnExportToMemorizedReport_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to export " + this.Title + " to Memorized Reports ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            switch (report.gridReportType)
+            {
+                case GridReportType.StandardReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Export to Memorized Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                //var report = repo.GetReportByName(this.Title);
+                                var type = report.gridReportType;
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+
+                                Reportss.frmSetReportName setReportName = new Reportss.frmSetReportName(report.settingkey);
+                                setReportName.ShowDialog();
+                                var exportToMemorizedReport = setReportName.report;
+                                if (exportToMemorizedReport != null && exportToMemorizedReport.gridReportGroup != null && exportToMemorizedReport.gridReportType != null && exportToMemorizedReport.reportName != null && report.userId != null)
+                                {
+                                    var reportGroup = exportToMemorizedReport.gridReportGroup;
+                                    var reportType = exportToMemorizedReport.gridReportType;
+                                    var reportName = exportToMemorizedReport.reportName;
+                                    ReportLogic.SaveGridReport(grdPERgridReport, reportName, reportType, reportGroup, report.settingkey, report.titleId);
+                                    DXMessageBox.Show("( " + reportName + " ) is exported to Memorized reports Successfully!", "Congratulation!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+
+                            }
+                            else
+                                return;
+
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Export to Memorized report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        break;
+                    }
+
+            }
+        }
+
+        private void MbtnDeleteReport_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var inputfromUser = DXMessageBox.Show("Do you want to delete " + this.Title + " ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            switch (report.gridReportType)
+            {
+                case GridReportType.StandardReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Delete Standard Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+                                ReportLogic.DeleteReport(grdPERgridReport, report.reportName, report.gridReportType, group, report.Id, report.settingkey);
+                                DXMessageBox.Show(report.reportName + " is Deleted Successfully! ", "Congratulations", MessageBoxButton.OK, MessageBoxImage.Information);
+                                this.Close();
+                            }
+                            else
+                                return;
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Delete Standard report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        break;
+                    }
+                case GridReportType.MemorizedReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Delete Memorized Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                /*GridReport report = repo.GetReportByName(this.Title)*/
+                                ;
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+
+                                ReportLogic.DeleteReport(grdPERgridReport, report.reportName, report.gridReportType, group, report.Id, report.settingkey);
+                                DXMessageBox.Show(report.reportName + " is Deleted Successfully! ", "Congratulations", MessageBoxButton.OK, MessageBoxImage.Information);
+                                this.Close();
+                            }
+                            else
+                                return;
+
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Delete Memorized report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        break;
+                    }
+
+            }
+        }
+
+        private void MbtnUpdateReport_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var inputfromUser = DXMessageBox.Show("Are you sure? \n do you want to update " + this.Title + "?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            switch (report.gridReportType)
+            {
+                case GridReportType.StandardReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Update Standard Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                //var report = repo.GetReportByName(this.Title);
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+                                string str = report.reportName;
+                                GridReportType reportType = report.gridReportType;
+                                GridReportGroup groupDetails = group;
+                                if (str != "")
+                                {
+                                    ReportLogic.UpdateGridReport(grdPERgridReport, str, reportType, groupDetails, report.Id, report.settingkey);
+
+                                    DXMessageBox.Show(" ( " + str + " ) is Updated Successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Update report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    break;
+                case GridReportType.MemorizedReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Update Memorized Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                //var report = repo.GetReportByName(this.Title);
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+                                string str = report.reportName;
+                                GridReportType reportType = report.gridReportType;
+                                GridReportGroup groupDetails = group;
+                                if (str != "")
+                                {
+                                    ReportLogic.UpdateGridReport(grdPERgridReport, str, reportType, groupDetails, report.Id, report.settingkey);
+
+                                    DXMessageBox.Show(" ( " + str + " ) is Updated Successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Update report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void MbtnRenameReport_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            var inputfromUser = DXMessageBox.Show("Do you want to rename " + this.Title + " ?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            switch (report.gridReportType)
+            {
+                case GridReportType.StandardReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Rename Standard Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                //var report = repo.GetReportByName(this.Title);
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+                                Reportss.frmSetReportName setReportName = new Reportss.frmSetReportName(report.settingkey);
+                                setReportName.report = report;
+                                setReportName.editableGroup = group;
+                                //setting input Fields
+                                setReportName.txtName.Text = report.reportName;
+                                //setReportName.LoadReportTypes();
+                                setReportName.GetEnum();
+                                setReportName.reportTypes.EditValue = report.gridReportType;
+                                setReportName.lookupGroup.EditValue = group.groupName;
+                                setReportName.LoadGroups();
+                                setReportName.ShowDialog();
+                                var updatedReport = setReportName.report;
+                                if (updatedReport != null && updatedReport.gridReportGroup != null && updatedReport.gridReportType != null && updatedReport.reportName != null && updatedReport.userId != null)
+                                {
+                                    if (updatedReport.group_Id == report.gridReportGroup.Id && updatedReport.gridReportType == report.gridReportType)
+                                    {
+                                        ReportLogic.RenameGridReport(grdPERgridReport, updatedReport.reportName, updatedReport.gridReportType, updatedReport.gridReportGroup, updatedReport.Id, report.settingkey, report.titleId);
+                                        DXMessageBox.Show(report.reportName + " is renamed with ( " + updatedReport.reportName + " )", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                        this.Close();
+                                    }
+                                    else
+                                        DXMessageBox.Show("You cannot change (Grid Report Type) or (Grid Report Group)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+
+                            }
+                            else
+                                return;
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Rename report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        break;
+                    }
+                case GridReportType.MemorizedReport:
+                    {
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Access to Rename Memorized Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                var repo = new GridReportRepo();
+                                //var report = repo.GetReportByName(this.Title);
+                                var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+                                Reportss.frmSetReportName setReportName = new Reportss.frmSetReportName(report.settingkey);
+                                setReportName.report = report;
+                                setReportName.editableGroup = group;
+                                //setting input Fields
+                                setReportName.txtName.Text = report.reportName;
+                                //setReportName.LoadReportTypes();
+                                setReportName.GetEnum();
+                                setReportName.reportTypes.EditValue = report.gridReportType;
+                                setReportName.lookupGroup.EditValue = group.groupName;
+                                setReportName.LoadGroups();
+                                setReportName.ShowDialog();
+                                var updatedReport = setReportName.report;
+                                if (updatedReport != null && updatedReport.gridReportGroup != null && updatedReport.gridReportType != null && updatedReport.reportName != null && updatedReport.userId != null)
+                                {
+                                    if (updatedReport.group_Id == report.gridReportGroup.Id && updatedReport.gridReportType == report.gridReportType)
+                                    {
+                                        ReportLogic.RenameGridReport(grdPERgridReport, updatedReport.reportName, updatedReport.gridReportType, updatedReport.gridReportGroup, updatedReport.Id, report.settingkey, report.titleId);
+                                        DXMessageBox.Show(report.reportName + " is renamed with ( " + updatedReport.reportName + " )", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                                        this.Close();
+                                    }
+                                    else
+                                        DXMessageBox.Show("You cannot change (Grid Report Type) or (Grid Report Group)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+
+                            }
+                            else
+                                return;
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to Rename report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        break;
+                    }
+
+            }
+        }
+
+        private void MbtnSaveAsNew_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            switch (report.gridReportType)
+            {
+                case GridReportType.StandardReport:
+                    {
+
+                        var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to save " + this.Title + "" + " as new Report ? ", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Save as new Standard Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                Reportss.frmSetReportName setReportName = new Reportss.frmSetReportName(report.settingkey);
+                                setReportName.ShowDialog();
+                                var saveAsNewReport = setReportName.report;
+                                if (saveAsNewReport != null && saveAsNewReport.gridReportGroup != null && saveAsNewReport.gridReportType != null && saveAsNewReport.reportName != null && saveAsNewReport.userId != null)
+                                {
+                                    var reportGroup = saveAsNewReport.gridReportGroup;
+                                    var reportType = saveAsNewReport.gridReportType;
+                                    var reportName = saveAsNewReport.reportName;
+                                    ReportLogic.SaveGridReport(grdPERgridReport, reportName, reportType, reportGroup, report.settingkey, report.titleId);
+                                    DXMessageBox.Show("( " + reportName + " ) is exported Successfully!", "Congratulation!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                            }
+                            else
+                                return;
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to save as new Standard Report!!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    break;
+                case GridReportType.MemorizedReport:
+                    {
+
+                        var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to save " + this.Title + "" + " as new Report ? ", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                        if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Save as new Memorized Report") != null)
+                        {
+                            if (inputfromUser == System.Windows.MessageBoxResult.Yes)
+                            {
+                                Reportss.frmSetReportName setReportName = new Reportss.frmSetReportName(report.settingkey);
+                                setReportName.ShowDialog();
+                                var saveAsNewReport = setReportName.report;
+                                if (saveAsNewReport != null && saveAsNewReport.gridReportGroup != null && saveAsNewReport.gridReportType != null && saveAsNewReport.reportName != null && saveAsNewReport.userId != null)
+                                {
+                                    var reportGroup = saveAsNewReport.gridReportGroup;
+                                    var reportType = saveAsNewReport.gridReportType;
+                                    var reportName = saveAsNewReport.reportName;
+                                    ReportLogic.SaveGridReport(grdPERgridReport, reportName, reportType, reportGroup, report.settingkey, report.titleId);
+                                    DXMessageBox.Show("( " + reportName + " ) is exported Successfully!", "Congratulation!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                            }
+                            else
+                                return;
+                        }
+                        else
+                        {
+                            DXMessageBox.Show("You don't have permission to save as new Memorized Report!", "Permission Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    break;
+            }
+        }
+        private void BtnPrintPreview_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            DataTemplate dataTemplate = new DataTemplate(report.reportName);
+            //dataTemplate.Template = new TextBlock();
+            PrintableControlLink link = new PrintableControlLink((TableView)grdPERgridReport.View);
+            link.PaperKind = System.Drawing.Printing.PaperKind.A2;
+            link.PageHeaderData = report.reportName;
+            link.PageHeaderTemplate = Resources["reportHeaderTemplate"] as DataTemplate;
+            link.DocumentName = report.reportName;
+            link.ReportHeaderData = report.reportName;
+            link.ReportHeaderTemplate = dataTemplate;
+            link.Landscape = true;
+            // Show a preview. 
+            DevExpress.Xpf.Printing.PrintHelper.ShowRibbonPrintPreview(this, link);
+            //grdsaleOrderReport.View.ShowPrintPreview(this);
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loader.DeferedVisibility = true;
+            SaleOrderRepo soRepo = new SaleOrderRepo();
+            GridReportRepo repo = new GridReportRepo();
+            var group = repo.GetReportGroupByGroupId(Convert.ToInt32(report.group_Id));
+
+            switch (report.gridReportType)
+            {
+                case GridReportType.StandardReport:
+                    {
+                        if (report != null)
+                        {
+                            //Permissions Should be here 
+                            mbtnExportToStandardReport1.IsVisible = false;
+                            mbtnShareReport.IsVisible = false;
+                            grdPERgridReport.RestoreLayoutFromStream(ReportLogic.ConvertToMemoryStream(report.settingValue));
+                            Title = "PRIT Register" + "/" + group.groupName + "/" + reportTitle;
+                            lblHeading.Caption = "PRIT Register" + "/" + group.groupName + "/" + reportTitle;
+                            if (report.settingkey == "PRIT Register")
+                            {
+                                grdPERgridReport.ItemsSource = soRepo.GetSplitPER(SYSTEM_STATIC.currentUser.id);
+                            }
+                            else
+                                grdPERgridReport.ItemsSource = soRepo.GetSplitPER(SYSTEM_STATIC.currentUser.id);
+                            //btnFav.IsEnabled = false;
+
+                        }
+                        break;
+                    }
+                case GridReportType.MemorizedReport:
+                    {
+                        if (report != null)
+                        {
+                            //Permissions Should be here          
+                            mbtnExportToMemorizedReport1.IsVisible = false;
+                            grdPERgridReport.RestoreLayoutFromStream(ReportLogic.ConvertToMemoryStream(report.settingValue));
+                            Title = "PRIT Register" + "/" + group.groupName + "/" + reportTitle;
+                            lblHeading.Caption = "PRIT Register" + "/" + group.groupName + "/" + reportTitle;
+                            if (report.settingkey == "PRIT Register")
+                            {
+                                grdPERgridReport.ItemsSource = soRepo.GetSplitPER(SYSTEM_STATIC.currentUser.id);
+                            }
+                            else
+                                grdPERgridReport.ItemsSource = soRepo.GetSplitPER(SYSTEM_STATIC.currentUser.id);
+                        }
+
+                        break;
+                    }
+            }
+            Loader.DeferedVisibility = false;
+
+        }
+
+        private void MbtnRefreshReport_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+        {
+            saleOrderRepo = new SaleOrderRepo();
+            grdPERgridReport.ItemsSource = saleOrderRepo.GetSplitPER(SYSTEM_STATIC.currentUser.id);
+        }
+    }
+}

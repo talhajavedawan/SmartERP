@@ -1,0 +1,83 @@
+﻿<Window x:Class="ZAS_ERP.PopupNotificatios.frmShowPopupImage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.PopupNotificatios"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="Transparent"
+         WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+       Loaded="Window_Loaded"
+        Topmost="True"
+         Height="500" Width="600">
+    <Window.Clip>
+        <RectangleGeometry  Rect="0,0,600,500" RadiusX="10"  RadiusY="10"/>
+    </Window.Clip>
+
+    <!--<Border BorderBrush="Silver" BorderThickness="3" CornerRadius="30" >-->
+    <Grid Background="#bed6f6" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <TextBlock Visibility="Collapsed" x:Name="txtUpdateAvailable" Text="New update available"  HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="21"   FontFamily="Segoe UI Semibold" Margin="0,5,0,0"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <TextBlock Visibility="Collapsed" x:Name="txtCurrentVersion" Text="Released version : " HorizontalAlignment="Center" FontSize="15"   FontFamily="Cambria" Margin="320,0,0,0"/>
+            <TextBlock x:Name="runningVersion" Visibility="Collapsed" Text="" Margin="529,0,0,0" FontWeight="DemiBold"/>
+        </Grid>
+
+        <Grid Grid.Row="2" x:Name="grdMain">
+
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Visibility="Collapsed" x:Name="txtInformation" Grid.Row="0"  VerticalAlignment="Bottom" Grid.ColumnSpan="2" 
+                       Text="  Note:  If you choose to update the system please make sure your data is saved. No transaction is in&#x0a;  pending stage.Update process will close the system.&#x0a;  Any data loss won't be recoverable." TextWrapping="Wrap" FontSize="12" FontFamily="Segoe UI Semibold"  FontWeight="Bold"  Margin="5,5,5,0"/>
+            <TextBlock Visibility="Collapsed" x:Name="txtReleasedVersion" VerticalAlignment="Center" Grid.Row="1" Text="    Released version : "  FontSize="15"   FontFamily="Cambria"/>
+            <TextBlock Visibility="Collapsed" Text="" Grid.Row="1" VerticalAlignment="Center" Margin="135,3,0,0" x:Name="releaseVersion" FontWeight="DemiBold"/> 
+            <dx:SimpleButton Visibility="Collapsed"  x:Name="btnUpdate" Click="BtnUpdate_Click" Grid.Column="1" Grid.Row="1" Width="100" Height="30" Margin="90,5,5,10" VerticalAlignment="Top" Content="Update" FontSize="13"  FontWeight="DemiBold" FontFamily="Cambria"/>
+
+        </Grid>
+        <Grid   >
+              
+            </Grid>
+           
+            <dxe:ButtonClose Margin="0,10,10,0" Visibility="Collapsed" 
+                     HorizontalAlignment="Right" IsCancel="True" 
+                         IsTabStop="False"
+                      Panel.ZIndex="5"
+                     VerticalAlignment="Top"
+                         x:Name="btncloseVersion" 
+                         Click="btncloseclick" >
+            </dxe:ButtonClose>
+        <dxe:ButtonClose Margin="0,10,10,0" Grid.Row="2" Visibility="Collapsed" 
+                     HorizontalAlignment="Right" IsCancel="True" 
+                         IsTabStop="False"
+                      Panel.ZIndex="5"
+                     VerticalAlignment="Top"
+                         x:Name="btncloseImageNoti" 
+                         Click="btncloseclick" >
+        </dxe:ButtonClose>
+
+
+    </Grid>
+    <!--</Border>-->
+</Window>

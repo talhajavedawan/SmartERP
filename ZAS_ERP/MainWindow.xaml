@@ -1,0 +1,2532 @@
+﻿<dxr:DXRibbonWindow xmlns:UserTasks="clr-namespace:ZAS_ERP.UserTasks"  xmlns:dxdash="http://schemas.devexpress.com/winfx/2008/xaml/dashboard"  xmlns:Calender="clr-namespace:ZAS_ERP.Calender"  xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP"
+       
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:local1="clr-namespace:ZAS_ERP.Chat.ChatUsercontrols"
+
+        xmlns:dxn="http://schemas.devexpress.com/winfx/2008/xaml/navbar"
+        
+        xmlns:Leaves="clr-namespace:ZAS_ERP.Leaves"
+            xmlns:dxa="http://schemas.devexpress.com/winfx/2008/xaml/accordion"
+        xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
+                    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+                    x:Class="ZAS_ERP.MainWindow" mc:Ignorable="d" Title="ZAS-ERP" 
+        MinHeight="480" MinWidth="800" 
+        WindowState="Maximized" 
+        WindowStartupLocation="CenterScreen"
+        Width="1000" 
+        x:Name="mainWindow"
+        Loaded="mainWindow_Loaded"
+        Icon="images/zasLogo.png"
+        MouseMove="mainWindow_MouseMove"
+                    KeyDown="mainWindow_KeyDown"
+        Closing="mainWindow_Closing"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+    >
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.MarkReadUnread" CanExecute="ExitCommand_CanExecute" Executed="ExitCommand_Executed" />
+    </Window.CommandBindings>-->
+    <Window.Resources>
+
+        <Style TargetType="dxb:BarSubItemLinkControl">
+            <EventSetter Event="PreviewMouseDown" Handler="SubItemPreviewMouseDown" />
+        </Style>
+        <Storyboard x:Key="MyStoryboard">
+            <DoubleAnimation Storyboard.TargetName="btnGlow" 
+                         Storyboard.TargetProperty="Opacity"
+                         RepeatBehavior="Forever"
+                         AutoReverse="True"
+                         From="1"
+                         To="0.0"
+                         Duration="0:0:1" />
+        </Storyboard>
+
+
+
+    </Window.Resources>
+    <dxb:BarManager Name="barManager1">
+        <Grid>
+
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <DockPanel LastChildFill="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="25.5"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" MaxWidth="220"/>
+                        <ColumnDefinition Width="0" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Panel.ZIndex="6" Grid.Row="1" Background="White" Width="auto" Margin="0 0 0 0" Grid.Column="2" x:Name="grdPollings" Visibility="Collapsed">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <dx:SimpleButton Content="Active Pollings" x:Name="btnActivePollings" Click="BtnActivePollings_Click"/>
+                                <dx:SimpleButton Content="InActive Pollings" Grid.Column="1" x:Name="btnInActivePollings" Click="BtnInActivePollings_Click"/>
+                                <dx:SimpleButton Grid.Column="2" Content="Refresh Data" x:Name="btnRefreshData" Click="BtnRefreshData_Click"/>
+                                <dx:SimpleButton Content="All Pollings" Grid.Column="3" x:Name="btnAllPollings" Click="BtnAllPollings_Click"/>
+                            </Grid>
+                            <dxg:GridControl SelectionMode="Row"
+                                         x:Name="grdCntrlPollings"
+                                         AutoGenerateColumns="None"
+                                         AllowInitiallyFocusedRow="False"
+                                         Grid.Row="1"
+                                         CustomUnboundColumnData="GrdCntrlPollings_CustomUnboundColumnData"
+                                         SelectionChanged="GrdCntrlPollings_SelectionChanged">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView
+                                    AllowEditing="False"
+                                    ShowAutoFilterRow="True"
+                                    UseIndicatorForSelection="True"                                    
+                                    FadeSelectionOnLostFocus="False"
+                                    ShowSelectionRectangle="True"
+                                    ShowGroupPanel="False"
+                                    ShowSearchPanelMode="Never"/>
+                                </dxg:GridControl.View>
+
+                                <dxg:GridControl.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Create New Poll" x:Name="mbtnCreateNewPoll" Click="MbtnCreateNewPoll_Click"/>
+                                        <MenuItem Header="Edit Selected Poll" x:Name="mbtnViewPoll" Click="MbtnViewPoll_Click"/>
+                                        <MenuItem Header="Delete Selected Poll" x:Name="mbtnDeletePoll" Click="MbtnDeletePoll_Click"/>
+                                    </ContextMenu>
+                                </dxg:GridControl.ContextMenu>
+
+                                <dxg:GridColumn FieldName="CreationDate"
+                                            Header="Created on"
+                                            IsSmart="True" 
+                                            SortOrder="descending"
+                                            VisibleIndex="0"/>
+
+                                <dxg:GridColumn FieldName="Title"
+                                            Header="Title"
+                                            IsSmart="True" 
+                                            Width="auto"
+                                            VisibleIndex="1"/>
+
+                                <dxg:GridColumn FieldName="taskGroup.GroupName"
+                                            Header="Group Name"
+                                            IsSmart="True" 
+                                            VisibleIndex="2"/>
+
+                                <dxg:GridColumn Header="Initiated By"
+                                            FieldName="initiatedBy.employee.person.FName"
+                                            IsSmart="True"
+                                            Width="auto"
+                                            VisibleIndex="3"/>
+
+                                <dxg:GridColumn Header="Users In Favor"
+                                            FieldName="UsersInFavor"
+                                            UnboundType="Integer"
+                                            IsSmart="True"
+                                            VisibleIndex="4"/>
+
+                                <dxg:GridColumn Header="Users Not In Favor"
+                                            FieldName="UsersNotInFavor"
+                                            UnboundType="Integer"
+                                            IsSmart="True"
+                                            VisibleIndex="5"/>
+
+                                <dxg:GridColumn FieldName="ValidUntil"
+                                            Header="Valid Until"
+                                            IsSmart="True" 
+                                            SortOrder="descending"
+                                            VisibleIndex="6">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:DateEditSettings Mask="g" MaskType="DateTime" MaskUseAsDisplayFormat="True"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                            </dxg:GridControl>
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <dxlc:LayoutGroup Header="Initiated By" View="GroupBox" Grid.ColumnSpan="3" Grid.Row="1">
+                                <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+                                    <Border Height="60" Width="60" CornerRadius="0,10,0,10" BorderBrush="DeepSkyBlue"  HorizontalAlignment="Center" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush  x:Name="imgInitiatedBy" ImageSource="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                                        <TextBlock x:Name="txtInitiatedBy" Text="Name" FontSize="12"/>
+                                        <TextBlock x:Name="txtDesignation" Text="Desgnation" FontSize="10" Foreground="Gray"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </dxlc:LayoutGroup>
+
+                            <Grid Grid.ColumnSpan="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Text="Valid Until" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5 5 0 10"/>
+                                <dxe:DateEdit x:Name="datValidUntil" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="10 5 5 10" IsReadOnly="True" Mask="g" MaskType="DateTime" MaskUseAsDisplayFormat="True"/>
+                            </Grid>
+
+
+                            <dxlc:LayoutGroup Grid.Row="2" Grid.ColumnSpan="3" View="GroupBox" Header="Counters" Margin="0 5 0 0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <dx:SimpleButton x:Name="btnAgreedCount" Grid.Row="2" HorizontalAlignment="Center" Margin="0 0 0 0" Width="80" Click="BtnAgreedCount_Click">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="Agreed"/>
+                                            <TextBlock x:Name="txtAgreedUsersCount" Text="0" HorizontalAlignment="Center" FontSize="28" Foreground="ForestGreen"/>
+                                        </StackPanel>
+                                    </dx:SimpleButton>
+
+                                    <dx:SimpleButton x:Name="btnNeutralCount" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Margin="5 0 0 0" Width="80" Click="BtnNeutralCount_Click">
+                                        <StackPanel>
+                                            <TextBlock Text="Not Voted"/>
+                                            <TextBlock x:Name="txtNeutralUsersCount" Text="0" HorizontalAlignment="Center" FontSize="28" Foreground="Orange"/>
+                                        </StackPanel>
+                                    </dx:SimpleButton>
+
+                                    <dx:SimpleButton x:Name="btnDisagreedCount" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Margin="5 0 0 0" Width="80" Click="BtnDisagreedCount_Click">
+                                        <StackPanel>
+                                            <TextBlock Text="Disagreed"/>
+                                            <TextBlock x:Name="txtDisagreedUsersCount" Text="0" HorizontalAlignment="Center" FontSize="28" Foreground="Red"/>
+                                        </StackPanel>
+                                    </dx:SimpleButton>
+                                </StackPanel>
+                            </dxlc:LayoutGroup>
+
+                            <Border BorderBrush="DeepSkyBlue" Grid.Row="3" Grid.ColumnSpan="3" BorderThickness="1" CornerRadius="5" Margin="10 10 10 10" Padding="3">
+                                <dxe:TextEdit x:Name="txtPollTitle" Margin="0 0 0 0" TextWrapping="Wrap" IsReadOnly="True" FontSize="18"/>
+                            </Border>
+
+                            <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" x:Name="grdVoteButtons">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <dx:SimpleButton Name="btnAgree"  Margin="5 0 0 10" Padding="3" Click="BtnAgree_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{dx:DXImage Image=Apply_16x16.png}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Agree" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </dx:SimpleButton>
+
+                                <dx:SimpleButton Name="btnDisagree" Grid.Row="4" Grid.Column="2" Margin="5 0 0 10" Click="BtnDisagree_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{dx:DXImage Image=Cancel_16x16.png}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Disagree"  Margin="5 0 0 0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </dx:SimpleButton>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid Panel.ZIndex="5" Grid.Row="1" Width="auto" Margin="0 0 0 0" Grid.Column="2" HorizontalAlignment="Left" x:Name="changeLogsPanel" Visibility="Collapsed">
+                        <!--<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                            <dxe:TextEdit x:Name="txtChangeLogs" IsReadOnly="True"/>
+                        </ScrollViewer>-->
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Background="DeepSkyBlue" Padding="10" Text="Updates Details" FontSize="20" FontWeight="Bold" TextAlignment="Center"/>
+
+                        <dxg:GridControl SelectionMode="Row"
+                                             x:Name="grdChangeLogs"
+                                             AutoGenerateColumns="None"
+                                             AllowInitiallyFocusedRow="False"
+                                             Grid.Row="1">
+                            <dxg:GridControl.View>
+                                <dxg:TableView x:Name="viewTable"
+                                    AutoWidth="True"
+                                    AllowEditing="False"
+                                    ShowAutoFilterRow="True"
+                                    UseIndicatorForSelection="True"                                    
+                                    FadeSelectionOnLostFocus="False"
+                                    ShowSelectionRectangle="True"
+                                                   ShowGroupPanel="False"
+                                                   ShowSearchPanelMode="Never"/>
+
+
+                            </dxg:GridControl.View>
+
+                            <dxg:GridColumn FieldName="lastModified"
+                                            Header="Date"
+                                IsSmart="True" 
+                                             SortOrder="descending"
+                                            Width="auto"/>
+                            <dxg:GridColumn FieldName="settingkey"
+                                            Header="Version"
+                                IsSmart="True" 
+                                            Width="auto"/>
+                            <dxg:GridColumn Header="Description"
+                                FieldName="settingValue"
+                                IsSmart="True" />
+                        </dxg:GridControl>
+                    </Grid>
+
+                    <Grid VerticalAlignment="Top" MinWidth="920"  Grid.Row="0" Background="#f0f0f0" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0"/>
+                        </Grid.RowDefinitions>
+
+
+                        <!--Ribbon start by waqas-->
+                        <dxr:RibbonControl 
+                        
+                        x:Name="ribbonCntrlMain" 
+                        RibbonTitleBarVisibility="Collapsed"
+                        RibbonStyle="Office2019" 
+                      
+                        MouseDown="RibbonControl_MouseDown" 
+                        RibbonPopupMenuShowing="RibbonControl_RibbonPopupMenuShowing"
+                        ToolbarShowMode="Hide"  
+                        ShowApplicationButton="False" 
+                          
+                        MinimizationButtonVisibility="Auto" >
+
+                          
+
+
+                            <dxr:RibbonControl.PageHeaderItems >
+
+                            
+                                <dxb:BarItemSeparator/>
+
+
+                                <!--<dxb:BarButtonItem ToolTip="Online Users"
+                                                   Content="Online"
+                                                   ItemClick="btnOnline_ItemClick"
+                                                                                                   
+                                                   GlyphSize="Large" 
+                                                   RibbonStyle="Large"
+                                                   Glyph="/ZAS_ERP;component/images/computer.png"/>-->
+                                <dxb:BarSplitButtonItem   ToolTip="Online Users" 
+                                                   Content="Online"
+                                                   ItemClick="btnOnline_ItemClick_1"
+                                                   x:Name="btnOnline"                                                  
+                                                   GlyphSize="Large" 
+                                                   RibbonStyle="Large"
+                                                   Glyph="/ZAS_ERP;component/images/computer.png"
+                                                         
+                                                     >
+
+
+                                </dxb:BarSplitButtonItem>
+
+
+
+
+
+                                <dxb:BarItemSeparator/>
+
+
+                                <dxb:BarSplitButtonItem   Content="Tasks" 
+                                                    x:Name="barTaskss"     
+                                               Glyph="/ZAS_ERP;component/images/Task_32x32.png"
+                                                    RibbonStyle="Large" 
+                                                     ItemClick="BarTaskss_ItemClick">
+                                    <!--<dxb:PopupMenu>
+                                        <dxb:BarButtonItem/>
+                                    </dxb:PopupMenu>-->
+                                </dxb:BarSplitButtonItem>
+
+                                <dxb:BarSplitButtonItem   Content="Memos" 
+                                                    x:Name="barMemos"     
+                                              Glyph="{dx:DXImage Image=TrackingChanges_TrackChanges_32x32.png}"
+                                                    RibbonStyle="Large" 
+                                                     ItemClick="barMemos_ItemClick"
+                                                          IsEnabled="True">
+                                    <!--<dxb:PopupMenu>
+                                        <dxb:BarButtonItem/>
+                                    </dxb:PopupMenu>-->
+                                </dxb:BarSplitButtonItem>
+
+
+                                <dxb:BarSplitButtonItem
+                                    IsEnabled="False"
+                                    Glyph ="/ZAS_ERP;component/images/bell.png" 
+                                    Content="Notification"
+                                    x:Name="mbtnNotifications"
+                                    RibbonStyle="SmallWithText"
+                                    ItemClick="MbtnNotifications_ItemClick">
+                                </dxb:BarSplitButtonItem>
+
+
+
+
+
+                                <!--<dxb:BarSplitButtonItem    ToolTip="Notifications"   
+                                                       ItemClick="MbtnNotifications_Click"
+                                             x:Name="mbtnNotifications"  
+                                                       Content="{Binding unReadCount}" 
+                                                    Glyph="/ZAS_ERP;component/images/noify1.png"
+                                                    RibbonStyle="Large" 
+                                                     >
+                                <dxb:PopupMenu>
+                                    <dxb:BarButtonItem/>
+                                </dxb:PopupMenu>
+                            </dxb:BarSplitButtonItem>-->
+
+
+
+
+
+
+
+
+
+                                <dxb:BarItemSeparator/>
+
+                                <dxb:BarSplitButtonItem Content="Themes" Glyph="{dx:DXImage Image=Colors_32x32.png}"  x:Name="btnUserThemeMenu"  RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=Colors_32x32.png}">
+                                    <dxb:BarSplitButtonItem.PopupControl>
+                                        <dxb:PopupControlContainer>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Application theme:" VerticalAlignment="Center" Margin="10,0" />
+
+                                                <dxe:ComboBoxEdit VerticalAlignment="Center" Width="200"  x:Name="cbTheme"
+                              DisplayMember="name" ValueMember="name" EditValueChanged="cbTheme_EditValueChanged" />
+
+                                                <Button x:Name="btnDefaultTheme" Content="Set default theme" VerticalAlignment="Center" Margin="10,0" Padding="15,1" Click="btnDefaultTheme_Click" />
+                                            </StackPanel>
+                                        </dxb:PopupControlContainer>
+                                    </dxb:BarSplitButtonItem.PopupControl>
+                                </dxb:BarSplitButtonItem>
+
+
+
+                                <dxb:BarSplitButtonItem Content="welcome" Glyph="{dx:DXImage Image=BOUser_32x32.png}"  x:Name="btnUsermenu"  RibbonStyle="Large" LargeGlyph="{dx:DXImage Image=BOUser_32x32.png}">
+                                    <dxb:BarSplitButtonItem.PopupControl>
+                                        <dxb:PopupControlContainer>
+
+                                            <StackPanel>
+                                                <dx:SplitButton x:Name="btnProfile"
+                                        Click="BtnProfile_Click"
+                                        Content="Profile"
+                                        Glyph="{dx:DXImage Image=BOUser_32x32.png}" 
+                                        IsEnabled="False"/>
+                                                <Button x:Name="btnChangePassword"
+                                        Click="BtnChangePassword_Click"
+                                        Content="Change Password"
+                                         />
+                                                <dx:DropDownButton x:Name="btnLogout"
+                                       Click="btnLogout_Click"
+                                       Content="Logout" />
+                                            </StackPanel>
+                                        </dxb:PopupControlContainer>
+                                    </dxb:BarSplitButtonItem.PopupControl>
+                                </dxb:BarSplitButtonItem>
+
+                            </dxr:RibbonControl.PageHeaderItems>
+                            <dxr:RibbonDefaultPageCategory x:Name="categorySelection" 
+                            Caption="Selectionguierygtioitruto">
+
+                                <!--home page start-->
+                                
+
+                                    <dxr:RibbonPage Caption="Home" x:Name="ribbonHome">
+                                    <dxr:RibbonPageGroup Caption="Set Background" >
+                                        <dxb:BarSplitButtonItem x:Name="desktopBackground"  Content="Desktop Background" RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem RibbonStyle="Large" Content="Upload" x:Name="btnUpload" ItemClick="BtnUpload_ItemClick" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}" />
+                                                <dxb:BarButtonItem RibbonStyle="Large" Content="Preview" x:Name="BtnpreviewNew" ItemClick="BtnpreviewNew_ItemClick" Glyph="{dx:DXImageGrayscale Image=Show_32x32.png}" />
+
+                                                <dxb:BarButtonItem RibbonStyle="Large" Content="Apply to Background" x:Name="btnApplyImage" ItemClick="BtnApplyImage_ItemClick" Glyph="{dx:DXImageGrayscale Image=Apply_32x32.png}"/>
+
+                                                <dxb:BarButtonItem RibbonStyle="Large" Content="Uploaded Details" x:Name="btnUploadedBy" ItemClick="btnUploadedBy_ItemClick" Glyph="{dx:DXImageGrayscale Image=Apply_32x32.png}"/>
+
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Notifications">
+                                        <dxb:BarSplitButtonItem  Content="ERP-Notification" RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Create Notification" x:Name="btnPopupCreate" ItemClick="BtnPopupCreate_ItemClick" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+
+                                                <dxb:BarButtonItem Content="Delete Notification"  x:Name="btnDeletePopupNotification" ItemClick="BtnDeletePopupNotification_ItemClick" Glyph="{dx:DXImageGrayscale Image=Remove_32x32.png}"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Image Noti">
+                                        <dxb:BarSplitButtonItem  Content="Image-Notification" RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+
+                                                <dxb:BarButtonItem Content="Upload" x:Name="btnUploadImage" ItemClick="BtnUploadImage_ItemClick" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Show at Login" x:Name="btnShowNotiImage" ItemClick="BtnShowNotiImage_ItemClick" Glyph="{dx:DXImageGrayscale Image=Show_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Delete"  x:Name="btnDeletePopupImage" ItemClick="BtnDeletePopupImage_ItemClick" Glyph="{dx:DXImageGrayscale Image=Remove_32x32.png}"/>
+
+
+                                                <dxb:BarButtonItem IsVisible="False" Content="Convert"  x:Name="btnConvert" ItemClick="BtnConvert_ItemClick" Glyph="{dx:DXImageGrayscale Image=Remove_32x32.png}"/>
+
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Grouping">
+                                        <dxb:BarSplitButtonItem  Content="Grouping" RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Grouping List" x:Name="btnGroups" ItemClick="btnGroups_ItemClick" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Instant">
+                                        <dxb:BarSplitButtonItem  Content="Instant Send" RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Group Wallpaper Notification" x:Name="btnInstantGroupWallpaper" ItemClick="btnInstantGroupWallpaper_ItemClick" Glyph="{dx:DXImageGrayscale Image=Apply_32x32.png}"/>
+                                                <dxb:BarButtonItem RibbonStyle="Large" Content="All Wallpaper Notification" x:Name="btnInstantImageChange" ItemClick="btnInstantImageChange_ItemClick" Glyph="{dx:DXImageGrayscale Image=Apply_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Image Notification"  x:Name="btnInstantUpdateNoti" ItemClick="btnInstantUpdateNoti_ItemClick" Glyph="{dx:DXImageGrayscale Image=Apply_32x32.png}"/>
+
+
+                                                <dxb:BarButtonItem Content="Send Notification" x:Name="btnShowNotification" ItemClick="BtnShowNotification_ItemClick" Glyph="{dx:DXImageGrayscale Image=Apply_32x32.png}"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+
+                                </dxr:RibbonPage>
+                                <!--file page start-->
+                                <dxr:RibbonPage x:Name="btnFile" Caption="File">
+
+                                    <dxr:RibbonPageGroup Caption="Company" >
+                                        <dxb:BarButtonItem  Content="Company"  Glyph="{dx:DXImage Image=Home_32x32.png}" RibbonStyle="All" LargeGlyph="{dx:DXImage Image=Home_32x32.png}" />
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem  Content=" New Company " x:Name="btnnewcompany" ItemClick="Btnnewcompany_ItemClick"  IsVisible="False"/>
+                                        <dxb:BarButtonItem Content=" Open Previous Company" RibbonStyle="Default" IsVisible="False"/>
+                                        <dxb:BarButtonItem  Content=" Open Second Company" IsVisible="False"/>
+                                        <dxb:BarButtonItem Content=" Backup Company"  RibbonStyle="SmallWithText"/>
+                                        <dxb:BarButtonItem Content=" Close Company"  />
+                                        <dxb:BarButtonItem Content=" Create Copy"  />
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="            About           " >
+
+
+
+                                        <dxb:BarButtonItem Name="bAbout" Content="About" Glyph="{dx:DXImage Image=Question_16x16.png}" ItemClick="bAbout_ItemClick" RibbonStyle="All"  LargeGlyph="{dx:DXImage Image=Question_32x32.png}"/>
+                                        <dxb:BarItemSelector/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Shipping" Glyph="/ZAS_ERP;component/images/shipping-solid.png" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="  Utilities              " >
+                                        <dxb:BarButtonItem Content="Utilities" Glyph="{dx:DXImageGrayscale Image=CustomizeGrid_16x16.png}" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Chat"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Company Files" >
+                                        <dxb:BarButtonItem Content="Send Companies File" RibbonStyle="Large" Glyph="/ZAS_ERP;component/images/send-files.png"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Prints" >
+
+                                        <dxb:BarButtonItem Content="Print" Glyph="{dx:DXImage Image=Printer_16x16.png}" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}" />
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Print Form" />
+                                        <dxb:BarButtonItem Content="Print Setup" />
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="   Close   " >
+
+                                        <dxb:BarButtonItem Content="Exit" ItemClick="BarButtonItem_ItemClick" Glyph="{dx:DXImage Image=Delete_16x16.png}" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+
+
+
+
+
+                                </dxr:RibbonPage>
+                                <!--list page start-->
+                                <dxr:RibbonPage Caption="List" x:Name="mheadList">
+
+                                    <dxr:RibbonPageGroup Caption="Principals" x:Name="mheadPrincipal">
+                                        <dxb:BarSplitButtonItem  Content=" Principal  " RibbonStyle="Large">
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Principal Center "  x:Name="mbtnprincipalcenter" ItemClick="mbtnprincipalcenter_Click"  LargeGlyph="{dx:DXImage Image=Printer_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Principal Center Register" x:Name="mbtnPrincipal" ItemClick="mbtnPrincipal_ItemClick" IsVisible="True"/>
+                                                <dxb:BarButtonItem Content="Bills" Glyph="/ZAS_ERP;component/images/bill.png" RibbonStyle="Large"/>
+                                                <dxb:BarButtonItem Content="Enter Bills " />
+                                                <dxb:BarButtonItem Content="Pay Bills "/>
+                                                <dxb:BarButtonItem Content="Item 
+                                                                   " Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}" LargeGlyph="{dx:DXImage Image=ListMultilevel_32x32.png}"/>
+
+
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Templates">
+                                        <dxb:BarSplitButtonItem  Content=" Templates  " RibbonStyle="Large">
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Templates" Glyph="{dx:DXImage Image=Template_16x16.png}" RibbonStyle="Large"/>
+                                                <dxb:BarItemSeparator/>
+                                                <dxb:BarButtonItem Content="Template 
+                                                                   " x:Name="mbtnTemplateList" ItemClick="MbtnTemplateList_Click"/>
+                                                <dxb:BarButtonItem Content="Template Fields" x:Name="mbtnTemplateFields" ItemClick="MbtnTemplateFields_Click"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Payments">
+                                        <dxb:BarSplitButtonItem  Content=" Payments  " RibbonStyle="Large">
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Payments" Glyph="{dx:DXImage Image=Template_16x16.png}" RibbonStyle="Large"/>
+                                                <dxb:BarItemSeparator/>
+                                                <dxb:BarButtonItem Content="Method 
+                                                                   " x:Name="mbtnPaymentMethodList" ItemClick="MbtnPaymentMethodList_ItemClick"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+
+
+                                    <dxr:RibbonPageGroup Caption="Tax">
+                                        <dxb:BarSplitButtonItem  Content=" Taxation  " RibbonStyle="Large">
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Taxation" Glyph="{dx:DXImage Image=Currency_16x16.png}" RibbonStyle="Large"/>
+                                                <dxb:BarItemSeparator/>
+                                                <dxb:BarButtonItem Content="Tax type 
+                                                                   " x:Name="mbtnTaxTypeList" ItemClick="MbtnTaxTypeList_Click"/>
+                                                <dxb:BarButtonItem Content="Tax list" x:Name="mbtnTaxList" ItemClick="MbtnTaxList_Click"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption=" Exchange Rates      ">
+                                        <dxb:BarSplitButtonItem  Content=" Exchange Rates   " RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem  Content="Currencies and Exchange Rates"  Glyph="/ZAS_ERP;component/images/currency-exchange.png" RibbonStyle="Large" />
+                                                <dxb:BarItemSeparator/>
+                                                <dxb:BarButtonItem Content="Currencies"  x:Name="mbtnCurrencies" ItemClick ="mbtnCurrencies_Click" />
+
+                                                <dxb:BarButtonItem Content="Sales Exchange Rates" Glyph="/ZAS_ERP;component/images/currency-exchange.png" x:Name="mbtnSalesExchangerates1" ItemClick="mbtnSalesExchangerates_ItemClick" RibbonStyle="Large"/>
+                                                <dxb:BarButtonItem Content="Market Exchange Rates" Glyph="/ZAS_ERP;component/images/currency-exchange.png" x:Name="mbtnMarketExchangerates1" ItemClick="mbtnMarketExchangerates_ItemClick" RibbonStyle="Large"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Items">
+                                        <dxb:BarSplitButtonItem  Content="Items" RibbonStyle="Large">
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Items" Glyph="{dx:DXImage Image=AddItem_16x16.png}" RibbonStyle="Large"/>
+                                                <dxb:BarItemSeparator/>
+                                                <dxb:BarButtonItem Content="List of I_tems" x:Name="mbtnProducts" ItemClick="mbtnProducts_Click"/>
+                                                <dxb:BarButtonItem Content="I_tems Categories"   x:Name="mbtnCategories" ItemClick="mbtnCategories_Click"/>
+                                                <dxb:BarButtonItem Content="Category wise I_tems"  x:Name="mbtnCategoryItems" ItemClick="mbtnCategoryItems_Click"/>
+                                                <dxb:BarButtonItem Content="List of Unit of Measures" x:Name="mbtnUnitOfMeasure" ItemClick="mbtnUnitOfMeasure_Click"/>
+                                                <dxb:BarButtonItem Content="List of Item Natures"  x:Name="mbtnItemNature" ItemClick="mbtnItemNature_Click"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+
+                                    <dxr:RibbonPageGroup Caption="Status List">
+
+
+                                        <dxb:BarSplitButtonItem Content="Status Lists" Glyph="{dx:DXImage Image=Status_16x16.png}" RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem  Content="Procurment Items Statuses List" Glyph="{dx:DXImage Image=Status_16x16.png}"/>
+                                                <dxb:BarButtonItem Content="Inquiry Statuses List" ItemClick="MbtnInquiryStatusList_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" x:Name="mbtnInquiryStatusList" />
+                                                <dxb:BarButtonItem Content="Offer Statuses List" x:Name="mbtnofferStatusList" Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="MbtnofferStatusList_Click" />
+                                                <dxb:BarButtonItem Content="Module Contract Statuses List" x:Name="mbtnmoduleContractStatusList" Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="mbtnmoduleContractStatusList_ItemClick" />
+                                                <dxb:BarButtonItem Content="Sale Order Statuses List" x:Name="mbtnSaleOrderStatusList" Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="MbtnSaleOrderStatusList_Click" />
+
+
+
+                                                <dxb:BarButtonItem Content="Sale Invoice Statuses List" x:Name="mbtnSaleInvoiceStatusList"
+                                                                   Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="MbtnSaleInvoiceStatusList_Click" />
+                                                <dxb:BarButtonItem Content="Memorandum Sale Statuses List" x:Name="mbtnMemorandumSaleStatusList"
+
+Glyph="{dx:DXImage Image=Status_16x16.png}"
+ItemClick="MbtnMemorandumSaleStatusList_Click" />
+                                                <dxb:BarButtonItem Content="Purchase Order Statuses List" x:Name="mbtnPurchaseOrderStatusList"
+Glyph="{dx:DXImage Image=Status_16x16.png}"
+ItemClick="MbtnPurchaseOrderStatusList_Click" />
+                                                <dxb:BarButtonItem Content="Bill Statuses List" x:Name="mbtnBillStatusList"
+Glyph="{dx:DXImage Image=Status_16x16.png}"
+ItemClick="mbtnBillStatusList_Click" />
+                                                <dxb:BarButtonItem Content="Vendor Payment Status List" x:Name="mbtnVendorPaymentStatus"  Glyph="{dx:DXImage Image=Status_16x16.png}" ItemClick="MbtnVendorPaymentStatus_Click" />
+                                                <dxb:BarButtonItem Content="Asset Status List" x:Name="mbtnAssetStatus" IsVisible="False"
+Glyph="{dx:DXImage Image=Status_16x16.png}"
+ItemClick="MbtnAssetStatus_Click" />
+
+
+                                                <dxb:BarButtonItem Content="Sale Receipt Status List" x:Name="mbtnReceiptStatus" ItemClick="MbtnReceiptStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Inter-Bank Transfer Status List" x:Name="mbtnInterBankTransStatus" ItemClick="MbtnInterBankTransStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}"  />
+                                                <dxb:BarButtonItem Content="Employee Status List" x:Name="mbtnEmployeeStatus" ItemClick="MbtnEmployeeStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Leaves Status List" x:Name="mbtnLeavesStatus" ItemClick="MbtnLeavesStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Journal Voucher Status List" x:Name="mbtnJVStatus" ItemClick="MbtnJVStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Admin Bill Statuses List" x:Name="mbtnNewBillsStatus" ItemClick="MbtnNewBillsStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Payment Statuses List" x:Name="mbtnPaymentStatus" ItemClick="MbtnPaymentStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Purchase Invoice Statuses List" x:Name="mbtnPurchaseInvoiceStatusList"
+                                                                   Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="MbtnPurchaseInvoiceStatusList_ItemClick" />
+                                                <dxb:BarButtonItem Content="Rental Assets Status List" x:Name="mbtnRentalAssetStatus" ItemClick="MbtnRentalAssetStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}"  />
+
+                                                <dxb:BarButtonItem Content="Notification Flags" x:Name="mbtnNotificationFlags" ItemClick="MbtnNotificationsFlag_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Loans Statuses List" x:Name="mbtnLoansStatus" ItemClick="MbtnLoansStatus_Click" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="STL Statuses List" x:Name="mbtnSTLStatus" ItemClick="mbtnSTLStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                
+                                                <dxb:BarButtonItem Content="Target Statuses List" x:Name="mbtnToDoTaskStatus" ItemClick="MbtnToDoTaskStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Loans Advances Status List" x:Name="mbtnLoansAdvanceStatus" ItemClick="MbtnLoansAdvanceStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+
+                                                <dxb:BarButtonItem Content="Tasks Status List" x:Name="mbtnTaskStatus" ItemClick="MbtnTaskStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Budget Status List" x:Name="mbtnBudgetStatus" ItemClick="mbtnBudgetStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+
+                                                <dxb:BarButtonItem Content="Reward Status List" x:Name="mbtnRewardStatus" ItemClick="mbtnRewardStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+
+                                                <dxb:BarButtonItem Content="Traveling Status List" x:Name="mbtnTravelingStatus" ItemClick="mbtnTravelingStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Inventory Adjustment Statuses List" x:Name="mbtnInventoryAdjustmentStatusList"
+                                                                   Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="mbtnInventoryAdjustmentStatusList_ItemClick" />
+                                                <dxb:BarButtonItem Content="Status Classes List" x:Name="mbtnStatusClassesStatusList"
+                                                                   Glyph="{dx:DXImage Image=Status_16x16.png}"
+
+ItemClick="mbtnStatusClassesStatusList_ItemClick" />
+                                                <dxb:BarButtonItem Content="Asset Status List" x:Name="mbtnAssetRentalStatus" ItemClick="MbtnAssetRentalStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Tenant Status List" x:Name="mbtnTenantRentalStatus" ItemClick="MbtnTenantRentalStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Rental Contract Status List" x:Name="mbtnRentalContractStatus" ItemClick="MbtnRentalContractStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Rental Order Status List" x:Name="mbtnRentalOrderStatus" ItemClick="MbtnRentalOrderStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Rental Invoice Status List" x:Name="mbtnRentalInvoiceStatus" ItemClick="mbtnRentalInvoiceStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Document Status List" x:Name="mbtnDocumentStatus" ItemClick="MbtnDocumentStatus_ItemClick" Glyph="{dx:DXImage Image=Status_16x16.png}" />
+
+                                            </dxb:PopupMenu>
+
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Target List">
+
+                                        <dxb:BarSplitButtonItem Content="Targets" Glyph="{dx:DXImage Image=Task_16x16.png}" RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="List Of Targets"/>
+                                                <dxb:BarButtonItem Content="Target Type List"/>
+                                                <dxb:BarButtonItem Content="Targets Register"/>
+                                                <dxb:BarButtonItem Content="Chat"/>
+                                            </dxb:PopupMenu>
+
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+
+
+                                    <dxr:RibbonPageGroup Caption="List">
+
+                                        <dxb:BarSplitButtonItem Content="List" RibbonStyle="Large" Glyph="{dx:DXImage Image=ListBox_16x16.png}" LargeGlyph="{dx:DXImage Image=ListBox_32x32.png}" >
+                                            <dxb:PopupMenu>
+
+
+                                                <dxb:BarButtonItem Content="Industry Type" x:Name="mbtnindustries" ItemClick="mbtnindustries_Click" Glyph="{dx:DXImage Image=Home_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Vendor Nature" x:Name="mbtnVendorNature" ItemClick="mbtnVendorNature_ItemClick" Glyph="{dx:DXImage Image=Home_16x16.png}" />
+                                                <dxb:BarButtonItem Content="Bank Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}" />
+
+                                                <dxb:BarSplitButtonItem Content="Procurement Panel" RibbonStyle="Large" Glyph="{dx:DXImage Image=ListBox_16x16.png}" LargeGlyph="{dx:DXImage Image=ListBox_32x32.png}" >
+                                                    <dxb:PopupMenu>
+                                                        <dxb:BarButtonItem Content="Payment Terms Lists"  x:Name="mbtnpaymentTerm" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnpaymentTerm_Click"/>
+                                                        <dxb:BarButtonItem Content="Incoterms List" x:Name="mbtnIncoterm" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnIncoterm_Click" />
+                                                        <dxb:BarButtonItem Content="Shipping Terms" x:Name="mbtnShppingTermsList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnShppingTermsList_ItemClick"/>
+                                                        <dxb:BarButtonItem Content="Edit Summary Sheet Fields" x:Name="mbtnSummarySheetFields" ItemClick="MbtnSummarySheetFields_Click"/>
+                                                        <dxb:BarButtonItem Content="Edit PQ documents" x:Name="mbtnPQList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnPQList_ItemClick"/>
+                                                        <dxb:BarButtonItem Content="Edit Budget Cost Sheet Fields" x:Name="mbtnBudgetCoshSheetFields" ItemClick="mbtnBudgetCoshSheetFields_ItemClick"/>
+                                                        <dxb:BarButtonItem Content="Edit Cost Sheet Fields" x:Name="mbtnCoshSheetFields" ItemClick="MbtnCoshSheetFields_Click"/>
+                                                        <dxb:BarButtonItem Content="Designation List"  x:Name="mbtnDesignationList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnDesignationList_Click"  />
+                                                        <dxb:BarButtonItem Content="Attachment Category List" x:Name="mbtnAttachmentCategory" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnAttachmentCategory_Click" />
+                                                        <dxb:BarButtonItem x:Name="btnClaimDiscount" Content="Claim/Discount List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="btnClaimDiscount_ItemClick"/>
+                                                        <dxb:BarButtonItem x:Name="btnFOCSamlping" Content="FOC/Sampling List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="btnFOCSamlping_ItemClick"/>
+                                                        <dxb:BarButtonItem x:Name="btnPassOn" Content="PassOn List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="btnPassOn_ItemClick"/>
+                                                        <dxb:BarButtonItem Content="Warranty/Guarantee List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" x:Name="mbtnWarrantiesies" ItemClick="MbtnWarrantiesies_Click" />
+                                                        <dxb:BarButtonItem Content="Edit Performance sheet Fields" x:Name="mbtnPerformancesheetFields" ItemClick="mbtnPerformancesheetFields_ItemClick"/>
+                                                        <dxb:BarButtonItem Content="VAT Book Reference List" x:Name="mbtnVATBookReferenceList" ItemClick="mbtnVATBookReferenceList_ItemClick" Glyph="{dx:DXImage Image=ListBox_16x16.png}"/>
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+
+
+                                                <dxb:BarButtonItem Content="Comment Category List" x:Name="mbtnCommentCategory" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnCommentCategory_Click"/>
+                                                <dxb:BarButtonItem Content="Function List"  x:Name="mbtnFunctionList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnFunctionList_Click"  />
+
+                                                <dxb:BarButtonItem Content="Religion Type List" x:Name="mbtnReligionTypeList" ItemClick="MbtnReligionTypeList_ItemClick" Glyph="{dx:DXImage Image=ListBox_16x16.png}" />
+
+
+                                                <dxb:BarSubItem Content="Vendor Bill Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Bill Type List" x:Name="mbtnBillTypeList" ItemClick="mbtnBillTypeList_Click" Glyph="{dx:DXImage Image=ListBox_16x16.png}" />
+                                                    <dxb:BarButtonItem Content="Bill Categories" x:Name="mbtnBillCategoryList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnBillCategoryList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Batch Reference List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnVendorBillReferenceList_Click"/>
+                                                    <dxb:BarButtonItem Content="Vendor Bill Nature List" x:Name="mbtnVendorBillNatureList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnVendorBillNatureList_ItemClick"/>
+                                                </dxb:BarSubItem>
+
+
+
+
+
+                                                <dxb:BarSubItem Content="Admin Bill Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Management Summary List" x:Name="mbtnManagementSummaryList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnManagementSummaryList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Payee List" x:Name="mbtnPayeeList" ItemClick="MbtnPayeeList_Click"  Glyph="{dx:DXImage Image=ListBox_16x16.png}"/>
+                                                    <dxb:BarButtonItem Content="Bill Reference List" x:Name="mbtnBillReferenceList" ItemClick="MbtnBillReferenceList_Click" Glyph="{dx:DXImage Image=ListBox_16x16.png}"/>
+                                                    <dxb:BarButtonItem Content="Admin Bill Link List" x:Name="mbtnAdminBillLink" ItemClick="MbtnAdminBillLinkAdd_Click" Glyph="{dx:DXImage Image=ListBox_16x16.png}"/>
+                                                    <dxb:BarButtonItem Content="Admin Bill Nature List" x:Name="mbtnAdminBillNatureList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnAdminBillNatureList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Admin Bill Reference List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnBillReferenceList_Click"/>
+                                                    <dxb:BarButtonItem Content="Rented Vehicle Owner List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnRentedVehicleOwnerList_Click"/>
+                                                    <dxb:BarButtonItem Content="Maintenance Heads List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnMaintenanceHeadList_Click"/>
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Loans Advances Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Loan Applicant Type List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnApplicantType_Click"/>
+                                                    <dxb:BarButtonItem Content="Applicant List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnApplicant_Click"/>
+                                                    <dxb:BarButtonItem Content="Lender Type List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnLenderType_Click"/>
+                                                    <dxb:BarButtonItem Content="Lender List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnLender_Click"/>
+                                                </dxb:BarSubItem>
+
+
+                                                <dxb:BarSubItem Content="Task Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem x:Name="btnEfficiencyPointList" Content="Efficiency Points List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnEfficiencyPointsList_Click"/>
+                                                    <dxb:BarButtonItem Content="Task Type List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnTaskType_Click"/>
+                                                    <dxb:BarButtonItem Content="Warehouse List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnWarehouseList_Click"/>
+                                                    <dxb:BarButtonItem Content="LOT Number List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnLotNumberList_Click"/>
+                                                    <dxb:BarButtonItem Content="Packing Style List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnPackingStyleList_Click"/>
+                                                    <dxb:BarButtonItem Content="Receive Note List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnReceiveNoteList_Click"/>
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Target Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Target Type List" x:Name="mbtnTaskTargetTypeList" ItemClick="MbtnTaskTargetTypeList_ItemClick" Glyph="{dx:DXImage Image=ListBox_16x16.png}" />
+                                                    <dxb:BarButtonItem Content="Group Level List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnTargetGroup_Click"/>
+                                                    <dxb:BarButtonItem Content="Status Calculation Type List" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnCalculationType_Click"/>
+
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Travelling Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="City List" x:Name="mbtnCityList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnCityList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Country List" x:Name="mbtnCountryList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnCountryList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Traveler List" x:Name="mbtnTravelerList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnTravelerList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Airline List" x:Name="mbtnAirlineList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnAirlineList_ItemClick"/>
+                                                </dxb:BarSubItem>
+                                                <dxb:BarSubItem Content="STL" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarSubItem Content="Interest" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                        <dxb:BarButtonItem Content="Interest type list" x:Name="mbtnInterestTypeList" ItemClick="mbtnInterestTypeList_ItemClick" Glyph="{dx:DXImage Image=ListBox_16x16.png}" />
+                                                        <dxb:BarButtonItem Content="Interest list" x:Name="mbtnInterestList" ItemClick="mbtnInterestList_ItemClick"/>
+                                                    </dxb:BarSubItem>
+                                                    <dxb:BarSubItem Content="Cash Margin Percentage" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+
+                                                        <dxb:BarButtonItem Content="Cash Margin Perc. type list" x:Name="mbtnMarginPercTypeList" ItemClick="mbtnMarginPercTypeList_ItemClick"/>
+                                                        <dxb:BarButtonItem Content="Cash Margin Perc. list" x:Name="mbtnMarginPercList" ItemClick="mbtnMarginPercList_ItemClick"/>
+                                                    </dxb:BarSubItem>
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Asset Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Asset Type List" x:Name="mbtnAssetTypeList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="MbtnAssetTypeList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Nature List" x:Name="mbtnAssetNatureList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetNatureList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Sub Nature List" x:Name="mbtnAssetSubNatureList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetSubNatureList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Location List" x:Name="mbtnAssetLocationList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetLocationList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Unit List" x:Name="mbtnAssetUnitList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetUnitList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Brand List" x:Name="mbtnAssetBrandList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetBrandList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Model List" x:Name="mbtnAssetModelList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetModelList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Asset Number List" x:Name="mbtnAssetNumberList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnAssetNumberList_ItemClick"/>
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Document Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}" >
+                                                    <dxb:BarButtonItem Content="Document Template List" x:Name="mbtnDocumentTemplateList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnDocumentTemplateList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Document Type List" x:Name="mbtnDocumentTypeList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnDocumentTypeList_ItemClick"/>
+                                                    <dxb:BarButtonItem Content="Document Authority List" x:Name="mbtnDocumentAuthorityList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnDocumentAuthorityList_ItemClick"/>
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Department Level List" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Level List" x:Name="mbtnDepLevelList" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnDepLevelList_ItemClick"/>
+                                                </dxb:BarSubItem>
+
+                                                <dxb:BarSubItem Content="Memo Lists" Glyph="{dx:DXImage Image=ListBox_16x16.png}">
+                                                    <dxb:BarButtonItem Content="Performance Indicators" x:Name="mbtnPerformanceIndicators" Glyph="{dx:DXImage Image=ListBox_16x16.png}" ItemClick="mbtnPerformanceIndicators_ItemClick"/>
+                                                </dxb:BarSubItem>
+
+                                            </dxb:PopupMenu>
+
+
+                                        </dxb:BarSplitButtonItem>
+
+                                    </dxr:RibbonPageGroup>
+
+                                </dxr:RibbonPage>
+
+                                <!--Accountant page start-->
+                                <dxr:RibbonPage Caption="Accountant" x:Name="mheadAccountant" >
+
+
+                                    <dxr:RibbonPageGroup Caption="Accountant" AllowCollapse="True" >
+                                        <dxb:BarSplitButtonItem  Content="Accountant center" Glyph="{dx:DXImage Image=Accounting_16x16.png}" RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem  Content="Chart of Accounts" AllowGlyphTheming="True" x:Name="mbtnCOA" ItemClick="MbtnCOA_Click" Glyph="{dx:DXImage Image=Chart2_16x16.png}" RibbonStyle="Large"/>
+                                                <dxb:BarButtonItem  Content="Chart of Account Groups" AllowGlyphTheming="True" x:Name="mbtnCOAGroups" ItemClick="mbtnCOAGroups_ItemClick" Glyph="{dx:DXImage Image=Chart2_16x16.png}" RibbonStyle="Large"/>
+                                                <dxb:BarButtonItem  Content="Chart of Accounts with Group" AllowGlyphTheming="True" x:Name="mbtnCOAGroupslist" ItemClick="mbtnCOAGroupslist_ItemClick" Glyph="{dx:DXImage Image=Chart2_16x16.png}" RibbonStyle="Large"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+
+
+
+
+                                    <dxr:RibbonPageGroup Caption="Accounting" AllowCollapse="True">
+
+                                        <dxb:BarButtonItem  Content="Make General Jouranl Entries" x:Name="btnGeneralJournalEntries" RibbonStyle="Large" ItemClick="BtnGeneralJournalEntries_Click" />
+                                        <dxb:BarButtonItem  Content="JV Register" x:Name="mbtnJournalTransactionRegister" RibbonStyle="Large" ItemClick="MbtnJournalTransactionRegister_Click" />
+                                        <dxb:BarButtonItem Content="Cash Flow" LargeGlyph="{dx:DXImage Image=Accounting_16x16.png}" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barCashFlow" ItemClick="barCashFlow_ItemClick"/>
+
+                                    </dxr:RibbonPageGroup>
+
+
+
+
+                                </dxr:RibbonPage>
+
+                                <!--Company page start-->
+                                <dxr:RibbonPage Caption="Company" x:Name="mheadCompany">
+
+                                    <dxr:RibbonPageGroup Caption="Task">
+                                        <dxb:BarSplitButtonItem Content="Targets" Glyph="{dx:DXImage Image=Task_16x16.png}" RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="List Of Targets" x:Name="mbtnTargerList" ItemClick="MbtnTargerList_Click"/>
+                                                <dxb:BarButtonItem Content="Target Type List" x:Name="mbtnTargetTypeList" ItemClick="MbtnTargetTypeList_Click"/>
+                                                <dxb:BarButtonItem Content="Targets Register" x:Name="mbtnDepartmentReport" ItemClick="MbtnDepartmentReport_Click"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="User">
+                                        <dxb:BarSplitButtonItem Content="Users" Glyph="{dx:DXImage Image=User_16x16.png}" RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Manage Users and Roles"  x:Name="mbtnUsernRoles" ItemClick="MbtnUsernRoles_Click"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Company Info">
+                                        <dxb:BarButtonItem Content="Company" Glyph="{dx:DXImage Image=Home_16x16.png}" LargeGlyph="{dx:DXImage Image=Home_32x32.png}"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Company Center" x:Name="btnCompanyCenter" ItemClick="btnCompanyCenter_Click" />
+                                        <dxb:BarButtonItem Content="Company Snapshot" />
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="   Rates  ">
+
+                                        <dxb:BarButtonItem Content="Market Exchange Rates" IsVisible="False" RibbonStyle="Large" Glyph="/ZAS_ERP;component/images/currency-exchange.png" ItemClick="Mbtnexchangerate_Click" x:Name="mbtnexchangerate"/>
+                                        <dxb:BarButtonItem Content="Sales Exchange Rate" IsVisible="False" Glyph="/ZAS_ERP;component/images/currency-exchange.png" x:Name="mbtnSalesexchangerate" ItemClick="MbtnSalesexchangerate_Click" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Documents">
+                                        <dxb:BarButtonItem Content="Documents" Glyph="{dx:DXImage Image=DocumentMap_16x16.png}" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Alerts">
+                                        <dxb:BarButtonItem Content="Alerts" Glyph="pack://application:,,,/ZAS_ERP;component/images/appbar.alert.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Lead Center"/>
+                                        <dxb:BarButtonItem Content="_My Company" x:Name="mbtnmycompany" ItemClick="mbtnmycompany_Click" RibbonStyle="SmallWithText"/>
+                                        <dxb:BarButtonItem Content="Set Closing Date"/>
+                                        <dxb:BarButtonItem Content="Bulk Enter Business Details"/>
+                                        <dxb:BarButtonItem Content="Change Your Password"/>
+                                        <dxb:BarButtonItem Content="Planning and Budgeting"/>
+                                        <dxb:BarButtonItem Content="To Do List"/>
+                                        <dxb:BarButtonItem Content="Reminders"/>
+                                        <dxb:BarButtonItem Content="Alerts Manager"/>
+                                    </dxr:RibbonPageGroup>
+
+
+
+                                    <dxr:RibbonPageGroup Caption="Targets">
+                                        <dxb:BarButtonItem  Content="Targets" Glyph="/ZAS_ERP;component/images/focus.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem  Content="List Of Targets "   ItemClick="MbtnTargerList_Click" Glyph="{dx:DXImage Image=TaskList_16x16.png}"/>
+                                        <dxb:BarButtonItem Content="Target Type List" ItemClick="MbtnTargetTypeList_Click"/>
+
+                                        <dxb:BarButtonItem Content="Open Second Company" />
+                                        <dxb:BarButtonItem Content="    Targets Register" ItemClick="MbtnTargetregister_Click"
+
+
+x:Name="mbtnTargetregister"/>
+
+
+                                        <dxb:BarButtonItem Content="    Departmental Targets Register" x:Name="mbtnDepartmentTargetregister"
+
+
+ItemClick="MbtnDepartmentReport_Click"/>
+                                        <dxb:BarButtonItem  Content="    Achived Targets" x:Name="mbtnTargetAchived"
+
+
+ItemClick="MbtnTargetAchived_Click"/>
+                                        <dxb:BarButtonItem  Content="Custom Report Test" x:Name="mbtnCustomReport" IsVisible="False"
+
+
+ItemClick="MbtnCustomReport_ItemClick"/>
+
+                                    </dxr:RibbonPageGroup>
+
+                                </dxr:RibbonPage>
+
+
+                                <!--Customer page start-->
+                                <dxr:RibbonPage Caption="Customer" IsEnabled="False" x:Name="mheadCustomer">
+
+                                    <dxr:RibbonPageGroup Caption="  Customer   ">
+                                        <dxb:BarButtonItem Content="Customer Center" RibbonStyle="Large" Glyph="/ZAS_ERP;component/images/customer-service-agent.png"/>
+                                        <dxb:BarButtonItem Content="Customer Listing" x:Name="mbtnCustomerListing"  Glyph="/ZAS_ERP;component/images/customer-service-agent.png" ItemClick="mbtnCustomerListing_ItemClick" />
+                                        <dxb:BarButtonItem Content="Customer Sale Orders" x:Name="mbtnCustomerSaleOrders" ItemClick="mbtnCustomerSaleOrders_ItemClick" IsVisible="True" Glyph="/ZAS_ERP;component/images/customer-service-agent.png"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Inquiries" x:Name="rpageInquiry" >
+
+
+
+                                        <dxb:BarButtonItem Content="Inquiries"  Glyph="{dx:DXImage Image=Task_16x16.png}" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Inquiries" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BtnOpenTransaction_Click" />
+                                        <dxb:BarButtonItem Content="Inquiries(Open)" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BtnOpenTransaction_Click" />
+                                        <dxb:BarButtonItem Content="Inquiries(Close)" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BtnOpenTransaction_Click" />
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+
+                                    <dxr:RibbonPageGroup x:Name="rpageOffer" Caption="Offers" Glyph="pack://application:,,,/ZAS_ERP;component/images/Offer.png">
+
+
+                                        <dxb:BarButtonItem Content="Offers" Glyph="/ZAS_ERP;component/images/Offer.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Offers" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/Offer.png" />
+                                        <dxb:BarButtonItem Content="Offers(Open)" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/Offer.png" />
+                                        <dxb:BarButtonItem Content="Offers(Close)" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/Offer.png" />
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup x:Name="rpageModuleContract" Caption="Module Contract" Glyph="pack://application:,,,/ZAS_ERP;component/images/Offer.png">
+
+
+                                        <dxb:BarButtonItem Content="Module Contract" Glyph="/ZAS_ERP;component/images/Offer.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Module Contract" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/Offer.png" />
+                                        <dxb:BarButtonItem Content="Module Contract(Open)" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/Offer.png" />
+                                        <dxb:BarButtonItem Content="Module Contract(Close)" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/Offer.png" />
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Memorandum" Glyph="pack://application:,,,/ZAS_ERP;component/images/icon-MemorizedGroups.png">
+
+                                        <dxb:BarButtonItem Content="Memorandum Sales" Glyph="pack://application:,,,/ZAS_ERP;component/images/icon-MemorizedGroups.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Memorandum Sales" ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/icon-MemorizedGroups.png" />
+                                        <dxb:BarButtonItem Content="Memorandum Sales(Open)" ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/icon-MemorizedGroups.png" />
+                                        <dxb:BarButtonItem Content="Memorandum Sales(Close)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/icon-MemorizedGroups.png" />
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Sale Orders">
+
+
+                                        <dxb:BarButtonItem Content="Sale Orders" Glyph="/ZAS_ERP;component/images/SalesOrder.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Sale Orders" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/SalesOrder.png" />
+                                        <dxb:BarButtonItem Content="Sale Orders(Open)" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/SalesOrder.png" />
+                                        <dxb:BarButtonItem Content="Sale Orders(Close)" ItemClick="BtnOpenTransaction_Click" Glyph="/ZAS_ERP;component/images/SalesOrder.png" />
+                                        <dxb:BarButtonItem x:Name="btnRefKeys" Content="Sale Orders Reference Keys" ItemClick="btnRefKeys_ItemClick" Glyph="/ZAS_ERP;component/images/SalesOrder.png" />
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="PER">
+                                        <dxb:BarButtonItem ItemClick="BtnPRITregister_ItemClick" x:Name="btnPRITregister" Content="PRIT Register" Glyph="/ZAS_ERP;component/images/SalesOrder.png" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Audit Year Adjustment">
+                                        <dxb:BarButtonItem ItemClick="btnAuditYearAdjustment_ItemClick" x:Name="btnAuditYearAdjustment" Content="Audit Year Adjustment Register" Glyph="/ZAS_ERP;component/images/SalesOrder.png" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Sale Invoices">
+
+
+                                        <dxb:BarButtonItem Content="Sale Invoices" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Sale Invoices" ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" />
+                                        <dxb:BarButtonItem Content="Sale Invoices(Open)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" />
+                                        <dxb:BarButtonItem Content="Sale Invoices(Close)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" />
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+
+
+                                    <dxr:RibbonPageGroup Caption="Edit">
+
+
+                                        <!--<dxb:BarButtonItem  Content="Edit Cost Sheet Fields" x:Name="mbtnCoshSheetFields" ItemClick="MbtnCoshSheetFields_Click"/>
+                                        <dxb:BarButtonItem  Content="Edit Summary Sheet Fields" x:Name="mbtnSummarySheetFields" ItemClick="MbtnSummarySheetFields_Click"/>-->
+
+
+                                    </dxr:RibbonPageGroup>
+                                    <!--<dxb:BarButtonItem  Content="Enter Statement Charges"/>
+                                    <dxb:BarButtonItem  Content="Create Statements..."/>
+                                    <dxb:BarButtonItem  Content="Assess Finance Center"/>-->
+
+
+                                    <!--<dxb:BarButtonItem  Content="Receive Payments"/>
+                                    <dxb:BarButtonItem  Content="Create Credit Memos/Refunds" AllowGlyphTheming="True" CloseSubMenuOnClick="True"/>-->
+
+
+                                    <!--<dxb:BarButtonItem  Content="  Income Traker"/>
+                                    <dxb:BarButtonItem  Content="Lead Center"/>-->
+
+
+                                    <!--<dxb:BarButtonItem  Content="Add Credit Card Processing"/>
+                                    <dxb:BarButtonItem  Content="Link Payment Service to Company File"/>-->
+                                    <!--<dxb:BarItemSeparator/>-->
+
+                                    <!--<dxb:BarButtonItem  Content="Enter Time"/>
+                                  
+                                        
+                                    <dxb:BarButtonItem  Content="Add Marketing and Customer Tools"/>
+                                  
+
+                                    <dxb:BarButtonItem  Content="Item List"/>
+                                    <dxb:BarButtonItem  Content="Change Item Prices"/>
+                                    <dxb:BarButtonItem  Content="Advanced Pricing Rules"/>-->
+
+                                    <!--<dxb:BarItemSeparator/>
+                                   
+                                    <dxb:BarItemLinkSeparator/>-->
+
+
+
+
+
+                                </dxr:RibbonPage>
+
+                                <!--Transactions page start-->
+
+                                <!--<dxr:RibbonPage Caption="Transactions" IsEnabled="False" x:Name="btnTransactions">
+
+
+                                   
+
+
+
+
+                                </dxr:RibbonPage>-->
+                                <!--Targets page start-->
+                                <!--<dxr:RibbonPage Caption="Targets" x:Name="btnTargets">
+                                    
+                                </dxr:RibbonPage>-->
+
+                                <dxr:RibbonPage Caption="Targets"  x:Name="mheadToDoTask">
+                                    <dxr:RibbonPageGroup Caption="Targets" >
+                                        <dxb:BarButtonItem Content="Targets"  x:Name="barToDoTask"  LargeGlyph="{dx:DXImage Image=Task_32x32.png}" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BarToDoTask_ItemClick" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Rewards"  x:Name="barRewards" ItemClick="BarRewards_ItemClick"  Glyph="/ZAS_ERP;component/images/cup.png" RibbonStyle="Large"/>
+                                        <!--<dxb:BarButtonItem Content="Inventory Valuation Detail" LargeGlyph="/ZAS_ERP;component/images/box_inventory_icon.png" Glyph="/ZAS_ERP;component/images/box_inventory_icon.png" x:Name="barInventoryDetailReport" ItemClick="BarInventoryDetailReport_ItemClick"/>-->
+
+
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>
+                                <!--Vendors page start-->
+                                <dxr:RibbonPage Caption="Vendors" IsEnabled="False" x:Name="mheadVendor">
+                                    <dxr:RibbonPageGroup Caption="Vendors">
+                                        <dxb:BarButtonItem  Content="Vendors Center" x:Name="mbtnvendorcenter" ItemClick="mbtnvendorcenter_Click" Glyph="{dx:DXImage Image=BO_Vendor.png}" />
+                                        <dxb:BarButtonItem  Content="Vendors Center Register" x:Name="mbtnvendorcenterRegister" ItemClick="MbtnvendorcenterRegister_ItemClick" Glyph="{dx:DXImage Image=BO_Vendor.png}" />
+                                        <dxb:BarButtonItem  Content="Vendor Purchase Orders" x:Name="mbtnVendorPurchaseOrder" ItemClick="mbtnVendorPurchaseOrder_ItemClick" Glyph="{dx:DXImage Image=BO_Vendor.png}" />
+                                        <dxb:BarButtonItem  Content="Vendor Finder" x:Name="mbtnVendorFinder" ItemClick="mbtnVendorFinder_ItemClick" Glyph="{dx:DXImage Image=BO_Vendor.png}" />
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Admin Bills">
+                                        <dxb:BarButtonItem Content="Admin Bills" Glyph="{dx:DXImage Image=Task_16x16.png}" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Enter Bills" x:Name="mbtnEnterBills" ItemClick="MbtnEnterBills_Click"/>
+                                        <dxb:BarButtonItem Content="Bills Register" x:Name="mbtnBillsList" ItemClick="MbtnBillsList_Click" />
+                                    </dxr:RibbonPageGroup>
+
+
+                                    <dxr:RibbonPageGroup Caption="Purchases">
+
+
+                                        <dxb:BarButtonItem Content="Purchase Orders" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Purchase Orders"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+                                        <dxb:BarButtonItem Content="Purchase Orders(Open)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+                                        <dxb:BarButtonItem Content="Purchase Orders(Close)" ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Bills">
+
+
+                                        <dxb:BarButtonItem Content="Vendor Bills" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Vendor Bills"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" />
+                                        <dxb:BarButtonItem Content="Vendor Bills(Open)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" />
+                                        <dxb:BarButtonItem Content="Vendor Bills(Close)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" />
+
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Purchase Invoices">
+
+
+                                        <dxb:BarButtonItem Content="Purchase Invoices" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Purchase Invoices" ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+                                        <dxb:BarButtonItem Content="Purchase Invoices(Open)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+                                        <dxb:BarButtonItem Content="Purchase Invoices(Close)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>
+
+                                <!--Fixed Assets page start-->
+                                <dxr:RibbonPage Caption="Assets" x:Name="barFixedAssets">
+                                    <!--<dxr:RibbonPageGroup Caption="Assets">
+                                        <dxb:BarButtonItem  Content="Assets" Glyph="/ZAS_ERP;component/images/assets.png" RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem  Content="Fixed Assets " x:Name="mbtnfixedassets" ItemClick="Mbtnfixedassets_Click" />
+
+
+                                        <dxb:BarButtonItem Content="Fixed Assets Adjustment" x:Name="mbtnFaAdjustment" ItemClick="MbtnfaAdjustment_Click" />
+
+
+                                        <dxb:BarButtonItem Content="Fuel Log " x:Name="mbtnFuelLog" ItemClick="MbtnFuelLog_Click" />
+
+
+
+
+
+                                    </dxr:RibbonPageGroup>-->
+
+                                    <dxr:RibbonPageGroup Caption="Assets" Name="btnAssets">
+                                        <dxb:BarButtonItem Content="Assets" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+
+                                        <dxb:BarButtonItem Content="Enter Asset" IsEnabled="False" x:Name="mbtnAsset" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}" ItemClick="mbtnAsset_ItemClick"/>
+                                        <dxb:BarButtonItem Content="Assets Register" x:Name="mbtnAssetRegister" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  ItemClick="mbtnAssetRegister_ItemClick" />
+                                        <dxb:BarButtonItem Content="Asset Cost Book" x:Name="mbtnAssetBook" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  ItemClick="mbtnAssetBook_ItemClick" />
+
+                                    </dxr:RibbonPageGroup>
+
+                                </dxr:RibbonPage>
+                                <!--Principal page start-->
+                                <!--Moved to List-->
+                                <!--HRM page start-->
+                                <dxr:RibbonPage Caption="HRM" x:Name="mheadEmployee">
+                                    <dxr:RibbonPageGroup Caption="Employee" >
+
+                                        <dxb:BarButtonItem Content="Employee" Glyph="{dx:DXImage Image=BOUser_32x32.png}" LargeGlyph="{dx:DXImage Image=BOUser_32x32.png}"  />
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem Content="Employee Center "  x:Name="mnuemployeeadd" ItemClick="mnuemployeeadd_Click"  />
+                                        <dxb:BarButtonItem Content="Employee Register " x:Name="mnuemployeeReg" ItemClick="MnuemployeeReg_Click" />
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Leaves">
+
+
+                                        <dxb:BarButtonItem Content="Leaves" Glyph="{dx:DXImage Image=AddItem_16x16.png}" LargeGlyph="{dx:DXImage Image=AddItem_32x32.png}" />
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem Content="Employee Leaves " x:Name="mbtnLeavesRegister" ItemClick="MbtnLeavesRegister_Click"  />
+                                        <dxb:BarButtonItem Content="Leaves Summary " x:Name="mbtnLeavesSummary" ItemClick="MbtnLeavesSummary_Click" />
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Employment Salary" x:Name="mHeadEmploymentSalary">
+                                        <dxb:BarButtonItem Content="Employment Salary" LargeGlyph="/ZAS_ERP;component/images/salary.png" Glyph="/ZAS_ERP;component/images/salary.png" x:Name="barEmploymentSalary"/>
+
+
+                                        <dxb:BarButtonItem Content="Enter Employment Salary" x:Name="mbtnEnterEmploymentSalary" ItemClick="barEmploymentSalary_ItemClick"
+                                            Glyph="/ZAS_ERP;component/images/salary.png" />
+                                        <dxb:BarButtonItem Content="Employment Salary Register" x:Name="mbtnEmploymentSalaryRegister" ItemClick="mbtnEmploymentSalaryRegister_ItemClick" Glyph="/ZAS_ERP;component/images/salary.png" />
+                                        <dxb:BarItemLinkSeparator/>
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Employee Data Retrieval Date" x:Name="mHeadEmploymeeRetrievalDate">
+                                        <dxb:BarButtonItem Content="Employmees Date Retrieval Register" x:Name="mbtnEmploymeesDataRetrievalRegister" ItemClick="mbtnEmploymeesDataRetrievalRegister_ItemClick" Glyph="{dx:DXImage Image=SelectData_32x32.png}" LargeGlyph="{dx:DXImage Image=SelectData_32x32.png}"  />
+                                    </dxr:RibbonPageGroup>
+
+
+
+                                </dxr:RibbonPage>
+                                
+                                
+                                <!--Banking page start-->
+                                <dxr:RibbonPage Caption="Banking" IsEnabled="False" x:Name="btnBanking">
+                                    <dxr:RibbonPageGroup Caption="Sale Receipts">
+
+                                        <dxb:BarButtonItem Content="Sale Receipt" Glyph="/ZAS_ERP;component/images/receipts_icon.png" RibbonStyle="Large" />
+                                        <dxb:BarItemSeparator AllowGlyphTheming="True" BarItemDisplayMode="ContentAndGlyph"/>
+
+                                        <dxb:BarButtonItem Content="Enter Sale Recepit" ItemClick="Enter_Sale_Receipt_Click" x:Name="mbtnEnterReceipt" Glyph="/ZAS_ERP;component/images/receipts_icon.png" />
+
+                                        <dxb:BarButtonItem Content="Receipt Register" ItemClick="SaleReceiptRegister_Click" x:Name="mbtnReceiptRegister" Glyph="/ZAS_ERP;component/images/receipts_icon.png" />
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Payments">
+                                        <dxb:BarButtonItem Content="Payments" Glyph="/ZAS_ERP;component/images/bill_payments.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Enter Payment" x:Name="mbtnEnterBillPayment" ItemClick="MbtnEnterBillPayment_ItemClick"/>
+                                        <dxb:BarButtonItem Content="Payment Register" x:Name="mbtnBillPaymentList" ItemClick="MbtnBillPaymentList_ItemClick" />
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Bank Transfers">
+
+
+
+                                        <dxb:BarButtonItem Content="Internal Transfers/Advances" Glyph="/ZAS_ERP;component/images/bank_transfer.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Enter Transfer/Advance" ItemClick="MbtnInterBankTransfer_Click" x:Name="mbtnInterBankTransfer" Glyph="/ZAS_ERP;component/images/bank_transfer.png" RibbonStyle="SmallWithText"/>
+
+                                        <dxb:BarButtonItem Content="Transfer/Advance Regsiter" x:Name="mbtnBankTransferRegister" ItemClick="MbtnBankTransferRegister_Click" Glyph="/ZAS_ERP;component/images/bank_transfer.png" RibbonStyle="SmallWithText"/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Petty Cash" Name="mHeadCashBook">
+                                        <dxb:BarButtonItem Content="Petty Cash" LargeGlyph="/ZAS_ERP;component/images/pettycash.png" Glyph="/ZAS_ERP;component/images/pettycash.png" x:Name="barPettyCash" ItemClick="BarPettyCash_ItemClick"/>
+                                        <!--<dxb:BarButtonItem Content="Inventory Valuation Detail" LargeGlyph="/ZAS_ERP;component/images/box_inventory_icon.png" Glyph="/ZAS_ERP;component/images/box_inventory_icon.png" x:Name="barInventoryDetailReport" ItemClick="BarInventoryDetailReport_ItemClick"/>-->
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+
+                                        <dxb:BarButtonItem Content="Active" x:Name="mbtnActivePettyCash" ItemClick="MbtnActivePettyCash_ItemClick"
+                                            Glyph="/ZAS_ERP;component/images/pettycash.png" />
+                                        <dxb:BarButtonItem Content="InActive" x:Name="mbtnInActivePettyCash" ItemClick="MbtnInActivePettyCash_ItemClick" Glyph="/ZAS_ERP;component/images/pettycash.png" />
+                                        <dxb:BarItemLinkSeparator/>
+
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="VAT Book" Name="mHeadVATBook">
+                                        <dxb:BarButtonItem Content="VAT Book" LargeGlyph="/ZAS_ERP;component/images/pettycash.png" Glyph="/ZAS_ERP;component/images/pettycash.png" x:Name="barVATBook" ItemClick="barVATBook_ItemClick"/>
+                                        <!--<dxb:BarButtonItem Content="Inventory Valuation Detail" LargeGlyph="/ZAS_ERP;component/images/box_inventory_icon.png" Glyph="/ZAS_ERP;component/images/box_inventory_icon.png" x:Name="barInventoryDetailReport" ItemClick="BarInventoryDetailReport_ItemClick"/>-->
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+
+                                        <dxb:BarButtonItem Content="Active" x:Name="mbtnActiveVATBook" ItemClick="mbtnActiveVATBook_ItemClick_1"
+                                            Glyph="/ZAS_ERP;component/images/pettycash.png" />
+                                        <dxb:BarButtonItem Content="InActive" x:Name="mbtnInActiveVATBook" ItemClick="mbtnInActiveVATBook_ItemClick" Glyph="/ZAS_ERP;component/images/pettycash.png" />
+                                        <dxb:BarItemLinkSeparator/>
+
+                                    </dxr:RibbonPageGroup>
+                                    
+
+
+
+
+
+                                    <dxr:RibbonPageGroup Caption="Company Transfers">
+                                        <dxb:BarButtonItem Content="Inter Company Transfer" x:Name="mheadCompanyTransfer" Glyph="/ZAS_ERP;component/images/intercompany.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Enter company Transfer" Glyph="/ZAS_ERP;component/images/intercompany.png"  ItemClick="MbtnBankTransferInterCompany_Click" x:Name="mbtnBankTransferInterCompany" />
+                                        <dxb:BarButtonItem Content="Inter Company Register" Glyph="/ZAS_ERP;component/images/intercompany.png" ItemClick="MbtnInterCompanyBankTransRegister_Click" x:Name="mbtnInterCompanyBankTransRegister" />
+                                    </dxr:RibbonPageGroup>
+
+
+                                    <dxr:RibbonPageGroup Caption="Banking Lists">
+
+                                        <dxb:BarSplitButtonItem Name="mheadBankAccountList" Content="Banking List" RibbonStyle="Large" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png">
+                                            <dxb:PopupMenu>
+
+
+
+
+                                                <dxb:BarButtonItem Content="Bank List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="BankList_Click" x:Name="mbtnBankList"/>
+                                                <dxb:BarButtonItem Content="Branch List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="BranchList_Click" x:Name="mbtnBranchList"/>
+                                                <dxb:BarButtonItem Content="Account List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="AccountList_Click" x:Name="mbtnAccountList" />
+                                                <dxb:BarButtonItem Content="Collection Method List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png"  x:Name="mbtnCollecttionMethod" ItemClick="AddCollectionMethod_Click"/>
+                                                <dxb:BarItemSeparator/>
+
+
+                                                <dxb:BarButtonItem Content="Transfer Method List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" x:Name="mbtnTransferMethod" ItemClick="MbtnTransferMethod_Click"  />
+                                                <dxb:BarButtonItem Content="Deduction List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="MbtnDeductionList_Click" x:Name="mbtnDeductionList"/>
+                                                <dxb:BarButtonItem Content="Card Holder List" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="MbtnCardHolderList_Click"/>
+                                                <dxb:BarItemSeparator/>
+
+                                                <dxb:BarButtonItem Content="Credit Card List " x:Name ="mbtnCreditCardList" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="MbtnCreditCardList_Click"/>
+                                                <dxb:BarButtonItem Content="Credit Card type List" x:Name="mbtnCreditCardTypeList" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="MbtnCreditCardTypeList_Click" />
+                                                <dxb:BarItemSeparator/>
+                                                <dxb:BarButtonItem Content="Facility Nature" x:Name="mbtnFacilityNature" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" ItemClick="MbtnFacitiyNatureList_ItemClick" />
+
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Reconcile">
+                                        <dxb:BarButtonItem Content="Reconcile" RibbonStyle="Large" ItemClick="BarButtonItem_ItemClick_1" Glyph="{dx:DXImage Image=Accounting_32x32.png}"/>
+                                        <dxb:BarButtonItem Content="Sales Exchange Rates" Glyph="/ZAS_ERP;component/images/currency-exchange.png" x:Name="mbtnSalesExchangerates" ItemClick="mbtnSalesExchangerates_ItemClick" RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem Content="Market Exchange Rates" Glyph="/ZAS_ERP;component/images/currency-exchange.png" x:Name="mbtnMarketExchangerates" ItemClick="mbtnMarketExchangerates_ItemClick" RibbonStyle="Large"/>
+                                    </dxr:RibbonPageGroup>
+
+
+
+                                </dxr:RibbonPage>
+                                <!--Reports page start-->
+                                <dxr:RibbonPage Caption="Reports"  x:Name="mheadReports" >
+
+                                    <dxr:RibbonPageGroup Caption="Reports" >
+
+                                        <dxb:BarButtonItem  Content="Reports" Glyph="{dx:DXImage Image=BOReport_16x16.png}" LargeGlyph="{dx:DXImage Image=BOReport_32x32.png}"/>
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+
+                                        <dxb:BarButtonItem  Content="Report Center" x:Name="mbtnReportCenter"
+                      ItemClick="mbtnCustomerReports_Click" Glyph="{dx:DXImage Image=BOReport_16x16.png}" />
+                                        <dxb:BarButtonItem Content="Report Groups" x:Name="mbtnReportGroupList" ItemClick="MbtnReportGroupList_Click" Glyph="{dx:DXImage Image=BOReport_16x16.png}" />
+                                        <dxb:BarButtonItem Content="Grid Report Titles" x:Name="mbtnReportTitleList" ItemClick="mbtnReportTitleList_ItemClick" Glyph="{dx:DXImage Image=BOReport_16x16.png}" />
+                                        <dxb:BarButtonItem Content="Shared Groups" x:Name="mbtnSharedGroupList" ItemClick="MbtnSharedGroupList_ItemClick" Glyph="{dx:DXImage Image=BOReport_16x16.png}" />
+
+                                        <dxb:BarItemLinkSeparator/>
+                                        <dxb:BarSplitButtonItem Content="Memorized Reports" x:Name="mbtnMemorizedReport" ItemClickBehaviour="None" Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}" IsVisible="False"  >
+                                            <dxb:PopupMenu>
+
+                                                <dxb:BarSplitButtonItem Content="Inquiry" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barMemorizedInquiry" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedInquiryReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Offer" Glyph="/ZAS_ERP;component/images/Offer.png" x:Name="barMemorizedOffer">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedOfferReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Order" Glyph="/ZAS_ERP;component/images/SalesOrder.png"  x:Name="barMemorizedSaleOrder">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedSaleOrderReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Purchase Order" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" x:Name="barMemorizedPurchaseOrder">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedPurchaseOrderReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+
+                                                <dxb:BarSplitButtonItem Content="Bill" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" x:Name="barMemorizedBill">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedBillReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Invoice" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" x:Name="barMemorizedSaleInvoice">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedSaleInvoicesReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Receipts" Glyph="/ZAS_ERP;component/images/receipts_icon.png" x:Name="barMemorizedSaleReceipts">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedSaleReceiptsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Inter-Bank Transfers" Glyph="/ZAS_ERP;component/images/bank_transfer.png" x:Name="barMemorizedInterBankTransfers">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedInterBankTransferReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Admin Bills" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barMemorizedAdminBills" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedAdminBillsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Purchase Invoices" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" x:Name="barMemorizedPurchaseInvoices">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedPurchaseInvoicesReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Payments" Glyph="/ZAS_ERP;component/images/bill_payments.png" x:Name="barMemorizedPayments">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedPaymentsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Targets" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedTodoTasks">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedTodoTasksReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Target Rewards" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedTargetRewards">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedTargetRewardsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Tasks" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedTasks">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedTasksReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Loans" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedLoans">
+                                                    <dxb:PopupMenu x:Name="mbtnMemorizedLoansReport">
+
+                                                        <dxb:BarSplitButtonItem Content="STL" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedSTL">
+                                                            <dxb:PopupMenu x:Name="mbtnMemorizedSTLReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+                                                        <dxb:BarSplitButtonItem Content="Loan Advances" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedLoanAdvances">
+                                                            <dxb:PopupMenu x:Name="mbtnMemorizedLoanAdvancesReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+
+
+
+
+
+
+
+                                        <dxb:BarSplitButtonItem Content=" Standard Reports" x:Name="barStandardReports" ItemClickBehaviour="None" Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}"  IsVisible="False" >
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarSplitButtonItem Content="
+                                                                        
+                                                                        " Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barStandardInquiry" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnInquiryReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Offer" Glyph="/ZAS_ERP;component/images/Offer.png" x:Name="barStandardOffer">
+                                                    <dxb:PopupMenu x:Name="mbtnOfferReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Order" Glyph="/ZAS_ERP;component/images/SalesOrder.png"  x:Name="barStandardSaleOrder">
+                                                    <dxb:PopupMenu x:Name="mbtnSaleOrderReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Purchase Order" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" x:Name="barStandardPurchaseOrder">
+                                                    <dxb:PopupMenu x:Name="mbtnPurchaseOrderReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Bill" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" x:Name="barStandardBill">
+                                                    <dxb:PopupMenu x:Name="mbtnBillReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Invoice" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" x:Name="barStandardSaleInvoice">
+                                                    <dxb:PopupMenu x:Name="mbtnSaleInvoicesReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Receipts" Glyph="/ZAS_ERP;component/images/receipts_icon.png" x:Name="barStandardSaleReceipts">
+                                                    <dxb:PopupMenu x:Name="mbtnSaleReceiptsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+
+                                                <dxb:BarSplitButtonItem Content="Inter-Bank Transfers" Glyph="/ZAS_ERP;component/images/bank_transfer.png" x:Name="barStandardInterBankTransfers">
+                                                    <dxb:PopupMenu x:Name="mbtnInterBankTransferReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Admin Bills" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barStandardAdminBills" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnAdminBillReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Purchase Invoices" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" x:Name="barStandardPurchaseInvoices">
+                                                    <dxb:PopupMenu x:Name="mbtnPurchaseInvoicesReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Payments" Glyph="/ZAS_ERP;component/images/bill_payments.png" x:Name="barStandardPayments">
+                                                    <dxb:PopupMenu x:Name="mbtnPaymentsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <!--<dxb:BarSplitButtonItem Content="Chart of Accounts" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barChartofAccount">
+                                                    <dxb:PopupMenu x:Name="mbtnChartofAccountReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>-->
+                                                <dxb:BarSplitButtonItem Content="Targets" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barTodoTask">
+                                                    <dxb:PopupMenu x:Name="mbtnTodoReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Target Rewards" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barStandardTargetRewards">
+                                                    <dxb:PopupMenu x:Name="mbtnStandardTargetRewardsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Tasks" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barStandardTasks" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnTasksReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Loans" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barStandardLoans">
+                                                    <dxb:PopupMenu x:Name="mbtnStandardLoansReport">
+                                                        <dxb:BarSplitButtonItem Content="STL" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barStandardSTL">
+                                                            <dxb:PopupMenu x:Name="mbtnStandardSTLReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+                                                        <dxb:BarSplitButtonItem Content="Loan Advances" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barStandardLoanAdvances">
+                                                            <dxb:PopupMenu x:Name="mbtnStandardLoanAdvancesReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarSplitButtonItem Content=" Shared Reports" x:Name="barSharedReports" ItemClickBehaviour="None" Glyph="{dx:DXImage Image=Convert_32x32.png}"  IsVisible="False" >
+
+                                            <dxb:PopupMenu>
+                                                <dxb:BarSplitButtonItem Content="Inquiry" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barSharedInquiry" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedInquiryReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Offer" Glyph="/ZAS_ERP;component/images/Offer.png" x:Name="barSharedOffer">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedOfferReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Order" Glyph="/ZAS_ERP;component/images/SalesOrder.png"  x:Name="barSharedSaleOrder">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedSaleOrderReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Purchase Order" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" x:Name="barSharedPurchaseOrder">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedPurchaseOrderReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Bill" Glyph="pack://application:,,,/ZAS_ERP;component/images/bill.png" x:Name="barSharedBill">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedBillReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Invoice" Glyph="pack://application:,,,/ZAS_ERP;component/images/SalesOrder.png" x:Name="barSharedSaleInvoice">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedSaleInvoicesReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Sale Receipts" Glyph="/ZAS_ERP;component/images/receipts_icon.png" x:Name="barSharedSaleReceipts">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedSaleReceiptsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+
+                                                <dxb:BarSplitButtonItem Content="Inter-Bank Transfers" Glyph="/ZAS_ERP;component/images/bank_transfer.png" x:Name="barSharedInterBankTransfers">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedInterBankTransferReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Admin Bills" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="barSharedAdminBills" LargeGlyph="{dx:DXImage Image=Task_32x32.png}">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedAdminBillReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Purchase Invoices" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" x:Name="barSharedPurchaseInvoices">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedPurchaseInvoicesReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Payments" Glyph="/ZAS_ERP;component/images/bill_payments.png" x:Name="barSharedPayments">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedPaymentsReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+                                                <dxb:BarSplitButtonItem Content="Chart of Accounts" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barSharedChartofAccount">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedChartofAccountReport">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content="Todo Tasks" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barSharedTodoTasks">
+                                                    <dxb:PopupMenu x:Name="mbtnSharedTodoTasksReports">
+
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+
+
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarButtonItem Content="Grid Standard Reports" x:Name="mbtnGridStandardReport"  Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}" ItemClick="mbtnGridStandardReport_ItemClick" />
+                                        <dxb:BarButtonItem Content="Grid Memorized Reports" x:Name="mbtnGridMemorizedReport"  Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}" ItemClick="mbtnGridMemorizedReport_ItemClick" />
+                                        <dxb:BarButtonItem Content="Grid Report Center" x:Name="mbtnGridReportCenter" ItemClick="mbtnGridReportCenter_ItemClick" Glyph="{dx:DXImage Image=ModelEditor_Settings.png}" />
+                                        <dxb:BarButtonItem Content="Grid Report customization" x:Name="mbtnReportCustomization" ItemClick="mbtnReportCustomization_ItemClick" Glyph="{dx:DXImage Image=ModelEditor_Settings.png}" />
+                                        <dxb:BarButtonItem Content="Favourite Reports" x:Name="mbtnFavouriteReports" ItemClick="mbtnFavouriteReports_ItemClick" Glyph="{dx:DXImage Image=ModelEditor_Settings.png}" />
+                                        <dxb:BarButtonItem Content="Customer Credits Reports" x:Name="mbtnCustomerCreditsReports" ItemClick="mbtnCustomerCreditsReports_ItemClick" Glyph="{dx:DXImage Image=ModelEditor_Settings.png}" />
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Accountant" >
+
+
+
+                                        <dxb:BarSplitButtonItem Content="Accountant and Taxes" Glyph="/ZAS_ERP;component/images/taxes.png" RibbonStyle="Large">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarSplitButtonItem Content="Memorized Reports"  ItemClickBehaviour="None" Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}"  >
+                                                    <dxb:PopupMenu>
+                                                        <dxb:BarSplitButtonItem Content="Chart of Accounts" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barMemorizedChartofAccount">
+                                                            <dxb:PopupMenu x:Name="mbtnMemorizedChartofAccountReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+                                                        <dxb:BarSplitButtonItem Content="Trial Balance" Glyph="/ZAS_ERP;component/images/taxes.png" x:Name="barMemorizedTrialBalance">
+                                                            <dxb:PopupMenu x:Name="mbtnMemorizedTrialBalanceReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                                <dxb:BarSplitButtonItem Content=" Standard Reports" ItemClickBehaviour="None" Glyph="{dx:DXImage Image=ListMultilevel_16x16.png}" >
+
+                                                    <dxb:PopupMenu>
+
+                                                        <dxb:BarSplitButtonItem Content="Chart of Accounts" Glyph="{dx:DXImage Image=Accounting_16x16.png}" x:Name="barChartofAccount">
+                                                            <dxb:PopupMenu x:Name="mbtnChartofAccountReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+
+                                                        <dxb:BarSplitButtonItem Content="Trial Balance" Glyph="/ZAS_ERP;component/images/taxes.png" x:Name="barStandardTrialBalance">
+                                                            <dxb:PopupMenu x:Name="mbtnStandardTrialBalanceReport">
+
+                                                            </dxb:PopupMenu>
+                                                        </dxb:BarSplitButtonItem>
+                                                    </dxb:PopupMenu>
+                                                </dxb:BarSplitButtonItem>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem Content="Trial Balance" x:Name="mbtnTrialBalance"  ItemClick="MbtnTrialBalance_Click" Glyph="/ZAS_ERP;component/images/taxes.png" />
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Financials" >
+
+
+
+                                        <dxb:BarButtonItem Content="Company and Financial" Glyph="{dx:DXImage Image=Home_16x16.png}" LargeGlyph="{dx:DXImage Image=Home_32x32.png}"/>
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem Content="Profit and Loss Standard" x:Name="mbtnProfitandLoss" Glyph="{dx:DXImage Image=SpreadsheetGroup_16x16.png}"
+                                                    ItemClick="MbtnProfitandLoss_Click" />
+                                        <dxb:BarButtonItem Content="Balance Sheet Detail" x:Name="mbtnBalanceSheet" Glyph="{dx:DXImage Image=SpreadsheetInsertTable_16x16.png}"
+                                                    ItemClick="MbtnBalanceSheet_ItemClick" />
+
+                                        <dxb:BarButtonItem Content="Banking" LargeGlyph="/ZAS_ERP;component/images/bank_lists_icon.png" />
+                                        <dxb:BarButtonItem Content="Previous Reconcilations" x:Name="mbtnPreviousReconcilation" Glyph="{dx:DXImage Image=Accounting_32x32.png}"  ItemClick="MbtnPreviousReconcilation_ItemClick" />
+
+
+                                    </dxr:RibbonPageGroup>
+
+
+                                </dxr:RibbonPage>
+
+                                <!--Rentals page start-->
+
+                                <dxr:RibbonPage x:Name="btnRentals" Caption="Rentals">
+
+                                    <dxr:RibbonPageGroup Caption="Rental Contract" Name="btnRentalContract">
+                                        <dxb:BarButtonItem Content="Rental Contract" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+
+                                        <dxb:BarButtonItem Content="Enter Rental Contract" x:Name="mbtnEnterRentalContract" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}" ItemClick="mbtnEnterRentalContract_ItemClick"/>
+                                        <dxb:BarButtonItem Content="Rental Contract Register" x:Name="mbtnRentalContractRegister" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  ItemClick="mbtnRentalContractRegister_ItemClick" />
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Rental Order" Name="btnRentalOrder">
+                                        <dxb:BarButtonItem Content="Rental Order" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+
+                                        <dxb:BarButtonItem Content="Enter Rental Order" IsEnabled="False" x:Name="mbtnEnterRentalOrder" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}" ItemClick="mbtnEnterRentalOrder_ItemClick"/>
+                                        <dxb:BarButtonItem Content="Rental Order Register" x:Name="mbtnRentalOrderRegister" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  ItemClick="mbtnRentalOrderRegister_ItemClick" />
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Rental Invoice" Name="btnRentalInvoice">
+                                        <dxb:BarButtonItem Content="Rental Invoice" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+
+                                        <dxb:BarButtonItem Content="Enter Rental Invoice" IsEnabled="False" x:Name="mbtnEnterRentalInvoice" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}" ItemClick="mbtnEnterRentalInvoice_ItemClick"/>
+                                        <dxb:BarButtonItem Content="Rental Invoice Register" x:Name="mbtnRentalInvoiceRegister" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  ItemClick="mbtnRentalInvoiceRegister_ItemClick" />
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Tenants" Name="btnTenants">
+                                        <dxb:BarButtonItem Content="Tenants" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+
+                                        <dxb:BarButtonItem Content="Enter Tenant" IsEnabled="False" x:Name="mbtnTenants" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}" ItemClick="mbtnTenant_ItemClick"/>
+                                        <dxb:BarButtonItem Content="Tenants Register" x:Name="mbtnTenantsRegister" Glyph="{dx:DXImage Image=BO_Contract_32x32.png}"  ItemClick="mbtnTenantsRegister_ItemClick" />
+
+                                    </dxr:RibbonPageGroup>
+
+                                    <!--<dxr:RibbonPageGroup Caption="Rentals">
+                                        <dxb:BarSplitButtonItem  Content="Rentals" RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Rentals" ItemClick="BarRentalItem_ItemClick"          Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Rentals Register"
+                                                                   ItemClick="BarButtonItem_ItemClick_2"
+                                                                   Glyph="{dx:DXImageGrayscale Image=Show_32x32.png}"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>
+                                    
+                                    <dxr:RibbonPageGroup Caption="Rentals List">
+                                        <dxb:BarSplitButtonItem  Content=" Rentals List  " RibbonStyle="Large" Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}">
+                                            <dxb:PopupMenu>
+                                                <dxb:BarButtonItem Content="Tenancy Contract List" 
+                                                                   ItemClick="BarTenantContractList_ItemClick"
+                                                                   Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Rental Assets List" 
+                                                                   ItemClick="BarRentalAssetsList_ItemClick"
+                                                                   Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Leased Asset List" 
+                                                                   ItemClick="BarNotOwnedList_ItemClick"
+                                                                   Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Tenant List" 
+                                                                   ItemClick="BarTenantList_ItemClick"
+                                                                   Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                                <dxb:BarButtonItem Content="Owner List" 
+                                                                   ItemClick="BarOwnerList_ItemClick"
+                                                                   Glyph="{dx:DXImageGrayscale Image=Add_32x32.png}"/>
+                                            </dxb:PopupMenu>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxr:RibbonPageGroup>-->
+
+
+                                </dxr:RibbonPage>
+
+                                <dxr:RibbonPage Caption="Loans"  x:Name="mheadLoans">
+                                    
+                                    <dxr:RibbonPageGroup Caption="Loans">
+                                        <dxb:BarButtonItem  Content="Loans" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" LargeGlyph="/ZAS_ERP;component/images/bank_lists_icon.png"/>
+                                        <dxb:BarItemSeparator RibbonStyle="Large"/>
+                                        <dxb:BarButtonItem  Content="Enter Loan" x:Name="mbtnEnterBankLoan" ItemClick="MbtnEnterLoan_ItemClick" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" />
+                                        <dxb:BarButtonItem Content="Loans List" x:Name="mbtnLoanList" ItemClick="MbtnLoanList_ItemClick" Glyph="/ZAS_ERP;component/images/bank_lists_icon.png" />
+                                        <dxb:BarItemLinkSeparator/>
+                                    </dxr:RibbonPageGroup>
+                                    
+                                    <dxr:RibbonPageGroup Caption="Advances">
+                                        <dxb:BarButtonItem Content="Advances" LargeGlyph="/ZAS_ERP;component/images/pettycash.png" Glyph="/ZAS_ERP;component/images/pettycash.png" x:Name="barLoansAdvances"/>
+                                        <dxb:BarButtonItem Content="Enter Advance" x:Name="mbtnEnterLoansAdvance" ItemClick="barLoansAdvances_ItemClick" Glyph="/ZAS_ERP;component/images/pettycash.png"/>
+                                        <dxb:BarButtonItem Content="Advance Register" x:Name="mbtnLoansAdvanceRegister" ItemClick="mbtnLoansAdvanceRegister_ItemClick" Glyph="/ZAS_ERP;component/images/pettycash.png"/>
+                                        <dxb:BarItemLinkSeparator/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup Caption="Loans">
+                                        <dxb:BarButtonItem Content="Loans" LargeGlyph="/ZAS_ERP;component/images/loan.png" Glyph="/ZAS_ERP;component/images/loan.png" x:Name="barLoans"/>
+                                        <dxb:BarButtonItem Content="Enter Loan" x:Name="mbtnCompanyEnterLoan" ItemClick="barCompanyLoan_ItemClick" Glyph="/ZAS_ERP;component/images/loan.png"/>
+                                        <dxb:BarButtonItem Content="Loan Register" x:Name="mbtnCompanyLoansRegister" ItemClick="mbtnCompanyLoanRegister_ItemClick" Glyph="/ZAS_ERP;component/images/loan.png"/>
+                                        <dxb:BarItemLinkSeparator/>
+                                    </dxr:RibbonPageGroup>
+
+                                    <dxr:RibbonPageGroup x:Name="mHeadLoansAdvance" Caption="External Loans">
+                                        <dxb:BarButtonItem Content="STL" x:Name="mheadSTL" Glyph="/ZAS_ERP;component/images/intercompany.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem x:Name="btnSTL" Content="STL" ItemClick="btnSTL_ItemClick" GlyphSize="Small"  Glyph="/ZAS_ERP;component/images/intercompany.png"/>
+                                        <dxb:BarButtonItem x:Name="btnOpenSTL" Content="STL (Open)"  ItemClick="btnOpenSTL_ItemClick" Glyph="/ZAS_ERP;component/images/intercompany.png"/>
+                                        <dxb:BarButtonItem x:Name="btnCloseSTL" Content="STL (Close)"  ItemClick="btnCloseSTL_ItemClick" Glyph="/ZAS_ERP;component/images/intercompany.png"/>
+                                    </dxr:RibbonPageGroup>
+
+                                </dxr:RibbonPage>
+
+
+
+
+                                <dxr:RibbonPage Caption="Inventory"  x:Name="mheadInventory" >
+                                    <dxr:RibbonPageGroup Caption="Inventory" >
+                                        <dxb:BarButtonItem Content="Inventory Center" LargeGlyph="/ZAS_ERP;component/images/box_inventory_icon.png" Glyph="/ZAS_ERP;component/images/box_inventory_icon.png" x:Name="barInventoryReport" ItemClick="BarInventoryReport_ItemClick"/>
+                                        <!--<dxb:BarButtonItem Content="Inventory Valuation Detail" LargeGlyph="/ZAS_ERP;component/images/box_inventory_icon.png" Glyph="/ZAS_ERP;component/images/box_inventory_icon.png" x:Name="barInventoryDetailReport" ItemClick="BarInventoryDetailReport_ItemClick"/>-->
+
+
+                                    </dxr:RibbonPageGroup>
+                                    <dxr:RibbonPageGroup Caption="Inventory Adjustments">
+
+
+                                        <dxb:BarButtonItem Content="Inventory Adjustments" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarButtonItem Content="Inventory Adjustments" ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+                                        <dxb:BarButtonItem Content="Inventory Adjustments(Open)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+                                        <dxb:BarButtonItem Content="Inventory Adjustments(Close)"  ItemClick="BtnOpenTransaction_Click" Glyph="pack://application:,,,/ZAS_ERP;component/images/PurchaseOrder.png" />
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>
+
+
+
+
+
+
+
+                                <dxr:RibbonPage Caption="Docs" x:Name="mHeadDocs" IsVisible="True">
+                                    <dxr:RibbonPageGroup Caption="Traveling" x:Name="mHeadTraveling">
+                                        <dxb:BarButtonItem Content="Travel Record"  LargeGlyph="/ZAS_ERP;component/images/plane.png" Glyph="/ZAS_ERP;component/images/plane.png" x:Name="barDocs"/>
+
+                                        <dxb:BarButtonItem Content="Enter Travel Record" x:Name="mbtnTraveling" ItemClick="MbtnTraveling_ItemClick"
+                                            Glyph="/ZAS_ERP;component/images/plane1.png" />
+                                        <dxb:BarButtonItem Content="Travel Record Register" ItemClick="BarTravelRegister_ItemClick" x:Name="mbtnTravelingRegister" Glyph="/ZAS_ERP;component/images/plane1.png" />
+                                        <dxb:BarButtonItem Content="Travel Summary" ItemClick="mbtnTravelSummary_ItemClick" x:Name="mbtnTravelSummary" Glyph="/ZAS_ERP;component/images/plane1.png" />
+
+                                    </dxr:RibbonPageGroup>
+
+
+                                    <dxr:RibbonPageGroup Caption="Documents" x:Name="mHeadDocuments">
+                                        <dxb:BarItemLinkSeparator/>
+                                        <dxb:BarButtonItem Content="Documents"  LargeGlyph="{dx:DXImage Image=BO_Document_32x32.png}" Glyph="{dx:DXImage Image=BO_Document_32x32.png}" x:Name="barDocuments"/>
+
+                                        <dxb:BarButtonItem Content="Enter Document" x:Name="mbtnDocument" ItemClick="mbtnDocument_ItemClick"
+                                            Glyph="{dx:DXImage Image=Action_Document_Object_Inplace_32x32.png}" />
+                                        <dxb:BarButtonItem Content="Document Register" ItemClick="BarDocumentRegister_ItemClick" x:Name="mbtnDocumentRegister" Glyph="{dx:DXImage Image=Action_Document_Object_Inplace_32x32.png}" />
+
+
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>
+
+
+
+                                <dxr:RibbonPage Caption="Tasks" IsVisible="False" x:Name="mHeadTasks">
+                                    <dxr:RibbonPageGroup Caption="Tasks" x:Name="mHeadTask">
+                                        <dxb:BarButtonItem Content="Tasks" ItemClick="BarTasks_ItemClick" LargeGlyph="/ZAS_ERP;component/images/Task_32x32.png" Glyph="/ZAS_ERP;component/images/Task_32x32.png" x:Name="barTasks"/>
+
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>
+
+                                <!--<rentals page end-->
+
+                                <!--Favourite page start-->
+                                <!--<dxr:RibbonPage Caption="Favourite">
+                                    <dxr:RibbonPageGroup Caption="Favourite">
+
+                                        
+                                        <dxb:BarButtonItem Content="Task" RibbonStyle="Large" x:Name="barBtnTask" ItemClick="BarBtnTask_ItemClick" IsVisible="False"/>
+                                        <dxb:BarButtonItem x:Name="barBtnCalender"  ItemClick="BarBtnCalender_ItemClick" Content="Calendar" RibbonStyle="Large" GlyphSize="Small" Glyph="{dx:DXImage Image=Calendar_16x16.png}"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarItemLinkSeparator/>
+
+
+                                        <dxb:BarButtonItem Content="Calculator" x:Name="btncal" ItemClick="Btncal_ItemClick" IsVisible="True" Glyph="{dx:DXImage Image=CalculateNow_16x16.png}"  RibbonStyle="Large"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarItemLinkSeparator/>
+
+
+
+
+
+
+                                    </dxr:RibbonPageGroup>
+
+                                </dxr:RibbonPage>-->
+
+
+                                <!--Task page start-->
+                                <!--<dxr:RibbonPage Caption="Task">
+                                <dxr:RibbonPageGroup Caption="Task">
+
+                                    <dxb:BarButtonItem Content="Home"  Glyph="{dx:DXImage Image=Home_16x16.png}" RibbonStyle="Large" />
+                                    <dxb:BarItemSeparator/>
+                                    <dxb:BarButtonItem Content="Shortcuts Reports" RibbonStyle="Large"/>
+                                    <dxb:BarItemSeparator/>
+                                    <dxb:BarButtonItem Content="Setting" RibbonStyle="Large"/>
+                                    <dxb:BarItemSeparator/>
+                                    <dxb:BarButtonItem Content="Tasks" RibbonStyle="Large"/>
+
+
+                                </dxr:RibbonPageGroup>
+
+                            </dxr:RibbonPage>-->
+
+
+
+                                <!--Reports page start-->
+                                <!--<dxr:RibbonPage Caption="Reports">
+                                    <dxr:RibbonPageGroup Caption="">
+
+                                        <dxb:BarButtonItem  Content="New Company "  LargeGlyph="{dx:DXImage Image=Printer_32x32.png}"/>
+                                        <dxb:BarButtonItem Content="Open Privious Company" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}" Glyph="{dx:DXImage Image=Printer_16x16.png}"/>
+                                        <dxb:BarButtonItem Content="Open Second Company" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}" Glyph="{dx:DXImage Image=Printer_16x16.png}"/>
+                                        <dxb:BarButtonItem Content="Backup Company" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}" Glyph="{dx:DXImage Image=Printer_16x16.png}"/>
+                                        <dxb:BarItemSeparator/>
+                                        <dxb:BarItemLinkSeparator/>
+                                        <dxb:BarButtonItem Content="Close Company" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}" Glyph="{dx:DXImage Image=Printer_16x16.png}"/>
+
+
+                                    </dxr:RibbonPageGroup>
+                                </dxr:RibbonPage>-->
+
+                            </dxr:RibbonDefaultPageCategory>
+
+
+
+                        </dxr:RibbonControl>
+                        <!--Ribbon end-->
+
+
+
+
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3">
+
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="38"/>
+                            <ColumnDefinition Width="499"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="ZAS-ERP Team: | Zaigham Kamal Malik | Kashif Ayub | Junaid Ibrahim | Talha Javed | Waqas Ahmed" TextWrapping="Wrap" VerticalAlignment="Center" Padding="10 0 10 0" Grid.ColumnSpan="2" Margin="0,5"/>
+
+                        <Button x:Name="btnGlow" Visibility="Collapsed" Background="Yellow" Grid.Column="2" FontWeight="DemiBold" Foreground="Black" Content="Urgent Notifications Pending" Click="BtnGlow_Click">
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="btnGlow" 
+                                     Storyboard.TargetProperty="Opacity"
+                                     RepeatBehavior="Forever"
+                                     AutoReverse="True"
+                                     From="1"
+                                     To="0.0"
+                                     Duration="0:0:1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+                        <Grid Grid.Column="3">
+                            <Grid.Resources>
+                                <Style TargetType="dxb:RadialMenuControl">
+                                    <Setter Property="LayoutTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="FontWeight" Value="DemiBold" />
+
+                                </Style>
+                            </Grid.Resources>
+                            <dxr:RibbonStatusBarControl  Name="StatusBar1" IsSizeGripVisible="True"  >
+                                <dxr:RibbonStatusBarControl.RightItems>
+                                    <dxb:BarStaticItem Name="btnAllModules" ItemMinWidth="150" AutoSizeMode="Fill" Content="All Modules"  >
+                                    </dxb:BarStaticItem>
+                                </dxr:RibbonStatusBarControl.RightItems>
+                            </dxr:RibbonStatusBarControl>
+                            <dxb:BarManager  ToolTip="Right Click to Open" >
+                                <dxb:BarManager.DXContextMenu>
+                                    <dxb:RadialContextMenu Background='Transparent' VerticalOffset="20" HorizontalOffset="5"  dxb:BarDragProvider.DragType="Move" AllowDrop="True"  VerticalAlignment="Stretch" AllowsTransparency="True" HorizontalAlignment="Right" PopupAnimation="Fade" Margin="0,60,0,0" Placement="MousePoint">
+
+
+                                        <dxb:BarSplitButtonItem x:Name="barInquiries" Content="Inquiries" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"   >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+                                                    <dxb:BarButtonItem Content="Inquiries" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BtnOpenTransaction_Click" />
+                                                    <dxb:BarButtonItem Content="Inquiries(Open)" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BtnOpenTransaction_Click" />
+                                                    <dxb:BarButtonItem Content="Inquiries(Close)" Glyph="{dx:DXImage Image=Task_16x16.png}" ItemClick="BtnOpenTransaction_Click" />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+
+
+                                        <dxb:BarSplitButtonItem x:Name="barOffer" Content="Offers" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"   >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+
+
+                                                    <dxb:BarButtonItem Content="Offers(Open)" ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}" />
+                                                    <dxb:BarButtonItem Content="Offers(Close)" ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}" />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarSplitButtonItem x:Name="barSO" Content="Sale Orders"  Glyph="{dx:DXImage Image=Task_16x16.png}"   GlyphSize="Small"   >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+
+
+                                                    <dxb:BarButtonItem Content="Sale Orders" ItemClick="BtnOpenTransaction_Click" GlyphSize="Small"  Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Sale Orders(Open)" GlyphSize="Small"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Sale Orders(Close)" GlyphSize="Small"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarSplitButtonItem x:Name="barSI" Content="Sale Invoices" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"  >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+
+
+                                                    <dxb:BarButtonItem Content="Sale Invoices" GlyphSize="Small"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Sale Invoices(Open)" GlyphSize="Small"   ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Sale Invoices(Close)" GlyphSize="Small"   ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+
+
+                                        <dxb:BarSplitButtonItem x:Name="barPO" Content="Purchase Orders" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"   >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+
+
+                                                    <dxb:BarButtonItem Content="Purchase Orders" GlyphSize="Small"   ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Purchase Orders(Open)" GlyphSize="Small"   ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Purchase Orders(Close)" GlyphSize="Small"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+
+
+                                        <dxb:BarSplitButtonItem x:Name="barPI" Content="Purchase Invoices" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"  >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+
+
+                                                    <dxb:BarButtonItem Content="Purchase Invoices" GlyphSize="Small"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Purchase Invoices(Open)" GlyphSize="Small"   ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                    <dxb:BarButtonItem Content="Purchase Invoices(Close)"  GlyphSize="Small"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+
+
+                                        <dxb:BarSplitButtonItem x:Name="barAdminBill" Content="Admin Bills" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"  >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+                                                    <dxb:BarButtonItem Content="Bills Register" GlyphSize="Small"  Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="mbtnBillsList1" ItemClick="MbtnBillsList_Click" />
+
+
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarSplitButtonItem x:Name="barVendorBill" Content="Vendor Bills" GlyphSize="Small"   Glyph="{dx:DXImage Image=Task_16x16.png}"  >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+                                                    <dxb:BarButtonItem Content="Vendor Bills(Open)"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}" />
+                                                    <dxb:BarButtonItem Content="Vendor Bills(Close)"  ItemClick="BtnOpenTransaction_Click" Glyph="{dx:DXImage Image=Task_16x16.png}" />
+
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+                                        <dxb:BarSplitButtonItem x:Name="barBudget" Content="Budgets"  Glyph="{dx:DXImage Image=Task_16x16.png}"   GlyphSize="Small"   >
+                                            <dxb:BarSplitButtonItem.PopupControl>
+                                                <dxb:PopupMenu>
+                                                    <dxb:BarButtonItem Content="Budgets(Register)" GlyphSize="Small"  ItemClick="btnOpernBudgets_ItemClick" Glyph="{dx:DXImage Image=Task_16x16.png}"  />
+                                                </dxb:PopupMenu>
+                                            </dxb:BarSplitButtonItem.PopupControl>
+                                        </dxb:BarSplitButtonItem>
+                                    </dxb:RadialContextMenu>
+
+
+                                </dxb:BarManager.DXContextMenu>
+                            </dxb:BarManager>
+                        </Grid>
+
+                        <Grid Grid.Column="4">
+                            <Grid.Resources>
+                                <Style TargetType="dxb:RadialMenuControl">
+                                    <Setter Property="LayoutTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="FontWeight" Value="DemiBold" />
+
+
+                                </Style>
+                            </Grid.Resources>
+                            <dxr:RibbonStatusBarControl  Name="StatusBar2" IsSizeGripVisible="True"  >
+                                <dxr:RibbonStatusBarControl.RightItems>
+                                    <dxb:BarStaticItem Name="btnNewTransactions" ToolTip="Right Click to Open"  ItemMinWidth="150" AutoSizeMode="Fill" Content="New Transaction"  >
+                                    </dxb:BarStaticItem>
+                                </dxr:RibbonStatusBarControl.RightItems>
+                            </dxr:RibbonStatusBarControl>
+                            <dxb:BarManager  >
+                                <dxb:BarManager.DXContextMenu>
+                                    <dxb:RadialContextMenu Background='Transparent'  VerticalOffset="20" HorizontalOffset="5"  dxb:BarDragProvider.DragType="Move" AllowDrop="True"  VerticalAlignment="Center" AllowsTransparency="True" HorizontalAlignment="Center" PopupAnimation="Fade" Margin="0,60,0,0" Placement="MousePoint" GlyphSize="Small" ItemsDisplayMode="SmallImagesText">
+
+
+                                        <dxb:BarButtonItem x:Name="btnAddInquiry"  Content="Inquiries" Glyph="{dx:DXImage Image=Task_16x16.png}" GlyphSize="Large"    ItemClick="BtnAddInquiry_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+
+
+                                        <dxb:BarButtonItem x:Name="btnAddOffer" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="Add New Offer"  GlyphSize="Large"  ItemClick="BtnAddOffer_ItemClick"   >
+
+                                        </dxb:BarButtonItem>
+                                        <dxb:BarButtonItem x:Name="btnAddSO" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="Add New Sale Order"  GlyphSize="Large"  ItemClick="BtnAddSO_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+                                        <dxb:BarButtonItem x:Name="btnAddSI" Glyph="{dx:DXImage Image=Task_16x16.png}"  Content="Add New Sale Invoice"  GlyphSize="Large"  ItemClick="BtnAddSI_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+
+                                        <dxb:BarButtonItem x:Name="btnAddPO" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="Add New Purchase Order"  GlyphSize="Large"  ItemClick="BtnAddPO_ItemClick"   >
+
+                                        </dxb:BarButtonItem>
+
+                                        <dxb:BarButtonItem x:Name="btnAddPI" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="Add New Purchase Invoice"  GlyphSize="Large"  ItemClick="BtnAddPI_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+
+                                        <dxb:BarButtonItem  Content="Add New Admin Bill" Glyph="{dx:DXImage Image=Task_16x16.png}" x:Name="mbtnAddAdminBills"  GlyphSize="Large" ItemClick="MbtnEnterBills_Click"  >
+
+                                        </dxb:BarButtonItem>
+                                        <dxb:BarButtonItem x:Name="btnAddVBill" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="Add New Vendor Bill"   GlyphSize="Large" ItemClick="BtnAddVBill_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+                                        <dxb:BarButtonItem x:Name="btnLoadAdvance" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="Add New Loan Advance"   GlyphSize="Large" ItemClick="btnLoadAdvance_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+                                        <dxb:BarButtonItem x:Name="btnBudget" Glyph="{dx:DXImage Image=Task_16x16.png}" Content="AddBudget"   GlyphSize="Large" ItemClick="btnBudget_ItemClick"  >
+
+                                        </dxb:BarButtonItem>
+                                    </dxb:RadialContextMenu>
+                                </dxb:BarManager.DXContextMenu>
+                            </dxb:BarManager>
+                        </Grid>
+                    </Grid>
+
+
+                    <Grid  x:Name="grdMenu" Grid.Row="1" Grid.Column="0"  VerticalAlignment="Stretch">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+
+
+                        <dxa:AccordionControl Grid.Row="0" x:Name="accordion" ShowSearchControl="True" IsCollapseButtonVisible="True" SearchControlNullText="Type here to search">
+
+
+                            <dxa:AccordionItem Header="Today Snapshots" Glyph="{dx:DXImageGrayscale Image=Home_16x16.png}">
+
+                                <!--<dxa:AccordionItem Header="Company" ItemDisplayMode="Header"/>-->
+
+
+                                <Button BorderThickness="0"
+                                        Content="Calculator"
+                                        x:Name="btnAccordionCalculator"
+                                        Click="BtnAccordionCalculator_Click"                                   
+                                       Background="Transparent"
+FontWeight="Normal"
+HorizontalContentAlignment="Left" />
+                                <Button BorderThickness="0"
+Content="Calendar"
+Click="BtnAccordionCalendar_Click"
+x:Name="btnAccordionCalendar"
+Background="Transparent"
+FontWeight="Normal"
+HorizontalContentAlignment="Left" />
+
+                                <Button BorderThickness="0"
+Content="Close Tabs"
+x:Name="btnCloseTabs"
+Click="BtnCloseTabs_Click"
+Background="Transparent"
+FontWeight="Normal"
+HorizontalContentAlignment="Left" >
+
+                                </Button>
+
+                            </dxa:AccordionItem>
+
+                            <dxa:AccordionItem Header="Task Summary" Glyph="{dx:DXImage Image=BOTask_16x16.png}" Selected="AccordionItem_Selected">
+                                <Button BorderThickness="0"
+Content="Transactions Counter"
+Click="BtnAccordionTask_Click"
+x:Name="btnAccordionTask"
+Background="Transparent"
+FontWeight="Normal"
+HorizontalContentAlignment="Left" />
+                                <Button BorderThickness="0"
+Content="Close Tabs"
+x:Name="btnCloseTabss"
+Click="BtnCloseTabs_Click"
+Background="Transparent"
+FontWeight="Normal" HorizontalContentAlignment="Left">
+
+                                </Button>
+                                <Button BorderThickness="0" Background="Transparent"
+FontWeight="Normal" HorizontalContentAlignment="Left" x:Name="btnFlow" 
+Content="ERP Flow">
+
+                                </Button>
+
+
+
+                            </dxa:AccordionItem>
+
+                            <dxa:AccordionItem Header="Setting">
+                                <dxa:AccordionItem Header="Layout"/>
+                                <dxa:AccordionItem Header="Delete"/>
+                            </dxa:AccordionItem>
+                            <dxa:AccordionItem Header="Get Help" Glyph="{dx:DXImageGrayscale Image=Info_16x16.png}">
+                                <dxa:AccordionItem Header="Support"/>
+                                <dxa:AccordionItem Header="Documentation"/>
+                            </dxa:AccordionItem>
+                            <dxa:AccordionItem x:Name="btnFavouriteReports" Header="Favourite Reports" Glyph="{dx:DXImage Image=BOReport_16x16.png}" Visibility="Collapsed">
+                             
+                            </dxa:AccordionItem>
+                            <dxa:AccordionItem Header="Refresh ERP without Logout" x:Name="mbtnRefreshERP" MouseDoubleClick="MbtnRefreshERP_MouseDoubleClick" Glyph="{dx:DXImageGrayscale Image=Refresh_16x16.png}"/>
+                            <Button Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontWeight="Bold" Content=" Group Wallpaper" FontSize="13" x:Name="mbtnBackgroundImage"  Click="mbtnGroupWallpaper_Click"/>
+                            <Button Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontWeight="Bold" Content=" Specific Wallpaper" FontSize="13" Name="mbtnBackgroundImageSpecific" Click="mbtnSpecificWallpaper" />
+                            <Button Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontWeight="Bold" Content=" All Wallpaper" FontSize="13" Name="mbtnBackgroundImageAll" Click="mbtnAllWallpaper"/>
+
+                            <Button Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontWeight="Bold" Content="Change Logs" FontSize="13" Name="mbtnChangeLogs" Click="MbtnChangeLogs_Click"/>
+
+                            <Button Background="Transparent" BorderThickness="0" HorizontalAlignment="Left" FontWeight="Bold" Content="Pollings" FontSize="13" Name="mbtnPollings" Click="MbtnPollings_Click" Visibility="Collapsed"/>
+                            <Button Background="Yellow" BorderThickness="0" HorizontalAlignment="Left" FontWeight="Bold" Content="Pollings" FontSize="13" Visibility="Collapsed" Name="mbtnPollingsGlow" Click="MbtnPollings_Click" Padding="10 3 70 3">
+                                <Button.Triggers>
+                                    <EventTrigger RoutedEvent="Window.Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="mbtnPollingsGlow"                          
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 RepeatBehavior="Forever"
+                                                                 AutoReverse="True"
+                                                                 From="1"
+                                                                 To="0.0"
+                                                                 Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Button.Triggers>
+                            </Button>
+                            <!--<dxa:AccordionItem Header="Group Wallpaper" x:Name="mbtnBackgroundImage" MouseUp="mbtnBackgroundImage_MouseUp"  Glyph="{dx:DXImage Image=Image_16x16.png}"/>-->
+                            <!--<dxa:AccordionItem Header="Specific Wallpaper"  MouseUp="mbtnBackgroundImageSpecific_MouseUp"  Glyph="{dx:DXImage Image=Image_16x16.png}"/>-->
+                            <!--<dxa:AccordionItem Header="All Wallpaper" x:Name="mbtnBackgroundImageAll" MouseUp="mbtnBackgroundImageAll_MouseUp"  Glyph="{dx:DXImage Image=Image_16x16.png}" />-->
+
+
+                            <!--<dxa:AccordionItem x:Name="mbtnToDoList" MouseUp="MbtnToDoList_MouseUp" Header="To Do List" Glyph="{dx:DXImage Image=Task_16x16.png}" ShowInCollapsedMode="True"/>-->
+                        </dxa:AccordionControl>
+
+
+                    </Grid>
+                    <DockPanel  Grid.Column="2" Grid.Row="1">
+
+                        <Grid  x:Name="grdRight" Background="White">
+                            <Grid  x:Name="FavouriteItems">
+
+                            </Grid>
+
+                        </Grid>
+
+                    </DockPanel>
+
+                    <dxb:StatusBarControl Grid.Row="2" Grid.ColumnSpan="3" x:Name="statusBarMain" Visibility="Collapsed"/>
+                    <!--<local1:Ticker x:Name="ticker" Grid.Row="2" Grid.ColumnSpan="3"  />-->
+                    <Grid x:Name="grdOnlineUserGrid" Visibility="Collapsed"  Width="450" Height="700" Panel.ZIndex="20" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="2"  Margin="0,50,150,30" Grid.Row="0" Grid.RowSpan="3">
+
+
+
+
+                        <dxg:GridControl x:Name="grdOnlineUsers"  AutoExpandAllGroups="True"  AutoPopulateColumns="True" CustomUnboundColumnData="grdOnlineUsers_CustomUnboundColumnData"
+                                         Height="500" Width="440"  VerticalAlignment="Top" HorizontalAlignment="Right" 
+                                         Grid.RowSpan="3" Margin="0,5,0,0" AutoGenerateColumns="None"
+                                         AllowDrop="False" >
+                            <dxg:GridControl.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="View Login History" Name="btnViewHistory" Click="btnViewHistory_Click">
+                                        <MenuItem.Icon>
+                                            <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </dxg:GridControl.ContextMenu>
+                            <dxg:GridControl.View>
+                                <dxg:TableView  AllowEditing="False"     ShowBandsPanel="False" HorizontalScrollbarVisibility="Disabled"
+                                                ShowColumnHeaders="True"
+                                                 ShowAutoFilterRow="False"
+                                                 ShowBandsInCustomizationForm="False"
+                                                 ShowCriteriaInAutoFilterRow="False" ShowHorizontalLines="False"
+                                                 VerticalScrollbarVisibility="Auto"            
+                                                ShowSearchPanelMode="Always"
+                                                ShowGroupPanel="False"
+                                                ShowIndicator="False" 
+                                                ShowVerticalLines="False"
+                                                SwitchToCompactModeWidth="700"
+                                                ShowFilterPanelMode="Never"
+                                                MouseDoubleClick="onlineUserTableView_MouseDoubleClick"
+                                                 NavigationStyle="Row" Width="auto">
+                                    <dxg:TableView.FormatConditions>
+                                        <dxg:FormatCondition Expression="Contains([online], 'online')" FieldName="picture">
+                                            <dx:Format Icon="{dx:IconSet Name=TrafficLights4_1}"/>
+                                        </dxg:FormatCondition>
+                                    </dxg:TableView.FormatConditions>
+
+                                </dxg:TableView>
+                            </dxg:GridControl.View>
+                            <dxg:GridControl.Columns>
+
+                                <dxg:GridColumn MaxWidth="60" Header="Photo" VisibleIndex="0" FieldName="employee.person.Photo" HorizontalHeaderContentAlignment="Center">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:ImageEditSettings ShowMenu="False" MaxWidth="40" HorizontalContentAlignment="Center" />
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn Width="200"  VisibleIndex="1" Header="User Name" FieldName="EmployeeName" UnboundType="string"  >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings TextWrapping="Wrap"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn Width="90"  VisibleIndex="3" Header="Last Login" FieldName="LastLoginTime" UnboundType="string" HorizontalHeaderContentAlignment="Center"  >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings TextWrapping="Wrap" HorizontalContentAlignment="Center"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <!--<dxg:GridColumn  Header="Login time" VisibleIndex="3" FieldName="LoginTime" Visible="False">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:DateEditSettings MaskType="DateTime"   MaskUseAsDisplayFormat="True" Mask="h:mm tt" HorizontalContentAlignment="Center"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>-->
+
+                                <dxg:GridColumn Width="50" HorizontalHeaderContentAlignment="Center" VisibleIndex="2" FieldName="picture" Header="Status">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings TextWrapping="Wrap" HorizontalContentAlignment="Center"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn Width="auto"  VisibleIndex="2" FieldName="online" UnboundType="string" Visible="False" ShowInColumnChooser="False">
+
+                                </dxg:GridColumn>
+
+
+
+
+
+
+                            </dxg:GridControl.Columns>
+
+
+
+                        </dxg:GridControl>
+
+
+
+
+                    </Grid>
+                </Grid>
+            </DockPanel>
+
+
+            <Grid Name="grdProgressBar" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Height="100" Width="300" Background="LightGray">
+                <ProgressBar x:Name="pbarDownloading" Grid.ColumnSpan="2" IsIndeterminate="True" HorizontalAlignment="Center" VerticalAlignment="Center"  Minimum="0" Maximum="100" Height="25" Width="280" Foreground="LightGreen"/>
+                <Label Content="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Blue"/>
+
+            </Grid>
+
+
+        </Grid>
+
+        <dxb:BarManager.Items>
+            <dxb:BarButtonItem Name="bNew" Content="New"  />
+            <dxb:BarButtonItem Name="bOpen" Content="Open"  />
+
+
+        </dxb:BarManager.Items>
+
+    </dxb:BarManager>
+</dxr:DXRibbonWindow>

@@ -1,0 +1,451 @@
+﻿<UserControl x:Class="ZAS_ERP.FilesAndDocss.TravellingRecords.UserControls.ucVisitingRecord"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:local="clr-namespace:ZAS_ERP.FilesAndDocss.TravellingRecords.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="900" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!--<dxlc:LayoutGroup Grid.Row="0" Grid.ColumnSpan="3" View="GroupBox" Header="Ticket Cost" Padding="0" Margin="10 10 10 0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Ticket Cost " VerticalAlignment="Center"/>
+                    <dxe:TextEdit Grid.Column="1"  
+                          x:Name="txtTicketCost"
+                          IsReadOnly="False"
+                                  EditValueChanged="TxtTicketCost_EditValueChanged"
+                          Height="22"
+                                      Text="0"
+                                      Mask="n2"
+                                      MaskType="Numeric"
+                                      MaskUseAsDisplayFormat="True"/>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="2" Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Currency " VerticalAlignment="Center"/>
+                    <dxg:LookUpEdit Grid.Column="1"
+                                    x:Name="lookupCurrency"
+                                    DisplayMember="CurrencyName"
+                                    ValueMember="Id"
+                                    Height="22"
+                                    SelectedIndexChanged="LookupCurrency_SelectedIndexChanged"/>
+                </Grid>
+
+                <Grid Grid.Column="2" Grid.Row="2" Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="MER " VerticalAlignment="Center"/>
+                    <dxe:TextEdit Grid.Column="1"  
+                                  EditValueChanged="TxtMER_EditValueChanged"
+                          x:Name="txtMER"
+                          IsReadOnly="False"
+                          Height="22"
+                                      Text="1"
+                                      Mask="n2"
+                                      MaskType="Numeric"
+                                      MaskUseAsDisplayFormat="True"/>
+                </Grid>
+
+                <Grid Grid.Column="3" Grid.Row="2" Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Cost (MER) " VerticalAlignment="Center"/>
+                    <dxe:TextEdit Grid.Column="1"
+                                  x:Name="txtCostMER"
+                                  IsReadOnly="True"
+                                  Height="22"
+                                  Text="0"
+                                  Mask="n2"
+                                  MaskType="Numeric"
+                                  MaskUseAsDisplayFormat="True"/>
+                </Grid>
+
+            </Grid>
+        </dxlc:LayoutGroup>-->
+
+        <dxg:GridControl x:Name="grdVisitingRecords"
+                             AutoExpandAllGroups="True"
+                             Grid.Row="0"
+                             Margin="0 20 0 0"
+                             Grid.ColumnSpan="3"
+                             SelectionMode="Cell"
+                             CustomUnboundColumnData="GrdVisitingRecords_CustomUnboundColumnData"
+                             dx:DXSerializer.SerializationID="grid">
+            <dxg:GridControl.View>
+                <dxg:TableView  
+                                AllowSorting="False"
+                                NewItemRowPosition="Bottom"
+                                AllowColumnFiltering="False"
+                                ShowTotalSummary="True"
+                                RowAnimationKind="None" 
+                                WaitIndicatorType="Panel"
+                                ShowHorizontalLines="True"
+                                ShowVerticalLines="True"
+                                InitNewRow="TblViewGrdVisitingRecords_InitNewRow"
+                                Name="tblViewGrdVisitingRecords"
+                                CellValueChanged="TblViewGrdVisitingRecords_CellValueChanged">
+                  
+                </dxg:TableView>
+            </dxg:GridControl.View>
+
+            <dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete"
+                            x:Name="mbtnDelete"
+                            Click="MbtnDelete_Click">
+                        <MenuItem.Icon>
+                            <Image Source="{dx:DXImage Image=Delete_32x32.png}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+
+            <dxg:GridColumn Image="{dx:DXImage Image=SortDialog_16x16.png}" 
+                            FieldName="sequence" 
+                            VisibleIndex="0" 
+                            Header="Sequence"
+                            AllowEditing="true"
+                            SortOrder="Ascending">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n0" MaskUseAsDisplayFormat="True" MaskType="Numeric"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn  VisibleIndex="1"
+                             AllowMoving="false"
+                                     FieldName="itineraryStatus"
+                                     Header="Itinerary Status"
+                                     IsSmart="True">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.itineraryStatus}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxe:ComboBoxEditSettings x:Name="cmbItineraryStatus"
+                                      NullText="Select Item">
+                        
+                    </dxe:ComboBoxEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Image="{dx:DXImage Image=SortDialog_16x16.png}" 
+                            FieldName="transactionGroupId" 
+                            VisibleIndex="1" 
+                            Header="Group Id"
+                            AllowEditing="false"
+                            Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n0" MaskUseAsDisplayFormat="True" MaskType="Numeric"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="residentYear"
+                            VisibleIndex="2" 
+                                SortOrder="Ascending"
+                            Header="Resident Year"
+                            AllowEditing="false"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings MaskUseAsDisplayFormat="True" Mask="yyyy" MaskType="DateTime"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn
+                            FieldName="SystemRefNo" 
+                            VisibleIndex="2" 
+                            Header="System Ref #"
+                            AllowEditing="false"/>
+
+            <dxg:GridColumn 
+                            FieldName="TicketNo" 
+                            VisibleIndex="2" 
+                            Header="Ticket #"
+                            AllowEditing="true"/>
+
+            <dxg:GridColumn  VisibleIndex="1"
+                             AllowMoving="false"
+                                     FieldName="airline"
+                                     Header="Airline"
+                                     IsSmart="True"
+                                     UnboundType="bound"
+                                     UnboundExpression="[Name]" 
+                                     SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.airline.Name}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupAirline"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="Name"
+                                      NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                        <dxg:GridColumn FieldName="Name" />
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn  VisibleIndex="1"
+                             AllowMoving="false"
+                                     FieldName="departingCountry"
+                                     Header="Departing Country"
+                                     IsSmart="True"
+                                     UnboundType="bound"
+                                     UnboundExpression="[CountryName]" 
+                                     SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.departingCountry.CountryName}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupDepartingCountry"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="CountryName"
+                                      NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                        <dxg:GridColumn FieldName="CountryName" />
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Header="Departure Date"
+                            AllowMoving="false"
+                            FieldName="DepartureDate"
+                            IsSmart="True"
+                            VisibleIndex="1"
+                                    AllowEditing="true">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings x:Name="datDepartureDate"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn  VisibleIndex="3"
+                             AllowMoving="false"
+                                     FieldName="visitingCountry"
+                                     Header="Staying Country"
+                                     IsSmart="True"
+                                     UnboundType="bound"
+                                     UnboundExpression="[CountryName]" 
+                                     SortOrder="Ascending" 
+                                     SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.visitingCountry.CountryName}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupVisitingCountry"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="CountryName"
+                                      NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                        <dxg:GridColumn FieldName="CountryName" />
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Header="Arrival Date"
+                            AllowMoving="false"
+                            FieldName="ArrivalDate"
+                            IsSmart="True"
+                            VisibleIndex="5"
+                                    AllowEditing="true">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings x:Name="datArrivalDate"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Header="Leaving Date"
+                            AllowMoving="false"
+                            FieldName="LeavingDate"
+                            IsSmart="True"
+                            VisibleIndex="6"
+                                    AllowEditing="true">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="End"
+                            AllowMoving="false"
+                            AllowEditing="true"
+                            Header="End"
+                            VisibleIndex="8">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:CheckEditSettings AllowNullInput="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="NumberOfDays"
+                            
+                            AllowEditing="false"
+                            Header="No of Days"
+                            UnboundType="integer"
+                            VisibleIndex="9"/>
+
+            <dxg:GridColumn FieldName="TicketCost"
+                            AllowMoving="false"
+                            AllowEditing="true"
+                            Header="Cost"
+                            VisibleIndex="13"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+           
+            <dxg:GridColumn  VisibleIndex="14"
+                             AllowMoving="false"
+                                     FieldName="currency"
+                                     Header="Currency"
+                                     IsSmart="True"
+                                     UnboundType="bound"
+                                     UnboundExpression="[CurrencyName]" 
+                                     SortOrder="Ascending" 
+                                     SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.currency.CurrencyName}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupCurrency"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="CurrencyName"
+                                      NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                        <dxg:GridColumn FieldName="CurrencyName" />
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="MER"
+                            AllowMoving="false"
+                            AllowEditing="true"
+                            Header="MER"
+                            VisibleIndex="15"
+                                Width="auto"/>
+
+            <dxg:GridColumn FieldName="TicketCostMER"
+                            AllowMoving="false"
+                            AllowEditing="false"
+                            Header="Cost (MER)"
+                            VisibleIndex="16"
+                                Width="auto">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="NumberOfDays" SummaryType="Sum" DisplayFormat="n0"/>
+            </dxg:GridControl.TotalSummary>
+
+        </dxg:GridControl>
+
+        <dx:SimpleButton x:Name="btnSave" Click="BtnSave_Click" Content="Save" FontWeight="Bold" Grid.Row="2" Height="30" Grid.ColumnSpan="3" Margin="0 10 0 0"/>
+    </Grid>
+</UserControl>

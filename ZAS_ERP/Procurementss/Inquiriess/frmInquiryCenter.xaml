@@ -1,0 +1,447 @@
+﻿<Window x:Class="ZAS_ERP.Inquiriess.frmInquiryCenter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Inquiriess"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d"
+        Title="Inquiry Center"
+        Height="550"
+        Width="900"
+        x:Name="winInquiryCenter"
+        Loaded="winInquiryCenter_Loaded">
+  <Grid>
+    <Grid.Resources>
+      <Style TargetType="{x:Type Label}">
+        <Setter Property="Margin"
+                Value="10,0" />
+        <Setter Property="Foreground"
+                Value="Gray" />
+        <Setter Property="VerticalAlignment"
+                Value="Center"></Setter>
+      </Style>
+      <Style TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment"
+                Value="Left"></Setter>
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="10,0" />
+      </Style>
+    </Grid.Resources>
+    <DockPanel>
+      <dx:DXTabControl>
+        <dx:DXTabItem Header="Inquiry">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition MinHeight="25"
+                             Height="1*"
+                             MaxHeight="35" />
+              <RowDefinition Height="7*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="1.5*" />
+              <ColumnDefinition Width="5" />
+              <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.ColumnSpan="3">
+              <dxb:MainMenuControl Height="30"
+                                   VerticalAlignment="Top"
+                                   BarItemDisplayMode="ContentAndGlyph">
+                <dxb:BarSubItem Content="Add new"
+                                x:Name="mbtnaddcomp"
+                                ItemClick="mbtnaddcomp_ItemClick"
+                                Glyph="/ZAS_ERP;component/images/appbar.add.png"
+                               >
+                  <dxb:BarButtonItem Content="Add new"
+                                     Glyph="/ZAS_ERP;component/images/appbar.user.add.png" />
+                  <dxb:BarButtonItem  Content="New Transactions"></dxb:BarButtonItem>
+                </dxb:BarSubItem>
+                <dxb:BarSubItem Content="New Transactions">
+                  <dxb:BarButtonItem x:Name="btnestimates"
+                                     Content="Estimates" />
+                  <dxb:BarButtonItem x:Name="btnsalesOrders"
+                                     Content="New" />
+                </dxb:BarSubItem>
+              </dxb:MainMenuControl>
+            </DockPanel>
+            <DockPanel Grid.Row="1"
+                       Grid.RowSpan="3"
+                       Grid.Column="0">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="auto" />
+                  <RowDefinition Height="1.4*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                  <dx:DropDownButton />
+                  <dx:SimpleButton Content="GO"
+                                   HorizontalAlignment="Right" />
+                </Grid>
+                <dxg:GridControl x:Name="grdinquiry"
+                                 Grid.Row="1"
+                                 Grid.ColumnSpan="3"
+                                 SelectionMode="Row"
+                                 ItemsSource="{Binding inquiry}"
+                                 SelectionChanged="grdinquiry_SelectionChanged"
+                                 >
+                  <!--<dxg:GridColumn FieldName="Id"
+                                  Visible="False" />
+                  <dxg:GridColumn FieldName="referenceNo"
+                                  Width="auto"
+                                  Header="Inquiry Reference" />
+                  <dxg:GridColumn FieldName="customerCompany.company.CompanyName"
+                                  Width="auto"
+                                  Header="Sub Customer Name" />-->
+                  <!--<dxg:GridColumn FieldName="inquiryDate"
+                                  Width="auto"
+                                  Header="Inquiry Date" />-->
+                  <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                      <MenuItem Header="Add New"
+                                x:Name="btnNewInquiry"
+                                Click="btnNewInquiry_Click" />
+                      <MenuItem Header="Edit Company"
+                                x:Name="btnEditInquiry"
+                                Click="btnEditInquiry_Click" />
+                      <Separator />
+                      <MenuItem Header="Delete Inquiry"
+                                x:Name="btnDeleteInquiry" />
+                    </ContextMenu>
+                  </dxg:GridControl.ContextMenu>
+                </dxg:GridControl>
+              </Grid>
+            </DockPanel>
+            <Grid Grid.Column="2"
+                  Grid.Row="1">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                
+              </Grid.RowDefinitions>
+              <StackPanel Orientation="Horizontal"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Margin="10,0">
+                <TextBlock x:Name="lblinfoheader"
+                           Text="Inquiry Information"
+                           FontSize="36"
+                           VerticalAlignment="Center"
+                           TextDecorations="{x:Null}" />
+              </StackPanel>
+              <Rectangle Height="3"
+                         Fill="Gray"
+                         VerticalAlignment="Bottom"
+                         Margin="10,0" />
+              <dxlc:GroupBox Header="Update Inquiry Status"
+                             Background="White"
+                             Margin="5"
+                             Grid.Row="1"
+                             >
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock VerticalAlignment="Center"
+                             Text="Inquiry Status"
+                             />
+                  <ComboBox VerticalAlignment="Center"
+                            Grid.Column="1"
+                            
+                            x:Name="cmbInquiryStatus"
+                            SelectionChanged="cmbInquiryStatus_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <StackPanel  Orientation="Horizontal">
+                          <TextBlock Text="{Binding id}"
+                                     Visibility="Hidden" />
+                          <TextBlock Text="{Binding name}"></TextBlock>
+                        </StackPanel>
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                  <Button x:Name="btnUpdateStatus" Click="btnUpdateStatus_Click" Grid.Column="2" Content="Update Status" Margin="10,0"> 
+                    
+                  </Button>
+                </Grid>
+               
+              </dxlc:GroupBox>
+              <dxlc:GroupBox Header="Inquiry Information"
+                             Background="White"
+                             Margin="5"
+                             Grid.Row="2"
+                             IsEnabled="False">
+                <Grid>
+                  <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                      <Setter Property="VerticalAlignment"
+                              Value="Center" />
+                      <Setter Property="HorizontalAlignment"
+                              Value="Left" />
+                      <Setter Property="Foreground"
+                              Value="DarkGray" />
+                      <Setter Property="Margin"
+                              Value="10,05" />
+                    </Style>
+                  </Grid.Resources>
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="20" />
+                      <ColumnDefinition Width="Auto" />
+                      <ColumnDefinition Width="1*" />
+                      <ColumnDefinition Width="40" />
+                      <ColumnDefinition Width="auto" />
+                      <ColumnDefinition Width="1*" />
+                      <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="10" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="auto" />
+                      <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Customer Name"
+                               Grid.Column="1"
+                               Grid.Row="1" />
+                    <TextBox x:Name="cmbCustomerName"
+                             VerticalAlignment="Center"
+                             Grid.Row="1"
+                             Grid.Column="2">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <TextBlock x:Name="label1"
+                               VerticalAlignment="Center"
+                               Grid.Row="2"
+                               Grid.Column="1"><Run Text="Sub Customer" /></TextBlock>
+                    <TextBox VerticalAlignment="Center"
+                             Grid.Column="2"
+                             x:Name="cmbsubcustomer"
+                             Grid.Row="2">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="1"
+                               Grid.Row="3"
+                               Text="Inquiry Type " />
+                    <TextBox VerticalAlignment="Center"
+                             Grid.Column="2"
+                             Grid.Row="3"
+                             x:Name="cmbInquiryType">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="1"
+                               Grid.Row="6"
+                               Text="Due Date " />
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="1"
+                               Grid.Row="4"
+                               Text="Inquiry Reference #" />
+                    <TextBox Grid.Column="2"
+                             x:Name="txtinquiryref"
+                             Grid.Row="4"
+                             VerticalAlignment="Center"></TextBox>
+                    <dxe:DateEdit VerticalAlignment="Center"
+                                  x:Name="datinquirydate"
+                                  Grid.Column="2"
+                                  Grid.Row="5" />
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="1"
+                               Grid.Row="5"
+                               Text="Inquiry Date" />
+                    <dxe:DateEdit VerticalAlignment="Center"
+                                  x:Name="datduedate"
+                                  Grid.Column="2"
+                                  Grid.Row="6" />
+                    <!--<CheckBox x:Name="chkisempActive"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Grid.Column="2"
+                Grid.Row="7" />-->
+                    <TextBox x:Name="cmbDepartment"
+                             VerticalAlignment="Center"
+                             Grid.Column="5"
+                             Grid.Row="1">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="4"
+                               Grid.Row="1"
+                               Text="Department" />
+                    <TextBox x:Name="cmbSection"
+                             VerticalAlignment="Center"
+                             Grid.Column="5"
+                             Grid.Row="2">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="4"
+                               Grid.Row="2"
+                               Text="Section" />
+                    <TextBox x:Name="cmbEmployee"
+                             VerticalAlignment="Center"
+                             Grid.Column="5"
+                             Grid.Row="3">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="4"
+                               Grid.Row="3"
+                               Text="Allocate to" />
+                    <TextBox x:Name="txtfileref"
+                             VerticalAlignment="Center"
+                             Grid.Column="5"
+                             Grid.Row="4"></TextBox>
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="4"
+                               Grid.Row="4"
+                               Text="File Reference #" />
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="4"
+                               Grid.Row="5"
+                               Text="Closing Date" />
+                    <dxe:DateEdit VerticalAlignment="Center"
+                                  x:Name="datclosedate"
+                                  Grid.Column="5"
+                                  Grid.Row="5" />
+                    <dxe:DateEdit VerticalAlignment="Center"
+                                  x:Name="datalertDate"
+                                  Grid.Column="5"
+                                  Grid.Row="6" />
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="4"
+                               Grid.Row="6"
+                               Text="Alert Date"
+                               Height="16" />
+                    <TextBlock VerticalAlignment="Center"
+                               Grid.Column="1"
+                               Grid.Row="7"
+                               Text="Inquiry Status"
+                               Height="16" />
+                    <TextBox VerticalAlignment="Center"
+                             Grid.Column="2"
+                             Grid.Row="7"
+                             x:Name="txtInquiryStatus">
+                      <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                                   Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ComboBox.ItemTemplate>-->
+                    </TextBox>
+                    <DataGrid x:Name="dGitems"
+                              Grid.Column="1"
+                              Grid.ColumnSpan="5"
+                              Grid.Row="8"
+                              Margin="0,10"
+                              ColumnWidth="*" />
+                    <!--<Button x:Name="btniquiryadd"
+                        Grid.Row="9"
+                        Grid.ColumnSpan="7"
+                        Content="Add Inquiry"
+                        Click="btniquiryadd_Click"></Button>-->
+                  </Grid>
+                </Grid>
+              </dxlc:GroupBox>
+              
+               
+            </Grid>
+            <DockPanel Grid.Column="2"
+                       Grid.Row="3">
+              <Grid Grid.Column="2"
+                    Grid.Row="3"
+                    VerticalAlignment="Stretch"
+                    MaxHeight="600">
+                <Grid.Resources>
+                  <Style TargetType="Label">
+                    <Setter Property="Foreground"
+                            Value="DarkGray"></Setter>
+                    <Setter Property="Margin"
+                            Value="10,0"></Setter>
+                  </Style>
+                  <Style TargetType="dx:DropDownButton">
+                    <Setter Property="Margin"
+                            Value="10,5"></Setter>
+                  </Style>
+                </Grid.Resources>
+              </Grid>
+            </DockPanel>
+            <GridSplitter Grid.Column="1"
+                          Grid.Row="1"
+                          Grid.RowSpan="3"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Center" />
+          </Grid>
+        </dx:DXTabItem>
+        <dx:DXTabItem Header="Inquiry Buckets">
+          
+        </dx:DXTabItem>
+      </dx:DXTabControl>
+     
+    </DockPanel>
+  </Grid>
+</Window>

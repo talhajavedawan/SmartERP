@@ -1,0 +1,5 @@
+﻿All migration are fixed and tested at 28-08-2020.
+Following files will remain exculded. 
+201901030835086_userisActive1
+201904291627145_SaleOrder
+201905021146007_POmultivendors

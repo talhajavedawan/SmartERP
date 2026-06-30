@@ -1,0 +1,180 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.Termss.frmPaymentTermList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Productss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title="Payment Terms List"
+        x:Name="winPaymentTermList"
+        Loaded="winPaymentTermList_Loaded"
+        Unloaded="WinPaymentTermList_Unloaded"
+        Height="450"
+        Width="450">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".7*" />
+        
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+        <MenuItem Header="_PaymentTerm"
+                  x:Name="mbtnPaymentTerm">
+          <MenuItem Header="Add new PaymentTerm"
+                    x:Name="mbtnNewPaymentTerm"
+                    Click="mbtnNewPaymentTerm_Click"></MenuItem>
+          <MenuItem Header="Edit PaymentTerm"
+                    x:Name="mbtnEditPaymentTerm"
+                    Click="mbtnEditPaymentTerm_Click"></MenuItem>
+        </MenuItem>
+        
+      </Menu>
+
+
+            <dxg:GridControl 
+           Grid.Row="1"
+                       Grid.Column="2"
+            x:Name="grdPaymentTerm"
+            AutoGenerateColumns="AddNew"
+            AllowInitiallyFocusedRow="False"
+            Margin="10 10 10 10">
+
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewPaymentTerm"
+                      Click="mbtnNewPaymentTerm_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditPaymentTerm"
+                      Click="mbtnEditPaymentTerm_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View>
+                    <dxg:TreeListView x:Name="gridPayeeView"
+                                  ShowAutoFilterRow="True"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="ParentId"
+                                  TreeDerivationMode="Selfreference"
+                                  AutoExpandAllNodes="False"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowFocusedRectangle="True"
+                                  ShowSelectionRectangle="True">
+                    </dxg:TreeListView>
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn Header="Parent Term"
+                                FieldName="term"/>
+
+                <dxg:GridColumn Header="Discount Percent"
+                                FieldName="discountPercent"/>
+
+                <dxg:GridColumn Header="Days of Month Due"
+                                FieldName="daysofMonthDue"/>
+
+                <dxg:GridColumn Header="Discount Days"
+                                FieldName="discountDays"/>
+
+                <dxg:GridColumn Header="Discount on Day of Month"
+                                FieldName="discountonDayofMonth"/>
+
+                <dxg:GridColumn Header="Minimum Day to Pay"
+                                FieldName="minimumDaytoPay"/>
+
+                <dxg:GridColumn Header="Net Due Days"
+                                FieldName="netDueDays"/>
+
+                <dxg:GridColumn Header="Type"
+                                FieldName="type"/>
+
+                <dxg:GridColumn Header="Is Approved"
+                                FieldName="isApproved"/>
+
+                <dxg:GridColumn Header="Is Active"
+                                FieldName="isActive"/>
+
+                <dxg:GridColumn Header="Added Date"
+                                FieldName="addedDate"/>
+
+                <dxg:GridColumn Header="Is Sale Order Type"
+                                FieldName="isSaleOrderType"/>
+
+                <dxg:GridColumn Header="Is Purchase Order Type"
+                                FieldName="isPurchaseOrderType"/>
+
+                <dxg:GridColumn Header="Is Purchase Invoice Type"
+                                FieldName="isPurchaseInvoiceType"/>
+
+                <dxg:GridColumn Header="Is Payment Type"
+                                FieldName="isPaymentType"/>
+
+                <dxg:GridColumn Header="Is Vnedor Bill Type"
+                                FieldName="isVnedorBillType"/>
+
+                <dxg:GridColumn Header="Is Offer Type"
+                                FieldName="isOfferType"/>
+
+                <dxg:GridColumn Header="Is Cost Sheet Type"
+                                FieldName="isCostSheetType"/>
+
+            </dxg:GridControl>
+
+                    <!--<dxg:GridControl x:Name="grdPaymentTerm"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdPaymentTerm_MouseDoubleClick">
+                <dxg:GridControl.View>
+                    <dxg:TreeListView 
+                                      Name="treeListView1"
+                                       ShowAutoFilterRow="True"
+                                  AutoWidth="True"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="ParentId"
+                                  TreeDerivationMode="Selfreference"
+                                  AutoExpandAllNodes="False"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowFocusedRectangle="True"
+                                  ShowSelectionRectangle="True"/>
+                </dxg:GridControl.View>
+        <dxg:GridControl.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Add New"
+                      x:Name="btnNewPaymentTerm"
+                      Click="mbtnNewPaymentTerm_Click" />
+            <MenuItem Header="Edit"
+                      x:Name="btnEditPaymentTerm"
+                      Click="mbtnEditPaymentTerm_Click" />
+          </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+
+                <dxg:GridColumn Header="Parent Term"
+                                FieldName="term"/>
+
+                
+
+            </dxg:GridControl>-->
+     
+    </Grid>
+  </Grid>
+</Window>

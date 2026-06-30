@@ -1,0 +1,406 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             xmlns:local="clr-namespace:ZAS_ERP.ChartofAccounts"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:Databases="clr-namespace:ERP_BL.Databases;assembly=ERP_BL" x:Class="ZAS_ERP.ChartofAccounts.UserControls.ucChartofAccountList"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" >
+
+    <UserControl.Resources>
+        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource" ContextType="{x:Type Databases:DBContextERP}" Path="Companies">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:EntitySimpleDataSource>
+    </UserControl.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid"
+              Grid.ColumnSpan="3">
+            <TextBlock Text="Company" FontWeight="DemiBold"/>
+            <dxg:LookUpEdit x:Name="mbtnAllCompanies" MinWidth="110"  Margin="5,5,5,5" HorizontalAlignment="Center" VerticalAlignment="Center"  ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource}}" DisplayMember="CompanyName" EditValueChanged="mbtnAllCompanies_EditValueChanged"  >
+                <dxg:LookUpEdit.StyleSettings>
+                    <dxg:LookUpEditStyleSettings/>
+                </dxg:LookUpEdit.StyleSettings>
+
+            </dxg:LookUpEdit>
+            <MenuItem Header="Refresh"
+                    
+                      x:Name="mbtnRefresh"
+                      Cursor="Hand"
+                      ToolTip="Refresh"
+                      Click="MbtnRefresh_Click"/>
+
+
+            <MenuItem Header="Approve"
+                          x:Name="mbtnApprove"
+                      Cursor="Hand"
+                      ToolTip="Approve Account"
+                          Click="MbtnApprove_Click"/>
+        
+            <MenuItem Header="Save Layout"
+                      Cursor="Hand"
+                      ToolTip="Save Layout"
+                          x:Name="mbtnSaveLayout"
+                      Click="MbtnSaveLayout_Click"
+                      
+                          />
+            <MenuItem Header="Clear Account Transactions"
+                          x:Name="mbtnAlltransactions"
+                      Click="MbtnAlltransactions_Click"
+                      Cursor="Hand"
+                      ToolTip="Clear Account Transactions"
+                          />
+            <MenuItem Header="Clear By Company/Department"
+                          x:Name="mbtnAlltrans"
+                      Click="mbtnAlltrans_Click"
+                      Cursor="Hand"
+                      ToolTip="Clear Account Transactions By Company/Department"
+                          />
+            <MenuItem Header="Clear all Transactions"
+                          x:Name="mbtnApprovedtransactions"
+                      Click="MbtnApprovedtransactions_Click"
+                      Visibility="Collapsed"
+                          />
+           
+            <MenuItem Header="Print preview"
+                          x:Name="mbtnPrintPreview"
+                      Click="MbtnPrintPreview_Click"
+                      Cursor="Hand"
+                      ToolTip="Print Preview"
+                          />
+            <MenuItem Header="Export to Report"
+                          x:Name="mbtnExportReport"
+                      Click="MbtnExportReport_Click"
+                      Cursor="Hand"
+                      ToolTip="Export to Report"
+                          />
+            <MenuItem Header="Bypass Permissions"
+                          x:Name="mbtnBypass"
+                      Click="MbtnBypass_Click"
+                      Cursor="Hand"
+                      ToolTip="Bypass Permissions"
+                          />
+            <MenuItem 
+                          x:Name="mbtnPending"
+                          Click="MbtnPending_Click" >
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Pending for Approval" Cursor="Hand" ToolTip="List of Chart of Accounts which needs approval"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtApprovalcount" Text="{Binding ApprovalCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+
+            </MenuItem>
+            <MenuItem 
+                          x:Name="mbtnReApprovals" Cursor="Hand"
+                          Click="MbtnReApprovals_Click">
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ReApprovals" ToolTip="List of Chart of Accounts which needs ReApproval due to Cost sheet"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtReApprovalcount" Text="{Binding ReApprovalCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+            <MenuItem 
+                          x:Name="mbtnApprovedUnapproved" Cursor="Hand"
+                ToolTip="Accounts Register"
+                          Click="MbtnApprovedUnapproved_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Accounts Register"/>
+
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtApproveUnapproved" Text="{Binding ApproveunapprovedCount}" Foreground="Blue"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+            <MenuItem 
+                          x:Name="mbtnVoid"
+                Cursor="Hand"
+                      ToolTip="Void Account"
+                          Click="MbtnVoid_Click">
+
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Void"/>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtVoidcount" Text="{Binding VoidCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid  HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <dx:SimpleButton x:Name="btnCollaps" Margin="0,0,20,2"  Cursor="Hand" Content="Collapse All" Grid.Column="0" Click="BtnCollaps_Click" />
+                <dx:SimpleButton x:Name="btnExpand" Margin="0,0,20,2"  Cursor="Hand" Content="Expand All"  Grid.Column="1" Click='BtnExpand_Click' />
+                <dx:SimpleButton x:Name="btnAdminPanel" Margin="0,0,10,2"  Cursor="Hand" Content="Admin Panel"  Grid.Column="2" Visibility="Visible" Click='btnAdminPanel_Click' />
+                <dx:SimpleButton x:Name="btnLoanBalances" Margin="0,0,10,2"  Cursor="Hand" Content="LoadBalances"  Grid.Column="2" Visibility="Visible" Click='btnLoanBalances_Click' />
+            </Grid>
+
+            <TextBlock x:Name="lblHeading" Text="Chart of Accounts" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" FontFamily="Segoe UI Semibold" Margin="311,0,310,-1.2"  />
+        </Grid>
+
+        <dxg:GridControl x:Name="grdAccounts"
+                       Grid.Row="2"
+                       Margin="2,2,2,2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="GrdAccounts_MouseDoubleClick"
+                       >
+            <dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add New Account"
+                      x:Name="btnNewAccount"
+                      Click="BtnNewAccount_Click"       
+                       >
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Edit Account"
+                      x:Name="btnEditAccount"
+                              Click="BtnEditAccount_Click"
+                      >
+
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Delete Account"
+                      x:Name="btnDeleteAccount"
+                              Click="BtnDeleteAccount_Click"
+                              IsEnabled="False">
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+
+                </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+            <dxg:GridControl.View>
+                <dxg:TreeListView x:Name="grdAccountsTree"
+                            KeyFieldName="Id"
+                            ParentFieldName="parentId"
+                            AllowEditing="False"
+                            NavigationStyle="Row"
+                            AutoExpandAllNodes="False"      
+                            Width="auto"
+                            AutoWidth="True"      
+                            AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"      
+                            ShowAutoFilterRow="True"      
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoPopulateServiceColumns="False"
+                            ColumnFilterPopupMode="Excel"
+                            CompactPanelShowMode="CompactMode"
+                            ShowFixedTotalSummary="True"
+                            AllowDragDrop="True"      
+                            ShowTotalSummary="True"    
+                                  CustomUnboundColumnData="GrdAccountsTree_CustomUnboundColumnData"
+                            RowAnimationKind="None" WaitIndicatorType="Panel"      
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True" />
+
+            </dxg:GridControl.View>
+            <dxg:GridColumn Header="Id"
+                            Binding="{Binding Id}"
+                         
+                            Visible="False"
+                          AllowSorting="false"
+                            Width="auto" />
+            <dxg:GridColumn Header="Name"
+                          VisibleIndex="2"
+                             Image="{dx:DXImage Image=Accounting_16x16.png}"   
+                            FieldName="accountName"
+                                                  
+AllowSorting="false"
+                             />
+            <dxg:GridColumn Header="Type"
+                            FieldName="accountType"
+                           VisibleIndex="1"
+                          
+                    AllowSorting="false"                                     Image="{dx:DXImage Image=ShapeLabels_16x16.png}"
+
+                             />
+            <dxg:GridColumn Header="isActive"
+                            FieldName="isActive"                           
+                             Image="{dx:DXImage Image=CheckBox_16x16.png}"   
+VisibleIndex="15" AllowSorting="false"
+                         
+                           
+                            />
+            <dxg:GridColumn Header="Account Number"
+                            Binding="{Binding accountNo}"
+                            Visible="False"
+                            AllowSorting="false"
+
+                            
+                            
+                            Width="auto" />
+            <dxg:GridColumn Header="Bank Account Number"
+                            Binding="{Binding bankAccountNo}"
+                            Visible="False"
+                         AllowSorting="false"
+
+                         
+                            Width="auto" />
+            <dxg:GridColumn Header="Routing number"
+                            Binding="{Binding routingNo}"
+                          
+                            Visible="False"
+                            AllowSorting="false"
+
+                      
+                            Width="auto" />
+            <dxg:GridColumn Header="CreditCard number"
+                            Binding="{Binding creditCardNo}"
+                           AllowSorting="false"
+
+                            Visible="False"
+                            Width="auto" />
+
+            <dxg:GridColumn Header="Creation Date"
+                            Binding="{Binding creationDate}"
+                            VisibleIndex="1"
+                            AllowSorting="false"
+                            Visible="False"
+                             Image="{dx:DXImage Image=Time_16x16.png}"
+
+                            
+                            Width="auto" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="f"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Header="as of"
+                            FieldName="openingBalanceTotalDate"
+                          
+                            Visible="False"                           
+
+                         AllowSorting="false"
+                            Width="auto" SortOrder="Ascending" SortIndex="0" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings Mask="F"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn Header="Creator"
+                            Binding="{Binding user.userName}"
+                             Image="{dx:DXImage Image=User_16x16.png}"
+                           
+                            VisibleIndex="3" 
+                            AllowSorting="false"
+
+                            Width="auto" />
+
+            <dxg:GridColumn Header="Debit Increase"
+                            FieldName="isDebitIncrease"
+                         
+                            VisibleIndex="10"
+                            Visible="False"     
+                            AllowSorting="false"
+                            Width="auto" />
+            <dxg:GridColumn Header="Company"
+                            FieldName="Company"
+                            Visible="True"
+                            VisibleIndex="4"
+                            UnboundType="String"
+                            Image="{dx:DXImage Image=Home_16x16.png}"                      
+                             />
+            <dxg:GridColumn Header="Associated Company"
+                            FieldName="associatedCompany"
+                            Visible="True"
+                            VisibleIndex="4"
+                            Image="{dx:DXImage Image=Home_16x16.png}"                      
+                             />
+            <dxg:GridColumn Header="Department"
+                            FieldName="Department"
+                            Visible="True"
+                            AllowSorting="false"
+                            UnboundType="String"
+                           VisibleIndex="5"
+                             Image="{dx:DXImage Image=Home_16x16.png}"
+      
+                             />
+            <dxg:GridColumn Header="Currency"
+                            Binding="{Binding Currency.CurrencyName}"
+                            Visible="True"                            
+                            Image="{dx:DXImage Image=Currency2_16x16.png}"
+                            VisibleIndex="6"
+                            AllowSorting="false"
+                             />
+            <dxg:GridColumn FieldName="BalanceOC"
+                            ReadOnly="True"
+                            VisibleIndex="7"
+                            AllowSorting="false"
+                            UnboundType="Decimal"
+                            Image="{dx:DXImage Image=Currency2_16x16.png}"
+                          Header="Balance (OC)" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="BalancePKR"
+                            ReadOnly="True"
+                            VisibleIndex="7"
+                            AllowSorting="false"
+                            UnboundType="Decimal"
+                            Image="{dx:DXImage Image=Currency2_16x16.png}"
+                          Header="Balance (PKR)" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Header="Reconciled Date"
+                            FieldName="reconcilationDate"
+                            UnboundType="DateTime"
+                            VisibleIndex="16"
+                            AllowSorting="false"
+                            Visible="True"                            
+                             Image="{dx:DXImage Image=Time_16x16.png}"
+
+                             />
+
+
+        </dxg:GridControl>
+
+    </Grid>
+</UserControl>

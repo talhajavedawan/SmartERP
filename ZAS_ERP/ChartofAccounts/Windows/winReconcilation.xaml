@@ -1,0 +1,427 @@
+﻿<dx:DXWindow x:Class="ZAS_ERP.ChartofAccounts.Windows.winReconcilation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.ChartofAccounts.Windows"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="Reconcile" Height="450" Width="1000" WindowStartupLocation="CenterScreen"  WindowState="Maximized" Loaded="DXWindow_Loaded"   >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+
+        <dxlc:GroupBox Grid.Column="1"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="3"
+                       DisplayMode="Light"
+                      
+                     >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="For Period" FontWeight="DemiBold" FontFamily="Georgia" Grid.Column="0" Grid.Row="1"/>
+                <TextBlock x:Name="txtForPeriod" 
+                   Text="202020" 
+                           FontFamily="Georgia"
+                   FontWeight="DemiBold"         
+                   Grid.Row="1" 
+                   Grid.Column="1"/>
+                <dxe:CheckEdit Grid.Column="6" Grid.ColumnSpan="3" Content="Hide the transactions after the statement end date" Checked="CheckEdit_Checked" Unchecked="CheckEdit_Unchecked" />
+            </Grid>
+        </dxlc:GroupBox>
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <dxlc:GroupBox  Grid.Column="0"
+                       Header="Checks and Payments"
+                       
+                       >
+                <dxg:GridControl x:Name="grdCredits"
+                         SelectionMode="Row"  
+                             SelectionChanged="GrdCredits_SelectionChanged"
+                                 MouseDoubleClick="GrdCredits_MouseDoubleClick"
+                         >
+
+                    <dxg:GridControl.View>
+                        <dxg:TableView AutoWidth="True"
+                           ShowGroupPanel="False"
+                           AllowColumnFiltering="False"
+                           ShowTotalSummary="True"
+                           ShowHorizontalLines="True"
+                                       
+                           ShowCheckBoxSelectorColumn="True"
+                           ShowCheckBoxSelectorInGroupRow="True"            
+                           ShowVerticalLines="True"             
+                           x:Name="creditView"      
+               
+                                   >
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Header="Date"
+                            VisibleIndex="1"
+                            FieldName="creationDate"
+                             ReadOnly="True"         
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Reference #"
+                            VisibleIndex="2"
+                            FieldName="transactionRefno"
+                             ReadOnly="True"         
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Amount"
+                            VisibleIndex="3"
+                            FieldName="credit"
+                            IsSmart="True"
+                            ReadOnly="True"        
+                            Width="auto" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                </dxg:GridControl>
+            </dxlc:GroupBox>
+            <GridSplitter x:Name="GridSplitter"  Grid.Column="1"   Width="5" HorizontalAlignment="Stretch" />
+
+            <dxlc:GroupBox   Grid.Column="2" 
+                      
+                         Header="Deposits and Other Credits" >
+                <Grid Grid.Column="1"   Grid.Row="1" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:JournalEntries}, Mode=FindAncestor}}">
+                    <dxg:GridControl x:Name="grdDebits"
+                         SelectionMode="Row"
+                         SelectionChanged="GrdDebits_SelectionChanged"
+                         MouseDoubleClick="GrdDebits_MouseDoubleClick"
+                                   
+                         >
+                        <dxg:GridControl.View>
+                            <dxg:TableView AutoWidth="True"
+                           ShowGroupPanel="False"
+                           AllowColumnFiltering="False"
+                           ShowTotalSummary="True"
+                           ShowHorizontalLines="True"
+                           ShowCheckBoxSelectorColumn="True"
+                           ShowCheckBoxSelectorInGroupRow="True"            
+                           ShowVerticalLines="True"  
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowSelectionRectangle="True"            
+                           x:Name="debitView"      
+                           >
+                                <dxg:TableView.RowCellMenuCustomizations>
+
+                                    <dxb:BarButtonItem Name="deleteRowItema"
+                                   Content="Delete"
+                                   Glyph="{dx:DXImage Image=Delete_32x32.png}"
+                                   Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
+                                </dxg:TableView.RowCellMenuCustomizations>
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                        <dxg:GridColumn Header="Date"
+                            VisibleIndex="1"
+                            FieldName="creationDate"
+                            ReadOnly="True"            
+                            IsSmart="True"
+                            Width="auto" />
+                        <dxg:GridColumn Header="Reference #"
+                           VisibleIndex="2"
+                            FieldName="transactionRefno"
+                            ReadOnly="True" 
+                            IsSmart="True"
+                            Width="auto" />
+                        <dxg:GridColumn Header="Amount"
+                          VisibleIndex="3"
+                            FieldName="debit"
+                            IsSmart="True"
+                            Width="auto" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                    </dxg:GridControl>
+                </Grid>
+            </dxlc:GroupBox >
+        </Grid>
+
+
+        <GridSplitter x:Name="GridSplitter1" Grid.ColumnSpan="5" Grid.Row="4"  Width="5" HorizontalAlignment="Stretch" />
+
+        <Grid Grid.Row="5"  Grid.Column="1" Grid.ColumnSpan="4">
+            <dxlc:GroupBox >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Grid.Row="1" Grid.Column="7" 
+                           Text="Beginning Balance" 
+                            FontWeight="DemiBold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                    <dxe:TextEdit x:Name="txtBeginningBalance" Grid.Row="1" Grid.Column="8"
+                              VerticalAlignment="Center"
+                               IsReadOnly="True"
+                              ToolTip="Beginning Balance"
+                            HorizontalContentAlignment="Center" 
+                            VerticalContentAlignment="Center"
+                              NullText="0"  />
+
+                    <Label Grid.Row="2" Grid.Column="7" FontWeight="DemiBold" Content="Items you have marked cleared:" />
+
+
+
+                    <dxe:TextEdit Grid.Row="3" Grid.Column="5"
+                            NullText="0"
+                                      x:Name="txtCheckedCreditsCount"
+                            VerticalAlignment="Center"
+                               IsReadOnly="True"
+                              ToolTip="Checks and Payments Count"
+                            HorizontalContentAlignment="Center" 
+                            VerticalContentAlignment="Center"
+                              />
+                    <TextBlock  Grid.Column="7" Grid.Row="3"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                            FontWeight="DemiBold"
+                                    Text="Checks and Payments"/>
+
+                    <dxe:TextEdit x:Name="txtCheckedCredits" Grid.Column="8" Grid.Row="3" 
+                                       VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center" 
+                              IsReadOnly="True"
+                            VerticalContentAlignment="Center"
+                                       NullText="0" 
+                              ToolTip="Total Checks and Payments"
+                                 />
+
+
+
+
+
+                    <dxe:TextEdit  Grid.Row="4" Grid.Column="5"
+                                       x:Name="txtCheckedDebitsCount"
+                                       NullText="0"
+                               IsReadOnly="True"
+                               ToolTip="Deposits and Other Credits Count"
+                                       VerticalAlignment="Center"
+                                       HorizontalContentAlignment="Center" 
+                                       VerticalContentAlignment="Center" />
+                    <TextBlock  Grid.Column="7" Grid.Row="4"
+                             FontWeight="DemiBold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                            
+                                    Text="Deposits and Other Credits"  />
+                    <dxe:TextEdit  x:Name="txtCheckedDebits" Grid.Column="8" Grid.Row="4" 
+                                        IsReadOnly="True"
+                                       NullText="0"
+                              ToolTip="Total Deposits and Other Credits"
+                                       VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center" 
+                            VerticalContentAlignment="Center"
+                                 />
+
+                    <Grid Grid.Column="11" Grid.Row="1" Grid.RowSpan="5">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+
+                        </Grid.RowDefinitions>
+
+
+
+                        <dxlc:GroupBox Grid.Column="1">
+                            <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    
+                                    <Button x:Name="btnModify"
+                    Grid.Column="0"
+                            
+                ToolTip="Modify"
+                   
+                Cursor="Hand" 
+                Content="Modify"
+                Click="BtnModify_Click"/>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="2"
+                                   Text="Service Charge"   />
+                                    <dxe:TextEdit x:Name="txtServiceCharge"
+                                        Grid.Row="0" 
+                                        Grid.Column="4"          
+                                       ShowBorder="False"
+                                       NullText="0"
+                                       Text="0"
+                                      ToolTip="Service Charges"
+                                        HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center" Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"
+                                 />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="2"
+                                   Text="Interest Earned" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                    <dxe:TextEdit  x:Name="txtInterestEarned"
+                            Grid.Column="4" Grid.Row="1" 
+                                       ShowBorder="False"
+                                       NullText="0"
+                                       Text="0"
+                                       ToolTip="Interest Earned"
+                                        IsReadOnly="True"
+                                        HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center" Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"
+                                 />
+                                    
+                                    
+                                    <TextBlock Grid.Row="2" Grid.Column="2"
+                                   Text="Ending Balance" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                    <dxe:TextEdit x:Name="txtEndingBalance" Grid.Column="4" Grid.Row="2" 
+                                       ShowBorder="False"
+                                       NullText="0"
+                                       IsReadOnly="True"
+                                      Text="0"
+                                      ToolTip="Ending Balance"
+                                        HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center" Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"
+                                 />
+                                    
+                                    
+                                    <TextBlock Grid.Row="3" Grid.Column="2"
+                                   Text="Cleared Balance" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                    <dxe:TextEdit x:Name="txtClearedBalance"
+                            Grid.Column="4" Grid.Row="3" 
+                                       ShowBorder="False"
+                                       IsReadOnly="True"
+                                       Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"
+                                      ToolTip="Cleared Balance"
+                                       EditValueChanged="TextEdit_EditValueChanged"
+                                        HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center" 
+                                 />
+
+                                    <TextBlock Grid.Row="4" Grid.Column="2"
+                                   Text="Difference" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                <dxe:TextEdit x:Name="txtDifference"
+                            Grid.Column="4" Grid.Row="4" 
+                                      Text="0"
+                                       IsReadOnly="True"
+                                       ShowBorder="False"
+                                       NullText="0"
+                                      ToolTip="Total Difference"
+                                        HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center" Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"
+                                 />
+                            </Grid>
+                              
+                        </dxlc:GroupBox>
+                    </Grid>
+
+
+                </Grid>
+
+            </dxlc:GroupBox >
+        </Grid>
+
+
+        <Grid Grid.Row="6" Grid.Column="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <dx:SimpleButton x:Name="btnReconcile"
+                    Grid.Column="0"
+                ToolTip="Reconcile"
+                Cursor="Hand" 
+                    Margin="5,5,5,5"
+                Content="Reconcile Now"
+                Click="BtnReconcile_Click"/>
+            <dx:SimpleButton x:Name="btnLeave"
+                    Grid.Column="3"
+                ToolTip="Leave"
+                Cursor="Hand" 
+                    Margin="5,5,5,5"
+                Content="Leave"
+                Click="BtnLeave_Click"/>
+
+        </Grid>
+
+
+    </Grid>
+</dx:DXWindow>

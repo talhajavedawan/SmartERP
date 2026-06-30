@@ -1,0 +1,523 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+              x:Class="ZAS_ERP.Procurementss.CostSheet.UserControls.frmCostSheetFeeding"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.CostSheet.UserControls" 
+         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys" 
+             xmlns:dxnav="http://schemas.devexpress.com/winfx/2008/xaml/navigation"
+              mc:Ignorable="d"
+        Title="Add Cost Center field values" Height="600" Width="900" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="DXWindow_Closing" >
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <dxlc:GroupBox Grid.Row="0"  Background="Transparent"  Header="Add Cost Center field values"   Visibility="Visible">
+            <Grid>
+             
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                
+                </Grid.RowDefinitions>
+
+                <dxlc:GroupBox    Header="Vendor Details"   Visibility="Visible">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition  />
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition  />
+
+                            <ColumnDefinition Width="auto"/>
+                            
+                           
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+
+
+                        <TextBlock Text="Vendor" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="5"/>
+                        <dxg:LookUpEdit x:Name="lookupVendors"
+                          Grid.Column="1"
+                          Grid.Row="0"
+                            Margin="5"             
+                          AutoPopulateColumns="True"
+                          DisplayMember="company.CompanyName"
+                                PopupContentSelectionChanged="lookupVendors_PopupContentSelectionChanged"
+                        >
+                            <dxg:LookUpEdit.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <dxg:GridControl Name="PART_GridControl"
+                                   AutoPopulateColumns="True"
+                                   Grid.Row="1">
+                                            <dxg:GridColumn x:Name="colId"
+                                    FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="company.CompanyName"
+                                    IsSmart="True"
+                                    Width="auto" />
+                                            <dxg:GridColumn FieldName="company.IndustryType"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn x:Name="colBizType"
+                                    FieldName="company.BizType"
+                                    Visible="False"
+                                    IsSmart="True" />
+                                            <dxg:GridColumn FieldName="contactPerson.FName"
+                                    x:Name="colFname"
+                                    IsSmart="True"
+                                    Visible="True"
+                                    Header="First Name"
+                                    Width="auto" />
+                                            <dxg:GridColumn FieldName="contactPerson.LName"
+                                    x:Name="colLname"
+                                    IsSmart="True"
+                                    Visible="True"
+                                    Header="Last Name"
+                                    Width="auto" />
+                                            <dxg:GridColumn FieldName="contact.ContactNo"
+                                    IsSmart="True"
+                                    x:Name="colcontactno"
+                                    Visible="True"
+                                    Header="Phone"
+                                    Width="auto" />
+                                            <dxg:GridColumn FieldName="company.currency.CurrencyName"
+                                    x:Name="colCurrency"
+                                    IsSmart="True"
+                                    Visible="False"
+                                    Header="Currency" />
+                                            <dxg:GridColumn FieldName="contact.Fax"
+                                    Visible="False"
+                                    x:Name="colFax"
+                                    IsSmart="True"
+                                    Header="Fax" />
+                                            <dxg:GridColumn FieldName="contact.Email"
+                                    x:Name="colEmail"
+                                    IsSmart="True"
+                                    Visible="False"
+                                    Header="Email" />
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEdit.PopupContentTemplate>
+                        </dxg:LookUpEdit>
+                        <TextBlock Text="Account Head"  Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+                        <dxe:TextEdit x:Name="txtAccountHead" IsEnabled="False" Grid.Row="0" Grid.Column="3"  Margin="5"/>
+                        <TextBlock Text="Industry Type"  Grid.Column="4" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+                        <dxe:TextEdit x:Name="txtVendorIndustryType" IsEnabled="False" Grid.Row="0" Grid.Column="5" Margin="5"/>
+
+                        <TextBlock Text="Ranking" Foreground="Black"  Grid.Column="2" Grid.Row="1" Margin="5"/>
+                        <dxe:RatingEdit Name="ratingControl" Grid.Column="3" Grid.Row="1" />
+                        <!--<TextBlock Text="Vendor Nature (S)" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+                        <dxe:TextEdit x:Name="txtVendorNatureS" IsEnabled="False" Grid.Row="1" Grid.Column="1"  Margin="5"/>-->
+                        <TextBlock Text="Adcance Cost" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <dxe:TextEdit x:Name="txtAdvanceCost" Grid.Row="1" Grid.Column="5" Text="0"  MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="n2" Margin="5"/>
+
+                        <TextBlock Text="Vendor Nature (M)"  Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"/>
+
+                        <dxg:LookUpEdit x:Name="lookupVendorNature"
+                         Grid.Row="1" Grid.Column="1" 
+                            Margin="5"             
+                          AutoPopulateColumns="True"
+                          DisplayMember="name"
+                        >
+                            <dxg:LookUpEdit.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <dxg:GridControl Name="PART_GridControl"
+                                   AutoPopulateColumns="True"
+                                   Grid.Row="1">
+                                            <dxg:GridColumn x:Name="colId"
+                                    FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="name" Header="Name"
+                                    IsSmart="True"
+                                    Width="auto" />
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEdit.PopupContentTemplate>
+                        </dxg:LookUpEdit>
+
+
+
+
+                    </Grid>
+                </dxlc:GroupBox>
+
+                <dxlc:GroupBox Grid.Row="1"   Header="Costing"   Visibility="Visible">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Budget Cost" Grid.Column="0" Grid.Row="1"/>
+                        <dxe:TextEdit x:Name="txtBudgetCost" Grid.Row="1" Grid.Column="2" Text="0" MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="n2"/>
+
+                        <TextBlock Text="Revised Cost" Grid.Column="4" Grid.Row="1"/>
+                        <dxe:TextEdit x:Name="txtRevisedCost" Grid.Row="1" Grid.Column="6" Text="0"  MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="n2"/>
+
+                        <TextBlock Text="Actual Cost" Grid.Column="8" Grid.Row="1"/>
+                        <dxe:TextEdit x:Name="txtActualCost" Grid.Row="1" Grid.Column="10" Text="0"  MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="n2"/>
+
+
+                        <TextBlock Text="OC" Grid.Column="0" Grid.Row="8"/>
+                        <ComboBox x:Name="cmbCurrency"
+                      Grid.Column="2"
+                      VerticalAlignment="Center"
+                      Grid.Row="8">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock Text="{Binding id}"
+                               Visibility="Hidden" />
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="Exchange Rate" Grid.Column="4" Grid.Row="8"/>
+                        <dxe:TextEdit x:Name="txtExchangeRate" Grid.Row="8" Grid.Column="6" Text="0" MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="n2"/>
+
+                        <TextBlock Text="OC Amount" Grid.Column="8" Grid.Row="8"/>
+                        <dxe:TextEdit x:Name="txtOCAmount" Grid.Row="8" Grid.Column="10" Text="0" MaskUseAsDisplayFormat="True" MaskType="Numeric" Mask="n2"/>
+
+                    </Grid>
+                </dxlc:GroupBox>
+
+                <dxlc:GroupBox Grid.Row="2"   Header="PO Details"   Visibility="Visible">
+                    <Grid>
+
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Maker" Grid.Column="0" Grid.Row="2"/>
+                        <dxe:TextEdit x:Name="txtMaker" Grid.Row="2" Grid.Column="2"/>
+
+                        <TextBlock Text="Origin" Grid.Column="4" Grid.Row="2"/>
+                        <dxe:TextEdit x:Name="txtOrigin" Grid.Row="2" Grid.Column="6"/>
+
+                        <TextBlock Text="Packing" Grid.Column="8" Grid.Row="2"/>
+                        <CheckBox x:Name="chkPacking"  Grid.Row="2" Grid.Column="10" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <TextBlock Text="Warrenty" Grid.Column="8" Grid.Row="3"/>
+                        <ComboBox Grid.Row="3" Grid.Column="10"
+                    VerticalAlignment="Center"
+                    x:Name="cmbWarranty">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="DG-Goods" Grid.Column="4" Grid.Row="4"/>
+                        <CheckBox x:Name="chkDgGood"  Grid.Row="4" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <TextBlock Text="Delivery Days" Grid.Column="4" Grid.Row="6"/>
+                        <dxe:TextEdit x:Name="txtDeliveryDays"  Grid.Row="6" Grid.Column="6"  VerticalAlignment="Center"/>
+
+                        <TextBlock Text="HS-Code" Grid.Column="0" Grid.Row="6"/>
+                        <dxe:TextEdit x:Name="txtHSCode" Grid.Row="6" Grid.Column="2"/>
+                        <TextBlock Text="Delivery Date" Grid.Column="0" Grid.Row="3"/>
+                        <dxe:TextEdit x:Name="txtDeliveryDate" Grid.Row="3" Grid.Column="2" MaskUseAsDisplayFormat="True" MaskType="DateTime" Mask="d"/>
+
+                        <TextBlock Text="Payment Term" Grid.Column="4" Grid.Row="3"/>
+
+                        <ComboBox VerticalAlignment="Center"
+                    x:Name="cmbPaymentTerm"
+                    Grid.Row="3" Grid.Column="6"
+                    >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+
+
+
+
+
+
+
+                        <TextBlock Text="Inco-Term" Grid.Column="0" Grid.Row="4"/>
+                        <ComboBox 
+                    Grid.Row="4" 
+                    Grid.Column="2"
+                    TabIndex="20"
+                    VerticalAlignment="Center"
+                    x:Name="cmbIncoterm">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <TextBlock Text="PQ" Grid.Column="8" Grid.Row="4"/>
+                        <dxg:LookUpEdit x:Name="lookupPQ"
+                                      AutoPopulateColumns="False"
+                                       Grid.Row="4" Grid.Column="10"                
+                                      IsPopupAutoWidth="False"           
+                                      DisplayMember="Name"
+                                      NullText="Select Item">
+                            <dxg:LookUpEdit.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                            <dxg:GridControl.View>
+                                                <dxg:TableView x:Name="grdPQ"
+                            AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                            AllowEditing="False"
+                            NavigationStyle="Row"
+                            Width="auto"      
+                            ShowAutoFilterRow="True"      
+                            ShowSearchPanelMode="Default"
+                            ColumnFilterPopupMode="Excel"
+                            CompactPanelShowMode="CompactMode"
+                            ShowFixedTotalSummary="True"
+                            ShowTotalSummary="True" 
+                            RowAnimationKind="None" WaitIndicatorType="Panel"      
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True" />
+                                            </dxg:GridControl.View>
+                                            <dxg:GridColumn x:Name="colId"
+                                    FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="Name"
+                                    IsSmart="True"
+                                    Width="auto" />
+
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEdit.PopupContentTemplate>
+                        </dxg:LookUpEdit>
+                        <TextBlock Text="Attested COO" Grid.Column="8" Grid.Row="6"/>
+                        <dxe:TextEdit x:Name="txtAttestedCOO" Grid.Row="6" Grid.Column="10"/>
+                    </Grid>
+
+                </dxlc:GroupBox>
+
+
+
+
+                <dxlc:GroupBox Grid.Row="3"   Header="Port Details"   Visibility="Visible">
+                    <Grid>
+
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="10"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Loading Port" Grid.Column="0" Grid.Row="5"/>
+                        <dxe:TextEdit x:Name="txtLoadingPort" Grid.Row="5" Grid.Column="2"/>
+
+                        <TextBlock Text="Destination Port" Grid.Column="4" Grid.Row="5"/>
+                        <dxe:TextEdit x:Name="txtDestinationPort" Grid.Row="5" Grid.Column="6"/>
+                        <TextBlock Text="Intermediary Port" Grid.Column="8" Grid.Row="5"/>
+                        <dxe:TextEdit x:Name="txtIntermediaryPort" Grid.Row="5" Grid.Column="10"/>
+                        <TextBlock Text="Drawing Required" Grid.Column="8" Grid.Row="7"/>
+                        <CheckBox x:Name="chkDrawingRequired" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="7" Grid.Column="10"/>
+                        <TextBlock Text="ST" Grid.Column="0" Grid.Row="7"/>
+                        <dxg:LookUpEdit x:Name="lookupST"
+                                      AutoPopulateColumns="False"
+                                       Grid.Row="7" Grid.Column="2"                
+                                      IsPopupAutoWidth="False"           
+                                      DisplayMember="Name"
+                                      NullText="Select Item">
+                            <dxg:LookUpEdit.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                            <dxg:GridControl.View>
+                                                <dxg:TableView x:Name="grdST"
+                            AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                            AllowEditing="False"
+                            NavigationStyle="Row"
+                            Width="auto"      
+                            ShowAutoFilterRow="True"      
+                            ShowSearchPanelMode="Default"
+                            ColumnFilterPopupMode="Excel"
+                            CompactPanelShowMode="CompactMode"
+                            ShowFixedTotalSummary="True"
+                            ShowTotalSummary="True" 
+                            RowAnimationKind="None" WaitIndicatorType="Panel"      
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True" />
+                                            </dxg:GridControl.View>
+                                            <dxg:GridColumn x:Name="colId"
+                                    FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="Name"
+                                    IsSmart="True"
+                                    Width="auto" />
+
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEdit.PopupContentTemplate>
+                        </dxg:LookUpEdit>
+
+
+                        <TextBlock Text="is-Export-license" Grid.Column="4" Grid.Row="7"/>
+                        <CheckBox x:Name="chkExportLicense" Grid.Row="7" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                    </Grid>
+                </dxlc:GroupBox>
+            </Grid>
+
+        </dxlc:GroupBox>
+
+
+
+
+
+
+
+
+
+                
+              
+
+        
+        <Button x:Name="btnSave"
+              Grid.Row="1"
+              FontWeight="DemiBold"       
+              VerticalContentAlignment="Center"
+              Content="Save"
+              Click="BtnSave_Click"></Button>
+    </Grid>
+</dx:DXWindow>

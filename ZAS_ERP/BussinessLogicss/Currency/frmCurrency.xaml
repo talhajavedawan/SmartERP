@@ -1,0 +1,178 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.BussinessLogicss.frmCurrency"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.BussinessLogicss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title="Currency Panel"
+        x:Name="winCurrency"
+        Loaded="winCurrency_Loaded"
+        Unloaded="WinCurrency_Unloaded"
+        Height="450"
+        Width="800">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="1*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <!--<RowDefinition Height=".1*" />-->
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <!--<dx:DXDockPanel 
+                      Grid.Column="0">
+        <dx:DropDownButton HorizontalAlignment="Right"
+                           MinWidth="210" />
+        <dx:SimpleButton Content="GO"
+                         HorizontalAlignment="Right" />
+      </dx:DXDockPanel>-->
+      <dxg:GridControl x:Name="grdCurrency"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       
+                       SelectionMode="Row">
+      </dxg:GridControl>
+      <Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="1*" />
+          
+        </Grid.RowDefinitions>
+        <!--<dxlc:GroupBox Header="Employee Information"
+                       Background="White"
+                       Margin="5">
+          
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width=".5*" />
+              <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="50" />
+              <RowDefinition Height="50" />
+              <RowDefinition Height="50" />
+              <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Name"
+                   ToolTip="Name"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right" />
+            <Label Content="Last Name"
+                   ToolTip="Last Name"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="1" />
+            <Label Content="Employee Id"
+                   ToolTip="ID"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="2" />
+            --><!--textblock for displaying data in colunm 2 of grid from stored company data --><!--
+            <TextBlock x:Name="lblconatctname"
+                       Text="{Binding ElementName=grdCurrency,Path=CurrentItem.person.FName }"
+                       ToolTip="contact Name"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,0" />
+            <TextBlock x:Name="lblcnic"
+                       VerticalAlignment="Center"
+                       Text="{Binding ElementName=grdCurrency,Path=CurrentItem.person.LName}"
+                       ToolTip="Last Name"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="20,0" />
+            <TextBox x:Name="txt"
+                       ToolTip="Id"
+                       VerticalAlignment="Center"
+                       Text="{Binding ElementName=grdCurrency,Path=CurrentItem.EmpId}"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Margin="20,0" />
+          </Grid>
+        </dxlc:GroupBox>-->
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+          </Grid.RowDefinitions>
+          <dxlc:GroupBox Header="Currency Details"
+                         Background="White"
+                         Margin="5">
+           
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="1*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="auto" />
+              </Grid.RowDefinitions>
+              <Label Content="Currency Name"
+                     ToolTip="Currency Name"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Right" />
+              <Label Content="Symbol"
+                     ToolTip="Symbol"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="1" />
+              <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+              <TextBox x:Name="txtCurrencyName"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,0" />
+              <TextBox          VerticalAlignment="Center"
+                         x:Name="txtSymbol"
+                                            ToolTip="Enter Currency Symbol"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         Margin="20,0" />
+              <Label Content="Abbrevation/Code"
+                     ToolTip="Abbrevation"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="2" />
+              <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+              <TextBox x:Name="txtAbrivation"
+                       Grid.Row="2"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,0" />
+              <Label Content="Country"
+                     ToolTip="Country"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="3" />
+              <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+              <TextBox x:Name="txtCountry"                   
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       Margin="20,0" />
+              
+              <Button Grid.Column="1"
+                      Grid.Row="4"
+                      Margin="20,10"
+                      Content="Add Currency"
+                      x:Name="btnaddCurrency"
+                      Click="btnaddCurrency_Click"/>
+            </Grid>
+          </dxlc:GroupBox>
+        </Grid>
+      </Grid>
+    </Grid>
+  </Grid>
+</Window>

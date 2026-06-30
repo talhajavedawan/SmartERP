@@ -1,0 +1,1069 @@
+﻿<UserControl x:Class="ZAS_ERP.ToDoTasks.UserControls.ucTodoTaskFavReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.UserControls"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:loc="clr-namespace:ZAS_ERP"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <loc:MyConv x:Key="valueconverter"></loc:MyConv>
+        <Style x:Key="FocusedCellStyle" TargetType="dxg:LightweightCellEditor">
+            <Style.Triggers>
+                <Trigger Property="dxg:DataViewBase.IsFocusedCell" Value="True">
+                    <Setter Property="Background" Value="LightGreen" />
+                    <Setter Property="Foreground" Value="DarkGreen" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FocusedRowStyle" TargetType="dxg:RowControl">
+            <Style.Triggers>
+                <Trigger Property="dxg:DataViewBase.IsFocusedRow" Value="True">
+                    <Setter Property="Background" Value="Gray" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ProgressBarStyle" TargetType="dxe:ProgressBarEditSettings">
+            <Setter Property="ContentDisplayMode" Value="Value"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Foreground="Black" HorizontalAlignment="Center"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <GroupBox>
+            <Grid x:Name="reportMainGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <dxr:RibbonControl Grid.Row="0" DockPanel.Dock="Top" RibbonStyle="TabletOffice" PageCategoryAlignment="Left" ToolbarShowMode="Hide" MinimizationButtonVisibility="Visible">
+                    <dxr:RibbonDefaultPageCategory>
+                        <dxr:RibbonPage  x:Name="lblHeading" Caption="Home" ToolTip="Report Name" >
+                            <dxr:RibbonPageGroup  Caption="Clipboard">
+                                <dxb:BarButtonItem x:Name="btnPrintPreview" KeyGesture="Ctrl+P"  Cursor="Hand" Content="Print Preview" ItemClick="BtnPrintPreview_ItemClick"  Glyph="{dx:DXImage Image=Printer_32x32.png}" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnSaveAsNew" KeyGesture="Ctrl+N" Cursor="Hand" Content="Save as new" ItemClick="MbtnSaveAsNew1_Click" LargeGlyph="{dx:DXImage Image=Edit_32x32.png}" Glyph="{dx:DXImage Image=Paste_16x16.png}"/>
+                                <dxb:BarButtonItem x:Name="btnRename" KeyGesture="Ctrl+X" Cursor="Hand" Content="Rename" ItemClick="MbtnRenameReport1_Click" Glyph="{dx:DXImage Image=Edit_16x16.png}" />
+                                <dxb:BarButtonItem x:Name="btnUpdate" KeyGesture="Ctrl+U" Cursor="Hand" Content="Update" ItemClick="MbtnUpdateReport1_Click" Glyph="{dx:DXImage Image=Reset_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnDelete" KeyGesture="Delete" Cursor="Hand" Content="Delete" ItemClick="MbtnDeleteReport1_Click" Glyph="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                                <dxb:BarButtonItem x:Name="btnCopy2" KeyGesture="Ctrl+R" Cursor="Hand" Content="Refresh" ItemClick="MbtnRefreshReport1_Click"  Glyph="{dx:DXImage Image=Refresh2_32x32.png}" LargeGlyph="{dx:DXImage Image=Refresh2_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnRefreshSystemPoints" Content="Refresh System Points" ItemClick="MbtnRefreshSystemPoints_Click" Glyph="{dx:DXImage Image=Refresh2_32x32.png}" LargeGlyph="{dx:DXImage Image=Refresh2_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnExportToMemorizedReport1" Cursor="Hand" Content="Export to memorized" ItemClick="MbtnExportToMemorizedReport1_Click" Glyph="{dx:DXImage Image=Previous_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnExportToStandardReport1" Cursor="Hand" ItemClick="MbtnExportToStandardReport1_Click" Content="Export to standard" Glyph="{dx:DXImage Image=Previous_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnShareReport" Cursor="Hand" IsVisible="False" ItemClick="mbtnShareReport_ItemClick" Content="Share Report" Glyph="{dx:DXImage Image=Convert_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnFav" Cursor="Hand" ItemClick="btnFav_ItemClick" Content="Mark Fav/Unmark Fav" />
+
+                            </dxr:RibbonPageGroup>
+                        </dxr:RibbonPage>
+
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+
+                <Grid x:Name="grdComments" Grid.Row="4" Visibility="Collapsed" Width="480" MaxHeight="700"  Background="Gray" Panel.ZIndex="6" VerticalAlignment="Stretch" Margin="0 -30 75 50" HorizontalAlignment="Right">
+
+                    <dxg:GridControl AutoExpandAllGroups="True"  Height="620" Grid.Row="1"  dx:ScrollBarExtensions.ScrollBarMode="TouchOverlap" x:Name="grdCommentss">
+                        <!--#region Columns-->
+                        <dxg:GridControl.Columns>
+                            <dxg:GridColumn Width="Auto" FieldName="employee.person.FName" Header="Sender"/>
+                            <dxg:GridColumn Width="Auto" FieldName="Asignee.person.FName" Header="Asignee"/>
+                            <dxg:GridColumn Width="Auto" FieldName="Subject" />
+                            <dxg:GridColumn Width="Auto" FieldName="Comment"/>
+                            <dxg:GridColumn Width="Auto" FieldName="Category.category" Header="Category"/>
+                            <dxg:GridColumn
+                            Width="Auto" FieldName="Timestamp" GroupIndex="1" Header="Date" ShowGroupedColumn="True" GroupInterval="DateRange"
+                            SortOrder="Descending" />
+                        </dxg:GridControl.Columns>
+                        <!--#endregion-->
+                        <dxg:GridControl.View>
+                            <dxg:TableView 
+                            x:Name="GrdCommenttableView"
+                            AllowEditing="False" 
+                            DataRowCompactTemplate="{StaticResource CommentRowTemplate}"
+                            DataRowTemplate="{StaticResource CommentRowTemplate}"
+                            LeftGroupAreaIndent="0" 
+                            RowStyle="{StaticResource RowStyle}"
+                            ShowSearchPanelMode="Always"
+                            SearchPanelNullText="Search Comment Box"
+                            ShowGroupPanel="True" 
+                            ShowIndicator="False" 
+                            ShowVerticalLines="False"
+                            CompactPanelShowMode="Always" 
+                            SwitchToCompactModeWidth="700"
+                            NavigationStyle="Row"
+                           >
+
+                                <dxg:TableView.FormatConditions>
+                                    <dxg:FormatCondition ApplyToRow="True" Expression="[isRead] = False">
+                                        <dxg:FormatCondition.Format>
+                                            <dxg:Format FontWeight="Bold" Foreground="#FF0072C6" />
+                                        </dxg:FormatCondition.Format>
+                                    </dxg:FormatCondition>
+
+                                    <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Status Changed')">
+                                        <dxg:FormatCondition.Format>
+                                            <dxg:Format FontWeight="Bold" Background="LightCoral" />
+
+                                        </dxg:FormatCondition.Format>
+                                    </dxg:FormatCondition>
+                                    <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task Approved')">
+                                        <dxg:FormatCondition.Format>
+                                            <dxg:Format FontWeight="Bold" Background="LightGreen" />
+
+                                        </dxg:FormatCondition.Format>
+                                    </dxg:FormatCondition>
+
+                                    <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task UnApproved')">
+                                        <dxg:FormatCondition.Format>
+                                            <dxg:Format FontWeight="Bold" Background="LightGreen" />
+
+                                        </dxg:FormatCondition.Format>
+                                    </dxg:FormatCondition>
+
+                                    <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task Voided')">
+                                        <dxg:FormatCondition.Format>
+                                            <dxg:Format FontWeight="Bold" Background="Orange" />
+
+                                        </dxg:FormatCondition.Format>
+                                    </dxg:FormatCondition>
+
+                                    <dxg:FormatCondition ApplyToRow="True"  Expression=" Contains([Subject], 'Task UnVoided')">
+                                        <dxg:FormatCondition.Format>
+                                            <dxg:Format FontWeight="Bold" Background="Orange" />
+
+                                        </dxg:FormatCondition.Format>
+                                    </dxg:FormatCondition>
+
+                                </dxg:TableView.FormatConditions>
+                                <!--#region CompactModeFilterItems-->
+                                <!--<dxg:TableView.CompactModeFilterItems>
+                            <dxg:CompactModeFilterItem DisplayValue="All" />
+                            <dxg:CompactModeFilterItem DisplayValue="Read" EditValue="[isRead] = True" />
+                            <dxg:CompactModeFilterItem DisplayValue="Unread" EditValue="[isRead] = False" />
+
+                        </dxg:TableView.CompactModeFilterItems>-->
+                                <!--#endregion-->
+
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                    </dxg:GridControl>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Button Height="30" Width="30" Margin="0,0,5,0" x:Name="btnAddComment" Visibility="Visible" HorizontalAlignment="Right" Grid.Column="2" ToolTip="Add New Comment" Click="BtnAddComment_Click">
+                        <Image Source="/ZAS_ERP;component/images/CommentAdd.png"></Image>
+                    </Button>
+                    <Button Height="30" Width="30" Margin="0,0,40,0" x:Name="btnCommentLog" Visibility="Visible" HorizontalAlignment="Right" Grid.Column="2"  ToolTip="CommentLog" Click="BtnCommentLog_Click">
+                        <Image Source="/ZAS_ERP;component/images/comments.png" ></Image>
+                    </Button>
+                </Grid>
+                <StackPanel x:Name="panelCheckBoxes" Grid.Row="1" Panel.ZIndex="5" VerticalAlignment="Center" Margin="10 5 5 5" Orientation="Horizontal">
+                    <dxe:CheckEdit Content="All Approved SO" IsChecked="True" x:Name="chkApprovedSO" Checked="ChkApprovedSO_Checked" Unchecked="ChkApprovedSO_Unchecked"/>
+                    <dxe:CheckEdit Content="All Closed SO" IsChecked="True" Margin="10 0 0 0" x:Name="chkClosedSO" Checked="ChkClosedSO_Checked" Unchecked="ChkClosedSO_Unchecked"/>
+                </StackPanel>
+
+                <StackPanel x:Name="chkBoxesGroupLevel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="5" VerticalAlignment="Center" Margin="10 5 5 5" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <dxe:CheckEdit Content="Group Level 1" IsChecked="True" x:Name="chkGroupLevel1" Checked="ChkGroupLevel1_Checked" Unchecked="ChkGroupLevel1_Unchecked"/>
+                    <dxe:CheckEdit Content="Group Level 2" IsChecked="True" Margin="10 0 0 0" x:Name="chkGroupLevel2" Checked="ChkGroupLevel2_Checked" Unchecked="ChkGroupLevel2_Unchecked"/>
+                    <dxe:CheckEdit Content="Group Level 3" IsChecked="True" Margin="10 0 0 0" x:Name="chkGroupLevel3" Checked="ChkGroupLevel3_Checked" Unchecked="ChkGroupLevel3_Unchecked"/>
+                    <dxe:CheckEdit Content="Group Level 4" IsChecked="True" Margin="10 0 0 0" x:Name="chkGroupLevel4" Checked="ChkGroupLevel4_Checked" Unchecked="ChkGroupLevel4_Unchecked"/>
+                    <dxe:CheckEdit Content="Group Level 5" IsChecked="True" Margin="10 0 0 0" x:Name="chkGroupLevel5" Checked="ChkGroupLevel5_Checked" Unchecked="ChkGroupLevel5_Unchecked"/>
+                </StackPanel>
+
+                <dxg:GridControl Grid.Row="3"
+                             HorizontalContentAlignment="Stretch"
+                             x:Name="grdCntrlStepsForRegister" 
+                             BorderBrush="Transparent"
+                             Margin="0 0 0 0"
+                             CustomUnboundColumnData="GrdCntrlSteps_CustomUnboundColumnData"
+                             MouseDoubleClick="GrdCntrlStepsForRegister_MouseDoubleClick"
+                                 CustomSummary="GrdCntrlStepsForRegister_CustomSummary">
+                    <dxg:GridControl.ContextMenu>
+                        <ContextMenu>
+                            <!--<MenuItem Header="Add New" Click="BtnAddStep_Click"/>-->
+                            <!--<MenuItem Header="Update" Click="MenuItemUpdateStep_Click"/>-->
+                            <MenuItem Header="View Sale Orders Linked with Selected Target" Click="MenuItemLinkedSaleorders_Click" IsEnabled="True"/>
+                            <MenuItem Header="View Sale Orders Linked with Visible Target" Click="MenuItemVisibleTargetsSaleorders_Click" IsEnabled="True"/>
+                        </ContextMenu>
+                    </dxg:GridControl.ContextMenu>
+
+                    <dxg:GridControl.View>
+                        <dxg:TableView
+                                                x:Name="tblStepsListView"
+                                                ShowTotalSummary="True"
+                                                ShowSearchPanelFindButton="True"
+                                                ShowSearchPanelMode="Always"
+                                                ShowGroupPanel="True" 
+                                                AllowGrouping="True"
+                                                AllowSorting="True"
+                             CellStyle="{StaticResource FocusedCellStyle}" 
+                                   RowStyle="{StaticResource FocusedRowStyle}"
+                            CompactPanelShowMode="Always">
+                            <dxg:TableView.FormatConditions>
+                                <!--<dxg:ColorScaleFormatCondition ApplyToRow="False" Expression="Iif([TotalOrdersCount] = [ClosedOrdersCount], 1, 0)" FieldName="Status.Status">
+                                                            <dx:ColorScaleFormat ColorMin="#FFF8696B" ColorMax="#FF63BE7B"/>
+                                                        </dxg:ColorScaleFormatCondition>-->
+                                <dxg:FormatCondition ApplyToRow="True"  Expression="[UnderApprovalOrdersCount] = '0' And [ApprovedOrdersCount] = '0' And [UnderClosingOrdersCount] = '0' And [ClosedOrdersCount] &gt; '0'" FieldName="OpenOrdersCount">
+                                    <dx:Format Background="#FFCC1010" Foreground="#FF9BBB59" FontWeight="Bold" TextDecorations="{x:Null}"/>
+                                </dxg:FormatCondition>
+
+                                <dxg:FormatCondition ApplyToRow="True"  Expression="[UnderApprovalOrdersCount] = '0' And [ClosedOrdersCount] = '0' And [UnderClosingOrdersCount] = '0' And [ApprovedOrdersCount] &gt; '0'" FieldName="OpenOrdersCount">
+                                    <dx:Format Background="Green" Foreground="#FF9BBB59" FontWeight="Bold" TextDecorations="{x:Null}"/>
+                                </dxg:FormatCondition>
+                            </dxg:TableView.FormatConditions>
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Header="Stage"
+                            FieldName="Stage"
+                            UnboundType="String"  
+                            IsSmart="True"/>
+                    <dxg:GridColumn x:Name="colStepStatus"
+                                FieldName="Status.Status"
+                                Header="Status"
+                                UnboundType="Bound"
+                                Visible ="True"
+                                VisibleIndex="0"  
+                                AllowColumnFiltering="Default" 
+                                ColumnFilterMode="DisplayText">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock x:Name="PART_Editor">
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="PART_Editor1" Width="20" Margin="10,0" Background="{Binding RowData.Row.Status.backcolor}"/>
+                                    </InlineUIContainer><Run Text=" "/>
+                                    <InlineUIContainer>
+                                        <TextBlock x:Name="PART_Editor2" Text="{Binding RowData.Row.Status.Status}"/>
+                                    </InlineUIContainer>
+                                </TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="CalculationTypee"
+                                    Header="Calculatiom Type"
+                                    VisibleIndex="2"
+                                    AllowEditing="false"
+                                UnboundType="string"/>
+
+                    <dxg:GridColumn FieldName="TargetAchievedPercenatage"
+                                                        Header="Target Achieved Percenatage"
+                                                        VisibleIndex="3"
+                                                        AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n0" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="Id" 
+                                Header="Id"
+                                VisibleIndex="1"
+                                AllowEditing="false"/>
+                    <dxg:GridColumn FieldName="isClosed" 
+                                Header="Closed"
+                                VisibleIndex="1"
+                                AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="StepLevel1"
+                                Header="Group Level 1"
+                                VisibleIndex="1"
+                                AllowEditing="false"
+                                UnboundType="String"/>
+
+                    <dxg:GridColumn FieldName="StepLevel2"
+                                Header="Group Level 2"
+                                VisibleIndex="2"
+                                AllowEditing="false"
+                                UnboundType="String"/>
+
+                    <dxg:GridColumn FieldName="StepLevel3"
+                                Header="Group Level 3"
+                                VisibleIndex="3"
+                                AllowEditing="false"
+                                UnboundType="String"/>
+
+                    <dxg:GridColumn FieldName="StepLevel4"
+                                Header="Group Level 4"
+                                VisibleIndex="4"
+                                AllowEditing="false"
+                                UnboundType="String"/>
+
+                    <dxg:GridColumn FieldName="StepLevel5"
+                                Header="Group Level 5"
+                                VisibleIndex="5"
+                                AllowEditing="false"
+                                UnboundType="String"/>
+
+                    <dxg:GridColumn FieldName="isCompleted"
+                                    Header="Completed"
+                                    VisibleIndex="4"
+                                    AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="ParentTask.TaskName"
+                                    Header="Task Name"
+                                    VisibleIndex="5"
+                                    AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="Group"
+                                    Header="Task Group"
+                                    VisibleIndex="6"
+                                    AllowEditing="false"
+                                    UnboundType="string"/>
+
+                    <dxg:GridColumn FieldName="Companies"
+                                    Header="Companies"
+                                    VisibleIndex="4"
+                                    AllowEditing="false"
+                                UnboundType="string"/>
+
+                    <dxg:GridColumn FieldName="Departments"
+                                    Header="Departments"
+                                    VisibleIndex="4"
+                                    AllowEditing="false"
+                                UnboundType="string"/>
+
+
+                    <dxg:GridColumn FieldName="ParentTask.taskTargetType.TargetTypeName"
+                                    Header="Target Type"
+                                    VisibleIndex="5"
+                                    AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="supervisedBy.userName"
+                                Header="Supervised By"
+                                VisibleIndex="5"
+                                AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="salesHead.userName"
+                                Header="Sales Head"
+                                VisibleIndex="5"
+                                AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="TaskName"
+                                    Header="Step Name"
+                                    VisibleIndex="5"
+                                    AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="StepDueDate" 
+                                                        Visible="True" 
+                                                        VisibleIndex="6"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="PointsUpdatedOn" 
+                                                        Visible="True" 
+                                                        VisibleIndex="7"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="AchievedPercentage"
+                                                        Header="Achieved (%age)"
+                                                        VisibleIndex="8"
+                                                        AllowEditing="false" 
+                                                        UnboundType="Decimal"
+                                                        Visible="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ProgressBarEditSettings Minimum="0" Maximum="100" ContentDisplayMode="Value" IsPercent="False"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="AchievedPercentage1"
+                                                        Header="Achieved 1 (%age)"
+                                                        VisibleIndex="9"
+                                                        AllowEditing="false" 
+                                                        UnboundType="Decimal"
+                                                        Visible="False"
+                                    ShowInColumnChooser="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ProgressBarEditSettings Minimum="0" Maximum="100" ContentDisplayMode="Value" IsPercent="False"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="AchievedPercentage2"
+                                                        Header="Achieved 2 (%age)"
+                                                        VisibleIndex="10"
+                                                        AllowEditing="false" 
+                                                        UnboundType="Decimal"
+                                                        Visible="False"
+                                    ShowInColumnChooser="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ProgressBarEditSettings Minimum="0" Maximum="100" ContentDisplayMode="Value" IsPercent="False"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="TaskPoints"
+                                                        UnboundType="Decimal"
+                                                        Header="Step Target Points"
+                                                        VisibleIndex="11"
+                                                        AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="AchievedPoints"
+                                                        UnboundType="Decimal"
+                                                        Header="Achieved Points"
+                                                        VisibleIndex="12"
+                                                        AllowEditing="true">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SOField"
+                                                        Header="SO Field"
+                                                        VisibleIndex="13"
+                                                        Visible="False"
+                                                        AllowEditing="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="SOField1"
+                                                        Header="SO Field 1"
+                                                        VisibleIndex="14"
+                                                        Visible="False"
+                                                        AllowEditing="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="SOField2"
+                                                        Header="SO Field 2"
+                                                        VisibleIndex="15"
+                                                        Visible="False"
+                                                        AllowEditing="False"
+                                                        ShowInColumnChooser="False"/>
+
+
+                    <dxg:GridColumn FieldName="GroupCompanies"
+                                                        Header="Companies"
+                                                        VisibleIndex="16"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+
+                    <dxg:GridColumn FieldName="GroupDepartments"
+                                                        Header="Departments"
+                                                        VisibleIndex="17"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="searchedFromDate"
+                                                        Header="From"
+                                                        VisibleIndex="18"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="searchedToDate"
+                                                        Header="To"
+                                                        VisibleIndex="19"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="searchedFromDate1"
+                                                        Header="From"
+                                                        VisibleIndex="20"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="searchedToDate1"
+                                                        Header="To"
+                                                        VisibleIndex="21"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="searchedFromDate2"
+                                                        Header="From"
+                                                        VisibleIndex="22"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="searchedToDate2"
+                                                        Header="To"
+                                                        VisibleIndex="23"
+                                                        AllowEditing="False"
+                                                        Visible="False"
+                                                        ShowInColumnChooser="False"/>
+
+                    <dxg:GridColumn FieldName="SystemPoints"
+                                                        Header="System Points"
+                                                        VisibleIndex="24"
+                                                        AllowEditing="False"
+                                                            Visible="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                        <!--<dxg:GridColumn.CellStyle>
+                                                <Style TargetType="dxg:LightweightCellEditor">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="dxg:DataViewBase.Background" Value="LightBlue">
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </dxg:GridColumn.CellStyle>-->
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SystemPoints1"
+                                                        Header="System Points 1"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False"
+                                                            Visible="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SystemPoints2"
+                                                        Header="System Points 2"
+                                                        VisibleIndex="26"
+                                                        AllowEditing="False"
+                                                            Visible="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                    <dxg:GridColumn FieldName="margin"
+                                                        Header="Budgeted Margin(O.C)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="BudgetedMargininBase"
+                                                        Header="Budgeted Margin(M.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SalesBudgetedMarginPercent"
+                                                            Header="B.M (SE)- T.A %Age"
+                                                            VisibleIndex="26" 
+                                                            AllowEditing="false" 
+                                                            UnboundType="Decimal">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ProgressBarEditSettings Style="{StaticResource ProgressBarStyle}" Minimum="0" Maximum="100" ContentDisplayMode="Value" IsPercent="False"/>
+                        </dxg:GridColumn.EditSettings>
+
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SalesBudgetedMargin"
+                                                        Header="Budgeted Margin(S.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="RevisedMargin"
+                                                        Header="Revised Margin(O.C)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="RevisedMargininBase"
+                                                        Header="Revised Margin(M.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SalesRevisedMargin"
+                                                        Header="Revised Margin(S.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ActualMargin"
+                                                        Header="Actual Margin(O.C)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ActualMargininBase"
+                                                        Header="Actual Margin(M.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SalesActualMargin"
+                                                        Header="Actual Margin(S.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="totalFOBValue"
+                                                        Header="S.O FOB Amount(O.C)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="totalCFRValue"
+                                                        Header="S.O Amount(O.C)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="totalBaseCFRValue"
+                                                        Header="S.O Amount(M.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="TotalQuantity"
+                                                        Header="Total Quantity"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SoAmountSERpercent"
+                                                            Header="B.M(SE) / SO(SE)- G.P Ratio"
+                                                            VisibleIndex="26" 
+                                                            AllowEditing="false" 
+                                                            UnboundType="Decimal">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ProgressBarEditSettings Style="{StaticResource ProgressBarStyle}" Minimum="0" Maximum="100" ContentDisplayMode="Value" IsPercent="False"/>
+                        </dxg:GridColumn.EditSettings>
+
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SoAmountSER"
+                                                        Header="S.O Amount(S.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SoAmountPER"
+                                                        Header="S.O Amount(PER)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="commisioninBase"
+                                                        Header="Commision(M.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="commisioninSE"
+                                                        Header="Commision(S.E)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="systemMarginOC"
+                                                        Header="System Margin(OC)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="systemMarginSE"
+                                                        Header="System Margin(SE)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="systemMarginME"
+                                                        Header="System Margin(ME)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                    <dxg:GridColumn FieldName="commision"
+                                                        Header="Commision(O.C)"
+                                                        VisibleIndex="25"
+                                                        AllowEditing="False">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                    <dxg:GridColumn FieldName="netCommision"
+                                        x:Name="netCommision"
+                                        Header="Net Commission(OC)"     
+                                        ReadOnly="True"
+                                        Visible="True"
+                                        >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="netCommisionSER"
+                                        x:Name="netCommisionSER"
+                                        Header="Net Commission(SER)"     
+                                        ReadOnly="True"
+                                        Visible="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="netCommisionMER"
+                                        x:Name="netCommisionMER"
+                                        Header="Net Commission(MER)"     
+                                        ReadOnly="True"
+                                        Visible="True" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                    <!--<dxg:GridColumn FieldName="BMgrossProfitSE"
+                                        x:Name="BMgrossProfitSE"
+                                        Header="BM Gross Profit (SE)"     
+                                        ReadOnly="True"
+                                         UnboundType="Decimal"
+                                        Visible="True" UnboundExpression="[netCommisionSER] + [SalesBudgetedMargin]">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>-->
+
+                    <dxg:GridColumn FieldName="BMgrossProfitSE"
+                                        Header="BM Gross Profit (SE)"     
+                                        ReadOnly="True"
+                                        Visible="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <!--<dxg:GridColumn FieldName="BMgrossProfitME"
+                                        x:Name="BMgrossProfitME"
+                                        Header="BM Gross Profit (ME)"
+                                        ReadOnly="True"
+                                        UnboundType="Decimal"
+                                        Visible="True" UnboundExpression="[netCommisionMER] + [BudgetedMargininBase]">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>-->
+
+                    <dxg:GridColumn FieldName="BMgrossProfitME"
+                                        Header="BM Gross Profit (ME)"
+                                        ReadOnly="True"
+                                        Visible="True">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="AMgrossProfitSE"
+                                        x:Name="AMgrossProfitSE"
+                                        Header="AM Gross Profit (SE)"     
+                                        ReadOnly="True"
+                                        UnboundType="Decimal"
+                                        Visible="True" UnboundExpression="[netCommisionMER] + [SalesActualMargin]">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="AMgrossProfitME"
+                                        x:Name="AMgrossProfitME"
+                                        Header="AM Gross Profit (ME)"
+                                        ReadOnly="True"
+                                        UnboundType="Decimal"
+                                        Visible="True" UnboundExpression="[netCommisionMER] + [ActualMargininBase]">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                    <dxg:GridColumn FieldName="SMgrossProfitSE"
+                                        x:Name="SMgrossProfitSE"
+                                        Header="SM Gross Profit (SE)"     
+                                        ReadOnly="True"
+                                        UnboundType="Decimal"
+                                        Visible="True" UnboundExpression="[netCommisionMER] + [systemMarginSE]">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="SMgrossProfitME"
+                                        x:Name="SMgrossProfitME"
+                                        Header="SM Gross Profit (ME)"
+                                        ReadOnly="True"
+                                        UnboundType="Decimal"
+                                        Visible="True" UnboundExpression="[netCommisionMER] + [systemMarginME]">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                    <dxg:GridColumn Header="Is Approved"
+                                                        FieldName="isApproved" 
+                                                        VisibleIndex="27"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Approved Date"
+                                                        FieldName="ApprovedDate" 
+                                                        VisibleIndex="28"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Is Re-Approved"
+                                                        FieldName="isReApproved" 
+                                                        VisibleIndex="29"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Re-Approved Date"
+                                                        FieldName="ReApprovalDate" 
+                                                        VisibleIndex="30"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn FieldName="StepYear"
+                                Header="Step Year"
+                                VisibleIndex="15"
+                                AllowEditing="false"
+                                UnboundType="string">
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="StepMonth"
+                                Header="Step Month"
+                                VisibleIndex="16"
+                                AllowEditing="false"
+                            UnboundType="string">
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="TargettYear"
+                                Header="Target Year"
+                                VisibleIndex="15"
+                                AllowEditing="false"
+                                UnboundType="string">
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="TargettMonth"
+                                Header="Target Month"
+                                VisibleIndex="16"
+                                AllowEditing="false"
+                            UnboundType="string">
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total Orders Count"
+                                                        FieldName="TotalOrdersCount" 
+                                                        VisibleIndex="30"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Under Approval Orders"
+                                                        FieldName="UnderApprovalOrdersCount" 
+                                                        VisibleIndex="30"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Approved Orders"
+                                                        FieldName="ApprovedOrdersCount" 
+                                                        VisibleIndex="30"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Under Closing Orders"
+                                                        FieldName="UnderClosingOrdersCount" 
+                                                        VisibleIndex="30"
+                                                        AllowEditing="false"/>
+
+                    <dxg:GridColumn Header="Closed Orders"
+                                                        FieldName="ClosedOrdersCount" 
+                                                        VisibleIndex="30"
+                                                        AllowEditing="false"/>
+
+
+                    <dxg:GridColumn FieldName="ManualBudgetedMarginME" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ManualBudgetedMarginSE" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ManualActualMarginME" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ManualActualMarginSE" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ManualCommissionME" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ManualCommissionSE" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ManualSystemMarginSE" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="ManualSystemMarginME" IsSmart="True" AllowEditing="false">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <!--<dxg:GridColumn FieldName="creationDate" Header="Creation Date" Visible="False" VisibleIndex="0" AllowEditing="false" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="TaskDescription" Header="Task Description" Visible="False" VisibleIndex="2" AllowEditing="false" ShowInColumnChooser="False"/>
+                    -->
+                    <!--<dxg:GridColumn FieldName="taskGroup.GroupName" Header="Task Group" Visible="False" VisibleIndex="3" AllowEditing="false" ShowInColumnChooser="False"/>-->
+                    <!--
+                    <dxg:GridColumn FieldName="assignedTo.userName" Header="AssignedTo" Visible="False" VisibleIndex="4" AllowEditing="false" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="taskTargetType.TargetTypeName" Header="Target Type" Visible="False" VisibleIndex="5" AllowEditing="false" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="StartDate" Header="Start Date" Visible="False" VisibleIndex="6" AllowEditing="false" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="TentativeClosingDate" Header="Tentative Closing Date" Visible="False" VisibleIndex="7" AllowEditing="false" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="ActualClosingDate" Header="Actual Closing Date" Visible="False" VisibleIndex="8" AllowEditing="false" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="TaskCreatorId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="TaskCreator" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="taskGroupId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="taskGroup" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="parentTaskId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="ParentTask" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="assignedToId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="assignedTo" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="targetTypeId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="taskTargetType" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                    <dxg:GridColumn FieldName="status_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>-->
+
+
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem FieldName="TaskPoints" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="AchievedPoints" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="margin" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="BudgetedMargininBase" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="SalesBudgetedMargin" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="RevisedMargin" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="RevisedMargininBase" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="SalesRevisedMargin" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="ActualMargin" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="ActualMargininBase" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="SalesActualMargin" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="totalFOBValue" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="totalCFRValue" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="totalBaseCFRValue" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="SoAmountSER" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="SoAmountPER" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="commisioninBase" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="commision" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="commisioninSE" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="SoAmountSERpercent" SummaryType="custom" DisplayFormat="Avg = {0:n2}%"/>
+                        <dxg:GridSummaryItem FieldName="SalesBudgetedMarginPercent" SummaryType="custom" DisplayFormat="Avg = {0:n2}%"/>
+
+                        <dxg:GridSummaryItem FieldName="systemMarginOC" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="systemMarginSE" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="systemMarginME" SummaryType="Sum" DisplayFormat="n2"/>
+
+                        <dxg:GridSummaryItem FieldName="netCommision" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="netCommisionSER" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="netCommisionMER" SummaryType="Sum" DisplayFormat="n2"/>
+
+                        <dxg:GridSummaryItem FieldName="BMgrossProfitSE" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="BMgrossProfitME" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="AMgrossProfitSE" SummaryType="Sum" DisplayFormat="n2"/>
+                        <dxg:GridSummaryItem FieldName="AMgrossProfitME" SummaryType="Sum" DisplayFormat="n2"/>
+                    </dxg:GridControl.TotalSummary>
+                </dxg:GridControl>
+
+
+
+
+                <TextBlock x:Name="reportId" Text="" Visibility="Hidden"/>
+            </Grid>
+        </GroupBox>
+
+
+    </Grid>
+    
+</UserControl>

@@ -1,0 +1,307 @@
+﻿<Window xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+                 x:Class="ZAS_ERP.Chat.frmAddGroup"
+                 mc:Ignorable="d"
+                 xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+                 utilities:WindowUtilities.CloseOnEscape="True"
+                 Title="Add New Group"
+                 Height="auto"
+                 Width="auto"
+                 xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:local="clr-namespace:ZAS_ERP.Companiess"
+                 xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                 
+                 xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                 xmlns:vali="clr-namespace:ZAS_ERP.Validations"
+                 x:Name="windowGroupadd"
+        
+        Closed="WindowGroupadd_Closed"
+        Loaded="WindowGroupadd_Loaded"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        WindowStyle="None"
+       
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+
+    <Window.Resources>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="LightBlue"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Border x:Name="titleBar" BorderBrush="Gray" BorderThickness="1"  >
+            <Grid Background="#FF305590" Grid.Row="0" MouseDown="Grid_MouseDown" VerticalAlignment="Top" Margin="0,0,0,0">
+                <Grid   HorizontalAlignment="Right" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="btnMinimize" ToolTip="Minimize" Grid.Column="0" Style="{StaticResource ResourceKey=TransparentStyle}" Click="BtnMinimize_Click" Margin="5,5,5,5" VerticalAlignment="Bottom" Visibility="Visible" Padding="5">
+                        <Image Width="30"  VerticalAlignment="Bottom" Source="Images/iconMinimize.png"   />
+                    </Button>
+
+                    <Button x:Name="btnClose" ToolTip="Close"  Grid.Column="2" Style="{StaticResource ResourceKey=TransparentStyle}" Click="BtnClose_Click" Margin="5,5,5,5" Visibility="Visible"  Padding="5">
+                        <Image  Height="30"    HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images/iconClose.png"  />
+                    </Button>
+
+                    <Button x:Name="btnMaximize" ToolTip="Maximize"  Grid.Column="1" Style="{StaticResource ResourceKey=TransparentStyle}" Click="BtnMaximize_Click" Margin="5,5,5,5" Visibility="Visible"  Padding="5">
+                        <Image     HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images/iconMaximize.png"    />
+                    </Button>
+                </Grid>
+                <Grid HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image Source="Images/iconTitle.png" Margin="0,5" />
+
+                        <Label Grid.Column="1" Content="Add New Group" Foreground="White" FontFamily="arialRounded" FontStretch="ExtraExpanded" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Opacity="0.9" />
+
+                        <Label Content="1.2.0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="arialRounded" FontSize="15" Foreground="WhiteSmoke" FontWeight="DemiBold" Margin="5,2"  />
+
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+        </Border>
+
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+
+
+                <RowDefinition Height="1*" />
+                <!--<RowDefinition Height="1*" />-->
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+
+
+
+            <dx:DXTabControl>
+                <dx:DXTabControl.View>
+                    <dx:TabControlScrollView HeaderLocation="Left"                          
+                                 HideButtonShowMode="NoWhere"
+                                 HeaderOrientation="Horizontal"
+                                 AllowAnimation="True"
+                                 ShowHeaderMenu="False"
+                                 RemoveTabItemsOnHiding="False"
+                                 NewButtonShowMode="NoWhere" />
+                </dx:DXTabControl.View>
+
+
+                <dx:DXTabItem 
+                x:Name="tabGroups"
+                Header="Groups"
+                >
+
+
+                    <dxlc:GroupBox Header="Group Info">
+
+                        <dxlc:GroupBox.TitleBackground>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                             StartPoint="0.5,0">
+                                <GradientStop Color="#FFE6E8EB"
+                        Offset="0" />
+                                <GradientStop Color="#FF6CA6FB"
+                        Offset="1" />
+                            </LinearGradientBrush>
+                        </dxlc:GroupBox.TitleBackground>
+                        <Grid>
+
+
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type Label}">
+                                    <Setter Property="Margin"
+                    Value="10" />
+                                    <Setter Property="Foreground"
+                    Value="Gray" />
+                                    <Setter Property="VerticalAlignment"
+                    Value="Center" />
+                                </Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Height"
+                    Value="30" />
+                                    <Setter Property="Margin"
+                    Value="10,0" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="6*" />
+                                    <ColumnDefinition Width="9*" />
+                                    <ColumnDefinition Width="auto" />
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Content="Group Name"
+                 ToolTip="Group Name"
+                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,11" Width="83"    />
+
+                                <!--<Label Content="Discription"
+             ToolTip="Discription about Department"
+             HorizontalAlignment="Right"
+             Grid.Row="2" />-->
+                                <Label Content="Creation Date"
+                                   Grid.Column="2"
+                 ToolTip="Select Creation date"
+                 HorizontalAlignment="Left"
+                 Grid.Row="0"   VerticalAlignment="Center" />
+                                <TextBox x:Name="txtGroupname"
+                   Grid.Column="1" Margin="5.333,7,10,6.333"
+                     />
+                                <Grid Grid.Column="1" Margin="0.333,43" Grid.RowSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+
+
+
+                                </Grid>
+                                <!--<TextBox x:Name="txtdiscription"
+               Grid.Column="1"
+               Grid.Row="2" />-->
+                                <dxe:DateEdit x:Name="dateGroupCreation" GotFocus="DateGroupCreation_GotFocus"
+                        Grid.Column="3"
+                        Grid.Row="0"
+                       Margin="5.333,7,10,6.333"
+                                         
+                         />
+                                <Label Content="Is Subsidiary"
+                 ToolTip="Check if it is a Subsidiary Department"
+                 HorizontalAlignment="Left"
+                 Grid.Row="1" Margin="0,10" Width="83"  />
+                                <CheckBox x:Name="chkisSubsidaiary"
+                                          
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Checked="chkisSubsidaiary_Checked"
+                                Unchecked="chkisSubsidaiary_Unchecked"
+                                Margin="10.333,10,10.333,10.333"  />
+                                <Label Content="Parent Group"
+                         x:Name="lblParentGroup"
+                         ToolTip="Select Parent department "
+                         HorizontalAlignment="Left"
+                         Grid.Row="1"
+                         Grid.Column="2"              
+                         Visibility="Collapsed"   />
+                                <dxg:LookUpEdit x:Name="lookupParentGroup" 
+                                      Grid.Column="3"                      
+                                      Grid.Row="1"
+                                      DisplayMember="groupName"
+                                      AutoPopulateColumns="True"
+                                      Visibility="Collapsed"
+                                      Margin="5,5,5,5"
+                                      AutoComplete="False"
+                                      MaskAutoComplete="None"
+                                      FindMode="FindClick"
+                                      PopupClosed="LookupParentGroup_PopupClosed"
+                                          >
+                                </dxg:LookUpEdit>
+
+                                <dxlc:GroupBox Header="Users" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="2" >
+                                    <Grid>
+                                        <dxg:GridControl SelectionMode="MultipleRow"
+                                             x:Name="allUsers"
+                            
+                            
+                                             AutoGenerateColumns="None"
+                             
+                                             AllowInitiallyFocusedRow="False">
+                                            <dxg:GridControl.View>
+                                                <dxg:TableView x:Name="checkBoxes"
+                                                      AutoWidth="True"
+                                                      AllowEditing="False"
+                                                      AllowGrouping="False"          
+                                                      ColumnFilterPopupMode="Excel"
+                                                      UseIndicatorForSelection="True"
+                                                      ShowCheckBoxSelectorColumn="True"
+                                                      FadeSelectionOnLostFocus="False"
+                                                      ShowSelectionRectangle="True">
+                                                </dxg:TableView>
+                                            </dxg:GridControl.View>
+                                            <dxg:GridColumn x:Name="id"
+                                                        FieldName="id"
+                                                        IsSmart="True"
+                                                        Visible="False"/>
+                                            <dxg:GridColumn FieldName="employeeId"
+                                                        IsSmart="True"
+                                                        Width="auto"
+                                                        />
+                                            <dxg:GridColumn FieldName="userName"
+                                                        IsSmart="True"
+                                                        Width="auto" />
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </dxlc:GroupBox>
+                            </Grid>
+                        </Grid>
+                    </dxlc:GroupBox>
+
+
+
+                </dx:DXTabItem>
+
+
+
+            </dx:DXTabControl>
+
+
+
+
+
+            <Button Grid.Row="3"
+            Content="Save"
+            FontSize="26"
+            x:Name="btnGrouptSave"
+            
+            Height="50"
+            VerticalAlignment="Bottom" Click="BtnGrouptSave_Click" />
+        </Grid>
+    </Grid>
+
+
+
+
+
+</Window>

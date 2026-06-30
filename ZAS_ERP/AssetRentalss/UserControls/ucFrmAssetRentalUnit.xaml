@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="ZAS_ERP.AssetRentalss.UserControls.ucFrmAssetRentalUnit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.AssetRentalss.UserControls" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup Header="Unit"        
+                          Margin="0 0 0 45"
+                          View="GroupBox" 
+                          IsCollapsible="False" 
+                          IsCollapsed="False" 
+                          Orientation="Vertical">
+            <dxlc:LayoutControl Orientation="Vertical" VerticalAlignment="Center">
+                <dxlc:LayoutItem Label="Unit #" Width="270">
+                    <dxe:TextEdit Margin="20 0 0 0" x:Name="txtUnitNo"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="10"/>
+                <dxlc:LayoutItem Label="Country:" Width="270">
+                    <dxg:LookUpEdit Grid.Column="1" Margin="10 0 0 0" Height="22" DisplayMember="CountryName" x:Name="lookupCountry" 
+                                                        AutoPopulateColumns="False"
+                                                        SelectedIndexChanged="lookupCountry_SelectedIndexChanged">
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="False"
+                                                             Grid.Row="1">
+
+
+                                        <dxg:GridColumn Header="Country Name"
+                                                            FieldName="CountryName"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="Abbriviation"
+                                                            FieldName="Abbriviation"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="Country Code"
+                                                            FieldName="CountryCode"
+                                                            AllowEditing="false"/>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="10"/>
+                <dxlc:LayoutItem Label="City:" Width="270">
+                    <dxg:LookUpEdit Height="22" Grid.Column="3" 
+                                    Margin="32 0 0 0"
+                                    x:Name="lookupCity"
+                                                        AutoPopulateColumns="False"
+                                                        DisplayMember="CityName" SelectedIndexChanged="lookupCity_SelectedIndexChanged">
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="False"
+                                                             Grid.Row="1">
+
+
+                                        <dxg:GridColumn Header="City Name"
+                                                            FieldName="CityName"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="Abbriviation"
+                                                            FieldName="Abbriviation"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="Postal Code"
+                                                            FieldName="PostalCode"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="Country Name"
+                                                            FieldName="country.CountryName"
+                                                            AllowEditing="false"/>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="10"/>
+                <dxlc:LayoutItem Label="Location:" Width="270">
+                    <dxg:LookUpEdit Grid.Column="1" 
+                                    Margin="10 0 0 0"
+                                                        Height="22" 
+                                                        AutoPopulateColumns="False"
+                                                        x:Name="lookupLocation"  
+                                                        DisplayMember="LocationTitle" 
+                                                        SelectedIndexChanged="lookupLocation_SelectedIndexChanged">
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="False"
+                                                             Grid.Row="1">
+
+
+                                        <dxg:GridColumn Header="Location Title"
+                                                            FieldName="LocationTitle"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="City Name"
+                                                            FieldName="city.CityName"
+                                                            AllowEditing="false"/>
+
+                                        <dxg:GridColumn Header="Country Name"
+                                                            FieldName="country.CountryName"
+                                                            AllowEditing="false"/>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>
+
+            </dxlc:LayoutControl>
+        </dxlc:LayoutGroup>
+        <Button Content="Save" x:Name="btnSave" Height="40" VerticalAlignment="Bottom" Click="btnSave_Click"/>
+    </Grid>
+</UserControl>

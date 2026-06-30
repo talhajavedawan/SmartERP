@@ -1,0 +1,238 @@
+﻿<dx:DXWindow
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+    x:Class="ZAS_ERP.Bankings.InterBankTransfer.Windows.winIBTbankCharges"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Bankings.InterBankTransfer.Windows"
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:Databases="clr-namespace:ERP_BL.Databases;assembly=ERP_BL"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    mc:Ignorable="d"
+        d:DesignHeight="700" d:DesignWidth="600" MaxHeight="700" MaxWidth="600" ResizeMode="NoResize" Loaded="DXWindow_Loaded" Closing="DXWindow_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="lblHeading" Text="Attach IBT Bank Charges" FontSize="11" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="0" FontFamily="Segoe UI Semibold"  />
+        <dxg:GridControl x:Name="grdDeductions" Grid.Row="1"
+                           SelectionMode="Cell"
+                         dx:DXSerializer.SerializationID="grid">
+            <dxg:GridControl.View>
+
+
+
+                <dxg:TableView  ShowGroupPanel="False"
+                           NewItemRowPosition="Bottom"
+                           AllowColumnFiltering="False"
+                          
+                           ShowHorizontalLines="True"
+                           ShowVerticalLines="True"
+                               InitNewRow="View_InitNewRow"
+                               ShowCheckBoxSelectorInGroupRow="True"
+                               Name="View">
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridColumn Header="Id"
+                            FieldName="Id"
+                            IsSmart="True" Visible="False"
+                            Width="auto" VisibleIndex="0">
+            </dxg:GridColumn>
+            <dxg:GridColumn  VisibleIndex="1"
+                FieldName="deduction"
+                          Header="Bank Charges"
+                          IsSmart="True"
+                          UnboundType="bound"
+                          UnboundExpression="[title]" SortOrder="Ascending" SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.deduction.title}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupDeductionsGrid"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="title"
+                                      NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnAddItem"
+                              Click="btnAddDeduction_Click"
+                              VerticalAlignment="Center"
+                              Content="--Add New--" />
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                        <dxg:GridColumn FieldName="title" />
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+
+            <dxg:GridColumn Header="Amount"
+                            FieldName="Amount"
+                            IsSmart="True"
+                             VisibleIndex="3">
+
+            </dxg:GridColumn>
+
+            <dxg:GridColumn Header="Chart of Account"
+                            FieldName="deduction.COA.accountName"
+                            IsSmart="True"
+                             VisibleIndex="4">
+
+            </dxg:GridColumn>
+
+
+
+        </dxg:GridControl>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="lblHeadingVAT" Text="Attach VAT"  FontSize="11" FontWeight="Bold"  HorizontalAlignment="Center"  FontFamily="Segoe UI Semibold"  />
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                <dxe:CheckEdit Content="Adjusted" x:Name="chkIsAdjusted" Checked="ChkIsAdjusted_Checked" Unchecked="ChkIsAdjusted_Unchecked"/>
+                <dxe:CheckEdit Content="Non-Adjusted" Margin="30 0 0 0" x:Name="chkNonAdjusted" Checked="ChkNonAdjusted_Checked" Unchecked="ChkNonAdjusted_Unchecked"/>
+            </StackPanel>
+        </Grid>
+        <dxg:GridControl x:Name="grdVAT" Grid.Row="3"
+                           SelectionMode="Cell"
+                         dx:DXSerializer.SerializationID="grid">
+            <dxg:GridControl.View>
+
+
+
+                <dxg:TableView  ShowGroupPanel="False"
+                           NewItemRowPosition="Bottom"
+                           AllowColumnFiltering="False"
+                          AutoWidth="True"
+                           ShowHorizontalLines="True"
+                           ShowVerticalLines="True"
+                               InitNewRow="View_InitNewRow"
+                               ShowCheckBoxSelectorInGroupRow="True"
+                               x:Name="tblViewVAT"
+                                CellValueChanged="TblViewVAT_CellValueChanged"/>
+            </dxg:GridControl.View>
+            <dxg:GridColumn Header="Id"
+                            FieldName="Id"
+                            IsSmart="True" Visible="False"
+                             VisibleIndex="0"/>
+
+            <!--<dxg:GridColumn Header="Is Adjusted"
+                            FieldName="IsAdjusted"
+                            AllowEditing="true"
+                             VisibleIndex="0"
+                            UnboundType="boolean">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <CheckBox x:Name="chkIsAdjusted"  
+                                   IsChecked="{Binding RowData.Row.IsChecked,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Checked="ChkIsAdjusted_Checked" Unchecked="ChkIsAdjusted_Unchecked">
+                        </CheckBox>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+                -->
+            <!--<dxg:GridColumn.EditSettings>
+                    <dxe:CheckEditSettings ></dxe:CheckEditSettings>
+                </dxg:GridColumn.EditSettings>-->
+            <!--
+            </dxg:GridColumn>-->
+
+            <!--<dxg:GridColumn Header="Non Adjusted"
+                            FieldName="NonAdjusted"
+                            AllowEditing="true"
+                             VisibleIndex="1"
+                            UnboundType="boolean">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <CheckBox x:Name="chkNonAdjusted"  
+                                   IsChecked="{Binding RowData.Row.IsChecked,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Checked="ChkNonAdjusted_Checked" Unchecked="ChkNonAdjusted_Unchecked">
+                        </CheckBox>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>-->
+
+            <dxg:GridColumn  VisibleIndex="1"
+                FieldName="taxName"
+                          Header="VAT"
+                          IsSmart="True"
+                          UnboundType="bound"
+                          UnboundExpression="[Name]" SortOrder="Ascending" SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.taxName.Name}"/>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupVAT"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="Name"
+                                      NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnAddItem"
+                              Click="btnAddDeduction_Click"
+                              VerticalAlignment="Center"
+                              Content="--Add New--" />
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                        <dxg:GridColumn FieldName="Name" />
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+
+            <dxg:GridColumn Header="Amount"
+                            FieldName="Amount"
+                             VisibleIndex="3"/>
+
+            <dxg:GridColumn Header="Chart of Account"
+                            FieldName="taxName.chartofAccount.accountName"
+                             VisibleIndex="4"/>
+
+
+
+        </dxg:GridControl>
+
+        <Button Content="Save" FontSize="22" Grid.Row="4" Click="Button_Click"/>
+    </Grid>
+</dx:DXWindow>

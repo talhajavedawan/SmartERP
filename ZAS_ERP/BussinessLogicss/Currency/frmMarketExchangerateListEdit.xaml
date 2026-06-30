@@ -1,0 +1,248 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.BussinessLogicss.frmMarketExchangeRateListEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Productss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title="Edit List of Market Exchange Rates "
+        x:Name="winExchangeRateListEdit"
+        Loaded="winExchangeRateList_Loaded"
+        Unloaded="WinExchangeRateList_Unloaded"
+        Height="450"
+        Width="450">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".7*" />
+        
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+
+            </Grid.RowDefinitions>
+      <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+        <MenuItem Header="_Market Exchange Rate"
+                  x:Name="mbtnExchangeRate">
+                    <MenuItem Header="Add new Market Exchange Rate"
+                    x:Name="mbtnNewExchangeRate"
+                    Click="mbtnNewExchangeRate_Click"></MenuItem>
+                    <MenuItem Header="Edit Market Exchange Rate"
+                    x:Name="mbtnEditExchangeRate"
+                    Click="mbtnEditExchangeRate_Click"></MenuItem>
+        </MenuItem>
+        
+      </Menu>
+     
+      <dxg:GridControl x:Name="grdExchangeRate"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdExchangeRate_MouseDoubleClick"
+                       
+                       >
+        <dxg:GridControl.ContextMenu>
+          <ContextMenu>
+                        <MenuItem Header="Add New Market Exchange Rate"
+                      x:Name="btnNewExchangeRate"
+                      Click="mbtnNewExchangeRate_Click" />
+            <MenuItem Header="Edit"
+                      x:Name="btnEditExchangeRate"
+                      Click="mbtnEditExchangeRate_Click" />
+          </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+                <dxg:GridColumn FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                <dxg:GridColumn FieldName="company_Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                <dxg:GridColumn FieldName="company"
+                          Header="Company"
+                          IsSmart="True"
+                          UnboundType="bound"
+                          UnboundExpression="[CompanyName]">
+                    <dxg:GridColumn.DisplayTemplate>
+                        <ControlTemplate>
+                            <TextBlock Text="{Binding RowData.Row.company.CompanyName}"></TextBlock>
+                        </ControlTemplate>
+                    </dxg:GridColumn.DisplayTemplate>
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings x:Name="lookupCompanyinGrid"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="CompanyName"
+                                      NullText="Select Item">
+                            <dxg:LookUpEditSettings.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                                                                <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                            <dxg:GridColumn FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="CompanyName"
+                                    IsSmart="True" />
+                                            <dxg:GridColumn x:Name="colBizType"
+                                    FieldName="BizType"
+                                    Visible="False"
+                                    IsSmart="True" />
+                                            
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEditSettings.PopupContentTemplate>
+                        </dxg:LookUpEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="base_currency_Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+
+                <dxg:GridColumn FieldName="Base_Currency"
+                          Header="Base Currency"
+                          IsSmart="True"
+                          UnboundType="bound"
+                          UnboundExpression="[CurrencyName]">
+                    <dxg:GridColumn.DisplayTemplate>
+                        <ControlTemplate>
+                            <TextBlock Text="{Binding RowData.Row.Base_Currency.CurrencyName}"></TextBlock>
+                        </ControlTemplate>
+                    </dxg:GridColumn.DisplayTemplate>
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings x:Name="lookupBaseCurrencyinGrid"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="CurrencyName"
+                                      NullText="Select Item">
+                            <dxg:LookUpEditSettings.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                            <dxg:GridColumn FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="CurrencyName"
+                                    IsSmart="True" />
+                                            <dxg:GridColumn x:Name="Symbol"
+                                    FieldName="BizType"
+                                    Visible="False"
+                                    IsSmart="True" />
+                                            <dxg:GridColumn FieldName="Abbrivation"
+                                    x:Name="colAbbrivation"
+                                    IsSmart="True"
+                                    Visible="True" />
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEditSettings.PopupContentTemplate>
+                        </dxg:LookUpEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="target_currency_Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+
+                <dxg:GridColumn FieldName="Target_Currency"
+                          Header="Target Currency"
+                          IsSmart="True"
+                          UnboundType="bound"
+                          UnboundExpression="[CurrencyName]">
+                    <dxg:GridColumn.DisplayTemplate>
+                        <ControlTemplate>
+                            <TextBlock Text="{Binding RowData.Row.Target_Currency.CurrencyName}"></TextBlock>
+                        </ControlTemplate>
+                    </dxg:GridColumn.DisplayTemplate>
+                    <dxg:GridColumn.EditSettings>
+                        <dxg:LookUpEditSettings x:Name="lookupTargetCurrencyinGrid"
+                                      AutoPopulateColumns="False"
+                                      IsPopupAutoWidth="False"
+                                      DisplayMember="CurrencyName"
+                                      NullText="Select Item">
+                            <dxg:LookUpEditSettings.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <dxg:GridControl x:Name="PART_GridControl"
+                                       ShowBorder="True"
+                                       MaxHeight="300"
+                                       Grid.Row="1">
+                                            <dxg:GridColumn FieldName="Id"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                            <dxg:GridColumn FieldName="CurrencyName"
+                                    IsSmart="True" />
+                                            <dxg:GridColumn x:Name="Symbol"
+                                    FieldName="BizType"
+                                    Visible="False"
+                                    IsSmart="True" />
+                                            <dxg:GridColumn FieldName="Abbrivation"
+                                    x:Name="colAbbrivation"
+                                    IsSmart="True"
+                                    Visible="True" />
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEditSettings.PopupContentTemplate>
+                        </dxg:LookUpEditSettings>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="exchangerate"
+                        Header="Exchange Rate" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="effectiveFrom"
+                        Header="Effective From" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="effectiveTo"
+                        Header="Effective To" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+            </dxg:GridControl>
+            <Button Grid.ColumnSpan="2"
+            Grid.Row="3"
+            Content="Save"
+            FontSize="26"
+            x:Name="btnExchangeRatesSave"
+            Click="btnExchangeRates_Click" />
+        </Grid>
+  </Grid>
+</Window>

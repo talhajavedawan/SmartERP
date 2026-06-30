@@ -1,0 +1,477 @@
+﻿<dx:DXWindow xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.ChartofAccounts.Windows.formSelectAccountType"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.ChartofAccounts.Windows"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    mc:Ignorable="d"
+        Title="Add new Account: Chose Account Type" WindowStartupLocation="CenterScreen"  Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="auto" Width="auto">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v" />
+    </Window.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <dxlc:GroupBox   Padding="30" Grid.Row="0" Grid.ColumnSpan="2" >
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <dxlc:GroupBox Header="Choose one account type and click Continue." FontWeight="Bold" DisplayMode="Normal"  Grid.Column="0"  Background="Transparent">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton x:Name="radioIncome" Cursor="Hand" FontWeight="DemiBold" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Row="0" Margin="5,5,5,5" Padding="5" Content="Income"/>
+                        <RadioButton x:Name="radioExpense" Cursor="Hand" FontWeight="DemiBold" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"  Grid.Row="1" Margin="5,5,5,5" Padding="5" Content="Expense"/>
+                        <RadioButton x:Name="radioOtherIncome" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1"  Grid.Row="0" Margin="5,5,5,5" Padding="5" Content="Other Income" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioOtherExpense" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1"  Grid.Row="1" Margin="5,5,5,5" Padding="5" Content="Other Expense" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioFixedAssets" Cursor="Hand" FontWeight="DemiBold"  Grid.Row="2" Margin="5,5,5,5" Padding="5" Content="Fixed Assets" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center" />
+                        <RadioButton x:Name="radioBank" Cursor="Hand" FontWeight="DemiBold"  Grid.Row="3" Margin="5,5,5,5" Padding="5" Content="Bank" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioLoan" Cursor="Hand" FontWeight="DemiBold"  Grid.Row="4" Margin="5,5,5,5" Padding="5" Content="Loan" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioCreditCard" Cursor="Hand" FontWeight="DemiBold"  Grid.Row="5" Margin="5,5,5,5" Padding="5" Content="Credit Card" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioEquity" Cursor="Hand" FontWeight="DemiBold"  Grid.Row="6" Margin="5,5,5,5" Padding="5" Content="Equity" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioAccountReceivable" Cursor="Hand" FontWeight="DemiBold" Grid.Column="0"  Grid.Row="7" Margin="5,5,5,5" Padding="5" Content="Account Receivable" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioAccountsPayable" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1"  Grid.Row="2" Margin="5,5,5,5" Padding="5" Content="Accounts Payable" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioOtherCurrentAsset" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1" Grid.Row="3" Margin="5,5,5,5" Padding="5" Content="Other Current Asset" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioOtherCurrentLiability" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1" Grid.Row="4" Margin="5,5,5,5" Padding="5" Content="Other Current Liability" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioLongTermLiability" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1"  Grid.Row="5" Margin="5,5,5,5" Padding="5" Content="Long term Liability" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioCostOfGoodsSold" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1"  Grid.Row="6" Margin="5,5,5,5" Padding="5" Content="Cost of Goods Sold" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <RadioButton x:Name="radioOtherAsset" Cursor="Hand" FontWeight="DemiBold"  Grid.Column="1"  Grid.Row="7" Margin="5,5,5,5" Padding="5" Content="Other Asset" HorizontalAlignment="Left"  VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Visibility="{Binding IsChecked,ElementName=radioIncome,Converter={StaticResource b2v}}" Grid.Column="2" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+
+
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Income Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Categorizes money earned from normal business operations such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Product Sales" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Service Sales" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Discount to Customers" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+
+                    </Grid>
+                    
+
+
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioExpense,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+
+
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Expense Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Categorizes money spent in the course of normal business operations such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Advertising and Promotion" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Office Supplies" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Insurance" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="10" Width="290" FontWeight="Bold" Text="->Legal Fees" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="12" Width="290" FontWeight="Bold" Text="->Charitable Contributions" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+
+                    </Grid>
+
+
+
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioFixedAssets,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+
+
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Fixed Asset Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Track the value of significant items* that have a useful life of more than one year, such as: "   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->building" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Land" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Machinery" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="10" Width="290" FontWeight="Bold" Text="->Vehicles" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+
+
+
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioBank,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+
+
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Bank Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Create one of each cash account, such as: "   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Petty Cash" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Checking" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Savings" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="10" Width="290" FontWeight="Bold" Text="->Money Market" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+
+
+
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioLoan,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Loan Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Track the principal your business owes for a loan or a line of credit."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioCreditCard,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Credit Card Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Create one for each credit card your business uses."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioEquity,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Equity Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks money invested in, or money taken out of, the business by owners or shareholders,Payrol and reimbursable expenses should not be included."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioAccountReceivable,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Account Receivable (A/R)"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks money your customer owe you on unpaid invoices."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <TextBlock  Grid.Row="4"  Text="Most businesses require only the A/R account that ZASERP automatically creates."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioOtherCurrentAsset,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+
+
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Other Current Asset Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks the values of things that can be converted to cash or used up within one year, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Prepaid Expenses" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Employee Cash advances" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Inventory" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="10" Width="290" FontWeight="Bold" Text="->Loans from your business" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioOtherAsset,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Other Asset Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks the values of things that are neither Fixed Asset nor other Current Assets, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->GoodWill" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Long-term notes receivable" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Security deposits paid" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioAccountsPayable,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Accounts PayAble (A/P)"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks money you owe to vendors for purchases made on credit."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <TextBlock  Grid.Row="4"  Text="Most businesses require only the A/P account that ZASERP automatically creates."   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+
+
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioOtherCurrentLiability,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Other Current Liability Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks money your business owes and expects to pay within one year, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Sales tax" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Security deposits/ retainers from customers" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Payroll taxes" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioLongTermLiability,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Long-term Liability Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks money your business owes and expects to pay back over more than one year, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Mortgages" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Long-term Loans" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Notes Payable" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioCostOfGoodsSold,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Cost of Goods Sold Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Tracks the direct costs to produce the items that your business sells, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Cost of Materials" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Cost of labor" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->Shipping, freight and delivery" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="10" Width="290" FontWeight="Bold" Text="->Subcontractors" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioOtherIncome,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Other Income Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Categorizes money your business earns that is unrelated to normal business operations, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Dividend Income" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Interest Income" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="8" Width="290" FontWeight="Bold" Text="->insurance reimbursements" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+                </dxlc:GroupBox>
+                <dxlc:GroupBox  Grid.Column="2" Visibility="{Binding IsChecked,ElementName=radioOtherExpense,Converter={StaticResource b2v}}" DisplayMode="Light" BorderThickness="3" BorderBrush="Gray"  Padding="20"  Margin="15" ShowShadow="Always" >
+                    <Grid Margin="15,15,15,15"  >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Other Expense Account"  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock  Grid.Row="2"  Text="Categorizes money your business spends that is unrelated to normal business operations, such as:"   Padding="5"  VerticalAlignment="Top" TextWrapping="WrapWithOverflow" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="4" Width="290" FontWeight="Bold" Text="->Corporation taxes" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                        <dxe:TextEdit ShowBorder="False" IsReadOnly="True" Grid.Row="6" Width="290" FontWeight="Bold" Text="->Penalties and legal settlemenst" AcceptsReturn="True" HorizontalAlignment="Center"  Padding="5" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" />
+                    </Grid>
+                </dxlc:GroupBox>
+            </Grid>
+        </dxlc:GroupBox>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <dx:SimpleButton x:Name="btnContinue" Cursor="Hand" Grid.Column="0" Padding="2" Grid.ColumnSpan="2" Content="Continue" Click="BtnContinue_Click" />
+        </Grid>
+        
+    </Grid>
+</dx:DXWindow>

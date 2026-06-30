@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="ZAS_ERP.ToDoTasks.Taskks.UserControls.ucEfficiencyPointsList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.Taskks.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Menu>
+                <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="BtnRefresh_Click"
+                      />
+            </Menu>
+            <TextBlock Text="Efficiency Points List" Grid.Row="1" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+            <Grid Background="White" Grid.Row="2" Height="auto">
+                <dxg:GridControl AutoGenerateColumns="AddNew" 
+                         EnableSmartColumnsGeneration="True" 
+                         Name="grdCntrlEfficiencyPointsList"
+                                 MouseDoubleClick="GrdCntrlEfficiencyPointsList_MouseDoubleClick"
+                                 >
+                    <!--PreviewMouseDown="GrdCntrlDeductionList_PreviewMouseDown"-->
+                    <dxg:GridControl.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add New"
+                                Click="MbtnAdd_Click" x:Name="mbtnAdd">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Update"
+                                    x:Name="mbtnUpdate" Click="MbtnUpdate_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </dxg:GridControl.ContextMenu>
+
+                    <dxg:GridControl.View >
+                        <dxg:TableView AllowPerPixelScrolling="True" 
+                               ShowTotalSummary="True"
+                               ShowAutoFilterRow="True" 
+                               RowAnimationKind="None" 
+                               WaitIndicatorType="Panel"
+                               AllowEditing="False"
+                               Name="tblViewLandTypeLst">
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Header="Id"
+                            FieldName="Id"
+                            Visible="False"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Title"
+                            FieldName="title"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Is Active"
+                            FieldName="isActive"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Points"
+                            FieldName="Points"
+                            IsSmart="True"
+                            Width="auto" />
+
+
+                </dxg:GridControl>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

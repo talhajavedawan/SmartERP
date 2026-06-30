@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="ZAS_ERP.AssetRentalss.UserControls.ucRentalContractStatusAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.AssetRentalss.UserControls"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="150" d:DesignWidth="300">
+    <Grid Margin="0,20,0,0">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin"
+                Value="10,0" />
+                <Setter Property="Foreground"
+                Value="Gray" />
+                <Setter Property="VerticalAlignment"
+                Value="Center" />
+            </Style>
+            <Style TargetType="TextBox">
+
+                <Setter Property="Margin"
+                Value="10,0" />
+                <Setter Property="MaxWidth"
+                Value="350" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=" auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=" auto" />
+            <RowDefinition Height=" auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height=" 40" />
+        </Grid.RowDefinitions>
+        <Label Content="Status"
+           ToolTip="Status Name"
+           HorizontalAlignment="Right" />
+        <Label Content="Status Color"
+           ToolTip="Select Color of status"
+           HorizontalAlignment="Right"
+           Grid.Row="1" />
+        <TextBox x:Name="txtStatus"
+             Grid.Column="1" />
+        <Grid Grid.Column="1"
+          Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <dxe:PopupColorEdit Margin="10"
+                          HorizontalAlignment="Stretch"
+                          ColorChanged="ColorEdit_ColorChanged"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          x:Name="cpStatus" />
+        </Grid>
+        <CheckBox x:Name="chkisactive"
+                Margin="10,0"
+                IsChecked="True" Visibility="Visible" Grid.Row="2" Grid.Column="1"/>
+        <Button Grid.ColumnSpan="2"
+            Grid.Row="3"
+            Content="Save"
+            FontSize="26"
+            x:Name="btnStatusSave"
+            Click="btnStatusSave_Click" />
+    </Grid>
+</UserControl>

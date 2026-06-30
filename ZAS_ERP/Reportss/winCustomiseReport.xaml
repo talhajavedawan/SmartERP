@@ -1,0 +1,105 @@
+﻿<dx:DXWindow x:Class="ZAS_ERP.Reportss.winCustomiseReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Reportss" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="Report Customisation" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <dxr:RibbonControl Grid.Row="0" DockPanel.Dock="Top"  RibbonStyle="TabletOffice" PageCategoryAlignment="Left" ToolbarShowMode="Hide" MinimizationButtonVisibility="Visible">
+            <dxr:RibbonDefaultPageCategory>
+                <dxr:RibbonPage x:Name="lblHeading" ToolTip="Report Name" Caption="Grid Reports Customization">
+                    <dxr:RibbonPageGroup  Caption="Clipboard">
+                        <dxb:BarButtonItem x:Name="btnDelete" KeyGesture="Delete"  Cursor="Hand" Content="Delete" ItemClick="btnDelete_ItemClick" Glyph="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                        <dxb:BarButtonItem x:Name="mbtnSaveLayout" IsVisible="False" Cursor="Hand" ItemClick="mbtnSaveLayout_ItemClick" Content="Save Layout" Glyph="{dx:DXImage Image=Convert_32x32.png}"/>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+
+            </dxr:RibbonDefaultPageCategory>
+        </dxr:RibbonControl>
+
+        <dxg:GridControl x:Name="grdReportListing"
+                                     AutoGenerateColumns="None"
+Grid.Row="1"                                     SelectionMode="Row" AutoExpandAllGroups="False" IsRecursiveExpand="True" AllowInitiallyFocusedRow="False" Margin="0,0,0,0.4">
+
+            <dxg:GridControl.View>
+
+                <dxg:CardView ShowTotalSummary="False"
+                                          ShowGroupPanel="False"
+                                           x:Name="viewTransactions"                                         
+                                          AllowEditing="False"
+                                          AllowGrouping="True" CardLayout="Rows"   
+                              ScrollingMode="Normal" >
+                    <dxg:CardView.CardHeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                   <Run Text="{Binding Data.reportName}" /> <!--<Run Text="{Binding Data.LastName}" />--></TextBlock>
+                        </DataTemplate>
+                    </dxg:CardView.CardHeaderTemplate>
+
+                </dxg:CardView>
+                
+
+            </dxg:GridControl.View>
+
+            <dxg:GridColumn FieldName="Id"
+                                        IsSmart="True"
+                                        
+                                        Visible="False" ShowInColumnChooser="False"
+                                        SortIndex="0" />
+            <dxg:GridColumn FieldName="Creater.userName"
+                                        IsSmart="True"
+                                        Header="Creator"
+                                        VisibleIndex="0">
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="reportName"
+                                        x:Name="reportName"
+                                        Header="Report Name"
+                                        IsSmart="True" AllowGrouping="True" 
+                                         />
+            <dxg:GridColumn FieldName="Creater.userName"
+                                        IsSmart="True"
+                                        Header="Creator"
+                                         />
+          
+            <dxg:GridColumn FieldName="gridReportGroup.groupName"
+                                        IsSmart="True"
+                                        x:Name="gridReportGroup"
+                           GroupIndex="1"
+                                        Header="Group"
+                                        Width="auto" />
+            <dxg:GridColumn FieldName="isActive"
+                                        IsSmart="True"
+                                        x:Name="isActive"
+                                        Header="Active"
+                            Visible="False"
+                                        Width="auto" />
+            <dxg:GridColumn FieldName="gridReportType"
+                                        IsSmart="True"
+                            GroupIndex="0"
+                                        x:Name="gridReportType" Visible="False"
+                                        Header="Report Type"
+                            
+                                        Width="auto" />
+            <dxg:GridColumn FieldName="gridReportGroup.parent.groupName"
+                                        x:Name="module"
+                                        IsSmart="True"
+                                       
+                                        Header="Module"
+                                         />
+            <dxg:GridColumn FieldName="lastModified"
+                                        x:Name="lastModified"
+                                        IsSmart="True"
+                                        Header="Last Modified Date"
+                                         />
+
+        </dxg:GridControl>
+    </Grid>
+</dx:DXWindow>

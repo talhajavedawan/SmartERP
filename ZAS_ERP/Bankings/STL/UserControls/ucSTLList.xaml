@@ -1,0 +1,655 @@
+﻿<UserControl x:Class="ZAS_ERP.Bankings.STL.UserControls.ucSTLList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Bankings.STL.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid DataContext="{Binding  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ucSTLList}}">
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid" Grid.Row="0">
+            <MenuItem Header="_Print Preview"
+                      x:Name="mbtnPrintPreview"
+                      Click="MbtnPrintPreview_Click"/>
+            <MenuItem Header="Export To Report"
+                      x:Name="mbtnExportToReport"
+                      Click="MbtnExportToReport_Click"
+                      />
+            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="MbtnRefresh_Click"/>
+
+            <MenuItem Header="Save Layout"
+                      x:Name="mbtnSaveLayout"
+                      Click="MbtnSaveLayout_Click"/>
+
+            <MenuItem Header="Direct Close"
+                      x:Name="mbtnDriectClose"
+                      Click="MbtnDriectClose_Click"/>
+            <MenuItem Header="Approve"
+                          x:Name="mbtnApprove" Click="MbtnApprove_Click"/>
+            <MenuItem x:Name="mbtnPending" Click="MbtnPending_Click">
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Approvals">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtApprovalcount" Text="{Binding ApprovalCount}" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+            <MenuItem x:Name="mbtnReApprovals" Click="MbtnReApprovals_Click">
+                <MenuItem.Template>
+                    <dxg:DefaultControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ReApprovals" ToolTip="List of Sale Receipts which needs ReApproval due to Cost sheet">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtReApprovalcount" Text="{Binding ReApprovalCount}" Foreground="Red"/>
+                        </StackPanel>
+                    </dxg:DefaultControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+            <MenuItem x:Name="mbtnPendingClosing" Click="MbtnPendingClosing_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Pending for Closing">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtClosingcount" Text="{Binding ClosingCount}" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+            <MenuItem 
+                          x:Name="mbtnApprovedUnapproved"
+                          Click="MbtnApprovedUnapproved_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="STL Register">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtApproveUnapproved" Text="{Binding ApproveunapprovedCount}" Foreground="Blue"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+
+
+            <MenuItem x:Name="mbtnVoid" Click="MbtnVoid_Click">
+                <MenuItem.Template>
+                    <ControlTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Void">
+                                <TextBlock.Resources>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Setter Property="Background" Value="Transparent"/>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c0ddeb"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                            <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                            <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtVoidcount" Text="{Binding VoidCount}" Foreground="Red"></TextBlock>
+                        </StackPanel>
+                    </ControlTemplate>
+                </MenuItem.Template>
+            </MenuItem>
+        </Menu>
+
+
+        <TextBlock x:Name="lblHeading"  FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="2" FontFamily="Segoe UI Semibold"  ></TextBlock>
+
+        <dxg:GridControl Grid.Row="3"
+            AutoGenerateColumns="AddNew"
+            EnableSmartColumnsGeneration="True"
+            Name="grdSTLRegister"
+            CustomUnboundColumnData="grdSTLRegister_CustomUnboundColumnData"
+            MouseDoubleClick="grdSTLRegister_MouseDoubleClick"
+                         >
+
+            <dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add New"
+                                Click="MbtnAdd_Click" x:Name="mbtnAdd">
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Update"
+                                    x:Name="mbtnUpdate" Click="MbtnUpdate_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+
+            <dxg:GridControl.View>
+                <dxg:TableView
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                        Name="tblViewPayments"
+                        RowAnimationKind="None"
+                    
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel">
+                    <dxg:TableView.FormatConditions>
+                        <dxg:FormatCondition FieldName="paymentDueDays" ValueRule="Less" Value1="16" ApplyToRow="true">
+                            <dx:Format Background="#FFFF0000"/>
+                        </dxg:FormatCondition>
+                    </dxg:TableView.FormatConditions>
+
+                </dxg:TableView>
+            </dxg:GridControl.View>
+
+
+
+
+            <dxg:GridColumn 
+                      FieldName="Id"
+                      Header="Id"
+                    
+                      
+                      Visible ="True"
+                      />
+
+            <dxg:GridColumn x:Name="CreationDate"
+                      FieldName="CreationDate"
+                      Header="Creation Date"
+
+                      Visible ="True"
+                      VisibleIndex="3"/>
+
+
+            <dxg:GridColumn x:Name="colCompany"
+                      FieldName="company.CompanyName"
+                      Header="Company"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="5"/>
+            <dxg:GridColumn Header="Vendor"
+                            FieldName="vendor.company.CompanyName"
+                            IsSmart="True"
+                            Width="auto" />
+            <dxg:GridColumn Header="Customer"
+                            FieldName="customer.company.CompanyName"
+                            IsSmart="True"
+                            Width="auto" />
+
+            <dxg:GridColumn x:Name="colDepartments"
+                      FieldName="department.DeptName"
+                      Header="Department"
+                     />
+            <dxg:GridColumn x:Name="user"
+                      FieldName="user.userName"
+                      Header="Creator"
+                      Visible ="True"
+                      AllowEditing="false"
+                      VisibleIndex="7"/>
+
+            <dxg:GridColumn x:Name="stlStatus"
+                      FieldName="stlStatus.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="1"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.stlStatus.backcolor}"/>
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.stlStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+
+
+            <dxg:GridColumn x:Name="LastStatusChangeDate"
+                      FieldName="LastStatusChangeDate"
+                      Header="Last Status Change Date"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="8"/>
+
+            <dxg:GridColumn x:Name="paymentMaturityDate"
+                      FieldName="paymentMaturityDate"
+                      Header="PMD"
+                      HeaderToolTip="Payment Maturity Date"
+                      Visible ="True"
+                            AllowEditing="false"
+                     />
+            <dxg:GridColumn x:Name="stlPaymentDate"
+                      FieldName="stlPaymentDate"
+                      Header="SPD"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="9"/>
+
+
+
+
+            <dxg:GridColumn
+                      FieldName="creditTenureNo"
+                      Header="CT"
+                      HeaderToolTip="Credit Tenure"
+                     />
+
+            <dxg:GridColumn x:Name="extendedCreditTenure"
+                      FieldName="extendedCreditTenure"
+                      Header="EPD"
+                      HeaderToolTip="Extended Payment Date"
+                      Visible ="True"
+                      AllowEditing="false"
+                     />
+
+            <dxg:GridColumn FieldName="stlStatus.isActive"
+                      x:Name="colisOpen"
+                      IsSmart="True"
+                      Header="Open"
+                      Visible="False"
+                     >
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock TextAlignment="Center"
+                       Text="{Binding RowData.Row.stlStatus.isActive}" />
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+
+
+            <dxg:GridColumn x:Name="extendedCreditTenureNo"
+                      FieldName="extendedCreditTenureNo"
+                      Header="ET"
+                            HeaderToolTip="Extended Tenure"
+                            VisibleIndex="13"/>
+
+            <dxg:GridColumn 
+                      FieldName="paymentDueDays1"
+                      Header="PDD"
+                                                    IsSmart="True" 
+
+                                    UnboundType="Decimal"
+                      HeaderToolTip="Payment Due Days"
+                            VisibleIndex="13"/>
+
+            <dxg:GridColumn x:Name="stlUtilizedDays"
+                      FieldName="stlUtilizedDays"
+                      Header="SUD"
+                      UnboundType="Decimal"      
+                      HeaderToolTip="STL Utilized Days"
+                      Visible ="True"
+                     />
+            <dxg:GridColumn x:Name="interest"
+                      FieldName="interest.percentage"
+                      Header="IP"
+                      HeaderToolTip="Interest Percentage"
+                    >
+
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="InterestAmount"
+                            Header="IATD"
+                            HeaderToolTip="Interest amount tenure date"
+                            IsSmart="True" 
+                            Visible="False" 
+                          />
+
+            <dxg:GridColumn FieldName="InterestAmountIAC"
+                            Header="IACD"
+                            HeaderToolTip="Interest amount currenct date"
+                            IsSmart="True" 
+                            UnboundType="Decimal"
+                            Visible="False" 
+                       >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="SER"
+                            Header="SER"
+                            HeaderToolTip="Sales Exchange Rate"
+                            IsSmart="True" 
+                             >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="STLAmountSER"
+                            HeaderToolTip="STL Amount(SER)"
+                            Header="SA (SER)"
+                            IsSmart="True" 
+                             >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="MER"
+                            Header="MER"
+                            HeaderToolTip="Market Exchange Rate"
+                            IsSmart="True" 
+                      >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="STLAmountMER"
+                            HeaderToolTip="STL Amount(MER)"
+                            Header="SA (MER)"
+                            IsSmart="True" 
+                         >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="interestAmountCurrency"
+                      FieldName="interestAmountCurrency.CurrencyName"
+                      Header="IAC"
+                           HeaderToolTip="Interest Amount Currency" 
+                            >
+
+            </dxg:GridColumn>
+
+
+
+            <dxg:GridColumn x:Name="paymentAmountOC"
+                      FieldName="paymentAmountOC"
+                      Header="PAOC" 
+                            HeaderToolTip="Payment Amount (OC)"
+                            >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="paymentCurrency"
+                      FieldName="paymentCurrency.CurrencyName"
+                      Header="PC"
+              HeaderToolTip="Payment Currency"
+
+              
+                      VisibleIndex="27">
+
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="stlPaymentAmountOC"
+                      FieldName="stlPaymentAmountOC"
+                                                        HeaderToolTip="STL Payment Amount (OC)"
+
+                      Header="SPA"
+                      
+                 >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn x:Name="stlCurrency"
+                      FieldName="stlCurrency.CurrencyName"
+                      Header="SC"
+                      HeaderToolTip="STL Currency"
+
+                      VisibleIndex="33">
+
+            </dxg:GridColumn>
+
+
+            <dxg:GridColumn x:Name="settlmentAmount"
+                      FieldName="settlmentAmount"
+                      Header="SSA"
+                      HeaderToolTip="STL Settlement Amount"
+                        >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn x:Name="settlmentBalance"
+                      FieldName="settlmentBalance"
+                      Header="SBSA"
+                            HeaderToolTip="STL Balance Settlement Amount"
+                           >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="cashMarginAmount"
+                            Header="CMA"
+                            IsSmart="True" 
+                            Visible="False" 
+                            HeaderToolTip="Cash Margin Amount"
+                          >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="cashMarginCurrency.CurrencyName"
+                            Header="CMC"
+                            IsSmart="True" 
+                            Visible="False" 
+                            HeaderToolTip="Cash Margin Currency"
+                          />
+
+            <dxg:GridColumn x:Name="marginReversal"
+                      FieldName="marginReversal"
+                      Header="CMR"
+                      HeaderToolTip="Cash Margin Reversal"
+                    >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+
+            <dxg:GridColumn x:Name="stage"
+                      FieldName="stage"
+                      Header="Stage"
+                   
+                      VisibleIndex="16">
+
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="isVoid"
+                      FieldName="isVoid"
+                      Header="isVoid"
+                      />
+
+            <dxg:GridColumn x:Name="isReviewed"
+                      FieldName="isReviewed"
+                      Header="isReviewed"
+          />
+
+            <dxg:GridColumn x:Name="needReview"
+                      FieldName="needReview"
+                      Header="Need Review"
+            
+                      VisibleIndex="19"/>
+
+            <dxg:GridColumn x:Name="PendingForClosing"
+                      FieldName="PendingForClosing"
+                      Header="Pending For Closing"
+                   
+                      VisibleIndex="20"/>
+
+            <dxg:GridColumn x:Name="PendingForReApproval"
+                      FieldName="PendingForReApproval"
+                      Header="Pending For ReApproval"
+                   
+                      VisibleIndex="21">
+
+            </dxg:GridColumn>
+
+            <dxg:GridColumn x:Name="isApproved"
+                      FieldName="isApproved"
+                      Header="isApproved"
+                   
+                      VisibleIndex="22"/>
+
+            <dxg:GridColumn x:Name="ApprovedDate"
+                      FieldName="ApprovedDate"
+                      Header="Approved Date"
+                    
+                      VisibleIndex="23"/>
+
+            <dxg:GridColumn x:Name="isReApproved"
+                      FieldName="isReApproved"
+                      Header="isReApproved"
+                  
+                      VisibleIndex="24"/>
+
+
+
+            <dxg:GridColumn x:Name="ClosingDate"
+                      FieldName="ClosingDate"
+                      Header="Closing Date"
+                    
+                      VisibleIndex="25"/>
+
+            <dxg:GridColumn x:Name="paymentBank"
+                      FieldName="paymentBank.BankName"
+                      HeaderToolTip="Payment Bank"
+                      Header="PB"
+                  
+                      VisibleIndex="26">
+
+            </dxg:GridColumn>
+
+
+
+            <dxg:GridColumn x:Name="paymentAccount"
+                      FieldName="paymentAccount.AccountNo"
+                      Header="PAcc"
+                      HeaderToolTip="Payment Account"
+                      VisibleIndex="28"/>
+            <dxg:GridColumn x:Name="stlBank"
+                      FieldName="stlBank.BankName"
+                      HeaderToolTip="STL Bank"
+                      Header="SB"
+                      >
+            </dxg:GridColumn>
+
+
+
+
+
+            <dxg:GridColumn x:Name="stlAccount"
+                      FieldName="stlAccount.AccountNo"
+                      HeaderToolTip="STL Account"
+                            Header="SAcc"
+                      
+                      VisibleIndex="34">
+
+            </dxg:GridColumn>
+
+
+            <dxg:GridColumn FieldName="cashMarginbank.BankName" 
+                            Header="Cash Margin bank"
+                            IsSmart="True" 
+                          />
+            <dxg:GridColumn FieldName="cashMarginCurrency.CurrencyName" 
+                            Header="Cash Margin Currency"
+                            IsSmart="True" 
+                            />
+
+
+            <dxg:GridColumn FieldName="cashMarginAccount.AccountNo" 
+                            
+                            Header="CashMargin Account"
+                            IsSmart="True" 
+                            Visible="False" />
+            <dxg:GridColumn FieldName="cashMarginPercent"
+                            Header="CashMargin Percent"
+                            IsSmart="True"
+                           />
+        </dxg:GridControl>
+    </Grid>
+</UserControl>

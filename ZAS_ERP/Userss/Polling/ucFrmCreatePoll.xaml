@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="ZAS_ERP.Userss.Polling.ucFrmCreatePoll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Userss.Polling"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup View="GroupBox" Header="Create Poll">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition />
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="35"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Created on" VerticalAlignment="Center" Grid.Row="0"/>
+                <dxe:DateEdit x:Name="datCreationDate" VerticalAlignment="Center" Grid.Column="1" IsReadOnly="True"/>
+
+                <TextBlock Text="Polling Type" VerticalAlignment="Center" Grid.Row="1"/>
+                <dxe:ComboBoxEdit x:Name="cmbPollingType" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+
+                <TextBlock Text="Group" VerticalAlignment="Center" Grid.Row="2"/>
+                <dxg:LookUpEdit x:Name="lookupGroup" 
+                                Grid.Column="1"
+                                VerticalAlignment="Center" 
+                                Grid.Row="2"
+                                AutoPopulateColumns="False"
+                                                DisplayMember="GroupName" 
+                                ValueMember="Id">
+                    <dxg:LookUpEdit.PopupContentTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                    <dxg:GridControl.View>
+                                        <dxg:TreeListView Name="treeListView1"
+                                                                       AutoWidth="True"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  TreeDerivationMode="Selfreference"
+                                  AutoExpandAllNodes="True"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowAutoFilterRow="True"/>
+                                    </dxg:GridControl.View>
+
+                                    <dxg:GridColumn FieldName="GroupName"
+                                                    Header="Group Name"/>
+                                </dxg:GridControl>
+                            </Grid>
+                        </ControlTemplate>
+                    </dxg:LookUpEdit.PopupContentTemplate>
+                </dxg:LookUpEdit>
+
+                <TextBlock Text="Initiated by" VerticalAlignment="Center" Grid.Row="3"/>
+                <dxe:TextEdit x:Name="txtInitiatedBy" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" IsReadOnly="True"/>
+
+                <TextBlock Text="Valid Until" VerticalAlignment="Center" Grid.Row="4"/>
+                <dxe:DateEdit x:Name="datVaidUntilDate" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Mask="g" MaskType="DateTime" MaskUseAsDisplayFormat="True">
+                    <dxe:DateEdit.StyleSettings>
+                        <dxe:DateEditNavigatorWithTimePickerStyleSettings />
+                    </dxe:DateEdit.StyleSettings>
+                </dxe:DateEdit>
+
+                <TextBlock Text="Title" VerticalAlignment="Center" Grid.Row="5"/>
+                <dxe:TextEdit x:Name="txtTitle" Grid.Column="1" VerticalAlignment="Center" Grid.Row="5" Margin="0 0 0 10" Height="100" AcceptsReturn="True" AcceptsTab="True"/>
+
+                <dx:SimpleButton x:Name="btnSave" Click="BtnSave_Click" VerticalContentAlignment="Center" Grid.Row="6" Grid.ColumnSpan="2" Content="Save" FontWeight="Bold" FontSize="20"/>
+
+            </Grid>
+        </dxlc:LayoutGroup>
+    </Grid>
+</UserControl>

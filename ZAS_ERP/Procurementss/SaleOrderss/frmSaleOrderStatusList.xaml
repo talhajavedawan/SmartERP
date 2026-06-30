@@ -1,0 +1,140 @@
+﻿<dx:DXWindow xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.Procurementss.SaleOrderss.frmSaleOrderStatusList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.SaleOrderss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title="Sale Order Statuses List"
+        x:Name="winSaleOrderStatusList"
+        Loaded="winSaleOrderStatusList_Loaded"
+        Unloaded="WinSaleOrderStatusList_Unloaded"
+        Height="450"
+        Width="450">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+                <MenuItem Header="_Sale Order Status"
+                  x:Name="mbtnSaleOrderStatus">
+                    <MenuItem Header="Add new Sale Order Status"
+                    x:Name="mbtnNewSaleOrderStatus"
+                    Click="mbtnNewSaleOrderStatus_Click"></MenuItem>
+                    <MenuItem Header="Edit Sale Order Status"
+                    x:Name="mbtnEditSaleOrderStatus"
+                    Click="mbtnEditSaleOrderStatus_Click"></MenuItem>
+                </MenuItem>
+                <MenuItem Header="Refresh"
+                  x:Name="mbtnRefresh" Click="mbtnRefresh_Click">
+
+                </MenuItem>
+            </Menu>
+
+            <dxg:GridControl x:Name="grdSaleOrderStatus"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdSaleOrderStatus_MouseDoubleClick"
+                       
+                       >
+                <dxg:GridControl.View>
+                    <dxg:TableView CompactPanelShowMode="Always" SwitchToCompactModeWidth="700">
+                        <dxg:TableView.CompactModeFilterItems>
+                            <dxg:CompactModeFilterItem DisplayValue="All"/>
+                            <dxg:CompactModeFilterItem DisplayValue="Enabled" EditValue="[isDisable] = False"/>
+                            <dxg:CompactModeFilterItem DisplayValue="Disabled" EditValue="[isDisable] = True" />
+                            <dxg:CompactModeFilterItem DisplayValue="Active" EditValue="[isActive] = True"/>
+                            <dxg:CompactModeFilterItem DisplayValue="inActive" EditValue="[isActive] = False" />
+                        </dxg:TableView.CompactModeFilterItems>
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      Click="mbtnNewSaleOrderStatus_Click" />
+                        <MenuItem Header="Edit"
+                      Click="mbtnEditSaleOrderStatus_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+                <dxg:GridControl.DetailDescriptor>
+                    <dxg:DataControlDetailDescriptor ShowHeader="True"
+                                         x:Name="detailGridStatusClassses"
+                                         ItemsSourcePath="soStatusSubClasses">
+                        <dxg:DataControlDetailDescriptor.DataControl>
+                            <dxg:GridControl x:Name="grdStatusClasses" SelectionMode="Row" 
+                                         
+                                         dx:DXSerializer.SerializationID="grid" >
+                                <dxg:GridControl.View>
+                                    <dxg:TableView DetailHeaderContent="All Classes"
+                              
+                                               ShowGroupPanel="False" 
+                                               FilterRowDelay="1000"      
+                                               RowAnimationKind="Opacity" WaitIndicatorType="Panel"
+                                               AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                                               ShowFixedTotalSummary="True"
+                                               ShowTotalSummary="True"                
+                                               HorizontalScrollbarVisibility="Visible"
+                                               ShowHorizontalLines="True"
+                                               ShowVerticalLines="True"      
+                                               Width="auto"                 
+                                               ColumnFilterPopupMode="Excel"  
+                                               NavigationStyle="Row"
+                                               AutoWidth="True"
+                                               />
+                                </dxg:GridControl.View>
+                                <dxg:GridColumn Header="Id"
+                            FieldName="Id"
+                                Visible="False"
+                            UnboundType="Integer"/>
+                                <dxg:GridColumn Header="Class Name"
+                            FieldName="ClassName"
+                            />
+                                <dxg:GridColumn Header="Module Type"
+                            FieldName="transactionType"
+                            />
+
+                                <dxg:GridColumn Header="Background Color"
+                            FieldName="backcolor"
+                            />
+                                <dxg:GridColumn Header="ForeGround Color"
+                            FieldName="forecolor"
+                            />
+                                <dxg:GridColumn Header="isApproved"
+                            FieldName="isApproved"
+                            />
+                                <dxg:GridColumn Header="isActive"
+                            FieldName="isActive"
+                            />
+                                <dxg:GridColumn Header="is Disable"
+                            FieldName="isDisable"
+                            />
+                            </dxg:GridControl>
+
+
+                        </dxg:DataControlDetailDescriptor.DataControl>
+                    </dxg:DataControlDetailDescriptor>
+                </dxg:GridControl.DetailDescriptor>
+
+
+            </dxg:GridControl>
+
+        </Grid>
+    </Grid>
+</dx:DXWindow>

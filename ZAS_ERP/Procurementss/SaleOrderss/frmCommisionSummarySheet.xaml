@@ -1,0 +1,440 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.SaleOrderss.frmCommissionSummarySheet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.SaleOrderss"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+        mc:Ignorable="d" 
+        WindowState="Normal" WindowStartupLocation="CenterScreen"
+        Title="Summary Sheet"  Height="auto" MinHeight="560" Width="700"
+        x:Name="formCommisionSummarySheet" Loaded="frmCommissionSummarySheet_Loaded" 
+        Unloaded="frmCommissionSummarySheet_Unloaded" >
+    
+
+        <Grid  Margin="30,10,30,0"  x:Name="grdCostPrint" MinWidth="630" MaxWidth="700" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+
+            <Grid.Resources>
+                <!--<Style x:Key="{dxgt:GridRowThemeKey ResourceKey=RowStyle, ThemeName=MetropolisLight}" TargetType="{x:Type dxg:GridControl}">
+
+            </Style>-->
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment"
+                Value="Center" />
+                    <Setter Property="HorizontalAlignment"
+                Value="Left" />
+                    <!--<Setter Property="Foreground"
+                Value="DarkGray" />-->
+                    <Setter Property="Margin"
+                Value="5,5" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
+            <RowDefinition Height="*" />
+
+
+                <RowDefinition Height="auto"/>
+
+                <RowDefinition Height="50"/>
+
+
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"   Grid.Column="0"   Grid.ColumnSpan="4" FontWeight="DemiBold" FontSize="20" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center">Principal Order Summary Sheet</TextBlock>
+
+
+            <!--<Grid Grid.Row="2" Grid.Column="0"   Grid.ColumnSpan="4"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"  x:Name="colPrincipl"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        </Grid>-->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="S.O Ref #" ></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0"   Grid.ColumnSpan="1" Text="Creation Date" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="1"   Grid.ColumnSpan="1" x:Name="lblCreationDate" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="2"   Grid.ColumnSpan="1" Text="Finance Refrence #" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="3"   Grid.ColumnSpan="1" x:Name="lblFinRef" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="2"   Grid.ColumnSpan="1" Text="Offer Refrence #" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="3"   Grid.ColumnSpan="1" x:Name="lblOfferRefrence" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="2"   Grid.ColumnSpan="1" Text="SO Refrence #" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="3"   Grid.ColumnSpan="1" x:Name="lblSORefrence" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Finance Ref #" x:Name="lbfin" FontWeight="DemiBold" FontSize="16" Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Visibility="Collapsed"></TextBlock>
+            <TextBlock Grid.Row="2"  Grid.Column="0" Text="Principal" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="lblPrincipal"  FontWeight="DemiBold" Background="LightGray" FontSize="13"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0"   Text="Customer" TextAlignment="Center" Background="LightGray" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="1"    x:Name="lblCustomer" TextAlignment="Center" Background="LightGray" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="3"   x:Name="lblPrintDate"    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0"   Text="SO Date" TextAlignment="Center" Background="LightGray" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+
+        <TextBlock Grid.Row="4" Grid.Column="1"    x:Name="lblSODate" TextAlignment="Center" Background="LightGray" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="2"   Text="Sales Refrence #" TextAlignment="Center" Background="LightGray" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+
+        <TextBlock Grid.Row="4" Grid.Column="3"    x:Name="lblSalesRefno" TextAlignment="Center" Background="LightGray" FontWeight="DemiBold" FontSize="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ></TextBlock>
+
+        <Button Grid.Row="0" Width="70" HorizontalAlignment="Right" Grid.Column="3" x:Name="btnPrint" VerticalAlignment="Center" Content="Print" Click="Button_Click"></Button>
+
+            <!--
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Total Amount" VerticalAlignment="Center"></TextBlock>
+        
+        <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                   IsReadOnly="True"       MaskUseAsDisplayFormat="True" Grid.Row="3" Grid.Column="1" x:Name="txtSOTotal" FontSize="16" FontWeight="DemiBold"></dxe:TextEdit>-->
+
+
+            <!--<ListBox Grid.Row="3" Grid.ColumnSpan="4" x:Name="lstCostItems">
+            -->
+            <!--<ListBox.Template>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                     
+                        
+                    </Grid>
+                </ControlTemplate>
+                
+            </ListBox.Template>-->
+            <!--
+            
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  Grid.Column="0" Text="{Binding Title}" ></TextBlock>
+                        <TextBlock  Grid.Column="0" Text="{Binding Id}" Visibility="Collapsed" ></TextBlock>
+                        <dxe:TextEdit MaskType="Numeric" Mask="n2" HorizontalAlignment="Stretch"
+                          MaskUseAsDisplayFormat="True" MinWidth="200"  Grid.Column="1" x:Name="lblBudgetedTotal" Text="{Binding budgetedValue}" EditValueChanged="LblBudgetedTotal_EditValueChanged"></dxe:TextEdit>
+
+                        <TextBlock Grid.Column="2" Text="{Binding Title}"  ></TextBlock>
+                        <dxe:TextEdit  Text="{Binding actualValue}" MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"
+                          HorizontalAlignment="Stretch" Grid.Column="3" MinWidth="200" x:Name="lblActualTotal" EditValueChanging="LblActualTotal_EditValueChanging"></dxe:TextEdit>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+            <dxlc:GroupBox BorderThickness="1"
+                       BorderBrush="Black"
+                       x:Name="grpDocuments"
+                       Grid.Column="0"
+                       
+                       TitleBackground="LightGray"
+                       
+                        Header="Summary"
+                       Grid.ColumnSpan="4"
+                       Grid.Row="5"
+                       Margin="5,10" 
+                       DisplayMode="Default" Visibility="Visible"
+                       >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+
+
+                </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                Heads
+                    </TextBlock>
+                    <TextBlock Grid.Column="1" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                Offer
+                    </TextBlock>
+                    <TextBlock Grid.Column="2" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                Sale Order
+                    </TextBlock>
+                    <TextBlock Grid.Column="3" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                Heads
+                    </TextBlock>
+                    <TextBlock Grid.Column="4" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                Offer
+                    </TextBlock>
+                    <TextBlock Grid.Column="5" TextAlignment="Center" FontWeight="DemiBold" Background="LightGray" FontSize="14" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                Sale Order
+                    </TextBlock>
+                    <TextBlock Grid.Column="0"
+                       x:Name="lblCurrency"
+                       Grid.Row="01" >
+                Currency</TextBlock>
+                    <ComboBox x:Name="cmbOfferCurrency"
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      Grid.Row="1"
+                       >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbSoCurrency"
+                      Grid.Column="2"
+                      VerticalAlignment="Center"
+                      Grid.Row="1"
+                      IsEnabled="False" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Amount (FOB)" ></TextBlock>
+                    <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                         IsReadOnly="True" MaskUseAsDisplayFormat="True" Grid.Row="2" Grid.Column="1" x:Name="txtOfferFOBAmount" ></dxe:TextEdit>
+                    <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                         IsReadOnly="True" MaskUseAsDisplayFormat="True" Grid.Row="2" Grid.Column="2" x:Name="txtSOFOBAmount" ></dxe:TextEdit>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Amount (CFR)" ></TextBlock>
+                    <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                         IsReadOnly="True" MaskUseAsDisplayFormat="True" Grid.Row="3" Grid.Column="1" x:Name="txtOfferCFRAmount" ></dxe:TextEdit>
+                    <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                         IsReadOnly="True" MaskUseAsDisplayFormat="True" Grid.Row="3" Grid.Column="2" x:Name="txtSOCFRAmount" ></dxe:TextEdit>
+                    <TextBlock Grid.Column="0"
+                       
+                       Grid.Row="4"  VerticalAlignment="Bottom" >
+                Transhipment</TextBlock>
+                    <ComboBox x:Name="cmbOfferTransshipment"
+                      Grid.Column="1"
+                      VerticalAlignment="Center"
+                      Grid.Row="4"
+                       >
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="Allowed"></ComboBoxItem>
+                            <ComboBoxItem Content="Not Allowed"></ComboBoxItem>
+
+                        </ComboBox.Items>
+                    </ComboBox>
+                    <ComboBox x:Name="cmbSOTransshipment"
+                      Grid.Column="2"
+                      VerticalAlignment="Center"
+                      Grid.Row="4"
+                      IsEnabled="False" >
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="Allowed"></ComboBoxItem>
+                            <ComboBoxItem Content="Not Allowed"></ComboBoxItem>
+
+                        </ComboBox.Items>
+                    </ComboBox>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Delivery Date" ></TextBlock>
+                    <dxe:DateEdit VerticalAlignment="Center"
+                        x:Name="datOfferDeliverydate"
+                        Grid.Column="1"
+                        Grid.Row="5"
+                        TabIndex="5" />
+                    <dxe:DateEdit VerticalAlignment="Center"
+                        x:Name="datSODeliverydate"
+                        Grid.Column="2"
+                        Grid.Row="5"
+                        TabIndex="17" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Packing" ></TextBlock>
+                    <dxe:TextEdit  VerticalAlignment="Center"
+                          MaskUseAsDisplayFormat="True" Grid.Row="6" Grid.Column="1" x:Name="txtOfferPacking" ></dxe:TextEdit>
+                    <dxe:TextEdit  VerticalAlignment="Center"
+                         IsReadOnly="True" MaskUseAsDisplayFormat="True" Grid.Row="6" Grid.Column="2" x:Name="txtSOPacking" ></dxe:TextEdit>
+
+                    <TextBlock Grid.Row="1" Grid.Column="3" Text="Commision Amount"  Margin="10,5" ></TextBlock>
+                    <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                        MaskUseAsDisplayFormat="True" Grid.Row="1" Grid.Column="4" x:Name="txtOfferCommision" ></dxe:TextEdit>
+
+                    <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                       MaskUseAsDisplayFormat="True" Grid.Row="1" Grid.Column="5" x:Name="txtSOCommision" ></dxe:TextEdit>
+                    <TextBlock Grid.Row="2" Grid.Column="3" Text="Payment Term"  Margin="10,5" ></TextBlock>
+                    <dxe:TextEdit  VerticalAlignment="Center"
+                        MaskUseAsDisplayFormat="True" Grid.Row="2" Grid.Column="4" x:Name="txtOfferPaymentTerm" ></dxe:TextEdit>
+
+                    <dxe:TextEdit  VerticalAlignment="Center"
+                   IsReadOnly="True"       MaskUseAsDisplayFormat="True" Grid.Row="2" Grid.Column="5" x:Name="txtSOPaymentTerm" ></dxe:TextEdit>
+
+                <TextBlock Grid.Row="3" Grid.Column="3" Text="Delivery Term"  Margin="10,5" ></TextBlock>
+                <dxe:TextEdit  VerticalAlignment="Center"
+                        MaskUseAsDisplayFormat="True" Grid.Row="3" Grid.Column="4" x:Name="txtOfferDeliveryTerm" ></dxe:TextEdit>
+
+                <dxe:TextEdit  VerticalAlignment="Center"
+                   IsReadOnly="True"       MaskUseAsDisplayFormat="True" Grid.Row="3" Grid.Column="5" x:Name="txtSODeliveryTerm" ></dxe:TextEdit>
+                <dxg:GridControl
+            Margin="2,0" x:Name="grdSummaryItems"
+                         Grid.Row="4"
+                    Grid.Column="3"
+                    Grid.RowSpan="4"
+                    MaxHeight="200"
+                         Grid.ColumnSpan="3"
+                         SelectionMode="Cell"
+                        Visibility="Visible" 
+                        TabIndex="45" >
+                    <dxg:GridControl.View>
+                        <dxg:TableView AutoWidth="True"
+                           ShowGroupPanel="False"
+                          AllowBandMoving="False"
+                               AllowColumnMoving="False"
+                               AllowSorting="False"
+                               AllowFilterEditor="False"
+                           AllowColumnFiltering="False"
+                          
+                           ShowHorizontalLines="True"
+                           ShowVerticalLines="True"
+                           x:Name="viewSummaryItems"
+                           
+                           CellValueChanged="ViewSummaryItems_CellValueChanged" ShowFixedTotalSummary="False" ShowTotalSummary="False">
+                            <!--<dxg:TableView.RowCellMenuCustomizations>
+                        
+                            <dxb:BarButtonItem Name="deleteRowItem"
+                               Content="Delete"
+                               Glyph="{dx:DXImage Image=Cancel_32x32.png}"
+                               ItemClick="deleteRowItem_ItemClick" />
+                            
+                        <dxb:BarButtonItem Name="deleteRowItema"
+                                   Content="Delete"
+                                   Glyph="{dx:DXImage Image=Delete_32x32.png}"
+                                   Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
+                    </dxg:TableView.RowCellMenuCustomizations>-->
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+
+                    <dxg:GridColumn FieldName="Title"
+                          Header="Marketing Costs" ReadOnly="True" x:Name="colMarketingCostTitle"/>
+
+
+                    <dxg:GridColumn FieldName="budgetedValue"
+                          Header="Cost">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    
+                </dxg:GridControl>
+                <TextBlock Grid.Row="8" Grid.Column="3" Text="Net Commision Amount" x:Name="lblNetCommision" Margin="10,5" ></TextBlock>
+                <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                        MaskUseAsDisplayFormat="True" Grid.Row="8" Grid.Column="4" x:Name="txtNetOfferCommision" ></dxe:TextEdit>
+
+                <dxe:TextEdit MaskType="Numeric" Mask="n2" VerticalAlignment="Center"
+                       MaskUseAsDisplayFormat="True" Grid.Row="8" Grid.Column="5" x:Name="txtNetSOCommision" ></dxe:TextEdit>
+
+                <!--<TextBlock VerticalAlignment="Center"
+                     Grid.Row="0" Grid.Column="0"
+                     Text="Maker" />
+                <TextBox Grid.Column="1"
+                   Grid.Row="0"
+                   
+                   x:Name="txtMaker"
+                   VerticalAlignment="Center"></TextBox>
+                <TextBlock VerticalAlignment="Center"
+                     Grid.Row="1" Grid.Column="0"
+                     Text="Origin" />
+                <TextBox Grid.Column="1"
+                   Grid.Row="1"
+                   
+                   x:Name="txtOrigin"
+                   VerticalAlignment="Center"></TextBox>
+                <TextBlock Grid.Column="0"
+                       x:Name="lblCurrency"
+                       Grid.Row="2" Visibility="Collapsed">
+                Currency</TextBlock>
+                <TextBlock Grid.Column="1" FontWeight="Bold"
+                       x:Name="txtCurrency" Visibility="Collapsed"
+                       Grid.Row="2">
+                </TextBlock>-->
+                </Grid>
+            </dxlc:GroupBox>
+        <Grid x:Name="grdComments" Grid.Row="6" Grid.ColumnSpan="4" Visibility="Collapsed"   VerticalAlignment="Stretch" Margin="5" HorizontalAlignment="Stretch">
+
+            <ListBox  Margin="5,1" Grid.ColumnSpan="2" x:Name="lstComments"  >
+
+                <ListBox.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <Border BorderBrush="DarkBlue" BorderThickness="1" CornerRadius="5"    
+   Background="{Binding bcolor}">
+                            <Grid MaxWidth="620"  Margin="2,2"   HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*" />
+
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions >
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                <TextBlock Text="{Binding name}" FontWeight="Bold" FontSize="12" Margin="2" Foreground="DarkBlue" TextWrapping="Wrap" />
+
+                                <TextBlock Grid.Column="1" Text="{Binding fcolor}" Margin="10,2" Foreground="Gray" TextWrapping="Wrap"/>
+                                <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding description}" Margin="5,2" TextWrapping="WrapWithOverflow" HorizontalAlignment="Stretch"
+                                         MaxWidth="600"        />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </Grid>
+
+        <Button x:Name="btnSave"
+              Grid.Row="7"
+              FontSize="36"
+                
+              Grid.ColumnSpan="5"
+              Content="Save"
+              Click="BtnSave_Click"></Button>
+        </Grid>
+
+    
+</Window>

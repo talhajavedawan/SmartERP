@@ -1,0 +1,135 @@
+﻿<dx:DXWindow 
+    x:Class="ZAS_ERP.Procurementss.Budget.winAddBudgetSystemCost"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Budget" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="Add Budget System Cost" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Total Amount (SOC)" Margin="5" Grid.Column="0"/>
+            <dxe:TextEdit x:Name="txtTotalSOAmount" Margin="5" Grid.Column="1" IsReadOnly="True" MaskUseAsDisplayFormat="True" EditValueChanged="txtTotalSOAmount_EditValueChanged" MaskType="Numeric" Mask="n2" NullValue="0"  NullText="0.00" />
+            <TextBlock Text="Total System Cost" Grid.Column="2" Margin="5"/>
+            <dxe:TextEdit x:Name="txtTotalSystemCost" Grid.Column="3" Margin="5" MaskUseAsDisplayFormat="True"  EditValueChanged="txtTotalSOAmount_EditValueChanged" MaskType="Numeric" Mask="n2" NullValue="0" NullText="0.00" />
+            <TextBlock Text="Difference" Grid.Column="4" Margin="5"/>
+            <dxe:TextEdit x:Name="txtDifference" Grid.Column="5" Margin="5" MaskUseAsDisplayFormat="True" EditValueChanged="txtTotalSOAmount_EditValueChanged" MaskType="Numeric" Mask="n2" NullValue="0" NullText="0.00" />
+        </Grid>
+
+        <dxg:GridControl x:Name="grdBudgetCostItems"
+                         Grid.Row="1"
+                         SelectionMode="Cell"
+                           Grid.ColumnSpan="2"
+                         CustomUnboundColumnData="grdBudgetCostItems_CustomUnboundColumnData"
+                         >
+            <dxg:GridControl.View>
+                <dxg:TableView AutoWidth="True"
+                         CellValueChanged="view_CellValueChanged"
+                                     ShowGroupPanel="False"
+                                   NewItemRowPosition="Bottom"
+                                     AllowSorting="False"
+                                   AllowColumnFiltering="False"
+                                   ShowTotalSummary="True"  
+                                   ShowVerticalLines="True"  
+                                   ShowHorizontalLines="True"
+                                   ShowFixedTotalSummary="False"  
+                                   HorizontalScrollbarVisibility="Visible"
+                           x:Name="view"
+                           >
+                    <dxg:TableView.FormatConditions>
+                        <dxg:FormatCondition FieldName="addedSystemCost" ValueRule="Greater" Value1="0">
+                            <dx:Format Icon="{dx:IconSet Name=Stars3_1}" Background="#FF9BBB59"/>
+                        </dxg:FormatCondition>
+                    </dxg:TableView.FormatConditions>
+
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="View Histroy"
+                    x:Name="btnViewHistory"
+                    Click="BtnViewHistory_Click" />
+
+                </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+            <dxg:GridColumn         FieldName="BudgetSheettHead.HeadName"
+                                    IsSmart="True" 
+                                    Header="Account Heads" 
+                                    ReadOnly="True" 
+                                    x:Name="colBudgetedCostTitle"/>
+            <dxg:GridColumn FieldName="BudgetedCost"
+                          Header="Budgeted Cost"
+                            IsSmart="True" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn 
+                                FieldName="RSBC"
+                                Header="R.S.B.C"
+                                ReadOnly="True"    
+                                IsEnabled="False"    
+                                IsSmart="True" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn 
+                                FieldName="systemCost"
+                                Header="System Cost"
+                                x:Name="colSystemCost"
+                                    
+                                        UnboundType="Decimal"          
+                                         
+                                        ReadOnly="True"
+                                        Visible="True" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--<dxg:GridColumn FieldName="siCost"
+                                Header="This SI Cost"
+                                ReadOnly="False"
+                                IsEnabled="True"    
+                                IsSmart="True"  >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="piCost"
+                                Header="This PI Cost"
+                                ReadOnly="False"
+                                IsEnabled="True"    
+                                IsSmart="True"  >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>-->
+            <dxg:GridColumn FieldName="addedSystemCost"
+                                Header="Added System Cost"
+                                IsSmart="True"  >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+        </dxg:GridControl>
+
+        <dx:SimpleButton Grid.Row="2" x:Name="btnSave" Content="Save" Click="btnSave_Click" />
+    </Grid>
+</dx:DXWindow>

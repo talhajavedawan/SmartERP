@@ -1,0 +1,436 @@
+﻿<Window x:Class="ZAS_ERP.HR.winLeavesRegister"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.HR"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        mc:Ignorable="d"
+        Title="Leaves Register" 
+        xmlns:self="clr-namespace:ZAS_ERP"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+       xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        Loaded="Window_Loaded"
+        Height="450" Width="800">
+    <Window.Resources>
+      
+            <Style TargetType="dxe:DXScrollViewer">
+            <Setter Property="dx:ScrollBarExtensions.AllowMouseScrolling" Value="False"/>
+        </Style>
+       
+    </Window.Resources>
+    <Grid>
+
+
+        <dxb:BarManager  Grid.Row="1" x:Name="leavesBarManager">
+
+            <dxb:BarManager.Items>
+
+            </dxb:BarManager.Items>
+
+            <dxb:BarManager.Bars>
+                <dxb:Bar Caption="faOp">
+
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top" />
+                    </dxb:Bar.DockInfo>
+                    <dxb:BarButtonItem x:Name="mbtnLeaveRegister" ToolTip="Leaves Register" 
+                                       BarItemDisplayMode="ContentAndGlyph" 
+                                      
+                                       ItemClick="MbtnLeaveRegister_ItemClick" 
+                                       LargeGlyph="/ZAS_ERP;component/images/checklist.png" />
+                    <dxb:BarSubItem x:Name="mbtnLeaves" 
+                                       ToolTip="Add Leaves" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/leaves-logo.png" 
+                                       Glyph="/ZAS_ERP;component/images/leaves-logo.png" 
+                                       ItemClick="MbtnLeaves_ItemClick" IsEnabled="False">
+                        <dxb:BarButtonItem x:Name="mbtnAddLeaves" 
+                                       Content="Add Leaves" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/coaAdd.png" 
+                                       Glyph="/ZAS_ERP;component/images/coaAdd.png" 
+                                       ItemClick="MbtnAddLeaves_ItemClick" />
+                        
+                        <dxb:BarButtonItem x:Name="mbtnAdjustLeaves" 
+                                       Content="Adjust Leaves" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/leave-adjust.png" 
+                                       Glyph="/ZAS_ERP;component/images/leave-adjust.png" 
+                                       ItemClick="MbtnAdjustLeaves_ItemClick" />
+                        
+                        <dxb:BarButtonItem x:Name="mbtnAllocateLeaves" 
+                                       Content="Allocate Leaves" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/allocate-logo.png" 
+                                       Glyph="/ZAS_ERP;component/images/allocate-logo.png" 
+                                       ItemClick="MbtnAllocateLeaves_ItemClick" />
+                        <!--<dxb:BarButtonItem x:Name="addVehicleSubItem" 
+                                       Content="Add Vehicle" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/Car-icon3.png" 
+                                       ItemClick="AddVehicleSubItem_ItemClick"/>
+                        <dxb:BarButtonItem x:Name="addBMachinerySubItem" 
+                                       Content="Add Furniture" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/Settings-icon.png" 
+                                       ItemClick="AddAssetBarItem_ItemClick1"
+                                           IsEnabled="False"/>
+                        <dxb:BarButtonItem x:Name="addComputerSubItem" 
+                                       Content="Add Computers" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/Computer-icon.png" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/Computer-icon.png" 
+                                       IsEnabled="False"
+                                       ItemClick="AddAssetBarItem_ItemClick2"/>-->
+
+
+
+                    </dxb:BarSubItem>
+
+                    <dxb:BarButtonItem 
+                                       ToolTip="Collapse" 
+                                       ItemClick="CollapseGridBarItem_ItemClick" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/collapse1.png" 
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/collapse1.png"/>
+
+                    <dxb:BarButtonItem 
+                                       ToolTip="Expand" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/expand1.png" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/expand1.png" 
+                                       ItemClick="ExpandGridBarItem_ItemClick" />
+                    <!--<dxb:BarButtonItem x:Name="editAssetBarItem" Content="Edit Asset" BarItemDisplayMode="ContentAndGlyph" Glyph="/ZAS_ERP;component/images/FixedAssetsImages/EditAsset1.png" LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/EditAsset1.png"/>-->
+                    <!--<dxb:BarButtonItem x:Name="deleteAssetBarItem" Content="Delete Asset" BarItemDisplayMode="ContentAndGlyph" Glyph="/ZAS_ERP;component/images/FixedAssetsImages/DeleteAsset1.png" LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/DeleteAsset1.png" ItemClick="DeleteAssetBarItem_ItemClick"/>-->
+
+
+                    <dxb:BarButtonItem 
+                                       ToolTip="Renew Leaves" 
+                                       BarItemDisplayMode="ContentAndGlyph" 
+                                       Name="renewLeaves"
+                                       LargeGlyph="/ZAS_ERP;component/images/renew.png" 
+                                       Glyph="/ZAS_ERP;component/images/renew.png" 
+                                       ItemClick="RenewLeaves_ItemClick" 
+                        IsEnabled="False"/>
+
+                    <dxb:BarSubItem x:Name="ManageAssetBarItem" 
+                                       ToolTip="Manage" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/manageIcon.png" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/manageIcon.png" 
+                                       IsEnabled="False">
+                        <dxb:BarButtonItem x:Name="manageLists" 
+                                       Content="Manage Lists" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/listIcon.png" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/listIcon.png" 
+                                       ItemClick="ManageLists_ItemClick" 
+                                          />
+
+                        <dxb:BarButtonItem x:Name="manageRoles" 
+                                       Content="Manage User Roles" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/Lock-icon.png" 
+                                       ItemClick="ManageRoles_ItemClick_1"
+                                           IsEnabled="False"
+                                           IsVisible="False"/>
+                        <!--<dxb:BarButtonItem x:Name="addBMachinerySubItem" 
+                                       Content="Add Machinery" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/Settings-icon.png" 
+                                       ItemClick="AddAssetBarItem_ItemClick"/>
+                        <dxb:BarButtonItem x:Name="addComputerSubItem" 
+                                       Content="Add Computers" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/Computer-icon.png" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/Computer-icon.png" 
+                                       ItemClick="AddAssetBarItem_ItemClick"/>-->
+
+
+
+                    </dxb:BarSubItem>
+
+
+                    <!--<dxb:BarSubItem x:Name="ViewMdiBarItem" 
+                                       ToolTip="View" 
+                                       BarItemDisplayMode="ContentAndGlyph"  
+                                       LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/winView.png" 
+                                       Glyph="/ZAS_ERP;component/images/FixedAssetsImages/winView.png" 
+                                       IsEnabled="False"
+                                    IsVisible="False">
+                        <dxb:BarButtonItem 
+                                       Content="Cascade" 
+                                       BarItemDisplayMode="Content"  
+                                       ItemClick="ViewCascasde_Click" />
+
+                        <dxb:BarButtonItem 
+                                       Content="Vertically" 
+                                       BarItemDisplayMode="Content"  
+                                       ItemClick="ViewVertically_Click" />
+                        <dxb:BarButtonItem 
+                                       Content="Horizontally" 
+                                       BarItemDisplayMode="Content"  
+                                       ItemClick="ViewHorizontally_Click" />
+                        <dxb:BarButtonItem 
+                                       Content="Close All" 
+                                       BarItemDisplayMode="Content"  
+                                       ItemClick="ViewCloseAll_Click" />
+
+                    </dxb:BarSubItem>-->
+                    <!--<dxb:BarButtonItem x:Name="refreshAssetBarItem" ToolTip="Refresh" BarItemDisplayMode="ContentAndGlyph" Glyph="/ZAS_ERP;component/images/FixedAssetsImages/AddTenant.png" LargeGlyph="/ZAS_ERP;component/images/FixedAssetsImages/refresh.png"
+                                       ItemClick="RefreshAssetBarItem_ItemClick" IsEnabled="False"
+                                       IsVisible="False"/>-->
+
+                </dxb:Bar>
+
+
+            </dxb:BarManager.Bars>
+            <Grid>
+
+                <Grid.Resources>
+
+
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="225"/>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="250*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="faLeftGrid"  Grid.Column="0" Background="White">
+                    <TabControl x:Name="leaveTabControl" SelectionChanged="LeaveTabControl_SelectionChanged">
+                        <TabItem Header="Leaves" x:Name="leaveTabItem">
+                            <Grid Background="White">
+                                <TreeView Name="leaveTreeView" SelectedItemChanged="LeaveTreeView_SelectedItemChanged">
+
+                                    <TreeView.Resources>
+
+                                        <HierarchicalDataTemplate DataType="{x:Type self:cmbitem}" ItemsSource="{Binding Items}" >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+
+                                                </Grid.ColumnDefinitions>
+                                                <!--<CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>-->
+                                                <TextBlock Text="{Binding id}" Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}" Visibility="Collapsed" />
+                                                <TextBlock Text="   " Background="{Binding bcolor}"
+                                                            Width="20"
+                                                            Margin="0,0,5,0" Grid.Column="1"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding name}" Grid.Column="1"
+                                                                HorizontalAlignment="Stretch" />
+
+                                                    <!--<TextBlock Text=" [" Foreground="Blue" />-->
+                                                    <!--<TextBlock Text="{Binding fcolor}" Foreground="Blue" />-->
+                                                    <!--<TextBlock Text="]" Foreground="Blue" />-->
+                                                </StackPanel>
+                                            </Grid>
+                                        </HierarchicalDataTemplate>
+                                        <Style
+                                          TargetType="TreeViewItem" >
+                                            <Setter Property="IsExpanded" Value="True"/>
+                                        </Style>
+                                    </TreeView.Resources>
+                                    <!--<TreeViewItem Name="faTreeMain"  Header="Fixed Asset" MouseDoubleClick="FaTreeItem_MouseDoubleClick" MouseUp="FaTreeItem_MouseUp" IsExpanded="True" >
+
+                                        <TreeViewItem Header="All Fixed Assets" Name="faTreeItem"  MouseDoubleClick="TreeViewItemBuilding_MouseDoubleClick" MouseUp="TreeViewItem_MouseUp">
+                                            <TreeViewItem Header="Open" Name="treeviewItemAssetsOpen"/>
+                                            <TreeViewItem Header="Close" Name="treeviewItemAssetsClose"/>
+                                        </TreeViewItem>
+                                        
+                                        <TreeViewItem Header="Land and Building" Name="treeviewItemLands"  MouseDoubleClick="TreeViewItemBuilding_MouseDoubleClick" MouseUp="TreeViewItem_MouseUp">
+                                            <TreeViewItem Header="Open" Name="treeviewItemLandsOpen"/>
+                                            <TreeViewItem Header="Close" Name="treeviewItemLandsClose"/>
+                                        </TreeViewItem>
+                                        <TreeViewItem Header="Vehicles"  Name="treeViewItemVehicles"  MouseUp="VehicleTreeViewItem_MouseUp">
+                                            <TreeViewItem Header="Open" Name="treeViewItemVehiclesOpen"/>
+                                            <TreeViewItem Header="Close" Name="treeViewItemVehiclesClose"/>
+
+                                        </TreeViewItem>
+
+
+                                        <TreeViewItem Header="Machinery">
+                                            <TreeViewItem Header="Open"/>
+                                            <TreeViewItem Header="Close"/>
+
+                                        </TreeViewItem>
+
+                                        <TreeViewItem Header="Computers">
+                                            <TreeViewItem Header="Open"/>
+                                            <TreeViewItem Header="Close"/>
+
+                                        </TreeViewItem>
+                                    </TreeViewItem>-->
+                                </TreeView>
+                            </Grid>
+                        </TabItem>
+                        <!--<TabItem Header="Transactions" x:Name="faTransactionTabItem">
+                            <Grid Background="White"/>
+                        </TabItem>-->
+                    </TabControl>
+
+                </Grid>
+                <GridSplitter x:Name="GridSplitter"  Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+                <Grid x:Name="faRightGrid"  Grid.Column="2" Background="White" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            
+                        </Grid.ColumnDefinitions>
+                        <dxe:DateEdit 
+                                  MaskUseAsDisplayFormat="True" Mask="yyyy"
+                                 Name="dateEditYear"
+                                  ShowClearButton="True" UseLayoutRounding="True"
+                                    PopupFooterButtons="OkCancel" 
+                                      Grid.Column="4"
+                            NullText="Year"
+                            VerticalAlignment="Center">
+                            <dxe:DateEdit.StyleSettings>
+                                <dxe:DateEditPickerStyleSettings/>
+                            </dxe:DateEdit.StyleSettings>
+                        </dxe:DateEdit>
+
+                        <dxe:DateEdit Name="dateMonth"
+                                   MaskUseAsDisplayFormat="True" Mask="MM" 
+                                  ShowClearButton="True" UseLayoutRounding="True" 
+                                  PopupFooterButtons="OkCancel" 
+                                 Grid.Column="2"
+                              NullText="Month"
+                                  VerticalAlignment="Center"  >
+                            <dxe:DateEdit.StyleSettings>
+                                <dxe:DateEditPickerStyleSettings/>
+                            </dxe:DateEdit.StyleSettings>
+                        </dxe:DateEdit>
+                        <dxe:DateEdit Name="dateDay"
+                                   MaskUseAsDisplayFormat="True" Mask="dd" UseLayoutRounding="True"
+                                  ShowClearButton="True"
+                                  PopupFooterButtons="OkCancel" 
+                                      Grid.Column="0"
+                              NullText="Day"   VerticalAlignment="Center">
+                            <dxe:DateEdit.StyleSettings>
+
+                                <dxe:DateEditPickerStyleSettings/>
+                            </dxe:DateEdit.StyleSettings>
+                        </dxe:DateEdit>
+                        <StackPanel Grid.Column="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button   VerticalAlignment="Center"   Content="Clear Filter"
+                                  Name="clearDateFilter" HorizontalAlignment="Right" 
+                                  Click="ClearDateFilter_Click"/>
+                            <Separator Width="3"/>
+                            <Button   VerticalAlignment="Center"  Content="Apply Filter"
+                                  Name="applyDateFilter" HorizontalAlignment="Left"  
+                                  Click="ApplyDateFilter_Click"/>
+                        </StackPanel>
+                        
+
+                        <dxg:LookUpEdit x:Name="lookUpEmployee"
+                                        Grid.Column="8"
+                                       
+                                        VerticalAlignment="Center"
+                                       
+                                        DisplayMember="person.FName"
+                                        
+                                        
+                                        SelectedIndexChanged="LookUpEmployee_SelectedIndexChanged">
+                            <dxg:LookUpEdit.PopupContentTemplate>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+
+                                        </Grid.RowDefinitions>
+                                        <Button Content="Remove" Foreground="Red" Click="RemoveEmployeeButton_Click"></Button>
+                                        <dxg:GridControl Name="PART_GridControl"
+                                                         AutoPopulateColumns="True"
+                                                         Grid.Row="1">
+                                            <dxg:GridControl.View>
+                                                <dxg:TreeListView Name="treeListView1"
+                                                                  ShowAutoFilterRow="True"
+                                                                  TreeDerivationMode="Selfreference"
+                                                                  KeyFieldName="Id"
+                                                                  ParentFieldName="SupervisorId" />
+                                            </dxg:GridControl.View>
+                                            <dxg:GridColumn x:Name="colId"
+                                                            FieldName="Id"
+                                                            IsSmart="True"
+                                                            Visible="False" />
+                                            <!--<dxg:GridColumn FieldName="person.FName"
+                                                            IsSmart="True"
+                                                            Width="auto" />
+                                            -->
+                                            <!--<dxg:GridColumn FieldName="company.IndustryType"
+                                    IsSmart="True"
+                                    Visible="False" />-->
+                                            <!--
+                                            <dxg:GridColumn x:Name="collastname"
+                                                            FieldName="person.FName"
+                                                            Visible="True"
+                                                            IsSmart="True" />-->
+                                            <dxg:GridColumn FieldName="person.FName"
+                                                            x:Name="colFname"
+                                                            IsSmart="True"
+                                                            Visible="True"
+                                                            Header="First Name"
+                                                            Width="auto" />
+                                            <dxg:GridColumn FieldName="person.LName"
+                                                            x:Name="colLname"
+                                                            IsSmart="True"
+                                                            Visible="True"
+                                                            Header="Last Name"
+                                                            Width="auto" />
+                                            <dxg:GridColumn FieldName="contact.ContactNo"
+                                                            IsSmart="True"
+                                                            x:Name="colcontactno"
+                                                            Visible="False"
+                                                            Header="Phone"
+                                                            Width="auto" />
+
+                                            <dxg:GridColumn FieldName="contact.Email"
+                                                            x:Name="colEmail"
+                                                            IsSmart="True"
+                                                            Visible="False"
+                                                            Header="Email" />
+                                        </dxg:GridControl>
+                                    </Grid>
+                                </ControlTemplate>
+                            </dxg:LookUpEdit.PopupContentTemplate>
+                        </dxg:LookUpEdit>
+
+                    </Grid>
+                    <Grid  Grid.Row="1" Name="grdLeavesMain">
+                        
+                    </Grid>
+                        
+                    <!--<mdi:MdiContainer x:Name="faMdiContainer" Theme="Aero" Background="Transparent">
+
+
+                    </mdi:MdiContainer>-->
+                    <!--<GridControls:ucGridControlFixedAssets />-->
+
+
+                </Grid>
+
+
+            </Grid>
+        </dxb:BarManager>
+
+    </Grid>
+</Window>

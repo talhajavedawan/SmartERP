@@ -1,0 +1,727 @@
+﻿<dx:DXWindow mc:Ignorable="d" x:Class="ZAS_ERP.Customerss.frmCustomerCenter" WindowStartupLocation="CenterScreen" Width="1200" WindowState="Maximized"  Unloaded="WinCustomerCenter_Unloaded" Title="Customer Center" 
+        x:Name="winCustomerCenter" Loaded="WinCustomerCenter_Loaded" 
+        Height="620" utilities:WindowUtilities.CloseOnEscape="True" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:ZAS_ERP.Customerss" 
+        xmlns:self="clr-namespace:ZAS_ERP"
+    xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" 
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" 
+    xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss" ShowActivated="True" >
+    
+    <Grid>
+        <DockPanel>
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="Margin" Value="10,0" />
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="Margin" Value="10,0" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" MaxHeight="35" MinHeight="25" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="7*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="10" Width="1.5*" x:Name="colSide"/>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.ColumnSpan="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <dxb:MainMenuControl VerticalAlignment="Top" Height="30" BarItemDisplayMode="ContentAndGlyph">
+                            <dxb:BarSubItem Content="Add new" Glyph="/ZAS_ERP;component/images/appbar.user.add.png">
+                                <dxb:BarButtonItem x:Name="mbtnaddcomp" ItemClick="mbtnaddcomp_ItemClick" Glyph="/ZAS_ERP;component/images/appbar.user.add.png" Content="Add new" />
+                                <dxb:BarButtonItem x:Name="mbtneditcomp" ItemClick="btnEditCustomer_Click" Glyph="/ZAS_ERP;component/images/appbar.user.add.png" Content="Edit" />
+                                <dxb:BarButtonItem Content="New Transactions" ItemClick="mbtnnewtransaction_ItemClick" />
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem Content="New Transactions" x:Name="mbtnnewtransaction">
+                                <dxb:BarButtonItem Content="Inquiries" ItemClick="mbtnnewtransaction_ItemClick" x:Name="btnnewinquiries" />
+                                <dxb:BarButtonItem Content="Offers" ItemClick="btnnewoffers_ItemClick" x:Name="btnnewoffers" />
+                                <dxb:BarButtonItem Content="Sale Orders" ItemClick="btnnewSO_ItemClick" x:Name="btnnewSO" />
+                                <dxb:BarButtonItem Content="Purchase Orders" ItemClick="btnnewPO_ItemClick" x:Name="btnnewPO" />
+                                <dxb:BarButtonItem Content="Edit" ItemClick="btnEditTransaction_ItemClick" x:Name="btnEditTransaction" />
+                            </dxb:BarSubItem>
+                            <dxb:BarSubItem Content="Expand Grid"
+                                            x:Name="mbtnExpand" ItemClick="MbtnExpand_ItemClick"></dxb:BarSubItem>
+                            <dxb:BarSubItem Content="Collapse Grid"
+                                            x:Name="mbtnCollapse" ItemClick="MbtnCollapse_ItemClick"></dxb:BarSubItem>
+                            <!--<dxb:BarButtonItem Content="Print"
+                                               ItemClick="BtnPrint_ItemClick"
+                                               x:Name="btnPrint" />-->
+                        </dxb:MainMenuControl>
+                        <!--<Button VerticalAlignment="Top" x:Name="btnrefresh" Height="30" HorizontalAlignment="Right" Content="Refresh" Click="btnrefresh_Click" />-->
+                    </Grid>
+                </DockPanel>
+                <DockPanel Grid.RowSpan="3" Grid.Row="1" Grid.Column="0">
+
+                    <dx:DXTabControl >
+                        <dx:DXTabItem x:Name="tabCustomers" Header="Customers"  GotFocus="tabCustomers_GotFocus">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <!--<RowDefinition Height=".1*" />-->
+                                    <RowDefinition Height="1.4*" />
+                                </Grid.RowDefinitions>
+                                <!--<dx:DXDockPanel Grid.Row="0"
+                                Grid.ColumnSpan="3">
+                  <dx:DropDownButton HorizontalAlignment="Right"
+                                     MinWidth="210" />
+                  <dx:SimpleButton Content="GO"
+                                   HorizontalAlignment="Right" />
+                </dx:DXDockPanel>-->
+                                <dxg:GridControl SelectionMode="Row" SelectionChanged="grdcutomercompanies_SelectionChanged" 
+                                                 CustomUnboundColumnData="Grdcutomercompanies_CustomUnboundColumnData"  Grid.Row="1" 
+                                                 x:Name="grdcutomercompanies" ItemsSource="{Binding}" Grid.ColumnSpan="3"
+                                                 SelectedItemChanged="Grdcutomercompanies_SelectedItemChanged">
+                                    <dxg:GridControl.View>
+                                        <dxg:TreeListView MouseDoubleClick="TreeListView1_MouseDoubleClick" TreeDerivationMode="Selfreference" 
+                                                          
+                                                          ShowSearchPanelMode="Always" ShowSelectionRectangle="True" ParentFieldName="ParentID" 
+                                                          x:Name="treeListView1" KeyFieldName="Id" FilterMode="Extended" FadeSelectionOnLostFocus="False" 
+                                                          ColumnFilterPopupMode="Excel" AutoExpandAllNodes="True" 
+                                                          AutoPopulateServiceColumns="True" AllowEditing="False" />
+                                    </dxg:GridControl.View>
+                                    <dxg:GridControl.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Click="btnNewCustomer_Click" Header="Add New" x:Name="btnNewCustomer" />
+                                            <MenuItem Click="btnEditCustomer_Click" Header="Edit Company" x:Name="btnEditCustomer" />
+                                           
+                                            <MenuItem Header="Delete Customer" x:Name="btnDeleteCustomer" />
+                                            <Separator />
+                                            <MenuItem Header="Add Contact Person"
+                    Click="Add_New_ContactClick">
+                                                <MenuItem.Icon>
+                                                    <Image Source="/ZAS_ERP;component/images/14.png"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                          
+
+
+                                        </ContextMenu>
+                                    </dxg:GridControl.ContextMenu>
+                                    <dxg:GridColumn Visible="False" x:Name="colId" IsSmart="True" FieldName="Id" />
+                                    <dxg:GridColumn Width="auto" IsSmart="True" Header="Company Name" FieldName="company.CompanyName" />
+                                    <dxg:GridColumn Visible="False" IsSmart="True" Header="Industry" FieldName="company.industryType.name" />
+                                    <dxg:GridColumn Visible="False" x:Name="colBizType" IsSmart="True" FieldName="company.BizType" />
+
+                                    <!--<dxg:GridColumn FieldName="departments"   Visible="True" ShowInColumnChooser="False">-->
+
+                                        <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                                    <!--</dxg:GridColumn>-->
+                                    <dxg:GridColumn Width="auto" Visible="True" x:Name="colFname" IsSmart="True" Header="First Name" FieldName="contactPerson.FName" />
+                                    <dxg:GridColumn Width="auto" Visible="True" x:Name="colLname" IsSmart="True" Header="Last Name" FieldName="contactPerson.LName" />
+                                    <dxg:GridColumn FieldName="allDepts" UnboundType="String" ReadOnly="True" >
+
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn Width="auto" Visible="True" x:Name="colcontactno" IsSmart="True" Header="Phone" FieldName="contact.ContactNo" />
+                                    <dxg:GridColumn Visible="False" x:Name="colCurrency" IsSmart="True" Header="Currency" FieldName="company.currency.CurrencyName" />
+                                    <dxg:GridColumn Visible="False" x:Name="colFax" IsSmart="True" Header="Fax" FieldName="contact.Fax" />
+                                    <dxg:GridColumn Visible="False" x:Name="colEmail" IsSmart="True" Header="Email" FieldName="contact.Email" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping Country" FieldName="shippingAddress.Country" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping Region" FieldName="shippingAddress.region" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping City" FieldName="shippingAddress.City" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping State" FieldName="shippingAddress.State" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping Street Adress" UnboundType="String"
+                            UnboundExpression="[shippingAddress.Line1] +' '+ [shippingAddress.Line2]"/>
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing Country" FieldName="billingAddress.Country" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing Region" FieldName="billingAddress.region" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing City" FieldName="billingAddress.City" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing State" FieldName="billingAddress.State" />
+                                    <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing Street Adress" UnboundType="String"
+                            UnboundExpression="[billingAddress.Line1] +' '+ [billingAddress.Line2]"/>
+                                    <!--<dxg:GridColumn Visible="True" x:Name="coldepartments" IsSmart="True" Header="Departments" FieldName="departments" >
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:ListBoxEditSettings AllowCollectionView="True">
+                                                <dxe:ListBoxEditSettings.Items>
+                                                    <DataTemplate>
+                                                        <dxe:ListBoxEditItem Content="{Binding DeptName}"></dxe:ListBoxEditItem>
+                                                    </DataTemplate>
+                                                </dxe:ListBoxEditSettings.Items>
+                                                <dxe:ListBoxEditSettings.ItemsPanel>
+                                                    
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel  Orientation="Horizontal" />
+                                                        
+                                                    </ItemsPanelTemplate>
+                                                </dxe:ListBoxEditSettings.ItemsPanel>
+                                                <dxe:ListBoxEditSettings.StyleSettings>
+                                                    <dxe:ListBoxEditStyleSettings >
+                                                        </dxe:ListBoxEditStyleSettings>
+                                                </dxe:ListBoxEditSettings.StyleSettings>
+                                            </dxe:ListBoxEditSettings>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>-->
+                                </dxg:GridControl>
+
+                            </Grid>
+                        </dx:DXTabItem>
+                        <dx:DXTabItem VerticalAlignment="Top"  x:Name="tabTransactions" LostFocus="tabTransactions_LostFocus" Height="22" Header="Transactions"  GotFocus="tabTransactions_GotFocus">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <!--<RowDefinition Height="*"></RowDefinition>-->
+
+                                </Grid.RowDefinitions>
+                              
+                                <TreeView x:Name="treeViewTransactions"  Background="Transparent" SelectedItemChanged="TreeView_SelectedItemChanged" >
+                                    <TreeView.Resources>
+
+                                        <HierarchicalDataTemplate DataType="{x:Type self:cmbitem}" ItemsSource="{Binding Items}" >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+
+                                                </Grid.ColumnDefinitions>
+                                                <!--<CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>-->
+                                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="0,0,5,0" Grid.Column="1"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+
+                                                    <!--<TextBlock Text=" [" Foreground="Blue" />-->
+                                                    <TextBlock Text="{Binding fcolor}" Foreground="Blue" />
+                                                    <!--<TextBlock Text="]" Foreground="Blue" />-->
+                                                </StackPanel>
+                                            </Grid>
+                                        </HierarchicalDataTemplate>
+                                        <!--<HierarchicalDataTemplate x:Key="level2" DataType="{x:Type self:TreeItemLevel1}" ItemsSource="{Binding Items}">
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="{Binding name}"
+                         Grid.Column="0"
+                         
+                         HorizontalAlignment="Stretch" />
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                <TextBlock Text=" [" Foreground="Blue" />
+                                                <TextBlock Text="{Binding Items.Count}" Foreground="Blue" />
+                                                <TextBlock Text="]" Foreground="Blue" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </HierarchicalDataTemplate>-->
+                                        <!--<DataTemplate DataType="{x:Type self:cmbitem}"  >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+                                                    
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox IsChecked="{Binding isActive}" IsEnabled="False"/>
+                                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="0,0,5,0" Grid.Column="1"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+                                                
+                                                    <TextBlock Text=" [" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding fcolor}" Foreground="Blue" />
+                                                    <TextBlock Text="]" Foreground="Blue" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>-->
+                                    </TreeView.Resources>
+                                    <!--<TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate  ItemsSource="{Binding Items}" >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding id}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}"
+                         Visibility="Collapsed" />
+                                                <TextBlock Text="   "
+                         Background="{Binding bcolor}"
+                         Width="20"
+                         Margin="-20,0,5,0" />
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding name}"
+                         Grid.Column="1"
+                         
+                         HorizontalAlignment="Stretch" />
+
+                                                    <TextBlock Text=" [" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding fcolor}" Foreground="Blue" />
+                                                    
+                                                </StackPanel>
+                                            </Grid>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>-->
+                                    <!--<TreeViewItem Header="Inquiries" x:Name="treeItemInquiries" >
+                                    </TreeViewItem>
+                                    <TreeViewItem x:Name="treeItemOffers" Header="Offers"></TreeViewItem>
+                                    <TreeViewItem x:Name="treeItemPurchaseOrders" Header="Purchase Orders"></TreeViewItem>-->
+
+
+                                </TreeView>
+                                <!--<ListBox x:Name="lsttransactions"  Grid.Row="1"
+                         SelectionChanged="lsttransactions_SelectionChanged" >
+
+                                    <ListBoxItem Content="Inquiries" x:Name="lstitemInquiry" />
+                                    <ListBoxItem Content="Offers" x:Name="lstitemOffer" />
+                                    <ListBoxItem Content="Purchase Orders" x:Name="lstitemPO" />
+                                </ListBox>-->
+                            </Grid>
+                        </dx:DXTabItem>
+                    </dx:DXTabControl>
+                </DockPanel>
+                <!-- Inquiry grid -->
+                <Grid Visibility="Hidden" Grid.RowSpan="3" Grid.Row="1" x:Name="gridTransactions" Grid.Column="2">
+                    <!--<Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+          </Grid.RowDefinitions>
+          <Grid x:Name="GridFilter">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="auto" />
+              <ColumnDefinition Width="1*" />
+              <ColumnDefinition Width="auto" />
+              <ColumnDefinition Width=".8*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Filter By :"></Label>
+            <dxe:ComboBoxEdit Grid.Column="1" VerticalAlignment="Center" Margin="10,0"
+                              x:Name="cmbFilterBy"/>
+            
+            <Label Content="Date :" Grid.Column="2"></Label>
+            <dxe:ComboBoxEdit Grid.Column="3" VerticalAlignment="Center" Margin="10,0"
+                              x:Name="cmbDateFilter"/>
+          </Grid>
+          <dxg:GridControl x:Name="grdinquiry"
+                           Grid.Row="1"
+                           Grid.ColumnSpan="3"
+                           SelectionMode="Row"
+                           ItemsSource="{Binding inquiry}"
+                           MouseDoubleClick="grdinquiry_MouseDoubleClick">
+            <dxg:GridControl.View>
+              <dxg:TableView  x:Name="tableView"
+                               
+                            Width="auto"
+                              
+                               ShowAutoFilterRow="True" />
+            </dxg:GridControl.View>
+            -->
+                    <!--<dxg:GridColumn FieldName="Id"
+                            Visible="False" />
+            <dxg:GridColumn FieldName="referenceNo"
+                            Width="auto"
+                            Header="Inquiry Reference" />
+            <dxg:GridColumn FieldName="customerCompany.company.CompanyName"
+                            Width="*"
+                            Header="Customer Name" />
+            <dxg:GridColumn FieldName="inquiryDate"
+                            Width="auto"
+                            Header="Inquiry Date" />-->
+                    <!--
+            <dxg:GridControl.ContextMenu>
+              <ContextMenu>
+                <MenuItem Header="Add New"
+                          x:Name="btnNewInquiry"
+                          Click="btnNewInquiry_Click" />
+                <MenuItem Header="Edit Company"
+                          x:Name="btnEditInquiry"
+                          Click="btnEditInquiry_Click" />
+                <Separator />
+                <MenuItem Header="Delete Inquiry"
+                          x:Name="btnDeleteInquiry" />
+              </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+          </dxg:GridControl>-->
+                </Grid>
+                <Grid Grid.Row="1" x:Name="gridCustomerinfo" Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0" Grid.Column="0">
+                        <TextBlock VerticalAlignment="Center" TextDecorations="{x:Null}" Text="Customer Information" x:Name="lblinfoheader" FontSize="36" />
+                        <!--<Button HorizontalAlignment="Right"
+                    Margin="10,0"
+                    Width="50"
+                    Height="50"
+                    VerticalAlignment="Stretch"
+                    ToolTip="Attach"
+                    Background="Transparent">
+              <Image Source="/ZAS_ERP;component/images/appbar.paperclip.rotated.png"
+                     Height="40"
+                     Width="40"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+            </Button>
+            <Button Margin="10,0"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    ToolTip="Edit">
+              <Image Source="/ZAS_ERP;component/images/appbar.edit.png"
+                     Height="40"
+                     Width="40"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+            </Button>-->
+                    </StackPanel>
+                    <Rectangle VerticalAlignment="Bottom" Margin="10,0" Height="3" Fill="Gray" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left" Source="/ZAS_ERP;component/images/appbar.pin.png" Width="30" />
+                        <TextBlock FontSize="16" Text="NOTE" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Rectangle VerticalAlignment="Bottom" Margin="10,0" Height="3" Fill="Gray" Grid.Column="1" />
+                    <StackPanel Grid.Column="2" Grid.Row="1" />
+                    <dxlc:GroupBox Grid.Row="1" Margin="5" Header="Customer Information" Background="White">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Content=" Company Name" HorizontalAlignment="Right" ToolTip="Name" />
+                            <Label ToolTip="CINC" Grid.Row="1" HorizontalAlignment="Right" Content="First Name" />
+                            <Label ToolTip="Phone#" Grid.Row="2" HorizontalAlignment="Right" Content="Main Phone" />
+                            <Label ToolTip="FAX#" Grid.Row="3" HorizontalAlignment="Right" Content="FAX" />
+                            <Label ToolTip="Email" Grid.Row="4" HorizontalAlignment="Right" Content="Email" />
+                            <!--<Label Content="Website"
+                     ToolTip="Website"
+                     HorizontalAlignment="Right"
+                     Grid.Row="5" />-->
+                            <!--<TextBlock x:Name="lblwebsite"
+                         ToolTip="Email"
+                         Text="{Binding ElementName=grdemployee,Path=CurrentItem.contact.Website}"
+                         Grid.Row="5"
+                         Grid.Column="1" />-->
+                            <!--<Label Content="Industry Type"
+                       ToolTip="Industry"
+                       HorizontalAlignment="Right"
+                       Grid.Column="2"
+                       Grid.Row="3" />
+                <Label Content="Bussines Type"
+                       ToolTip="Bussines"
+                       HorizontalAlignment="Right"
+                       Grid.Column="2"
+                       Grid.Row="4" />-->
+                            <!--<TextBlock x:Name="lblindustry"
+                           ToolTip="Industry"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.IndustryType}"
+                           HorizontalAlignment="Left"
+                           Grid.Row="3"
+                           Grid.Column="3" />
+                <TextBlock x:Name="lblBizType"
+                           ToolTip="Bussines Type"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.BizType}"
+                           HorizontalAlignment="Left"
+                           Grid.Row="4"
+                           Grid.Column="3" />
+                <TextBlock x:Name="llbadressid"
+                           ToolTip="Contact Adress"
+                           Visibility="Hidden"
+                           Grid.Row="6"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.address.Id}"
+                           Grid.Column="3" />
+                <TextBlock x:Name="lblcontactid"
+                           ToolTip="Contact Adress"
+                           Visibility="Hidden"
+                           Grid.Row="7"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.contact.Id}"
+                           Grid.Column="2" />-->
+                            <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+                            <TextBlock ToolTip="Company Name" Text="{Binding CurrentItem.company.CompanyName, ElementName=grdcutomercompanies}" x:Name="lblconatctname" HorizontalAlignment="Left" Grid.Column="1" />
+                            <TextBlock ToolTip="Contact Person" Text="{Binding CurrentItem.contactPerson.FName, ElementName=grdcutomercompanies}" Grid.Row="1" x:Name="lblcnic" Grid.Column="1" />
+                            <TextBlock ToolTip="Phone#" Text="{Binding CurrentItem.contact.ContactNo, ElementName=grdcutomercompanies}" Grid.Row="2" x:Name="lblmainPhone" Grid.Column="1" />
+                            <TextBlock ToolTip="FAX#" Text="{Binding CurrentItem.contact.Fax, ElementName=grdcutomercompanies}" Grid.Row="3" x:Name="lblfax" Grid.Column="1" />
+                            <TextBlock ToolTip="Email" Text="{Binding CurrentItem.contact.Email, ElementName=grdcutomercompanies}" Grid.Row="4" x:Name="lblemail" Grid.Column="1" />
+                            <!-- column 3 labels-->
+                            <Label ToolTip="Country" HorizontalAlignment="Right" Grid.Column="2" Content="Country" />
+                            <Label ToolTip="Last Name" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="2" Content="Last Name" />
+                            <Label ToolTip="Website" Grid.Row="2" HorizontalAlignment="Right" Grid.Column="2" Content="Website" />
+                            <!--textblock for displaying data in colunm 4 of grid from stored company data -->
+                            <TextBlock ToolTip="State Name" Text="{Binding CurrentItem.billingAddres.Country, ElementName=grdcutomercompanies}" x:Name="lblcountry" HorizontalAlignment="Left" Grid.Column="3" />
+                            <TextBlock ToolTip="Last Name" Text="{Binding CurrentItem.contactPerson.FName, ElementName=grdcutomercompanies}" Grid.Row="1" x:Name="lbllstname" Grid.Column="3" />
+                            <TextBlock ToolTip="joining date" Text="{Binding CurrentItem.contact.Website, ElementName=grdcutomercompanies}" Grid.Row="2" x:Name="lbljoinedDate" HorizontalAlignment="Left" Grid.Column="3" />
+                        </Grid>
+                    </dxlc:GroupBox>
+                </Grid>
+                <DockPanel Grid.Row="3" x:Name="gridcustomertabss" Grid.Column="2">
+                    <Grid VerticalAlignment="Stretch" Grid.Row="3" MaxHeight="600" Grid.Column="2">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Label}">
+                                <Setter Property="Foreground" Value="DarkGray" />
+                                <Setter Property="Margin" Value="10,0" />
+                            </Style>
+                            <Style TargetType="{x:Type dx:DropDownButton}">
+                                <Setter Property="Margin" Value="10,5" />
+                            </Style>
+                        </Grid.Resources>
+                        <dx:DXTabControl>
+                            <dx:DXTabItem Header="Departments">
+                                <dxlc:GroupBox Margin="5" Header="Customer's Departments " Background="White">
+                                    <dxg:GridControl SelectionMode="MultipleRow" x:Name="grdDepartment" Grid.ColumnSpan="2" AllowInitiallyFocusedRow="False" AutoGenerateColumns="None">
+                                        <!--<dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                  <MenuItem Header="Add New"
+                            x:Name="btnAddDepartment"
+                            Click="btnAddDepartment_Click" />
+                  <MenuItem Header="Edit Department"
+                            x:Name="btnEditDepartment"
+                            Click="btnEditDepartment_Click" />
+                  <Separator />
+                  <MenuItem Header="Delete Department"
+                            x:Name="btnDeleteDepartment"
+                            Click="btnDeleteDepartment_Click" />
+                </ContextMenu>
+              </dxg:GridControl.ContextMenu>-->
+                                        <dxg:GridControl.View>
+                                            <dxg:TreeListView UseIndicatorForSelection="True" TreeDerivationMode="Selfreference" ShowSelectionRectangle="True" ParentFieldName="ParentID" x:Name="grddeptview" KeyFieldName="Id" IsSynchronizedWithCurrentItem="True" FadeSelectionOnLostFocus="False" AutoExpandAllNodes="True" AutoWidth="True" AllowEditing="False">
+                                                <!--<dxg:TableView.DataContext>
+                  <Databases:DBContextERP />
+                </dxg:TableView.DataContext>-->
+                                            </dxg:TreeListView>
+                                        </dxg:GridControl.View>
+                                        <dxg:GridColumn Visible="False" x:Name="coldeptid" IsSmart="True" FieldName="Id" />
+                                        <dxg:GridColumn FieldName="DeptName" IsSmart="True" x:Name="coldeptname" />
+                                        <dxg:GridColumn FieldName="Code" IsSmart="True" x:Name="coldeptcode" />
+                                        <dxg:GridColumn Visible="False" x:Name="coldeptabr" IsSmart="True" FieldName="Abbrivation" />
+                                        <dxg:GridColumn Visible="False" x:Name="coldeptts" IsSmart="True" FieldName="Timestamp" />
+                                        <dxg:GridColumn FieldName="sectionId" IsSmart="True" Visible="False" />
+                                        <dxg:GridColumn FieldName="sections" IsSmart="True" Visible="False" />
+                                    </dxg:GridControl>
+                                </dxlc:GroupBox>
+                            </dx:DXTabItem>
+                            <dx:DXTabItem Header="Transactions" />
+                            <!--Contact Start-->
+                            <dx:DXTabItem Header="Contacts" x:Name="tabContact" IsEnabled="False" PreviewMouseDoubleClick="DXTabItem_PreviewMouseDoubleClick" Mouse.MouseUp="DXTabItem_MouseUp" >
+                                <dxlc:LayoutGroup  View="Group" 
+                                          IsCollapsible="False" 
+                                          IsCollapsed="False" 
+                                          Orientation="Vertical">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid">
+                                            <MenuItem Header="Add New" >
+
+                                                <MenuItem Header="Add Contact Person"
+                          x:Name="mbtnAddContPerson"
+                    Click="Add_New_ContactClick" />
+
+                                                <MenuItem Header="Update Contact Person"
+                          x:Name="mbtnupdatecontperson"
+                              Click="Edit_ContactClick" />
+
+                                            </MenuItem>
+                          
+                             
+                        
+
+                                          
+
+                                            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="BtnRefresh_Click"
+                      />
+                                        </Menu>
+
+                                        <TextBlock x:Name="lblHeading" Text="Contact Person" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+
+                                        <Grid Grid.Row="2">
+                                          
+
+
+                                            <dxg:GridControl x:Name="grdContactPersonsList"
+                            
+                                     AutoGenerateColumns="None"
+                                     CustomUnboundColumnData="GrdContactPerson_CustomUnboundColumnData"
+                                     SelectionMode="Row" MouseDoubleClick="GrdContactPersonsList_MouseDoubleClick">
+                                                <dxg:GridControl.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Header="Add Contact Person"
+                                  x:Name="btnAddContactPerson1" Click="Add_New_ContactClick" />
+                                                        <MenuItem Header="Update Contact Person"
+                                  x:Name="btnEditContactPerson1" Click="Edit_ContactClick" />
+                                                    </ContextMenu>
+                                                </dxg:GridControl.ContextMenu>
+
+                                                <dxg:GridControl.View >
+                                                    <dxg:TableView AllowPerPixelScrolling="True" 
+                               ShowTotalSummary="True"
+                               ShowAutoFilterRow="True" 
+                               RowAnimationKind="None" 
+                               WaitIndicatorType="Panel"
+                               AllowEditing="False"
+                               Name="tblViewLandTypeLst">
+                                                    </dxg:TableView>
+                                                </dxg:GridControl.View>
+
+
+
+                                                <dxg:GridColumn FieldName="Id"
+                                IsSmart="True"
+                                Header="Id"
+                                Visible="False"
+                                VisibleIndex="1"
+                                SortIndex="0" />
+
+                                                <dxg:GridColumn FieldName="customerCompany.company.CompanyName"
+                                IsSmart="True"
+                                Header="company Name"
+                                VisibleIndex="2"
+                                SortIndex="0" />
+
+                                                <dxg:GridColumn FieldName="person.FName"
+                                IsSmart="True"
+                                Header="Person Name"
+                                VisibleIndex="3"
+                                SortIndex="0" />
+
+                                                <dxg:GridColumn FieldName="person.DOB"
+                                IsSmart="True"
+                                x:Name="colDob1"
+                                Header="DOB"
+                                Width="auto" 
+                                VisibleIndex="4"
+                                SortIndex="0" />
+
+                                                <dxg:GridColumn FieldName="person.CNIC"
+                                IsSmart="True"
+                                x:Name="colCnic1"       
+                                Header="CNIC"
+                                Width="auto" 
+                                VisibleIndex="5"
+                                SortIndex="0" />
+
+                                                <dxg:GridColumn FieldName="contact.ContactNo" 
+                                IsSmart="True"
+                                x:Name="colContactNo1"        
+                                Header="Phone 1"
+                                Width="auto" 
+                                VisibleIndex="6"
+                                SortIndex="0"/>
+
+                                                <dxg:GridColumn FieldName="contact.SecondaryContact" 
+                                IsSmart="True"
+                                x:Name="colContactNo12"        
+                                Header="Phone 2"
+                                Width="auto" 
+                                VisibleIndex="7"
+                                SortIndex="0"/>
+
+                                                <dxg:GridColumn FieldName="contact.Email" 
+                                IsSmart="True"
+                                x:Name="colEmail1"        
+                                Header="Email"
+                                Width="auto" 
+                                VisibleIndex="8"
+                                SortIndex="0" />
+
+                                                <dxg:GridColumn FieldName="designation" 
+                                IsSmart="True"
+                                x:Name="colDesignation1"        
+                                Header="Designation"
+                                Width="auto" 
+                                VisibleIndex="9"
+                                SortIndex="0" />
+                                            </dxg:GridControl>
+                                        </Grid>
+                                    </Grid>
+
+
+                                </dxlc:LayoutGroup>
+                            </dx:DXTabItem>
+                            <dx:DXTabItem Header="To Do's">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition MaxHeight="60" MinHeight="40" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition MaxHeight="60" MinHeight="40" />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="TYPE" Grid.Row="0" />
+                                        <dx:DropDownButton x:Name="dbtnType" />
+                                        <Label Content="STATUS" />
+                                        <dx:DropDownButton x:Name="dbtnStatus" />
+                                        <Label Content="DATE" />
+                                        <dx:DropDownButton x:Name="dbtnDate" />
+                                    </StackPanel>
+                                    <dxg:GridControl Grid.Row="1" MinHeight="150" Margin="10" MaxHeight="800" />
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                        <dx:DropDownButton Content="Manage To Do's" MinWidth="80" x:Name="dbtnmanagetodo" />
+                                        <dx:DropDownButton Content="Run Reports" MinWidth="80" x:Name="dbtnrunReports" />
+                                    </StackPanel>
+                                </Grid>
+                            </dx:DXTabItem>
+                            <dx:DXTabItem Header="Notes" />
+                            <dx:DXTabItem Header="Sent Email" />
+                        </dx:DXTabControl>
+                    </Grid>
+                </DockPanel>
+                <GridSplitter VerticalAlignment="Center" Grid.Row="2" x:Name="horSlider" HorizontalAlignment="Stretch" Grid.Column="2" />
+                <GridSplitter VerticalAlignment="Stretch" Grid.RowSpan="3" Grid.Row="1" HorizontalAlignment="Center" Grid.Column="1" />
+            </Grid>
+        </DockPanel>
+    </Grid>
+    </dx:DXWindow>

@@ -1,0 +1,65 @@
+﻿<Window x:Class="ZAS_ERP.Employee.winEmployeeStatusList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Employee"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="Employee Status" 
+        Height="450" 
+        Width="450"
+         x:Name="winEmployeeStatus"
+        Loaded="WinEmployeeStatusList_Loaded"
+        Unloaded="WinEmployeeStatusList_Unloaded">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+                <MenuItem Header="Employee Status"
+                  x:Name="mbtnEmployeeStatus">
+                    <MenuItem Header="Add Employee Status"
+                    x:Name="mbtnNewEmployeeStatus"
+                    Click="MbtnNewEmployeeStatus_Click"></MenuItem>
+                    <!--<MenuItem Header="Edit Asset Status"
+                    x:Name="mbtnEditAssetStatus"
+                    Click=""></MenuItem>-->
+                </MenuItem>
+
+            </Menu>
+
+            <dxg:GridControl x:Name="grdEmployeeStatus"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       
+                       >
+                <dxg:GridControl.View>
+                    <dxg:TableView 
+                        AllowEditing="False"/>
+                </dxg:GridControl.View>
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewEmployeeStatus"
+                      Click="MbtnNewEmployeeStatus_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditEmployeeStatus"
+                      Click="BtnEditEmployeeStatus_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+            </dxg:GridControl>
+
+        </Grid>
+    </Grid>
+</Window>

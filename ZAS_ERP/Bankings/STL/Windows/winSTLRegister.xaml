@@ -1,0 +1,103 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+         x:Class="ZAS_ERP.Bankings.STL.Windows.winSTLRegister"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:local="clr-namespace:ZAS_ERP.Bankings.STL.Windows" 
+        xmlns:self="clr-namespace:ZAS_ERP"
+        mc:Ignorable="d"
+        Title="STL Register" Height="450" Width="800" Loaded="DXWindow_Loaded">
+    <Grid>
+
+
+        <dxb:BarManager  Grid.Row="1" x:Name="faBarManager">
+
+            <dxb:BarManager.Bars>
+                <dxb:Bar Caption="faOp">
+
+                    <dxb:Bar.DockInfo>
+                        <dxb:BarDockInfo ContainerType="Top"/>
+                    </dxb:Bar.DockInfo>
+
+                    
+                    <dxb:BarButtonItem x:Name="grdCollapse" 
+                                       ItemClick="GrdCollapse_ItemClick"
+                                       ToolTip="Collapse" 
+                                       Content="Collapse Grid" />
+
+                    <dxb:BarButtonItem ToolTip="Expand" x:Name="grdExpand" 
+                                       BarItemDisplayMode="ContentAndGlyph" 
+                                       ItemClick="GrdExpand_ItemClick"
+                                       Content="Expand Grid" />
+                </dxb:Bar>
+
+
+            </dxb:BarManager.Bars>
+            <Grid>
+
+                <Grid.Resources>
+
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="225"/>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="250*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="faLeftGrid"  Grid.Column="0" Background="White">
+                    <TabControl x:Name="faLeftPaneTabControl" dx:ThemeManager.ThemeName="DeepBlue">
+                        <TabItem Header="Transactions" x:Name="pstlTabItem">
+                            <Grid Background="Transparent">
+                                <TreeView x:Name="treeViewSTLStatus" SelectedItemChanged="treeViewSTLStatus_SelectedItemChanged">
+
+                                    <TreeView.Resources>
+
+                                        <HierarchicalDataTemplate DataType="{x:Type self:cmbitem}" ItemsSource="{Binding Items}" >
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto" />
+
+                                                    <ColumnDefinition Width="auto" />
+                                                    <ColumnDefinition Width="1*" />
+
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding id}" Visibility="Collapsed" />
+                                                <TextBlock Text="{Binding description}" Visibility="Collapsed" />
+                                                <TextBlock Text="   " Background="{Binding bcolor}"
+                                                            Width="20"
+                                                            Margin="0,0,5,0" Grid.Column="1"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding name}" Grid.Column="1"
+                                                                HorizontalAlignment="Stretch" />
+
+                                                    
+                                                </StackPanel>
+                                            </Grid>
+                                        </HierarchicalDataTemplate>
+
+                                    </TreeView.Resources>
+                                </TreeView>
+                  
+
+
+
+                            </Grid>
+                        </TabItem>
+                 
+                    </TabControl>
+
+                </Grid>
+                <GridSplitter x:Name="GridSplitter"  Grid.Column="2" Width="5" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0.2,0,563.6,0" />
+                <Grid x:Name="faRightGrid"  Grid.Column="3" Background="White" Margin="0.4,0,-0.4,0" >
+
+
+                </Grid>
+
+
+            </Grid>
+        </dxb:BarManager>
+
+    </Grid>
+</dx:DXWindow>

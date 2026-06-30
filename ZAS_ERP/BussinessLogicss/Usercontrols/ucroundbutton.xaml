@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="ZAS_ERP.Usercontrols.ucroundbutton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Usercontrols"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+  <Style x:Key="RoundButtonStyle2"
+         TargetType="{x:Type Button}">
+    <Setter Property="Foreground"
+            Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+    <Setter Property="HorizontalContentAlignment"
+            Value="Center" />
+    <Setter Property="VerticalContentAlignment"
+            Value="Center" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <ControlTemplate.Resources>
+            <Storyboard x:Key="OnMouseEnter1" />
+            <Storyboard x:Key="OnMouseEnter_Copy1" />
+            <Storyboard x:Key="click" />
+            <Storyboard x:Key="rbOver">
+              <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                            Storyboard.TargetName="rectangle"
+                                            Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <SplineColorKeyFrame KeyTime="00:00:00"
+                                     Value="#FF3F3F3F" />
+                <SplineColorKeyFrame KeyTime="00:00:00.4000000"
+                                     Value="DarkOrange" />
+              </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="rbOver_Copy1">
+              <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                            Storyboard.TargetName="rectangle"
+                                            Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <SplineColorKeyFrame KeyTime="00:00:00"
+                                     Value="#FF313131" />
+                <SplineColorKeyFrame KeyTime="00:00:00.4000000"
+                                     Value="#FF3F3F3F" />
+              </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="rbClick">
+              <ColorAnimationUsingKeyFrames BeginTime="00:00:00"
+                                            Storyboard.TargetName="rectangle"
+                                            Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)">
+                <SplineColorKeyFrame KeyTime="00:00:00"
+                                     Value="#FF1A1A1A" />
+                <SplineColorKeyFrame KeyTime="00:00:00.2000000"
+                                     Value="#FF3F3F3F" />
+              </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+          </ControlTemplate.Resources>
+          <Grid Width="Auto"
+                Height="Auto"
+                Cursor="Hand">
+            <Ellipse Stroke="#FFEEEEEE"
+                     StrokeThickness="3"
+                     x:Name="rectangle"
+                     Width="50"
+                     Height="50"
+                     Fill="#FF3F3F3F" />
+            <Path Fill="#FFEEEEEE"
+                  Data="F1 M 13.479492,9.236328 L 17.595703,5.120117 C 18.767578,3.948730 18.767578,2.049805 17.595703,0.878418 C 16.423828,-0.292969 14.523438,-0.292969 13.351563,0.878418 L 9.236328,4.993164 L 5.122070,0.878418 C 3.950195,-0.292969 2.049805,-0.292969 0.877930,0.878418 C -0.292969,2.049805 -0.292969,3.948730 0.877930,5.120117 L 4.994141,9.236328 L 0.877930,13.352539 C -0.292969,14.523438 -0.292969,16.422852 0.877930,17.593750 C 1.463867,18.179688 2.231445,18.471680 3.000000,18.471680 C 3.768555,18.471680 4.536133,18.179688 5.122070,17.593750 L 9.236328,13.479492 L 13.351563,17.593750 C 13.937500,18.179688 14.705078,18.471680 15.473633,18.471680 C 16.242188,18.471680 17.009766,18.179688 17.595703,17.593750 C 18.767578,16.422852 18.767578,14.523438 17.595703,13.352539 L 13.479492,9.236328 Z"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" />
+          </Grid>
+          <ControlTemplate.Triggers>
+            <EventTrigger RoutedEvent="ButtonBase.Click">
+              <BeginStoryboard Storyboard="{StaticResource rbClick}"
+                               x:Name="rbClick_BeginStoryboard" />
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+              <BeginStoryboard Storyboard="{StaticResource rbOver}"
+                               x:Name="rbOver_BeginStoryboard" />
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+              <BeginStoryboard x:Name="OnMouseEnter_Copy1_BeginStoryboard"
+                               Storyboard="{StaticResource rbOver_Copy1}" />
+            </EventTrigger>
+            <Trigger Property="IsKeyboardFocused"
+                     Value="true" />
+            <Trigger Property="ToggleButton.IsChecked"
+                     Value="true" />
+            <Trigger Property="IsEnabled"
+                     Value="false">
+              <Setter Property="Foreground"
+                      Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <ControlTemplate x:Key="roundButton1"
+                   TargetType="{x:Type Button}">
+    <Grid>
+      <Ellipse Fill="#FF3F3F3F"
+               Stroke="#FFEEEEEE"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Width="50"
+               Height="50"
+               StrokeThickness="3" />
+    </Grid>
+  </ControlTemplate>
+  </UserControl.Resources>
+  
+    <Button x:Name="okButton"
+            
+            HorizontalAlignment="Right"
+            Margin="0,-15,-15,0"
+            VerticalAlignment="Top"
+            Content="Button"
+            Grid.Column="1"
+            Style="{DynamicResource RoundButtonStyle2}" />
+  
+ 
+</UserControl>

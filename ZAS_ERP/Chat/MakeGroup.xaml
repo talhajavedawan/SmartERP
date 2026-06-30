@@ -1,0 +1,293 @@
+﻿<Window x:Class="ZAS_ERP.Chat.MakeGroup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Chat"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d"
+        Title="MakeGroup" 
+        Height="450" 
+        Width="800" 
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="LightBlue"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+
+
+        </Style>
+    </Window.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <Border x:Name="titleBar" BorderBrush="Gray" BorderThickness="1"  >
+            <Grid Background="#FF305590" Grid.Row="0" MouseDown="Grid_MouseDown" VerticalAlignment="Top" Margin="0,0,0,0">
+                <Grid   HorizontalAlignment="Right" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button  x:Name="btnMinimize" ToolTip="Minimize" Grid.Column="0" Style="{StaticResource ResourceKey=TransparentStyle}" Click="BtnMinimize_Click" Margin="5,5,5,5" VerticalAlignment="Bottom" Visibility="Visible" Padding="5">
+                        <Image Width="30"  VerticalAlignment="Bottom" Source="Images/iconMinimize.png"   />
+                    </Button>
+
+                    <Button x:Name="btnClose" ToolTip="Close"  Grid.Column="2" Style="{StaticResource ResourceKey=TransparentStyle}" Click="BtnClose_Click" Margin="5,5,5,5" Visibility="Visible"  Padding="5">
+                        <Image  Height="30"    HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images/iconClose.png"  />
+                    </Button>
+
+                    <Button x:Name="btnMaximize" ToolTip="Maximize"  Grid.Column="1" Style="{StaticResource ResourceKey=TransparentStyle}" Click="BtnMaximize_Click" Margin="5,5,5,5" Visibility="Visible"  Padding="5">
+                        <Image     HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images/iconMaximize.png"    />
+                    </Button>
+                </Grid>
+                <Grid HorizontalAlignment="Center">
+
+                    <StackPanel Orientation="Horizontal"  >
+                        <Image Source="Images/iconTitle.png" Margin="0,5" />
+
+                        <Label Grid.Column="1" Content="All Group" Foreground="White" FontFamily="arialRounded" FontStretch="ExtraExpanded" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Opacity="0.9" />
+
+                        <Label Content="1.2.0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="arialRounded" FontSize="15" Foreground="WhiteSmoke" FontWeight="DemiBold" Margin="5,2"  />
+
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+        </Border>
+
+
+
+
+        <dx:DXTabControl TabContentCacheMode="CacheAllTabs" Grid.Row="1">
+            <dx:DXTabControl.View>
+                <dx:TabControlScrollView />
+            </dx:DXTabControl.View>
+            <dx:DXTabItem Header="Groups Information"
+                    Height="22"
+                    VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".3*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width=".7*" />
+                    </Grid.ColumnDefinitions>
+                    <dxg:GridControl
+                        SelectionMode="Row"
+                           x:Name="gridGroups"
+                           AutoGenerateColumns="None"
+                                     SelectionChanged="GridGroups_SelectionChanged"
+                           >
+                        <dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New"
+                          x:Name="btnNewCompany"
+                                          Click="BtnNewGroup_Click"
+                           />
+                                <MenuItem Header="Edit Group"
+                          x:Name="btnEditCompany"
+                          />
+                                <Separator />
+                                <MenuItem Header="Delete Group"
+                          x:Name="btnDeleteCompany"
+                           />
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView x:Name="viewTable"
+                                AutoWidth="True"
+                                KeyFieldName="id"
+                                ParentFieldName="parentId"
+                                TreeDerivationMode="Selfreference"
+                                AutoExpandAllNodes="True"
+                                AllowEditing="False" 
+                                >
+
+                            </dxg:TreeListView>
+                        </dxg:GridControl.View>
+             
+                        
+                        <dxg:GridColumn x:Name="colId"
+                            FieldName="Id"
+                            IsSmart="True"
+                            Visible="False" />
+                        <dxg:GridColumn FieldName="groupName"
+                            IsSmart="True" />
+                        <dxg:GridColumn FieldName="creationDate"
+                            IsSmart="True" />
+                        <dxg:GridColumn x:Name="colBizType"
+                            FieldName="BizType"
+                            Visible="False"
+                            IsSmart="True" />
+                        <dxg:GridColumn FieldName="EmployeerNo"
+                            x:Name="colEmployeerNo"
+                            IsSmart="True"
+                            Visible="False" />
+                        <!--<dxg:GridColumn FieldName="addressId" x:Name="coladressId" IsSmart="True" Visible="False" />-->
+                        <!--<dxg:GridColumn FieldName="address" IsSmart="True" x:Name="coladress" Visible="False" />-->
+                        <!--<dxg:GridColumn FieldName="contactId" Visible="False" x:Name="colcontactId" IsSmart="True" />-->
+                        <!--<dxg:GridColumn FieldName="contact" x:Name="colcontact" IsSmart="True" Visible="False" />-->
+                    </dxg:GridControl>
+                    <Grid x:Name="gridcompanyinfo"
+                     Background="LightGray"
+                     Grid.Column="2">
+
+                        <dxlc:GroupBox Header="GroupUsers"
+                           Background="White">
+                            <dxg:GridControl
+                        SelectionMode="Row"
+                           x:Name="groupUsers"
+                           AutoGenerateColumns="None"
+                                     SelectionChanged="GridGroups_SelectionChanged"
+                           >
+                               
+                                <dxg:GridControl.View>
+                                    <dxg:TableView x:Name="viewTable1"
+                                AutoWidth="True"
+                                
+                                AllowEditing="False" 
+                                >
+                                        
+                                    </dxg:TableView>
+                                    
+                                </dxg:GridControl.View>
+
+                                <dxg:GridColumn x:Name="employeeId"
+                                       FieldName="employeeId"
+                                             />
+                                <dxg:GridColumn x:Name="userName"
+                                       FieldName="userName"
+                                             />
+
+                                <!--<dxg:GridColumn FieldName="addressId" x:Name="coladressId" IsSmart="True" Visible="False" />-->
+                                <!--<dxg:GridColumn FieldName="address" IsSmart="True" x:Name="coladress" Visible="False" />-->
+                                <!--<dxg:GridColumn FieldName="contactId" Visible="False" x:Name="colcontactId" IsSmart="True" />-->
+                                <!--<dxg:GridColumn FieldName="contact" x:Name="colcontact" IsSmart="True" Visible="False" />-->
+                            </dxg:GridControl>
+
+                        </dxlc:GroupBox>
+
+
+
+
+                    </Grid>
+                    <GridSplitter Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center" />
+                </Grid>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem Header="Tickers"
+                    Height="22"
+                    VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".3*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width=".7*" />
+                    </Grid.ColumnDefinitions>
+                    <dxg:GridControl
+                        SelectionMode="Row"
+                           
+                           AutoGenerateColumns="None"
+                                     SelectionChanged="GridGroups_SelectionChanged"
+                           >
+                        <dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New Ticker"
+                          
+                                         
+                           />
+                                <MenuItem Header="Edit Ticker"
+                          
+                          />
+                                <Separator />
+                                <MenuItem Header="Delete Ticker"
+                          
+                           />
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>
+                        <dxg:GridControl.View>
+                            <dxg:TableView 
+                                AutoWidth="True"
+                                
+                                
+                                AllowEditing="False" 
+                                >
+
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+
+
+                        <dxg:GridColumn 
+                            FieldName="Id"
+                            IsSmart="True"
+                            Visible="False" />
+                        <dxg:GridColumn FieldName="TickerText"
+                            IsSmart="True" />
+                        <dxg:GridColumn FieldName="creationDate"
+                            IsSmart="True" />
+                        <dxg:GridColumn 
+                            FieldName="BizType"
+                            Visible="False"
+                            IsSmart="True" />
+                        <dxg:GridColumn FieldName="EmployeerNo"
+                           
+                            IsSmart="True"
+                            Visible="False" />
+                        <!--<dxg:GridColumn FieldName="addressId" x:Name="coladressId" IsSmart="True" Visible="False" />-->
+                        <!--<dxg:GridColumn FieldName="address" IsSmart="True" x:Name="coladress" Visible="False" />-->
+                        <!--<dxg:GridColumn FieldName="contactId" Visible="False" x:Name="colcontactId" IsSmart="True" />-->
+                        <!--<dxg:GridColumn FieldName="contact" x:Name="colcontact" IsSmart="True" Visible="False" />-->
+                    </dxg:GridControl>
+                    <Grid 
+                     Background="LightGray"
+                     Grid.Column="2">
+
+                       
+
+
+
+
+                    </Grid>
+                    <GridSplitter Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Center" />
+                </Grid>
+            </dx:DXTabItem>
+
+
+        </dx:DXTabControl>
+    </Grid>
+</Window>

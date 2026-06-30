@@ -1,0 +1,254 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ZAS_ERP.Productss"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        x:Class="ZAS_ERP.Termss.frmPaymentTermAdd"
+             mc:Ignorable="d"
+             Height="570"
+             Width="400" Title="Payment Term" x:Name="winPaymentTermAdd" 
+        Loaded="winPaymentTermAdd_Loaded" Closing="winPaymentTermAdd_Closing">
+  <Grid Margin="0,20,0,0">
+    
+    <Grid.Resources>
+      <Style TargetType="{x:Type Label}">
+        <Setter Property="Margin"
+                Value="10,10" />
+        <Setter Property="Foreground"
+                Value="Gray" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+      </Style>
+      <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Margin"
+                Value="10,0" />
+        <Setter Property="MaxWidth"
+                Value="350" />
+      </Style>
+    </Grid.Resources> 
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="auto" />
+      <ColumnDefinition Width="1*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+      
+    </Grid.RowDefinitions>
+    <Label Content="Terms"
+           ToolTip="Terms"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Right" />
+    <Label Content="Type"
+           ToolTip="Payment term type"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"
+           Grid.Row="2" />
+    <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+    <TextBox x:Name="txtterm"
+             VerticalAlignment="Center"
+             Grid.Column="1"
+             Margin="20,0" />
+
+        <Label Content="Parent Term"
+                   ToolTip="Parent Term"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right" 
+                               Grid.Row="1"/>
+
+        <dxg:LookUpEdit Grid.Row="1" 
+                                        x:Name="lookupParentTerm"
+                                        Grid.Column="1" VerticalAlignment="Center"
+                                        Margin="20 0 20 0"
+                                        DisplayMember="term"
+                                         AutoPopulateColumns="False">
+            <dxg:LookUpEdit.PopupContentTemplate>
+                <ControlTemplate>
+                    <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None">
+                        <dxg:GridControl.View>
+                            <dxg:TableView/>
+                        </dxg:GridControl.View>
+
+                        <dxg:GridColumn Header="Payment Term"
+                                    FieldName="term"
+                                                AllowEditing="false"/>
+                    </dxg:GridControl>
+                </ControlTemplate>
+            </dxg:LookUpEdit.PopupContentTemplate>
+
+        </dxg:LookUpEdit>
+
+
+        <StackPanel Grid.Row="2"
+                Grid.Column="1"
+                Orientation="Horizontal">
+      <RadioButton x:Name="rbtnStandard"
+                   Checked="rbtnStandard_Checked"
+                   Content="Standard"
+                   VerticalAlignment="Center"
+                   Margin="20,0"></RadioButton>
+      <RadioButton x:Name="rbtnDatebased"
+                   Content="Date Based"
+                   Checked="rbtnDatebased_Checked"
+                   VerticalAlignment="Center"
+                   Margin="10,0"></RadioButton>
+    </StackPanel>
+    <Label Content="Is Active"
+           ToolTip="Check if is Active"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"
+           Grid.Row="3" />
+    <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+    <CheckBox x:Name="chkIsActive"
+              Grid.Row="3"
+              VerticalAlignment="Center"
+              Grid.Column="1"
+              IsChecked="True"
+              Margin="20,0" />
+
+
+        <dxlc:GroupBox Background="White"
+                   Margin="5"
+                   Grid.Row="4"
+                   Grid.ColumnSpan="2"
+                   TitleVisibility="Visible"
+                      Header="Module">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <dxe:CheckEdit Content="Sale Order" x:Name="chkSaleOrder" Grid.Row="0" Grid.Column="0"/>
+                <dxe:CheckEdit Content="Purchase Order" x:Name="chkPurchaseOrder" Grid.Row="0" Grid.Column="1" Margin="5 0 5 0"/>
+                <dxe:CheckEdit Content="Sale Invoice" x:Name="chkSaleInvoice" Grid.Row="0" Grid.Column="2"/>
+                <dxe:CheckEdit Content="Purchase Invoice" x:Name="chkPurchaseInvoice" Grid.Row="1" Grid.Column="0"/>
+                <dxe:CheckEdit Content="Payments" x:Name="chkPayments" Grid.Row="1" Grid.Column="1" Margin="5 0 5 0"/>
+                <dxe:CheckEdit Content="Vendor Bills" x:Name="chkVendorBills" Grid.Row="1" Grid.Column="2"/>
+                <dxe:CheckEdit Content="Offer" x:Name="chkOffers" Grid.Row="2" Grid.Column="0"/>
+                <dxe:CheckEdit Content="Cost Sheet" x:Name="chkCostSheet" Grid.Row="2" Grid.Column="1" Margin="5 0 5 0"/>
+            </Grid>
+        </dxlc:GroupBox>
+      
+    <dxlc:GroupBox Background="White"
+                   Margin="5"
+                   Grid.Row="5"
+                   Grid.ColumnSpan="2"
+                   TitleVisibility="Hidden">
+      <Grid>
+        <Grid.Resources>
+          <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="Margin"
+                    Value="0,5" />
+          </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+          <!--<ColumnDefinition Width="auto" />-->
+          <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+          <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock VerticalAlignment="Center"
+                     x:Name="lblnetdue1"
+                     Text="Net due in"></TextBlock>
+          <TextBox x:Name="txtnetdue"
+                   Text="0"
+                   Width="70"
+                   Margin="10,0"
+                   VerticalAlignment="Center" />
+          <TextBlock x:Name="lblnetdue2"
+                     VerticalAlignment="Center"
+                     Text=" Days"></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2">
+          <TextBlock VerticalAlignment="Center"
+                     x:Name="lbldiscPercent1"
+                     Text="Discount Percentage is "></TextBlock>
+          <TextBox x:Name="txtdiscountPercent"
+                   Width="70"
+                   Margin="10,0"
+                   Text="0"
+                   VerticalAlignment="Center" />
+          <!--<TextBlock x:Name="lbldiscPercent2"
+                             VerticalAlignment="Center"
+                             Text=" Days"></TextBlock>-->
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="3">
+          <TextBlock VerticalAlignment="Center"
+                     x:Name="lbldiscdays1"
+                     Text="Discount if paid within "></TextBlock>
+          <TextBox x:Name="txtDiscDays"
+                   Width="70"
+                   Margin="10,0"
+                   Text="0"
+                   VerticalAlignment="Center" />
+          <TextBlock x:Name="lbldiscdays2"
+                     VerticalAlignment="Center"
+                     Text=" Days."></TextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="1"
+                    x:Name="stpanelduemindays">
+          <TextBlock VerticalAlignment="Center"
+                     x:Name="lblduewithin1"
+                     Text="Due next Month if Issued within"></TextBlock>
+          <TextBox x:Name="txtMinDueDays"
+                   Width="70"
+                   Text="0"
+                   Margin="10,0"
+                   VerticalAlignment="Center" />
+          <TextBlock x:Name="lblduewithin2"
+                     VerticalAlignment="Center"
+                     Text=" Days"></TextBlock>
+        </StackPanel>
+      </Grid>
+    </dxlc:GroupBox>
+    <!--<Label Content="Country"
+                   ToolTip="Country"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="3" />
+            -->
+    <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+    <!--
+            <TextBox x:Name="txtCountry"
+                     VerticalAlignment="Center"
+                     Grid.Column="1"
+                     Grid.Row="3"
+                     Margin="20,0" />-->
+    
+  
+  <Button Grid.ColumnSpan="2"
+            Grid.Row="6"
+            Content="Save"
+            FontSize="26"
+            x:Name="btnPaymentTermSave"
+            Click="btnPaymentTermSave_Click" />
+
+  </Grid>
+</Window>

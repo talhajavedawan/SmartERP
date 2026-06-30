@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.AdminBillss.UserControls.ucFrmMaintenanceHead"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.AdminBillss.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup Header="Maintenance Head" 
+                                  Margin="0 0 0 45"
+                                          View="GroupBox" 
+                                          IsCollapsible="False" 
+                                          IsCollapsed="False" 
+                                          Orientation="Vertical">
+            <dxlc:LayoutControl Orientation="Vertical" VerticalAlignment="Center">
+                <dxlc:LayoutItem Label="Maintenance Head:" Width="270">
+                    <dxe:TextEdit Margin="2 0 0 0" x:Name="txtMaintenanceHead"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="10"/>
+                <dxlc:LayoutItem Height="10"/>
+                <dxlc:LayoutItem Label="Is Active:" Width="270">
+                    <dxe:CheckEdit Margin="55 0 0 0" x:Name="chkIsActive"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutControl>
+        </dxlc:LayoutGroup>
+        <Button Content="Save" x:Name="btnSave" Height="40" VerticalAlignment="Bottom" Click="BtnSave_Click"/>
+    </Grid>
+</UserControl>

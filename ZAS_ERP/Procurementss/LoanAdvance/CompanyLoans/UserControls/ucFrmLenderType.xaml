@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.LoanAdvance.UserControls.ucFrmLenderType"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.LoanAdvance.UserControls" xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="350" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup Header="Lender Type" View="GroupBox">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <!--<RowDefinition/>-->
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+
+                <dxlc:LayoutItem Label="Type Name" Grid.Row="0" VerticalAlignment="Center">
+                    <dxe:TextEdit Name="txtTypeName"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Chart of Account" Grid.Row="1" VerticalAlignment="Center">
+                    <dxg:LookUpEdit x:Name="lookupAccounts"
+                                Grid.Row="1"
+                                MinWidth="20"
+                    Grid.Column="3"       
+                                  ToolTip="Select Account"
+                                     Cursor="Hand"
+                                    ShowNullText="True"
+                                  
+                                    NullText="Select Account"
+                    VerticalAlignment="Center"
+                    DisplayMember="accountName"
+                    
+                    >
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                             AutoPopulateColumns="True"
+                             Grid.Row="1">
+                                        <dxg:GridControl.View>
+                                            <dxg:TreeListView Name="treeListView1"
+                                  ShowAutoFilterRow="True"
+                                  TreeDerivationMode="Selfreference"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  />
+                                        </dxg:GridControl.View>
+                                        <dxg:GridColumn FieldName="Account Name"
+                              IsSmart="True"
+                              Width="auto"
+                              Visible="False"/>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>
+
+                <!--<dxlc:LayoutItem Label="      Active  " Grid.Row="1" VerticalAlignment="Center">
+                    <CheckBox x:Name="chkIsActive"/>
+                </dxlc:LayoutItem>-->
+
+
+                <Button Content="Save" x:Name="btnSave" Grid.Row="3" Click="BtnSave_Click"/>
+            </Grid>
+        </dxlc:LayoutGroup>
+    </Grid>
+</UserControl>

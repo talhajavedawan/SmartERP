@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="ZAS_ERP.CreditCards.UserControls.ucFrmCardHolderAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.CreditCards.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="230" d:DesignWidth="430" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup View="GroupBox" Header="Card Holder">
+            <dxlc:LayoutControl Orientation="Vertical" VerticalAlignment="Center">
+                
+
+                <dxlc:LayoutItem Label="Card Holder Name:">
+                    <dxe:TextEdit x:Name="txtCardHolder"/>
+                </dxlc:LayoutItem>
+
+                <Separator Height="10" BorderBrush="Transparent"/>
+                
+                <dxlc:LayoutItem Label="Is Active">
+                    <dxe:CheckEdit x:Name="chkIsActive"/>
+                </dxlc:LayoutItem>
+
+                <!--<dxlc:LayoutItem Label="Primary Holder:">
+                    <dxe:ComboBoxEdit x:Name="cmbxPrimaryCardHolder"/>
+                </dxlc:LayoutItem>-->
+                
+                
+                <!--<dxlc:LayoutItem Label="Primary Holder:" x:Name="parentCardHolder"  Visibility="Collapsed">
+                    <dxg:LookUpEdit Grid.Column="1" Height="22" 
+                                            IsTextEditable="False" 
+                                            AutoPopulateColumns="True" 
+                                            DisplayMember="Name"
+                                            x:Name="cmbxPrimaryCardHolder"
+                                            GotFocus="CmbxPrimaryCardHolder_GotFocus"
+                                            SelectedIndexChanged="CmbxPrimaryCardHolder_SelectedIndexChanged"
+                                            TabIndex="4">
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                        <dxg:GridControl.View>
+                                            <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="ParentID"/>
+                                        </dxg:GridControl.View>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>-->
+            </dxlc:LayoutControl>
+        </dxlc:LayoutGroup>
+        <Button x:Name="btnSave" Content="Save" Height="40" VerticalAlignment="Bottom" Click="BtnSave_Click"/>
+    </Grid>
+</UserControl>

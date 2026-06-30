@@ -1,0 +1,94 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ZAS_ERP.BussinessLogicss"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.BussinessLogicss.frmCurrencyAdd"
+             mc:Ignorable="d"
+             Height="300"
+             Width="350" Title="Currency" x:Name="winCurrencyAdd" 
+        Loaded="winCurrencyAdd_Loaded" Closing="winCurrencyAdd_Closing">
+  <Grid Margin="0,20,0,0">
+    <Grid.Resources>
+      <Style TargetType="{x:Type Label}">
+        <Setter Property="Margin"
+                Value="10,10" />
+        <Setter Property="Foreground"
+                Value="Gray" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+      </Style>
+      <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Margin"
+                Value="10,0" />
+        <Setter Property="MaxWidth"
+                Value="350" />
+      </Style>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width=" auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height=" auto" />
+      <RowDefinition Height=" auto" />
+      <RowDefinition Height=" auto" />
+      <RowDefinition Height=" auto" />
+      
+      <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height=" 50" />
+    </Grid.RowDefinitions>
+    <Label Content="Currency Name"
+           ToolTip="Currency Name"
+           VerticalAlignment="Center"
+           HorizontalAlignment="Right" />
+    <Label Content="Symbol"
+           ToolTip="Symbol"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"
+           Grid.Row="1" />
+    <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+    <TextBox x:Name="txtCurrencyName"
+             VerticalAlignment="Center"
+             Grid.Column="1"
+             Margin="20,0" />
+    <TextBox          VerticalAlignment="Center"
+                      x:Name="txtSymbol"
+                      ToolTip="Enter Currency Symbol"
+                      Grid.Row="1"
+                      Grid.Column="1"
+                      Margin="20,0" />
+    <Label Content="Abbrevation"
+           ToolTip="Abbrevation"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"
+           Grid.Row="2" />
+    <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+    <TextBox x:Name="txtAbrivation"
+             Grid.Row="2"
+             VerticalAlignment="Center"
+             Grid.Column="1"
+             Margin="20,0" />
+    <Label Content="Country"
+           ToolTip="Country"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"
+           Grid.Row="3" />
+    <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+    <TextBox x:Name="txtCountry"
+             VerticalAlignment="Center"
+             Grid.Column="1"
+             Grid.Row="3"
+             Margin="20,0" />
+        <dxe:CheckEdit x:Name="checkIsvoid" Content="isVoid" VerticalAlignment="Stretch" HorizontalAlignment="Right" Checked="CheckIsvoid_Checked" Unchecked="CheckIsvoid_Unchecked"  Grid.Row="4" Grid.Column="0"/>
+        <Button Grid.ColumnSpan="2"
+            Grid.Row="6"
+            Content="Save"
+            FontSize="26"
+            x:Name="btnCurrencySave"
+            Click="btnCurrencySave_Click" />
+
+  </Grid>
+</Window>

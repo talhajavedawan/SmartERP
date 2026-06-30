@@ -1,0 +1,41 @@
+﻿<Window x:Class="ZAS_ERP.Memos.PerformanceReview.ReviewListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Memos.PerformanceReview" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="ReviewListWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Filters -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Year:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <dxe:DateEdit x:Name="filterYear" Width="100" Mask="yyyy" MaskUseAsDisplayFormat="True" />
+            <TextBlock Text="  Department:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+            <ComboBox x:Name="filterDepartment" Width="150" DisplayMemberPath="DeptName"/>
+            <TextBlock Text="  Employee:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+            <ComboBox x:Name="filterEmployee" Width="150" DisplayMemberPath="userName"/>
+            <Button Content="Search" Margin="10,0,0,0" Click="BtnSearch_Click"/>
+        </StackPanel>
+
+        <!-- Grid of Reviews -->
+        <dxg:GridControl x:Name="dgReviews" Grid.Row="1" 
+                         Margin="0,10,0,10">
+
+            <dxg:GridColumn Header="Employee" Binding="{Binding Employee.userName}" Width="*"/>
+            <dxg:GridColumn Header="Department" Binding="{Binding EmpDepartment.DeptName}" Width="*"/>
+            <dxg:GridColumn Header="Year" Binding="{Binding PerformanceYear, StringFormat='yyyy'}" Width="*"/>
+            <dxg:GridColumn Header="Supervisor" Binding="{Binding Supervisor.userName}" Width="*"/>
+            <dxg:GridColumn Header="Admin" Binding="{Binding Admin.userName}" Width="*"/>
+
+        </dxg:GridControl>
+
+        <Button Grid.Row="2" Content="Edit Selected Review" Height="35" Click="BtnEditReview_Click"/>
+    </Grid>
+</Window>

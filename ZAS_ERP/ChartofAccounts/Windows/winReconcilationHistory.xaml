@@ -1,0 +1,129 @@
+﻿<dx:DXWindow
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="ZAS_ERP.ChartofAccounts.Windows.winReconcilationHistory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.ChartofAccounts.Windows"
+        xmlns:dxlc="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="Previous Reconcilations" Height="450" Width="800"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded"  >
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" >
+            <dxlc:GroupBox >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Chart of Account :" FontWeight="DemiBold"/>
+                    <dxg:LookUpEdit x:Name="lookupReconcileAccounts"
+                                Grid.Row="1"
+                       
+                                  ToolTip="Select Account"
+                                     Cursor="Hand"
+                                    ShowNullText="True"
+                                    SelectedIndexChanged="LookupReconcileAccounts_SelectedIndexChanged"
+                                    NullText="Select Account"
+                    VerticalAlignment="Center"
+                    DisplayMember="accountName"
+                    
+                    >
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                             AutoPopulateColumns="True"
+                             Grid.Row="1">
+                                        <dxg:GridControl.View>
+                                            <dxg:TreeListView Name="treeListView1"
+                                  ShowAutoFilterRow="True"
+                                  TreeDerivationMode="Selfreference"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  />
+                                        </dxg:GridControl.View>
+                                        <dxg:GridColumn FieldName="Account Name"
+                              IsSmart="True"
+                              Width="auto"
+                              Visible="False"/>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                    <dxe:ListBoxEdit AllowItemHighlighting="True"   x:Name="lstboxReconcilations" Grid.Row="3" Background="Transparent" >
+                        
+                    </dxe:ListBoxEdit  >
+                </Grid>
+                
+                
+            </dxlc:GroupBox>
+        </Grid>
+
+        <Grid Grid.Column="2" >
+            <dxlc:GroupBox >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Text="Type of Report :" FontWeight="DemiBold"/>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="5"/>
+                            
+                            
+                        </Grid.RowDefinitions>
+                        <RadioButton x:Name="radioDetailReport" Cursor="Hand" FontWeight="DemiBold"  HorizontalAlignment="Stretch" Grid.Row="0" Margin="5,5,5,5" Padding="5" Content="Detail" />
+                        <RadioButton x:Name="radioSummaryReport" Cursor="Hand" FontWeight="DemiBold" HorizontalAlignment="Stretch"  Grid.Row="2" Margin="5,5,5,5" Padding="5" Content="Summary"  />
+                        <RadioButton x:Name="radioBothReport" Cursor="Hand" FontWeight="DemiBold" HorizontalAlignment="Stretch"  Grid.Row="4" Margin="5,5,5,5" Padding="5" Content="Both"  />
+                    </Grid>
+
+
+                </Grid>
+             
+
+
+            </dxlc:GroupBox>
+        </Grid>
+        
+        
+     
+            <dx:SimpleButton x:Name="btnDisplay" Cursor="Hand" ToolTip="Display Reort"   Content="Display" Grid.Row="1" Margin="2,2,2,2" Click="BtnDisplay_Click" />
+        <dx:SimpleButton x:Name="btnCancel" Grid.Column="2" Cursor="Hand" ToolTip="Cancel" Content="Cancel" Grid.Row="1"  Margin="2,2,2,2" Click="BtnCancel_Click" />
+      
+    </Grid>
+</dx:DXWindow>

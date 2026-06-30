@@ -1,0 +1,348 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.Inquiriess.ucInquiryGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Inquiriess"
+             xmlns:loc="clr-namespace:ZAS_ERP"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d"
+             x:Name="ucinquiryGrid"
+             Loaded="ucinquiryGrid_Loaded"
+             Unloaded="UcinquiryGrid_Unloaded"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <!--<UserControl.DataContext>
+        <local:ucInquiryGrid/>
+    </UserControl.DataContext>-->
+    <UserControl.Resources>
+    <loc:MyConv x:Key="valueconverter"></loc:MyConv>
+  
+  </UserControl.Resources>
+    <Grid DataContext="{Binding  RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:ucInquiryGrid}}">
+    <Grid Grid.Column="2"
+          Grid.RowSpan="3"
+          Grid.Row="1">
+      <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+          
+                <RowDefinition Height="*"></RowDefinition>
+      </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top"
+                  x:Name="menuGrid"
+                  Grid.ColumnSpan="3">
+                <MenuItem Header="_Print Preview"
+                          x:Name="mbtnPrintPreview"
+                          Click="MbtnPrintPreview_Click"
+                          >
+                    
+                    
+                </MenuItem>
+                <MenuItem Header="Export To Report"
+                          x:Name="mbtnExportToReport"
+                          Click="MbtnExportToReport_Click"></MenuItem>
+                <!--<Button></Button>-->
+                <MenuItem Header="Refresh"
+                          x:Name="mbtnRefresh"
+                          Click="MbtnRefresh_Click"></MenuItem>
+                <MenuItem Header="Direct Close"
+                          x:Name="mbtnDriectClose"
+                          Click="MbtnDriectClose_Click"></MenuItem>
+                <MenuItem Header="Approve"
+                          x:Name="mbtnApprove"
+                          Click="MbtnApprove_Click"></MenuItem>
+                <MenuItem 
+                          x:Name="mbtnPending"
+                          Click="MbtnPending_Click">
+                    <MenuItem.Template>
+                        <dxg:DefaultControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Pending for Approval"></TextBlock>
+                                <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                                <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtApprovalcount" Text="{Binding ApprovalCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                            </dxg:DefaultControlTemplate>
+                    </MenuItem.Template> </MenuItem>
+                <MenuItem 
+                          x:Name="mbtnPendingClosing"
+                          Click="MbtnPendingClosing_Click">
+                    <MenuItem.Template>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Pending for Closing"></TextBlock>
+                                <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                                <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtClosingcount" Text="{Binding ClosingCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+                <MenuItem Header="Save Layout"
+                          x:Name="mbtnSaveLayout"
+                          Click="MbtnSaveLayout_Click"></MenuItem>
+                <MenuItem 
+                          x:Name="mbtnVoid"
+                          Click="MbtnVoid_Click">
+                    <MenuItem.Template>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Void"></TextBlock>
+                                <!--<Ellipse x:Name="elpApproval" Margin="5,0" Fill="Red" Width="10" Height="10">
+                                </Ellipse>-->
+                                <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtVoidcount" Text="{Binding VoidCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+            </Menu>
+       
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <dxe:TextEdit Text="From" FontWeight="DemiBold" Background="LightGreen" IsReadOnly="True" HorizontalContentAlignment="Center" Grid.Column="0"/>
+                <dxe:DateEdit x:Name="dateFrom" NullText="Select Date" Grid.Column="1" FontWeight="DemiBold"    >
+
+                </dxe:DateEdit>
+                <dxe:TextEdit Grid.Column="2" FontWeight="DemiBold" Background="Orange" IsReadOnly="True" HorizontalContentAlignment="Center" Text="To"/>
+                <dxe:DateEdit x:Name="dateTo" NullText="Select Date" Grid.Column="3" FontWeight="DemiBold"   >
+
+                </dxe:DateEdit>
+                <dx:SimpleButton x:Name="btnDateFilter" ToolTip="Filter by date range" Grid.Column="4" Content="Apply" Cursor="Hand" Click="BtnDateFilter_Click"  />
+
+                <!--<dx:SimpleButton FontWeight="Bold" Content="Load More"  Grid.Column="0" x:Name="btnLoadMoreSO" Click="BtnLoadMoreSO_Click" Foreground="Black"/>
+            <dx:SimpleButton FontWeight="Bold" Background="Orange" x:Name="btnLoadAll" Click="BtnLoadAll_Click" Content="Load All" Grid.Column="3" Foreground="Black"/>-->
+
+            </Grid>
+            <TextBlock x:Name="lblHeading" Text="Inquiries" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="2" FontFamily="Segoe UI Semibold"  ></TextBlock>
+
+            <dxg:GridControl x:Name="grdinquiry"
+                      
+                       Grid.Row="3"
+                       Grid.ColumnSpan="3"
+                       SelectionMode="Row"
+                       AutoGenerateColumns="AddNew"
+                    
+                       CustomColumnDisplayText="grdinquiry_CustomColumnDisplayText"
+                       AutoGeneratingColumn="grdinquiry_AutoGeneratingColumn"
+                       MouseDoubleClick="grdinquiry_MouseDoubleClick"
+                       TextOptions.TextHintingMode="Fixed"
+                       TextOptions.TextFormattingMode="Display">
+        <dxg:GridControl.GroupSummary>
+          <dxg:GridSummaryItem FieldName="Id"
+                               SummaryType="Count" />
+        </dxg:GridControl.GroupSummary>
+        <dxg:GridControl.TotalSummary>
+          <dxg:GridSummaryItem FieldName="Id"
+                               SummaryType="Count" />
+        </dxg:GridControl.TotalSummary>
+        <dxg:GridControl.View>
+          <dxg:TableView  ColumnFilterPopupMode="Excel"
+                          x:Name="tableView"
+                          Width="auto"
+                          RowAnimationKind="None" WaitIndicatorType="Panel"
+                          AllowMasterDetail="True"
+                          ShowAutoFilterRow="True"
+                          AllowEditing="False"
+                          BestFitMode="Smart"
+                          BestFitArea="Header"
+                          AllowPartialGrouping="True"
+                          AllowCellMerge="True"
+                                    ShowFixedTotalSummary="True"
+                                    GroupSummaryDisplayMode="AlignByColumns"
+                          ShowTotalSummary="True"
+                          >
+            <!--<dxg:TableView.FormatConditions>
+              <dxg:FormatCondition FieldName="inquiryStatus.isActive"
+                                   Value1="False"
+                                   ValueRule="Equal">
+                <dxg:Format FontWeight="Bold"
+                            Foreground="Red" />
+              </dxg:FormatCondition>
+              <dxg:FormatCondition FieldName="inquiryStatus.isActive"
+                                   Value1="True"
+                                   ValueRule="Equal">
+                <dxg:Format Foreground="Gray" />
+              </dxg:FormatCondition>
+            </dxg:TableView.FormatConditions>-->
+          </dxg:TableView>
+        </dxg:GridControl.View>
+                
+                <!--<dxg:GridControl.DetailDescriptor>
+          <dxg:DataControlDetailDescriptor ShowHeader="True"
+                                           x:Name="detailGridDescriptor"
+                                           ItemsSourcePath="products">
+            <dxg:DataControlDetailDescriptor.DataControl>
+              <dxg:GridControl>
+                <dxg:GridControl.View>
+                  <dxg:TableView DetailHeaderContent="Products"
+                                 AutoWidth="True"
+                                 ShowGroupPanel="False" />
+                </dxg:GridControl.View>
+                <dxg:GridColumn Header="Item Code"
+                                FieldName="product.code"
+                                IsSmart="True"
+                                Width="auto" />
+                <dxg:GridColumn Header="Item Name"
+                                FieldName="product.item"
+                                IsSmart="True"
+                                Width="auto" />
+                <dxg:GridColumn FieldName="product.itemDescription"
+                                IsSmart="True"
+                                Header="Item Description"
+                                Width="auto" />
+                <dxg:GridColumn FieldName="ownDiscription"
+                                IsSmart="True"
+                                Header="Own Description"
+                                Width="auto" />
+                <dxg:GridColumn FieldName="UOM"
+                                Header="Unit of Measure"
+                                IsSmart="True"
+                                Width="auto" />
+                                <dxg:GridColumn FieldName="inquiryProduct.Weight"
+                        Header="Weight" >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="quantity"
+                                Header="Quantity"
+                                IsSmart="True"
+                                Width="auto" />
+              </dxg:GridControl>
+            </dxg:DataControlDetailDescriptor.DataControl>
+          </dxg:DataControlDetailDescriptor>
+        </dxg:GridControl.DetailDescriptor>-->
+                <dxg:GridColumn Header="Company"
+                                FieldName="company.CompanyName"
+                                IsSmart="True"
+                                Width="auto" />
+                <dxg:GridColumn Header="Customer"
+                                FieldName="customerCompany.company.CompanyName"
+                                IsSmart="True"
+                                Width="auto" />
+                <dxg:GridColumn FieldName="Department" 
+                            UnboundType="String"
+                            UnboundExpression="[department.parentDepartment.DeptName] +' '+ [department.DeptName]"/>
+
+
+                <!--<dxg:GridColumn Header="Department"
+                                FieldName="department.DeptName"
+                                IsSmart="True"
+                                Width="auto" />-->
+                <dxg:GridColumn Header="Employee"
+                                FieldName="employee.person.FName"
+                                IsSmart="True"
+                                Width="auto" />
+                <dxg:GridColumn Header="products"
+                            FieldName="productsvendorPaymentStatus.Status"
+                            IsSmart="True"
+                            Width="auto" ShowInColumnChooser="False" Visible="False"/>
+                <dxg:GridColumn Header="Total Weight"
+                            FieldName="TotalWeight"
+                            IsSmart="True"
+                            Width="auto"
+                                                        >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn Header="Total Quantity"
+                            FieldName="TotalQuantity"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="inquiryStatus.isActive"
+                        x:Name="colisOpen"
+                        IsSmart="True"
+                        Header="Open"
+                        Visible="False"
+                        Width="auto">
+          <dxg:GridColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock TextAlignment="Center"
+                         Text="{Binding RowData.Row.inquiryStatus.isActive, Converter={StaticResource valueconverter}}" />
+            </DataTemplate>
+          </dxg:GridColumn.CellTemplate>
+        </dxg:GridColumn>
+        <dxg:GridColumn x:Name="colstatus"
+                        FieldName="inquiryStatus.Status"
+                        Header="Staus"
+                        IsSmart="True"
+                        Visible="False"
+                        VisibleIndex="6">
+          <dxg:GridColumn.CellTemplate>
+            <DataTemplate>
+              <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto"></ColumnDefinition>
+                  <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="PART_Editor">
+                <TextBlock x:Name="PART_Editor1"
+                           Width="20"
+                           Margin="10,0"
+                           Background="{Binding RowData.Row.inquiryStatus.backcolor}"
+                           Foreground="{Binding RowData.Row.inquiryStatus.forecolor}"></TextBlock>
+                <TextBlock Name="PART_Editor2"
+                           Text="{Binding RowData.Row.inquiryStatus.Status}"></TextBlock>
+</TextBlock>
+              </Grid>
+            </DataTemplate>
+          </dxg:GridColumn.CellTemplate>
+        </dxg:GridColumn>
+        <!--<dxg:GridColumn FieldName="Id"
+                            Visible="False" />
+            <dxg:GridColumn FieldName="referenceNo"
+                            Width="auto"
+                            Header="Inquiry Reference" />
+            <dxg:GridColumn FieldName="customerCompany.company.CompanyName"
+                            Width="*"
+                            Header="Customer Name" />
+            <dxg:GridColumn FieldName="inquiryDate"
+                            Width="auto"
+                            Header="Inquiry Date" />-->
+        <dxg:GridControl.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Add New"
+                      x:Name="btnNewInquiry"
+                      Click="btnNewInquiry_Click" />
+            <MenuItem Header="Edit"
+                      x:Name="btnEditInquiry"
+                      Click="btnEditInquiry_Click" />
+            <Separator />
+            <MenuItem Header="Delete Inquiry"
+                      x:Name="btnDeleteInquiry" />
+                        <Separator />
+                        <MenuItem Header="Print Preview"
+                                  x:Name="mbtnPrintGrid"
+                                  Click="Button_Click" />
+                        <!--<MenuItem Header="Create Report"
+                                  x:Name="mbtnReportCreate"
+                                  Click="MbtnReportCreate_Click" />-->
+                    </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+      </dxg:GridControl>
+    </Grid>
+  </Grid>
+</UserControl>

@@ -1,0 +1,307 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="ZAS_ERP.BackgroundUpload.selectEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.BackgroundUpload"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Employee" Height="450" Width="800" Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+
+            <!--Grid Control Start-->
+            <dxg:GridControl SelectionMode="MultipleRow"
+                             AllowInitiallyFocusedRow="False"                  
+                             AutoGenerateColumns="None"
+                             x:Name ="grdUserTask"
+                             FilterChanged="GrdUserTask_FilterChanged">
+
+                <!--Grid control view-->
+                <dxg:GridControl.View>
+                    <dxg:TreeListView
+                       
+                        x:Name="treeListEmployeeView"
+                        ShowAutoFilterRow="True"
+                                        
+                                                  AutoWidth="True"
+                                  KeyFieldName="EmpId"
+                                  ParentFieldName="ParentID"
+                                  TreeDerivationMode="Selfreference"
+                                  AutoExpandAllNodes="True"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  ShowCheckboxes="True"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowSelectionRectangle="True"
+                    CustomUnboundColumnData="treeListEmployeeView_CustomUnboundColumnData"/>
+
+
+                </dxg:GridControl.View>
+                <!--Grid Control Context menu-->
+
+                <!--Grid Control Coloumns-->
+                <dxg:GridColumn MaxWidth="60" Header="Photo" Image="{dx:DXImage Image=User_16x16.png}" VisibleIndex="0" FieldName="person.Photo" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:ImageEditSettings ShowMenu="False" MaxWidth="40" />
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn x:Name="colFirstName" 
+                      HorizontalHeaderContentAlignment="Left" 
+                            Header="First Name"
+                            FieldName="person.FName"
+                      IsSmart="True"
+                      Visible ="True"
+                      VisibleIndex="1"/>
+
+                <dxg:GridColumn x:Name="colLastName" 
+                      HorizontalHeaderContentAlignment="Left" 
+                            Header="Last Name"
+                            FieldName="person.LName"
+                      IsSmart="True"
+                      Visible ="True"
+                      VisibleIndex="2" />
+                <dxg:GridColumn x:Name="colperson" 
+                      HorizontalHeaderContentAlignment="Left"                            
+                       FieldName="person"
+                      IsSmart="True"
+                      Visible ="False"
+                      VisibleIndex="1" />
+
+                <dxg:GridColumn x:Name="colEmpId" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="EmpId"
+                      IsSmart="True"
+                      Visible ="False" />
+
+                <dxg:GridColumn FieldName="CoreCompany.CompanyName"
+                                                    Header="Core Company"
+                                                     IsSmart="True"
+                      Visible ="True"
+                      VisibleIndex="4"/>
+                <dxg:GridColumn FieldName="CoreDept"                    
+                                Header="Core Department"                   
+                                IsSmart="True"
+                                Visible ="True"
+                                VisibleIndex="5" 
+                                UnboundType="string"
+                                SortOrder="Descending" 
+                                SortIndex="0"/>
+
+                <dxg:GridColumn x:Name="colCompanies" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      UnboundType="String" 
+                      FieldName="companiess"
+                      IsSmart="True"
+                       Header="Company"
+                                Visible="False"
+                                ShowInColumnChooser="False"/>
+
+                <dxg:GridColumn x:Name="coldepartments" 
+                      HorizontalHeaderContentAlignment="Center"       
+                     UnboundType="String" 
+                      FieldName="departmentss" 
+                      IsSmart="True"
+                      Header="Department"
+                                Visible="False"
+                                ShowInColumnChooser="False" />
+
+                <dxg:GridColumn x:Name="colAdminBillCompanies" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="AdminBillCompanies"
+                      IsSmart="True"
+                      Visible ="False" />
+
+                <dxg:GridColumn x:Name="colSaleOrders" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="SaleOrders"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="coladdress" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="address"
+                      IsSmart="True"
+                      Visible ="False" />
+
+                <dxg:GridColumn x:Name="colcontact" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="contact"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colDesig" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="Desig"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colMaritalStatus" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="MaritalStatus"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colDisability" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="Disability"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colDisDescription" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="DisDescription"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colisActive" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="isActive"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colStatus" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="Status"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colJoinDate" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="JoinDate"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colHireDate" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="HireDate"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colBasicPay" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="BasicPay"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colSupervisorId" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="SupervisorId"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colSupervisor" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="Supervisor"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colDesignationTitle" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="DesignationTitle"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colJobDescription" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="JobDescription"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colSalesTargetId" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="SalesTargetId"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colSalesTarget" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="SalesTarget"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colSentComments" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="SentComments"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colAssignedComments" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="AssignedComments"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colAssets" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="Assets"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colQualifications" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="Qualifications"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="coladdress2" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="address2"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colempFunction" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="empFunction.Title"
+                      IsSmart="True"
+                       Header="Function" />
+                <dxg:GridColumn x:Name="colEmployeeId" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="EmployeeId"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colemployeeStatus" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="employeeStatus"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colemployeeApproval" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="employeeApproval"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colWorkExperience" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="WorkExperience"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colemergencyontact" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="emergencyontact"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colHrInfoId" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="HrInfoId"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colHRInfo" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="HRInfo"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colempDescription" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="empDescription"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colchartofAccounts" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="chartofAccounts"
+                      IsSmart="True"
+                      Visible ="False" />
+                <dxg:GridColumn x:Name="colisAdminBillType" 
+                      HorizontalHeaderContentAlignment="Center"       
+                      FieldName="isAdminBillType"
+                      IsSmart="True"
+                      Visible ="False" />
+
+
+            </dxg:GridControl>
+
+
+
+            <Button Grid.Row="1"
+                    Content="Save"
+                    x:Name="btnSave"
+                    Click="BtnSave_Click"/>
+        </Grid>
+    </Grid>
+</dx:DXWindow>

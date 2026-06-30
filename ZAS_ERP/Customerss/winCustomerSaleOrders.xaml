@@ -1,0 +1,233 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Customerss" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:dxrudex="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesignerextensions" x:Class="ZAS_ERP.Customerss.winCustomerSaleOrders"
+        mc:Ignorable="d"
+        Title="Customer Sale Orders" WindowStartupLocation="CenterScreen" WindowState="Maximized" Height="450" Width="800" Loaded="DXWindow_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="0">
+            <TextBlock VerticalAlignment="Center"  Text=" Customers"  FontSize="25" FontWeight="DemiBold" Margin="5" />
+        </StackPanel>
+        <StackPanel Grid.Row="0"  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Column="1">
+            <TextBlock VerticalAlignment="Center"  Text="Sale Orders" x:Name="lblinfoheader" FontWeight="DemiBold" FontSize="25" Margin="5" />
+        </StackPanel>
+
+        <Rectangle VerticalAlignment="Bottom" Margin="80,0,80,2" Height="3" Fill="Gray" />
+        <Rectangle Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="130,0,130,2" Height="3" Fill="Gray" />
+
+
+        <DockPanel Grid.Row="2">
+            <dxg:GridControl SelectionMode="Row" 
+                                         Grid.Row="1" 
+                                             MaxHeight="1000"
+                                             MouseDoubleClick="GrdsaleOrder_MouseDoubleClick"
+                                             SelectionChanged="grdcutomercompanies_SelectionChanged"
+                                         x:Name="grdcutomercompanies">
+                <dxg:GridControl.View>
+                    <dxg:TreeListView         TreeDerivationMode="Selfreference" 
+                                                          ShowSearchPanelMode="Always" 
+                                                          ShowSelectionRectangle="True" 
+                                                          ParentFieldName="ParentID" 
+                                                          KeyFieldName="Id" 
+                                                            
+                                                          FilterMode="Extended"
+                                                          FadeSelectionOnLostFocus="False" 
+                                                          ColumnFilterPopupMode="Excel" 
+                                                          AutoExpandAllNodes="True" 
+                                                          AutoPopulateServiceColumns="True" 
+                                                          AllowEditing="False" />
+                </dxg:GridControl.View>
+                <dxg:GridColumn  IsSmart="True" Header="Company Name" FieldName="company.CompanyName" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Business Type" FieldName="company.BizType" SortOrder="Descending" SortIndex="0" />
+
+            </dxg:GridControl>
+        </DockPanel>
+        <GridSplitter x:Name="GridSplitter" Grid.Row="2"   Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="Gray" />
+        <Grid Grid.Row="0" Grid.Column="2" >
+            <Grid   HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <dx:SimpleButton x:Name="btnSaveLayout" Height="30" VerticalAlignment="Bottom"   Cursor="Hand"  Content="Save layout" Grid.Column="0" Click="btnSaveLayout_Click" />
+            </Grid>
+        </Grid>
+        <DockPanel Grid.Column="2" Grid.Row="4">
+            <dxg:GridControl Grid.Row="2" MaxHeight="1000" x:Name="grdCustomerSaleOrders" MouseDoubleClick="GrdsaleOrder_MouseDoubleClick"                           
+                     SelectionMode="Row" CustomUnboundColumnData="grid_CustomUnboundColumnData">
+                <dxg:GridControl.View>
+                    <dxg:TableView x:Name="tableView"
+                             ShowGroupPanel="True" ShowIndicator="True" ShowVerticalLines="False"
+                             SwitchToCompactModeWidth="700"
+                             NavigationStyle="Row"
+                             ShowAutoFilterRow="True"          
+                             ShowFixedTotalSummary="True"
+                             ShowSearchPanelMode="Always"          
+                             SearchPanelNullText="Search"
+                                   CompactPanelShowMode="Never"
+                             ShowTotalSummary="True"  >
+                        <dxg:TableView.FormatConditions>
+                            <dxg:FormatCondition ApplyToRow="True" Expression="[isApproved] = False">
+                                <dxg:Format FontWeight="Bold" Foreground="#FF0072C6" />
+                            </dxg:FormatCondition>
+                            <dxg:FormatCondition ApplyToRow="True" FieldName="remainingCollectionOC" Value1="0" ValueRule="Equal">
+                                <dxg:Format Background="#FF9BBB59">
+                                    <dxg:Format.Icon>
+                                        <BitmapImage UriSource="pack://application:,,,/DevExpress.Xpf.Core.v21.2;component/Core/ConditionalFormatting/Images/IconSets/Symbols23_1.png" UriCachePolicy="{x:Null}"/>
+                                    </dxg:Format.Icon>
+                                </dxg:Format>
+                            </dxg:FormatCondition>
+                        </dxg:TableView.FormatConditions>
+                        <!--#region CompactModeFilterItems-->
+                        <dxg:TableView.CompactModeFilterItems>
+                            
+                            <dxg:CompactModeFilterItem DisplayValue="Under Approval" EditValue="[Stage] =Under Approval" />
+                            <dxg:CompactModeFilterItem DisplayValue="Approved" EditValue="[Stage] =Approved" />
+                            <dxg:CompactModeFilterItem DisplayValue="Under Closing" EditValue="[Stage] =Under Closing" />
+                            <dxg:CompactModeFilterItem DisplayValue="Closed" EditValue="[Stage] =Closed" />
+                        </dxg:TableView.CompactModeFilterItems>
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn Header="Company"
+                            Binding="{Binding company.CompanyName}"
+                            IsSmart="True"
+                            Visible="False"
+                            />
+
+
+                <dxg:GridColumn x:Name="colstatusClass"
+                      FieldName="StatusClass.ClassName"
+                      Header="Status Class"
+                      UnboundType="Bound"
+                     Visible ="True"
+                       AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.StatusClass.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.StatusClass.ClassName}"/>
+                  </InlineUIContainer></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Creation Date"
+                            FieldName="CreationDate"
+                            IsSmart="True"
+                             />
+                <dxg:GridColumn Header="Allocated To"
+                            FieldName="employee.person.FName"
+                            IsSmart="True"
+                             />
+                <dxg:GridColumn Header="Maker"
+                            FieldName="maker"
+                            IsSmart="True"
+                             />
+                <dxg:GridColumn Header="Origin"
+                            FieldName="origin"
+                            IsSmart="True"
+                             />
+                <dxg:GridColumn Header="Own Description"
+                            FieldName="OwnDescription"
+                            IsSmart="True"
+                             />
+                <dxg:GridColumn Header="Currency"
+                            FieldName="currency.CurrencyName"
+                            IsSmart="True"
+                            />
+                <dxg:GridColumn Header="Stage"
+                            FieldName="Stage"
+                                    UnboundType="String"
+                                    
+                            IsSmart="True"/>
+                <dxg:GridColumn x:Name="colstatus"
+                      FieldName="saleOrderStatus.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                     Visible ="True"
+                       AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.saleOrderStatus.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.saleOrderStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+                <!--SO Amount-->
+                <dxg:GridColumn Header="S.O Amount(O.C)"
+                            FieldName="totalCFRValue"
+                            IsSmart="True"
+                            EditFormVisible="False"
+                            >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="SO Amount (SER)"
+                            FieldName="SOAmountSER"
+                            IsSmart="True"
+                          
+                            EditFormVisible="False"
+                            UnboundType="Decimal" UnboundExpression="[totalCFRValue] * [marginExchangeRate]">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="SO Amount (MER)"
+                            FieldName="SOAmountMER"
+                            IsSmart="True"
+                            
+                            EditFormVisible="False"
+                            UnboundType="Decimal" UnboundExpression="[totalCFRValue] * [exchangeRate]">
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+
+                <dxg:GridColumn Header="Transaction Holder"
+                            FieldName="TransactionHolder.person.FName"
+                            IsSmart="True"
+                             />
+            </dxg:GridControl>
+        </DockPanel>
+    </Grid>
+</dx:DXWindow>

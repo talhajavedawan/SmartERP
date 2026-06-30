@@ -1,0 +1,178 @@
+﻿<Window xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ZAS_ERP.Attachmentss"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        x:Class="ZAS_ERP.Attachmentss.frmAttachmentCategoryAdd"
+             mc:Ignorable="d"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        WindowStartupLocation="CenterOwner"
+          Height="550"
+             Width="400" Title=" Attachment Category" x:Name="winAttachmentCategoryAdd" 
+        Loaded="winAttachmentCategoryAdd_Loaded" Closing="winAttachmentCategoryAdd_Closing">
+  <Grid Margin="0,20,0,0">
+    <Grid.Resources>
+      <Style TargetType="{x:Type Label}">
+        <Setter Property="Margin"
+                Value="10,10" />
+        <Setter Property="Foreground"
+                Value="Gray" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+      </Style>
+      <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Margin"
+                Value="10,0" />
+        <Setter Property="MaxWidth"
+                Value="350" />
+      </Style>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width=" auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />
+      <RowDefinition Height="auto" />   
+      <RowDefinition Height="auto" />
+      
+      <RowDefinition Height="*" />
+      
+      <RowDefinition Height=" 50" />
+    </Grid.RowDefinitions>
+    <Label Content="Attachment Category"
+           ToolTip="Attachment Category"
+           HorizontalAlignment="Right" />
+    <TextBox x:Name="txtattachmentCategory"
+             Grid.Column="1"
+             VerticalAlignment="Center" />
+   
+    
+    <Label Content="Description"
+           HorizontalAlignment="Right"
+           Grid.Row="1" />
+    <TextBox x:Name="txtDiscription"
+             Grid.Column="1" Grid.Row="1"
+             VerticalAlignment="Center" MinLines="2" Margin="10" />
+    <Label Content="isActive"
+           ToolTip="Unselect to make it inActive"
+           HorizontalAlignment="Right"
+           Grid.Row="3" />
+    <CheckBox x:Name="chkisactive"
+                Margin="10,0"
+                IsChecked="True"
+                Grid.Column="1"
+                Grid.Row="3" />
+    <Label Content="Parent Category"
+           HorizontalAlignment="Right"
+           Grid.Row="2" Visibility="Collapsed" />
+    <dxg:LookUpEdit x:Name="lookupCategory" Visibility="Collapsed"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    VerticalAlignment="Center"
+                    Margin="10,5"
+                    SelectedIndexChanged="lookupCategory_SelectedIndexChanged"
+                    TabIndex="3">
+      <dxg:LookUpEdit.PopupContentTemplate>
+        <ControlTemplate>
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto"></RowDefinition>
+              <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--<Button x:Name="btnAddCategory"
+                    Click="btnAddCategory_Click"
+                    VerticalAlignment="Center"
+                    Content="Add New"
+                    Foreground="BlueViolet" />-->
+            <dxg:GridControl Name="PART_GridControl"
+                             AutoPopulateColumns="True"
+                             Grid.Row="1">
+              <dxg:GridControl.View>
+                <dxg:TreeListView Name="treeListView1"
+                                  ShowAutoFilterRow="True"
+                                  TreeDerivationMode="Selfreference"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  />
+              </dxg:GridControl.View>
+              <dxg:GridColumn x:Name="colId"
+                              FieldName="Id"
+                              Visible="False" />
+              <dxg:GridColumn FieldName="category"
+                              IsSmart="True"
+                              Width="auto" />
+            </dxg:GridControl>
+          </Grid>
+        </ControlTemplate>
+      </dxg:LookUpEdit.PopupContentTemplate>
+    </dxg:LookUpEdit>
+
+
+        <dxlc:LayoutGroup Grid.Row="5" View="Group" Header="Modules"  Grid.ColumnSpan="2" Margin="10,10,10,10" >
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <dxe:CheckEdit x:Name="radioInquiry" Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="0"  Checked="RadioInquiry_Checked" Unchecked="RadioInquiry_Unchecked" Content="Inquiry"/>
+                <dxe:CheckEdit x:Name="radioOffer"   Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="1"  Checked="RadioOffer_Checked" Unchecked="RadioOffer_Unchecked" Content="Offer"/>
+                <dxe:CheckEdit x:Name="radioSO"      Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="2"  Checked="RadioSO_Checked" Unchecked="RadioSO_Unchecked" Content="Sale Order"/>
+                <dxe:CheckEdit x:Name="radioSI"      Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="3"  Checked="RadioSI_Checked" Unchecked="RadioSI_Unchecked" Content="Sales Invoice"/>
+                <dxe:CheckEdit x:Name="radioPO"      Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="4"  Checked="RadioPO_Checked" Unchecked="RadioPO_Unchecked" Content="Purchase Order"/>
+                <dxe:CheckEdit x:Name="radioSR"      Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="0"  Checked="RadioSR_Checked" Unchecked="RadioSR_Unchecked" Content="Sales Receipt"/>
+                <dxe:CheckEdit x:Name="radioPI"      Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="1"  Checked="RadioPI_Checked" Unchecked="RadioPI_Unchecked" Content="Purchase Invoice"/>
+                <dxe:CheckEdit x:Name="radioPayment" Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="2"  Checked="RadioPayment_Checked" Unchecked="RadioPayment_Unchecked" Content="Payment"/>
+                <dxe:CheckEdit x:Name="radioMSales"  Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="3"  Checked="RadioMSales_Checked" Unchecked="RadioMSales_Unchecked" Content="Memorandum Sale"/>
+                <dxe:CheckEdit x:Name="radioVBill"   Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="4"  Checked="RadioVBill_Checked" Unchecked="RadioVBill_Unchecked" Content="Vendor Bill"/>
+                <dxe:CheckEdit x:Name="radioABill"   Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="0"  Checked="RadioABill_Checked" Unchecked="RadioABill_Unchecked" Content="Admin Bill"/>
+                <dxe:CheckEdit x:Name="radioIbt"     Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="1"  Checked="RadioIbt_Checked" Unchecked="RadioIbt_Unchecked" Content="IBT"/>
+                <dxe:CheckEdit x:Name="radioIcbt"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="2"  Checked="RadioIcbt_Checked" Unchecked="RadioIcbt_Unchecked" Content="ICBT"/>
+                <dxe:CheckEdit x:Name="radioLoansAdvances"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="3"  Checked="RadioLoansAdvances_Checked" Unchecked="RadioLoansAdvances_Unchecked" Content="Loans Advances"/>
+                <dxe:CheckEdit x:Name="radioTasks"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="4"  Checked="RadioTasks_Checked" Unchecked="RadioTasks_Unchecked" Content="Tasks"/>
+                <dxe:CheckEdit x:Name="radioTargetRewards"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="5"  Checked="RadioTargetRewards_Checked" Unchecked="RadioTargetRewards_Unchecked" Content="Target Rewards"/>
+                <dxe:CheckEdit x:Name="radioTravelingRecord"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="5"  Checked="RadioTravelingRecord_Checked" Unchecked="RadioTravelingRecord_Unchecked" Content="Traveling Record"/>
+                <dxe:CheckEdit x:Name="radioSTL"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="5"  Checked="radioSTL_Checked" Unchecked="radioSTL_Unchecked" Content="STL"/>
+                <dxe:CheckEdit x:Name="radioProcurementProd"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="6"  Checked="RadioProcurementProd_Checked" Unchecked="RadioProcurementProd_Unchecked" Content="Procurement Prod"/>
+                <dxe:CheckEdit x:Name="radioVehicleExpenses"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="6"  Checked="RadioVehicleExpenses_Checked" Unchecked="RadioVehicleExpenses_Unchecked" Content="Vehicle Expenses"/>
+                <dxe:CheckEdit x:Name="radioRentalContract"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="6"  Checked="radioRentalContract_Checked" Unchecked="radioRentalContract_Unchecked" Content="Rental Contract"/>
+                <dxe:CheckEdit x:Name="radioRentalOrder"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="7"  Checked="radioRentalOrder_Checked" Unchecked="radioRentalOrder_Unchecked" Content="Rental Order"/>
+                <dxe:CheckEdit x:Name="radioRentalInvoice"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="7"  Checked="radioRentalInvoice_Checked" Unchecked="radioRentalInvoice_Unchecked" Content="Rental Invoice"/>
+                <dxe:CheckEdit x:Name="radioMemo"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="7"  Checked="radioMemo_Checked" Unchecked="radioMemo_Unchecked" Content="Memo"/>
+                <dxe:CheckEdit x:Name="radioModuleContract"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="8"  Checked="radioModuleContract_Checked" Unchecked="radioModuleContract_Unchecked" Content="Module Contract"/>
+                <dxe:CheckEdit x:Name="radioDocument"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="1" Grid.Row="8"  Checked="radioDocumentContract_Checked" Unchecked="radioDocumentContract_Unchecked" Content="Document"/>
+                <dxe:CheckEdit x:Name="radioAsset"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="2" Grid.Row="8"  Checked="radioAsset_Checked" Unchecked="radioAsset_Unchecked" Content="Asset"/>
+                <dxe:CheckEdit x:Name="radioTenant"    Cursor="Hand"  FontWeight="DemiBold"  Grid.Column="0" Grid.Row="9"  Checked="radioTenant_Checked" Unchecked="radioTenant_Unchecked" Content="Tenant"/>
+                
+            </Grid>
+        </dxlc:LayoutGroup>
+            
+       
+       
+    <Button Grid.ColumnSpan="2"
+            Grid.Row="6"
+            Content="Save"
+            FontSize="26"
+            x:Name="btnattachmentCategorySave"
+            Click="btnattachmentCategorySave_Click" />
+
+  </Grid>
+</Window>

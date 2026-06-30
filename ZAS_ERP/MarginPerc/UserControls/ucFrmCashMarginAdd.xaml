@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="ZAS_ERP.MarginPerc.UserControls.ucFrmCashMarginAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.MarginPerc.UserControls" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+       d:DesignHeight="250" d:DesignWidth="700" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <dxlc:LayoutGroup View="GroupBox" Header="Add Margin Perc." Orientation="Vertical">
+
+            <dxlc:LayoutControl Height="50" Margin="0 30 0 0">
+                <dxlc:LayoutItem Label="Margin Name  ">
+                    <dxe:TextEdit x:Name="txtMarginName" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" Height="25"/>
+                </dxlc:LayoutItem>
+
+                <Separator Width="20" BorderBrush="Transparent" Background="Transparent"/>
+
+                <dxlc:LayoutItem Label="Margin Type">
+                    <dxg:LookUpEdit x:Name="cmbxMarginType" 
+                                    DisplayMember="TypeName"
+                                    Grid.Row="0" 
+                                    Grid.Column="2" 
+                                    VerticalAlignment="Bottom" 
+                                    Height="25"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutControl>
+
+            <dxlc:LayoutControl Height="50">
+                <dxlc:LayoutItem Label="Percentage">
+                    <dxe:TextEdit x:Name="txtPercent"
+                                  MaskType="Numeric" 
+                                                  Mask="n2"
+                                                  MaskUseAsDisplayFormat="True"
+                                  Text="0.00"
+                                  Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" Height="25"/>
+                </dxlc:LayoutItem>
+
+                <Separator Width="20" BorderBrush="Transparent" Background="Transparent"/>
+
+                <dxlc:LayoutItem Label="COA      ">
+                    <dxg:LookUpEdit x:Name="cmbxCOA" 
+                                    DisplayMember="accountName"
+                                    Grid.Row="0" 
+                                    Grid.Column="2" 
+                                    VerticalAlignment="Bottom" 
+                                    Height="25"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem >
+                    <dxe:CheckEdit HorizontalAlignment="Center" Content="Is Adjusted"  x:Name="checkIsAdjusted"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem >
+
+                    <dxe:CheckEdit HorizontalAlignment="Center" Content="Is Manual"  x:Name="checkIsManual"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutControl>
+
+            <!--</Grid>-->
+        </dxlc:LayoutGroup>
+        <Button  Content="Save" x:Name="btnSave" Click="BtnSave_Click" FontWeight="DemiBold" FontSize="20" Grid.Row="1"/>
+    </Grid>
+</UserControl>

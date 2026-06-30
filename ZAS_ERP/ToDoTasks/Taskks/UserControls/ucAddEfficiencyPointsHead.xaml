@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ZAS_ERP.ToDoTasks.Taskks.UserControls.ucAddEfficiencyPointsHead"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.Taskks.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="500" Loaded="UserControl_Loaded">
+    <Grid> 
+        <!--comment-->
+        <dxlc:LayoutGroup Header="Efficiency Details" 
+                                  Margin="0 0 0 45"
+                                          View="GroupBox" 
+                                          IsCollapsible="False" 
+                                          IsCollapsed="False" 
+                                          Orientation="Vertical">
+            <dxlc:LayoutControl Orientation="Vertical" VerticalAlignment="Center">
+                <dxlc:LayoutItem Label="Title:" Width="270">
+                    <dxe:TextEdit Margin="40 0 0 0" x:Name="txtEfficiencyPointTitle"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Height="10"/>
+                <dxlc:LayoutItem Label="Is Active:" Width="270">
+                    <dxe:CheckEdit Margin="16 0 0 0" x:Name="chkEdtIsActive"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Total Points:" Width="270">
+                    <dxe:TextEdit Margin="5 0 0 0" x:Name="txtTotalPoints" MaskUseAsDisplayFormat="True" Mask="n2" MaskType="Numeric" Text="0"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutControl>
+
+        </dxlc:LayoutGroup>
+        <Button Content="Save" x:Name="btnSave" Height="40" VerticalAlignment="Bottom" Click="BtnSave_Click"/>
+    </Grid>
+</UserControl>

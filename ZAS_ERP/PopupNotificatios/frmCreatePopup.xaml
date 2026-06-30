@@ -1,0 +1,156 @@
+﻿<dx:DXWindow x:Class="ZAS_ERP.PopupNotificatios.frmCreatePopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.PopupNotificatios"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+            xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:xctk1="http://schemas.devexpress.com/winfx/2008/xaml/editors/internal"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" WindowStartupLocation="CenterScreen" Loaded="DXWindow_Loaded" x:Name="winNoti" 
+        Title="PopUp Notification Pannel"  Height="530" Width="600"> 
+    <Grid>
+        <Grid>
+            <dx:DXTabControl >
+                <dx:DXTabItem Header="Popup Notification Panel" >
+                    <dxlc:LayoutGroup          
+                      >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.5*"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="1.5*"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="3.1*"/>
+
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--<TextBlock Text="Set Haeding"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                                FontWeight="UltraBold"/>
+                    <TextBox x:Name="txtNotificationsHeading"
+                         SpellCheck.IsEnabled="True"
+                         AcceptsTab="True"
+                         AcceptsReturn="True" 
+                         Language="en-US"
+                         Foreground="#05628e"
+                         TextWrapping="Wrap"  
+                         VerticalAlignment="Center"                      
+                         HorizontalAlignment="Center"   
+                         FontFamily="Century Gothic"
+                         FontSize="18"
+                         FontStretch="UltraExpanded"                          
+                         FontWeight="UltraBold"
+                          Grid.ColumnSpan="2" 
+                          />-->
+
+                            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Set Heading "
+                                   Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                                FontWeight="UltraBold"/>
+                                <TextBox SpellCheck.IsEnabled="True" GotFocus="TxtNotificationsHeading_GotFocus"
+                                 
+                                 x:Name="txtNotificationsHeading"
+                                  
+                                 AcceptsTab="True"
+                                 Grid.Column="1"
+                                 Language="en-US"
+                                 AcceptsReturn="True" 
+                                 TextWrapping="Wrap"/>
+
+
+                            </Grid>
+
+                            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Set Notification"
+                                   Grid.Column="0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                                FontWeight="UltraBold"/>
+                                <TextBox SpellCheck.IsEnabled="True" GotFocus="PopupTextboxText_GotFocus"
+                                 x:Name="popupTextboxText"
+                                 AcceptsTab="True"
+                                 Grid.Column="1"
+                                 Language="en-US" 
+                                 AcceptsReturn="True" 
+                                 TextWrapping="Wrap">
+                              
+                                </TextBox>
+
+
+                            </Grid>
+
+                            <Grid Grid.Column="2" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="5"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition Width="0.3*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button  Content="B"  FontSize="12" FontWeight="Bold" x:Name="btnBold" Click="BtnBold_Click"  Grid.Column="4"/>
+                                <Button Content="B" Background="Gray" FontSize="13" Foreground="White" FontWeight="Bold" x:Name="btnNormal" Click="BtnNormal_Click" Visibility="Collapsed" Grid.Column="4" />
+
+                                <Button  Content="I" FontStyle="Italic" FontSize="12" FontWeight="Bold" x:Name="btnItalic" Click="BtnItalic_Click"  Grid.Column="3"/>
+                                <Button  Content="I" FontStyle="Italic" Background="Gray" FontSize="13" Foreground="White"  FontWeight="Bold" x:Name="btnNonItalic" Click="BtnNonItalic_Click" Visibility="Collapsed" Grid.Column="3"/>
+
+                                <dxe:ComboBoxEdit NullText="Font Size" IsTextEditable="True" KeyUp="CmbxFont_KeyUp" Margin="10 0 0 0" x:Name="cmbxFont"  Grid.Column="6" SelectedIndexChanged="CmbxFont_SelectedIndexChanged"
+                                                  MaskType="Numeric" 
+                                                  Mask="n" 
+                                                  MaskUseAsDisplayFormat="True"/>
+                             
+                            </Grid>
+                            <!--<dxe:ComboBoxEdit x:Name="cmbxModules" Grid.Row="1" Grid.ColumnSpan="2"  Width="250" Height="22" HorizontalAlignment="Center"/>-->
+                            <xctk1:ColorPicker 
+                         Grid.Row="4"
+                         Grid.Column="2"             
+                        Name="ClrPcker_Background"
+                        ColorChanged="ClrPcker_Background_ColorChanged"
+                       />
+
+
+                            <dx:SimpleButton x:Name="btnAdd" 
+                            Click="BtnAdd_Click" 
+                            FontWeight="DemiBold" 
+                           VerticalAlignment="Bottom"
+                           
+                            Height="35"
+                            Grid.Row="5"
+                            Grid.Column="2"
+                            Content="Add"/>
+                        </Grid>
+                    </dxlc:LayoutGroup>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+          
+        </Grid>
+    </Grid>
+</dx:DXWindow>

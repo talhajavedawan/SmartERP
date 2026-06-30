@@ -1,0 +1,547 @@
+﻿<UserControl xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"  x:Class="ZAS_ERP.Calender.ucTask"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Calender"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+           
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+          
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Label Content="TASKS" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+
+        </Grid>
+
+        <Grid Grid.Column="1"  Grid.Row="2">
+
+            <!--<FlowDocumentReader>
+                <FlowDocument>
+
+                    <Table CellSpacing="5">
+
+                        <Table.Columns>
+                            <TableColumn/>
+                            <TableColumn/>
+                            <TableColumn/>
+                            <TableColumn/>
+                        </Table.Columns>
+
+                        <TableRowGroup>
+
+                            --><!-- Title row for the table. --><!--
+                            <TableRow Background="SkyBlue">
+                                <TableCell ColumnSpan="4" TextAlignment="Center">
+                                    <Paragraph FontSize="22pt" FontWeight="Bold" Foreground="White">
+                                        Reports
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+
+                            --><!-- Header row for the table. --><!--
+                            <TableRow Background="LightGoldenrodYellow">
+                                <TableCell>
+                                    <Paragraph FontSize="10pt" FontWeight="Bold" TextDecorations="Baseline">Method</Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph FontSize="10pt" FontWeight="Bold">Pending for Approval
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph FontSize="10pt" FontWeight="Bold">Pending for Re-Approval
+                                    </Paragraph>
+                                </TableCell>
+                                <TableCell>
+                                    <Paragraph FontSize="10pt" FontWeight="Bold">Pending for Closing
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>
+
+                            --><!-- Sub-title row for the inner planets. --><!--
+                            <TableRow>
+                                <TableCell ColumnSpan="4">
+                                    <Paragraph FontSize="14pt" FontWeight="Bold">Shortcuts for Reports</Paragraph>
+                                </TableCell>
+                            </TableRow>
+
+                            --><!-- Four data rows for the inner planets. --><!--
+                            <TableRow>
+                                <TableCell>
+                                   
+                                </TableCell>
+                                <TableCell>
+                                 
+                                </TableCell>
+                                <TableCell>
+                                   
+                                </TableCell>
+                                <TableCell>
+                                   
+                                </TableCell>
+                            </TableRow>
+                            <TableRow Background="lightgray">
+                                <TableCell>
+                                   
+                                </TableCell>
+                                <TableCell>
+                                  
+                                </TableCell>
+                                <TableCell>
+                                 
+                                </TableCell>
+                                <TableCell>
+                                   
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                 
+                                </TableCell>
+                                <TableCell>
+                                  
+                                </TableCell>
+                                <TableCell>
+                                  
+                                </TableCell>
+                                <TableCell>
+                                   
+                                </TableCell>
+                            </TableRow>
+                            <TableRow Background="lightgray">
+                                <TableCell>
+                                
+                                </TableCell>
+                                <TableCell>
+                                
+                                </TableCell>
+                                <TableCell>
+                                   
+                                </TableCell>
+                                <TableCell>
+                                 
+                                </TableCell>
+                            </TableRow>
+
+                            --><!-- Sub-title row for the outter planets. -->
+                            <!--<TableRow>
+                                <TableCell ColumnSpan="4">
+                                    <Paragraph FontSize="14pt" FontWeight="Bold">The Major Outer Planets</Paragraph>
+                                </TableCell>
+                            </TableRow>-->
+
+                            <!-- Four data rows for the major outter planets. --><!--
+                            <TableRow>
+                                <TableCell>
+                              
+                                </TableCell>
+                                <TableCell>
+                         
+                                </TableCell>
+                                <TableCell>
+                          
+                                </TableCell>
+                                <TableCell>
+                           
+                                </TableCell>
+                            </TableRow>
+                            <TableRow Background="lightgray">
+                                <TableCell>
+                               
+                                </TableCell>
+                                <TableCell>
+                                
+                                </TableCell>
+                                <TableCell>
+                               
+                                </TableCell>
+                                <TableCell>
+                                  
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                 
+                                </TableCell>
+                                <TableCell>
+                                
+                                </TableCell>
+                                <TableCell>
+        
+                                </TableCell>
+                                <TableCell>
+                                 
+                                </TableCell>
+                            </TableRow>
+                            <TableRow Background="lightgray">
+                                <TableCell>
+                               
+                                </TableCell>
+                                <TableCell>
+                               
+                                </TableCell>
+                                <TableCell>
+                                
+                                </TableCell>
+                                <TableCell>
+                                   
+                                </TableCell>
+                            </TableRow>
+
+                            --><!-- Footer row for the table. -->
+                            <!--<TableRow>
+                                <TableCell ColumnSpan="4">
+                                    <Paragraph FontSize="10pt" FontStyle="Italic">
+                                        Information from the
+                                        <Hyperlink NavigateUri="http://encarta.msn.com/encnet/refpages/artcenter.aspx">Encarta</Hyperlink>
+                                        web site.
+                                    </Paragraph>
+                                </TableCell>
+                            </TableRow>--><!--
+
+                        </TableRowGroup>
+                    </Table>
+                </FlowDocument>
+            </FlowDocumentReader>-->
+
+
+           
+            <dxg:GridControl
+                CustomUnboundColumnData="GrdCntrlInterCompanyBankTransfers_CustomUnboundColumnData" 
+            AutoGenerateColumns="AddNew"
+            EnableSmartColumnsGeneration="True"
+            Name="grdCntrlInterCompanyBankTransfers"
+         >
+
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                               x:Name="mbtnAdd">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Update"
+                                    x:Name="mbtnUpdate" >
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                        Name="tblViewLandTypeLst"
+                        RowAnimationKind="None"
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel">
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+
+                
+            
+            
+            <!--<dxg:GridColumn x:Name="colstatus"
+                      FieldName="interBankTransStatus"
+                      Header="Status"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="1"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.interBankTransStatus.backcolor}"/>
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.interBankTransStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>-->
+
+
+                <!--<dxg:GridColumn x:Name="colCreationDate"
+                      FieldName="CreationDate"
+                      Header="Creation Date"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="2">
+                    --><!--<dxg:GridColumn.EditSettings>
+                        <dxe:DateEditSettings Mask="G" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>--><!--
+                </dxg:GridColumn>-->
+
+                <!--<dxg:GridColumn x:Name="colTransactionDate"
+                      FieldName="TransactionDate"
+                      Header="Transaction Date"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="3" />-->
+                <dxg:GridColumn x:Name="colModuleType"
+                      FieldName="modules"
+                      Header="Modules"
+                   IsSmart="True"
+                      Visible ="True"
+                      VisibleIndex="1"/>
+
+                <dxg:GridColumn x:Name="colTransferType"
+                      FieldName="transferType"
+                      Header="Pending for Approval"
+                      UnboundType="Decimal"
+                      Visible ="True"
+                      VisibleIndex="2"/>
+
+                <dxg:GridColumn x:Name="colSystemRefNo"
+                      FieldName="SystemRefNo"
+                      Header="Pending for Re-Approval
+"
+                      UnboundType="Decimal"
+                      Visible ="True"
+                      VisibleIndex="3"/>
+
+                <dxg:GridColumn x:Name="colFinanceRefNo"
+                      FieldName="FinanceRefNo"
+                      Header="Pending for Closing"
+                      UnboundType="Decimal"
+                      Visible ="True"
+                      VisibleIndex="4"/>
+
+                <!--<dxg:GridColumn x:Name="colInstrumentNo"
+                      FieldName="InstrumentNo"
+                      Header="Instrument No"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="7"/>-->
+
+                <!--<dxg:GridColumn x:Name="colCompanyFrom"
+                            
+                      FieldName="companyFrom.CompanyName"
+                      Header="Company From"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="8"/>
+
+                <dxg:GridColumn x:Name="colCompanyTo"
+                            
+                      FieldName="companyTo.CompanyName"
+                      Header="Company To"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="9"/>
+
+                <dxg:GridColumn x:Name="colDepartmentFrom"
+                      FieldName="departmentFrom.DeptName"
+                      Header="Department From"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="10"/>-->
+
+
+                <!--<dxg:GridColumn x:Name="colDepartmentTo"
+                      FieldName="departmentTo.DeptName"
+                      Header="Department To"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="11"/>
+
+
+                <dxg:GridColumn x:Name="colTransferMethod"
+                      FieldName="tranferMethod.MethodName"
+                      Header="Transfer Method"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="13"/>
+
+                <dxg:GridColumn x:Name="colBankFrom"
+                      FieldName="BankFrom.BankName"
+                      Header="Bank From"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="14"/>
+
+                <dxg:GridColumn x:Name="colAccountFrom"
+                      FieldName="AccountFrom.AccountNo"
+                      Header="Account From"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="15"/>
+
+                <dxg:GridColumn x:Name="colBankTo"
+                      FieldName="BankTo.BankName"
+                      Header="Bank To"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="16"/>
+
+                <dxg:GridColumn x:Name="colAccountTo"
+                      FieldName="AccountTo.AccountNo"
+                      Header="Account To"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="17"/>
+
+                <dxg:GridColumn x:Name="colAmountOc"
+                      FieldName="AmountOC"
+                      Header="Amount (OC)"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="18"
+                            >
+                    --><!--<dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>--><!--
+                </dxg:GridColumn>-->
+
+                <!--<dxg:GridColumn x:Name="colCurrency"
+                      FieldName="currency.CurrencyName"
+                      Header="Currency"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="19"/>
+
+                <dxg:GridColumn x:Name="colMER"
+                      FieldName="MER"
+                      Header="MER"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="20">
+                    
+                </dxg:GridColumn>
+
+                <dxg:GridColumn x:Name="colAmountMER"
+                      FieldName="AmountMER"
+                      Header="Amount MER"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="21">
+                    
+                </dxg:GridColumn>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!--<dxg:GridColumn FieldName="Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="companyFrom_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="companyFrom" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="deptFrom_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="departmentFrom" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+
+                <dxg:GridColumn FieldName="companyTo_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="companyTo" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="deptTo_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="departmentTo" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="emp_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="employee" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="currency_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="currency" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="bankFrom_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="BankFrom" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="accountFrom_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="AccountFrom" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="bankTo_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="BankTo" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="accountTo_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="AccountTo" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="tranferMethod_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="tranferMethod" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="user_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+
+                <dxg:GridColumn FieldName="taxTypeId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="taxType" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="taxNameId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="taxName" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="industryTypeId" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="industryType" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="vendor_Id" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>
+                <dxg:GridColumn FieldName="vendor" IsSmart="True" Visible="False" ShowInColumnChooser="False"/>-->
+
+
+            </dxg:GridControl>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Menu>
+                <MenuItem Header="Save Layout" FontWeight="Bold"/>
+                <MenuItem Header="Refesh" FontWeight="Bold"/>
+            </Menu>
+            
+          
+
+            <!--<Menu>
+                <MenuItem Header="Save layout" Foreground="Black" FontSize="12"/>
+
+
+            </Menu>-->    
+        </Grid>
+        <Grid Grid.Row="2">
+            <!--<Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>-->
+            
+            <!--<TextBox Text="Company"/>
+
+            <dxg:LookUpEdit>
+                
+            </dxg:LookUpEdit>-->
+            <dxlc:LayoutControl Orientation="Vertical" VerticalAlignment="Top">
+                <dxlc:LayoutItem Label="Company" LabelPosition="Top"> 
+                    
+                    <dxg:LookUpEdit/>
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="Department" LabelPosition="Top">
+
+                    <dxg:LookUpEdit/>
+                </dxlc:LayoutItem>
+
+            </dxlc:LayoutControl>
+
+        </Grid>
+        
+            
+    </Grid>
+</UserControl>

@@ -1,0 +1,102 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.Targetss.frmTargetTypeList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Targetss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title=" Target Type's List"
+        x:Name="winTargetTypeList"
+        Loaded="winTargetTypeList_Loaded"
+        Unloaded="WinTargetTypeList_Unloaded"
+        Height="450"
+        Width="450">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".7*" />
+        
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+        <MenuItem Header="_ Target Type"
+                  x:Name="mbtnTargetType">
+          <MenuItem Header="Add new  Target Type"
+                    x:Name="mbtnNewTargetType"
+                    Click="mbtnNewTargetType_Click"></MenuItem>
+          <MenuItem Header="Edit  Target Type"
+                    x:Name="mbtnEditTargetType"
+                    Click="mbtnEditTargetType_Click"></MenuItem>
+        </MenuItem>
+        
+      </Menu>
+     
+      <dxg:GridControl x:Name="grdTargetType"
+                       AutoGenerateColumns="None"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdTargetType_MouseDoubleClick"
+
+                       >
+          
+                <dxg:GridControl.View>
+                    <dxg:TableView AutoWidth="True"/>
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="Type"
+                          Header="Type"
+                          IsSmart="True"
+                          
+                                    ReadOnly="True"
+                          >
+
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="HierarchicalIndex"
+                                 AllowEditing="False" 
+                                Header="Hierarchy Index">
+
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="isActive"
+                          Header="isActive"
+                          IsSmart="True"
+                          
+                                    ReadOnly="True"
+                          >
+
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Frequency"
+                          Header="Frequency"
+                          IsSmart="True"
+                          
+                                    ReadOnly="True"
+                          >
+
+                </dxg:GridColumn>
+                
+                <dxg:GridControl.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Add New"
+                      x:Name="btnNewTargetType"
+                      Click="mbtnNewTargetType_Click" />
+            <MenuItem Header="Edit"
+                      x:Name="btnEditTargetType"
+                      Click="mbtnEditTargetType_Click" />
+          </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+      </dxg:GridControl>
+     
+    </Grid>
+  </Grid>
+</Window>

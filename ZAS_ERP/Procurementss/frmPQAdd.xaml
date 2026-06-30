@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.CostSheet.frmPQAdd"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.CostSheet"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+              d:DesignHeight="300" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup Padding="10" View="GroupBox" Header="Pre-Qualification Document">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <dxlc:LayoutItem VerticalAlignment="Center"  Label="PQ Name ">
+                    <dxe:TextEdit x:Name="txtPQName"/>
+                </dxlc:LayoutItem>
+
+                <Button Grid.Row="2" Content="Save" x:Name="btnSave" Click="BtnSave_Click"/>
+            </Grid>
+        </dxlc:LayoutGroup>
+    </Grid>
+</UserControl>

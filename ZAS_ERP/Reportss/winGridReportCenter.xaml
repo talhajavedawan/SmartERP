@@ -1,0 +1,285 @@
+﻿<dx:DXWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Reportss" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" x:Class="ZAS_ERP.Reportss.winGridReportCenter"
+        mc:Ignorable="d"
+        Title="Grid Reports Center" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowState="Maximized" Unloaded="DXWindow_Unloaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <!--<TextBlock HorizontalAlignment="Center" Text="Grid Reports Center" FontWeight="DemiBold" FontSize="18"  VerticalAlignment="Center"/>-->
+        </Grid>
+
+
+
+
+        <Grid Grid.Row="2"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <dx:DXTabControl Grid.Row="1"  >
+                <dx:DXTabItem  Header="Standard Groups" x:Name="tabStandard">
+                    <dxg:GridControl x:Name="grdStandardReportGroups"  SelectionChanged="grdStandardReportGroups_SelectionChanged" Visibility="Visible" Grid.Row="0" AutoGenerateColumns="None"
+            EnableSmartColumnsGeneration="True">
+
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView     
+                            x:Name="tblStandardGroupListView"
+                            ShowSearchPanelFindButton="True"
+                            KeyFieldName="Id"
+                            ParentFieldName="parentId"
+                            AllowEditing="False"
+                            NavigationStyle="Row"
+                            Width="auto"
+                                
+                            AutoWidth="True"
+                            CustomUnboundColumnData="tblStandardGroupListView_CustomUnboundColumnData"
+                            AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"      
+                            ShowAutoFilterRow="True"      
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoPopulateServiceColumns="False"
+                            ColumnFilterPopupMode="Excel"
+                            CompactPanelShowMode="CompactMode"
+                            ShowFixedTotalSummary="True"
+                            AllowDragDrop="True"      
+                            FocusedRowChanged="tblStandardGroupListView_FocusedRowChanged"
+                            ShowTotalSummary="True" 
+                            RowAnimationKind="None"
+                            WaitIndicatorType="Panel"      
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True"   
+                            AutoExpandAllNodes="True"
+                                >
+                                <dxg:TreeListView.FormatConditions>
+                                    <dxg:FormatCondition Expression="[totalSReports] &lt;&gt; ?" FieldName="totalSReports">
+                                        <dx:Format Background="#FF9BBB59"/>
+                                    </dxg:FormatCondition>
+                                </dxg:TreeListView.FormatConditions>
+                            </dxg:TreeListView>
+
+                        </dxg:GridControl.View>
+
+                        <dxg:GridColumn FieldName="groupName"
+                                    Header="Group Name"
+                                    VisibleIndex="0"
+                                    AllowEditing="false"
+                                    HorizontalHeaderContentAlignment="Center"
+                                    Width="auto"
+                               />
+                        <dxg:GridColumn FieldName="totalSReports"
+                            ReadOnly="True"
+                            VisibleIndex="1"
+                                        HorizontalHeaderContentAlignment="Center"
+                            Width="auto"
+                            UnboundType="Decimal"
+                            Header="Total Reports" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings MaskType="Numeric" HorizontalContentAlignment="Center" Mask="d" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl>
+
+                </dx:DXTabItem>
+
+                <dx:DXTabItem x:Name="tabMemorized"  Header="Memorized Groups">
+                    <dxg:GridControl x:Name="grdMemorizedReportGroups"
+                                     SelectionChanged="grdMemorizedReportGroups_SelectionChanged" 
+                                     Visibility="Visible" Grid.Row="0" 
+                                     EnableSmartColumnsGeneration="True">
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView
+                        x:Name="tblMemorizedGroupListView"
+                            KeyFieldName="Id"
+                            ParentFieldName="parentId"
+                            AllowEditing="False"
+                            NavigationStyle="Row"
+                            AutoExpandAllNodes="True"      
+                            Width="auto"
+                            AutoWidth="True"      
+                            AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"      
+                            ShowAutoFilterRow="True"      
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoPopulateServiceColumns="False"
+                            ColumnFilterPopupMode="Excel"
+                                CustomUnboundColumnData="tblMemorizedGroupListView_CustomUnboundColumnData"
+                            CompactPanelShowMode="CompactMode"
+                                FocusedRowChanged="tblMemorizedGroupListView_FocusedRowChanged"
+                            ShowFixedTotalSummary="True"
+                            AllowDragDrop="True"      
+                            ShowTotalSummary="True" 
+                            RowAnimationKind="None"
+                            WaitIndicatorType="Panel"      
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True"  
+
+                                >
+                                <dxg:TreeListView.FormatConditions>
+                                    <dxg:FormatCondition Expression="[totalMReports] &lt;&gt; ?" FieldName="totalMReports">
+                                        <dx:Format Background="#FF9BBB59"/>
+                                    </dxg:FormatCondition>
+                                </dxg:TreeListView.FormatConditions>
+                            </dxg:TreeListView>
+                        </dxg:GridControl.View>
+
+                        <dxg:GridColumn FieldName="groupName"
+                                    Header="Group Name"
+                                    VisibleIndex="0"
+                                    AllowEditing="false"
+                                    HorizontalHeaderContentAlignment="Center"
+                                    IsSmart="True"
+                               />
+                        <dxg:GridColumn FieldName="totalMReports"
+                            ReadOnly="True"
+                            VisibleIndex="1"
+                            HorizontalHeaderContentAlignment="Center"
+                            AllowSorting="false"
+                            UnboundType="Decimal"
+                            Header="Total Reports" >
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings MaskType="Numeric"                                     HorizontalContentAlignment="Center"
+                                    Mask="d" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl>
+
+                </dx:DXTabItem>
+
+            </dx:DXTabControl>
+
+
+
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal"> 
+                <dx:SimpleButton x:Name="btnRefresh" Content="Refresh" Foreground="DarkSlateGray" Margin="5,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold" FontSize="18"    Click="btnRefresh_Click" />
+                <dx:SimpleButton x:Name="btnDelete" Content="Delete" Foreground="DarkSlateGray" Margin="5,0,0,5" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="DemiBold" FontSize="18"     Click="btnDelete_Click" />
+
+
+            </StackPanel>
+            <dxe:TextEdit x:Name="txtGridGroupName"  Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" FontWeight="DemiBold" FontSize="18"   Text=" Grid report Group" />
+
+
+
+            <dxg:GridControl x:Name="grdReportsListing"
+                                     AutoGenerateColumns="None"
+                                     MouseDoubleClick="grdReportsListing_MouseDoubleClick"
+                                     Grid.Column="1"
+                                     SelectionMode="Row" 
+                                     AutoExpandAllGroups="True"
+                                     IsRecursiveExpand="True" 
+                                     AllowInitiallyFocusedRow="False" 
+                                     Margin="0,25,0,0">
+
+                <dxg:GridControl.View>
+
+                    <dxg:TableView ShowTotalSummary="False"
+                                          ShowGroupPanel="False"
+                                           x:Name="viewTransactions"                                         
+                                          Width="auto"
+                                          RowMinHeight="40"
+                                  
+
+                                          AllowEditing="False"
+                                          AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"      
+                                          AutoWidth="True"  
+                                          AllowGrouping="False"     
+                                          ScrollingMode="Normal" >
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="Id"
+                                        Visible="False" 
+                                        IsSmart="True"
+                                        ShowInColumnChooser="False"
+                                        SortIndex="0" />
+                <dxg:GridColumn FieldName="reportName"
+                               
+                                        Header="Report Name" 
+                                        VisibleIndex="1"/>
+                <dxg:GridColumn FieldName="gridReportGroup.groupName"
+                                        IsSmart="True"
+                                        Header="Grid Report Group" 
+                                        VisibleIndex="1"
+                                        SortIndex="0" />
+                <dxg:GridColumn FieldName="Creater.userName"
+                                        IsSmart="True"
+                                        Header="Creator" 
+                                        VisibleIndex="1"
+                                        SortIndex="0" />
+                <dxg:GridColumn         FieldName="Title.titleName"
+                                        IsSmart="True"
+                                        GroupIndex="0"
+                                        Header=""
+                                        VisibleIndex="1"
+                                        SortIndex="0" />
+            </dxg:GridControl>
+
+            <dxg:GridControl x:Name="grdCashFlowListing"
+                             Visibility="Collapsed"
+                                     AutoGenerateColumns="None"
+                                     MouseDoubleClick="grdCashFlowListing_MouseDoubleClick"
+                                     Grid.Column="1"
+                                     SelectionMode="Row" 
+                                     AutoExpandAllGroups="True"
+                                     IsRecursiveExpand="True" 
+                                     AllowInitiallyFocusedRow="False" 
+                                     Margin="0,25,0,0">
+
+                <dxg:GridControl.View>
+
+                    <dxg:TableView ShowTotalSummary="False"
+                                          ShowGroupPanel="False"
+                                          Width="auto"
+                                          RowMinHeight="40"
+                                  
+
+                                          AllowEditing="False"
+                                          AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"      
+                                          AutoWidth="True"  
+                                          AllowGrouping="False"     
+                                          ScrollingMode="Normal" >
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="Id"
+                                        Visible="False" 
+                                        IsSmart="True"
+                                        ShowInColumnChooser="False"
+                                        SortIndex="0" />
+                <dxg:GridColumn FieldName="reportName"
+                               
+                                        Header="Report Name" 
+                                        VisibleIndex="1"/>
+                <dxg:GridColumn FieldName="gridReportGroup.groupName"
+                                        IsSmart="True"
+                                        Header="Grid Report Group" 
+                                        VisibleIndex="1"
+                                        SortIndex="0" />
+                <dxg:GridColumn FieldName="Creater.userName"
+                                        IsSmart="True"
+                                        Header="Creator" 
+                                        VisibleIndex="1"
+                                        SortIndex="0" />
+                <dxg:GridColumn         FieldName="Title.titleName"
+                                        IsSmart="True"
+                                        GroupIndex="0"
+                                        Header=""
+                                        VisibleIndex="1"
+                                        SortIndex="0" />
+            </dxg:GridControl>
+
+        </Grid>
+
+
+    </Grid>
+</dx:DXWindow>

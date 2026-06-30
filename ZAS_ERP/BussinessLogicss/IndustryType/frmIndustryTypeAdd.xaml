@@ -1,0 +1,127 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        x:Class="ZAS_ERP.frmIndustryTypeAdd"
+             mc:Ignorable="d"
+             Height="250"
+             Width="350" Title="Industry Type" x:Name="winIndustryTypeAdd" 
+        Loaded="winIndustryTypeAdd_Loaded" Closing="winIndustryTypeAdd_Closing">
+    <Grid Margin="0,0,0,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <dx:DXTabControl>
+            <dx:DXTabItem Header="Add Industry Type">
+                <dxlc:LayoutGroup
+                    View="Group">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="105"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 0 0 10">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <TextBlock Text="Industry Type"
+                                       x:Name="lblIndustryType"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="20"
+                                       Foreground="Black"
+                                           FontWeight="DemiBold"/>
+                            </StackPanel>
+                        </Grid>
+
+
+                        <TextBlock Text="Industry Type" Grid.Row="1"
+           ToolTip="Industry Type"/>
+                        <dxe:TextEdit                 Margin="10,0"
+ x:Name="txtIndustryType"  Grid.Column="1" Grid.Row="1"
+              VerticalAlignment="Center"/>
+
+                        <TextBlock Text="Vendor"
+           ToolTip="Vendor"
+           
+           Grid.Row="2" />
+
+
+
+                        <CheckBox x:Name="chkIsVendorType"
+                Margin="10,0"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Grid.Row="2" />
+
+                        <TextBlock Text="Customer Type"
+           ToolTip="Customer Type"
+           Grid.Row="3" Visibility="Visible"/>
+
+
+
+                        <CheckBox x:Name="chkIsCustomerType"
+                IsChecked="True"
+                                                  Margin="10,0"
+
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Grid.Row="3" Visibility="Visible"/>
+
+
+                        <TextBlock Text="isActive"
+           ToolTip="is Active"
+           Grid.Row="4" Visibility="Visible"/>
+                        <CheckBox x:Name="chkisactive"
+                Margin="10,0"
+                IsChecked="True"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Grid.Row="4" />
+                        <TextBlock Text="isVoid"
+           ToolTip="is Void"
+           Grid.Row="5" Visibility="Visible"/>
+                        <CheckBox x:Name="chkisVoid"
+                Margin="10,0"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Grid.Row="5" />
+
+
+
+
+
+
+
+
+                    </Grid>
+                </dxlc:LayoutGroup>
+            </dx:DXTabItem>
+
+
+        </dx:DXTabControl>
+
+        <Button Grid.ColumnSpan="2"
+            Grid.Row="9"
+            Content="Save"
+            FontSize="20"
+            x:Name="btnIndustryTypeSave"
+            Click="btnIndustryTypeSave_Click" />
+
+    </Grid>
+</dx:DXWindow>

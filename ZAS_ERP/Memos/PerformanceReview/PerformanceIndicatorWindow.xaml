@@ -1,0 +1,79 @@
+﻿<Window x:Class="ZAS_ERP.Memos.PerformanceReview.PerformanceIndicatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Memos.PerformanceReview" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="PerformanceIndicatorWindow" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Form for Adding/Editing -->
+        <Grid Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Indicator Name: " VerticalAlignment="Center"/>
+            <dxe:TextEdit x:Name="txtName" Grid.Column="1" NullText="Indicator Name" Margin="0,5"/>
+
+            <TextBlock Text="Description: " Grid.Row="1" VerticalAlignment="Center"/>
+            <dxe:TextEdit x:Name="txtDescription" Grid.Row="1" Grid.Column="1" NullText="Description" Margin="0,5"/>
+
+            <TextBlock Text="Display Order: " Grid.Row="2" VerticalAlignment="Center"/>
+            <dxe:TextEdit x:Name="txtDisplayOrder" Grid.Row="2" Grid.Column="1" NullText="Display Order (e.g., 1)" Margin="0,5"/>
+
+            <TextBlock Text="Weightage: " Grid.Row="3" VerticalAlignment="Center"/>
+            <dxe:TextEdit x:Name="txtWeightage" Grid.Row="3" Grid.Column="1" NullText="Weightage (e.g., 10)" Margin="0,5"/>
+
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                <CheckBox x:Name="chkIsActive" Grid.Row="4" Grid.Column="1" Content="Is Active" IsChecked="True" Margin="0,5"/>
+
+                <CheckBox x:Name="chkIsAdmin" Grid.Row="4" Grid.Column="1" Content="Is Admin Type" Margin="30 5 0 0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Margin="0,10">
+                <dx:SimpleButton Content="Save" Width="100" Margin="0,0,10,0" Click="BtnSave_Click"/>
+                <dx:SimpleButton Content="Clear" Width="100" Click="BtnClear_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Grid of existing indicators -->
+        <dxg:GridControl x:Name="dgIndicators" 
+                         Grid.Row="1" 
+                         SelectionMode="Row"
+                         SelectionChanged="DgIndicators_SelectionChanged">
+
+            <dxg:GridControl.View>
+                <dxg:TableView Name="tableViewRatings"
+                               ShowTotalSummary="True"
+                               ShowGroupPanel="False"/>
+            </dxg:GridControl.View>
+
+            <dxg:GridColumn Header="Name" Binding="{Binding Name}"/>
+            <dxg:GridColumn Header="Description" Binding="{Binding Description}"/>
+            <dxg:GridColumn Header="Order" Binding="{Binding DisplayOrder}"/>
+            <dxg:GridColumn Header="Weight" FieldName="Weightage" Binding="{Binding Weightage}"/>
+            <dxg:GridColumn Header="Active" Binding="{Binding IsActive}"/>
+            <dxg:GridColumn Header="Admin Type" Binding="{Binding IsAdminType}"/>
+
+            <dxg:GridControl.TotalSummary>
+                <dxg:GridSummaryItem FieldName="Weightage" SummaryType="Sum" DisplayFormat="n"/>
+            </dxg:GridControl.TotalSummary>
+
+        </dxg:GridControl>
+    </Grid>
+</Window>

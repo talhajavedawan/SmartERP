@@ -1,0 +1,194 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.Targetss.frmTargetList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Targetss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title=" Target's List"
+        x:Name="winTargetList"
+        Loaded="winTargetList_Loaded"
+        Unloaded="WinTargetList_Unloaded"
+        Height="450"
+        Width="650">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".7*" />
+        
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+        <MenuItem Header="_ Target"
+                  x:Name="mbtnTarget">
+          <MenuItem Header="Add new  Target"
+                    x:Name="mbtnNewTarget"
+                    Click="mbtnNewTarget_Click"></MenuItem>
+          <MenuItem Header="Edit  Target"
+                    x:Name="mbtnEditTarget"
+                    Click="mbtnEditTarget_Click"></MenuItem>
+        </MenuItem>
+        
+      </Menu>
+
+            <dxg:GridControl x:Name="grdTarget"
+                       AutoGenerateColumns="None"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdTarget_MouseDoubleClick"
+                       CustomUnboundColumnData="GrdTarget_CustomUnboundColumnData"
+                       >
+                <dxg:GridControl.View>
+                    <dxg:TableView ShowFixedTotalSummary="True" ShowTotalSummary="True"/>
+                </dxg:GridControl.View>
+                <dxg:GridControl.DetailDescriptor>
+        <dxg:DataControlDetailDescriptor ShowHeader="True"
+                                         x:Name="detailGridDescriptor"
+                                         ItemsSourcePath="TargetAwards">
+          <dxg:DataControlDetailDescriptor.DataControl>
+            <dxg:GridControl>
+              <dxg:GridControl.View>
+                <dxg:TableView DetailHeaderContent="Target and Awards"
+                               AutoWidth="True"
+                               ShowGroupPanel="False" />
+              </dxg:GridControl.View>
+                                <dxg:GridColumn FieldName="name"
+                          Header="Target"
+                          IsSmart="True"
+                          UnboundType="String"
+                                    ReadOnly="True"
+                          >
+
+                                </dxg:GridColumn>
+
+                                <dxg:GridColumn FieldName="target"
+                          Header="Target Amount"
+                          UnboundExpression="decimal"
+                          VisibleIndex="4" ActualVisibleIndex="4" >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <!--<dxg:GridColumn FieldName="IndviualAward"
+                        Header="Indviual Award" >
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>-->
+                                <dxg:GridColumn FieldName="NoOfEmployees"
+                          Header="No.Of Employees">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+                                <dxg:GridColumn FieldName="TotalAward"
+                          Header="Award"  UnboundType="Decimal">
+                                    <dxg:GridColumn.EditSettings>
+                                        <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                                    </dxg:GridColumn.EditSettings>
+                                </dxg:GridColumn>
+
+                            </dxg:GridControl>
+          </dxg:DataControlDetailDescriptor.DataControl>
+        </dxg:DataControlDetailDescriptor>
+      </dxg:GridControl.DetailDescriptor>
+                <dxg:GridColumn Header="Company"
+                            Binding="{Binding Company.CompanyName}"
+                            
+                            Width="auto" />
+                <dxg:GridColumn FieldName="Department.DeptName" 
+                            Header="Department"
+                >
+                    
+                    <!-- 
+                                Binding="[Department.DeptName]"
+                    
+                    UnboundExpression="[Department.parentDepartment.DeptName] +' '+ [Department.DeptName]"-->
+
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Type.Type"
+                                 AllowEditing="False" 
+                                Header="Type">
+
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Type.Frequency"
+                                 AllowEditing="False" 
+                                Header="Frequency">
+
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="Type.HierarchicalIndex"
+                                 AllowEditing="False" 
+                                Header="Hierarchy Index">
+
+                </dxg:GridColumn>
+                <dxg:GridColumn Header="Currency"
+                            FieldName="Currency.CurrencyName"
+                            IsSmart="True"
+                            Width="auto" />
+                <dxg:GridColumn Header="Year"
+                            FieldName="Year"
+                            IsSmart="True"
+                            Width="auto" />
+                <dxg:GridColumn FieldName="TotalTarget" UnboundType="Integer" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <!--<dxg:GridColumn FieldName="IndviualAward" UnboundType="Decimal" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="TotalAward" UnboundType="Integer" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>-->
+                <!--<dxg:GridColumn FieldName="AverageMonthly" UnboundType="Decimal" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="AverageIndviualAward" UnboundType="Decimal" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>-->
+                <dxg:GridColumn FieldName="AverageTotalAward" Header="Total Award" UnboundType="Integer" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridColumn FieldName="AverageIndviuals" Header="No Of Employees" UnboundType="Integer" ReadOnly="True" >
+                    <dxg:GridColumn.EditSettings>
+                        <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                    </dxg:GridColumn.EditSettings>
+                </dxg:GridColumn>
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewTarget"
+                      Click="mbtnNewTarget_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditTarget"
+                      Click="mbtnEditTarget_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+            </dxg:GridControl>
+
+        </Grid>
+  </Grid>
+</Window>

@@ -1,0 +1,187 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.winTagUsers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        mc:Ignorable="d"
+        Title="Tag Others" Height="250" Width="500"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <dxlc:LayoutGroup Header="Tag Users" View="GroupBox">
+            <dxlc:LayoutGroup.GroupBoxStyle>
+<Style TargetType="dxlc:GroupBox">
+<Setter Property="TitleForeground" Value="White" />
+<Setter Property="TitleBackground" Value="SteelBlue"/>
+</Style>
+</dxlc:LayoutGroup.GroupBoxStyle>
+            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <!--<RowDefinition/>-->
+
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="lblTagRecommendation"
+                    Text="Tag Recomendation: " VerticalAlignment="Center" 
+                   FontSize="14" HorizontalAlignment="Center"  Margin="5"
+                   Grid.Column="0"
+                   Grid.Row="0"/>
+
+                <dxe:ComboBoxEdit IsEnabled="True"
+                    VerticalAlignment="Center"
+                    x:Name="cmbRecommentdationTagUsers"
+                    Grid.Column="2" Visibility="Visible"
+                    Grid.Row="0" 
+                    AutoComplete="True" 
+                    IncrementalSearch="True" 
+                    ImmediatePopup="True"
+                          ItemsSource="{Binding taggedUsers}"
+                          DisplayMember="userName"
+                    TabIndex="2" 
+                   >
+                    <dxe:ComboBoxEdit.StyleSettings>
+                        <dxe:TokenComboBoxStyleSettings />
+                    </dxe:ComboBoxEdit.StyleSettings>
+                    <dxe:ComboBoxEdit.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                                <TextBlock Text="{Binding userName}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dxe:ComboBoxEdit.ItemTemplate>
+                </dxe:ComboBoxEdit>
+
+                <TextBlock x:Name="lblCCRecommendation"
+                    Text="CC Recomendation: " VerticalAlignment="Center" 
+                   FontSize="14" HorizontalAlignment="Center"  Margin="5"
+                   Grid.Column="0"
+                   Grid.Row="1"/>
+                <dxe:ComboBoxEdit IsEnabled="True"
+                    VerticalAlignment="Center"
+                    x:Name="cmbRecomendationCCUsers"
+                    Grid.Column="2" Visibility="Visible"
+                    Grid.Row="1" AutoComplete="True" 
+    IncrementalSearch="True" 
+    ImmediatePopup="True"
+                          DisplayMember="userName"
+                    TabIndex="2" 
+                   >
+                    <dxe:ComboBoxEdit.StyleSettings>
+                        <dxe:TokenComboBoxStyleSettings />
+                    </dxe:ComboBoxEdit.StyleSettings>
+                    <dxe:ComboBoxEdit.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel  Orientation="Horizontal">
+                                <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                                <TextBlock Text="{Binding userName}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </dxe:ComboBoxEdit.ItemTemplate>
+                </dxe:ComboBoxEdit>
+
+                <Button Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="2" Margin="5"
+                 Name="btnApplyRecommendation"
+                Content="Apply Recomendation"
+                Click="btnApplyRecommendation_Click"/>
+
+
+
+
+
+                <TextBlock Text="Tag: " VerticalAlignment="Center" 
+                   FontSize="14" HorizontalAlignment="Center"  
+                   Grid.Column="0"
+                   Grid.Row="3"/>
+       
+        <dxe:ComboBoxEdit VerticalAlignment="Center"
+                    x:Name="cmbTagUsers"
+                    Grid.Column="2" Visibility="Visible"
+                    Grid.Row="3" 
+                    AutoComplete="True" 
+                    IncrementalSearch="True" 
+                    ImmediatePopup="True"
+                          ItemsSource="{Binding taggedUsers}"
+                          DisplayMember="userName"
+                    TabIndex="2" 
+                   >
+            <dxe:ComboBoxEdit.StyleSettings>
+                <dxe:TokenComboBoxStyleSettings />
+            </dxe:ComboBoxEdit.StyleSettings>
+            <dxe:ComboBoxEdit.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                        <TextBlock Text="{Binding userName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </dxe:ComboBoxEdit.ItemTemplate>
+        </dxe:ComboBoxEdit>
+
+        <TextBlock Text="CC: " VerticalAlignment="Center" 
+                   FontSize="14" HorizontalAlignment="Center"  Margin="5"
+                   Grid.Column="0"
+                   Grid.Row="4"/>
+        <dxe:ComboBoxEdit VerticalAlignment="Center"
+                    x:Name="cmbCCUsers"
+                    Grid.Column="2" Visibility="Visible"
+                    Grid.Row="4" AutoComplete="True" 
+    IncrementalSearch="True" 
+    ImmediatePopup="True"
+                          DisplayMember="userName"
+                    TabIndex="2" 
+                   >
+            <dxe:ComboBoxEdit.StyleSettings>
+                <dxe:TokenComboBoxStyleSettings />
+            </dxe:ComboBoxEdit.StyleSettings>
+            <dxe:ComboBoxEdit.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                        <TextBlock Text="{Binding userName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </dxe:ComboBoxEdit.ItemTemplate>
+        </dxe:ComboBoxEdit>
+        
+        <Grid Grid.Column="0"
+              Grid.ColumnSpan="3"
+              Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                 Name="btnAvoidTag"
+                Content="Avoid"
+                Click="BtnAvoidTag_Click"/>
+            <Button Grid.Column="1"
+                Name="btnSaveTag"
+                Content="Notify"
+                Click="BtnSaveTag_Click"/>
+            
+        </Grid>
+            </Grid>
+        </dxlc:LayoutGroup>
+    </Grid>
+</Window>

@@ -1,0 +1,56 @@
+﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.SaleOrderss.UserControls"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="ZAS_ERP.Procurementss.SaleOrderss.UserControls.ucSaleOrdertoIBT"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <dxlc:LayoutGroup Orientation="Horizontal" Margin="10,10,10,10" Header="Sale Order Details" View="GroupBox">
+                <dxlc:LayoutItem Label="Company">
+                    <dxe:TextEdit x:Name="txtCompany" IsReadOnly="True" Margin="15,5,5,5"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="Department">
+                    <dxe:TextEdit x:Name="txtDeparment" IsReadOnly="True" Margin="0,5,5,5"/>
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem  Label="SO Amount">
+                    <dxe:TextEdit x:Name="txtSOAmount" IsReadOnly="True" Margin="5,5,5,5" Mask="n2" MaskType="Numeric"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="1" >
+            <dxlc:LayoutGroup Header="LayoutGroup" View="Tabs">
+                <dxlc:LayoutGroup Header="Inter Bank Transfers">
+                    <Grid>
+                        <dxg:GridControl x:Name="grdIbt"  SelectionMode="MultipleRow" >
+                            <dxg:GridControl.View>
+                                <dxg:CardView CardLayout="Columns" AllowEditing="False" AllowGrouping="False" ShowGroupPanel="False"/>
+                            </dxg:GridControl.View>
+                            <dxg:GridColumn Header="Company" FieldName="company.CompanyName"/>
+                            <dxg:GridColumn Header="Department" FieldName="department.DeptName"/>
+                            <dxg:GridColumn Header="Currency" FieldName="currency.CurrencyName"/>
+                            <dxg:GridColumn  FieldName="AmountOC">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                        </dxg:GridControl>
+                    </Grid>
+                </dxlc:LayoutGroup>
+            </dxlc:LayoutGroup>
+        </Grid>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <dx:SimpleButton x:Name="btnLinkIBt" Content="Link Inter-Bank-Transfer" FontWeight="Medium" Click="BtnLinkIBt_Click"  />
+        </Grid>
+    </Grid>
+</UserControl>

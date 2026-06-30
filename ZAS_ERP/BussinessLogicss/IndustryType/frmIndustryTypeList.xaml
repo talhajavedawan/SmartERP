@@ -1,0 +1,207 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Class="ZAS_ERP.frmIndustryTypeList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        mc:Ignorable="d"
+        Title="IndustryType Panel"
+        x:Name="winIndustryType"
+        Loaded="winIndustryType_Loaded"
+        Unloaded="WinIndustryType_Unloaded"
+        Height="450"
+        Width="450">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*" />
+        <!--<ColumnDefinition Width="1*" />-->
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+        <MenuItem Header="_Industry Types"
+                  x:Name="mbtnIndustryType" Click="mbtnIndustryType_Click">
+          <!--<MenuItem Header="Add new Industry Type"
+                    x:Name="mbtnNewIndustryType"
+                    Click="mbtnNewIndustryType_Click"></MenuItem>
+          <MenuItem Header="Edit Industry Type"
+                    x:Name="mbtnEditIndustryType"
+                    Click="mbtnEditIndustryType_Click"></MenuItem>-->
+        </MenuItem>
+                <MenuItem Header="Void Industry Types"
+                  x:Name="mbtnVoidList" Click="mbtnVoidList_Click">
+                    
+                </MenuItem>
+
+            </Menu>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="15" FontWeight="DemiBold" x:Name="lblIndustryType" Text="Industry Types"/>
+            <dxg:GridControl x:Name="grdIndustryType"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="2"
+                             
+                       SelectionMode="Row">
+        <dxg:GridControl.View>
+        <dxg:TableView AllowEditing="False" Width="auto"  BestFitMode="AllRows" FadeSelectionOnLostFocus="False"></dxg:TableView>
+        </dxg:GridControl.View>
+        <dxg:GridControl.ContextMenu>
+        <ContextMenu>
+          <MenuItem Header="Add New "
+                    x:Name="btnNew"
+                    Click="mbtnNewIndustryType_Click" />
+            <MenuItem Header="Edit "
+                    x:Name="btnEdit"
+                    Click="mbtnEditIndustryType_Click" />
+          <!--<Separator />
+            <MenuItem Header="Delete Offer Status"
+                      x:Name="btnDeleteOfferStatus" />-->
+        </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+      </dxg:GridControl>
+      <!--<Grid Grid.Column="1">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="1*" />
+          
+        </Grid.RowDefinitions>
+        --><!--<dxlc:GroupBox Header="Employee Information"
+                       Background="White"
+                       Margin="5">
+          
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width=".5*" />
+              <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="50" />
+              <RowDefinition Height="50" />
+              <RowDefinition Height="50" />
+              <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Name"
+                   ToolTip="Name"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right" />
+            <Label Content="Last Name"
+                   ToolTip="Last Name"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="1" />
+            <Label Content="Employee Id"
+                   ToolTip="ID"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Grid.Row="2" />
+            --><!--textblock for displaying data in colunm 2 of grid from stored company data --><!--
+            <TextBlock x:Name="lblconatctname"
+                       Text="{Binding ElementName=grdIndustryType,Path=CurrentItem.person.FName }"
+                       ToolTip="contact Name"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,0" />
+            <TextBlock x:Name="lblcnic"
+                       VerticalAlignment="Center"
+                       Text="{Binding ElementName=grdIndustryType,Path=CurrentItem.person.LName}"
+                       ToolTip="Last Name"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="20,0" />
+            <TextBox x:Name="txt"
+                       ToolTip="Id"
+                       VerticalAlignment="Center"
+                       Text="{Binding ElementName=grdIndustryType,Path=CurrentItem.EmpId}"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Margin="20,0" />
+          </Grid>
+        </dxlc:GroupBox>-->
+        <!--<Grid Grid.Column="1"
+              Grid.Row="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+          </Grid.RowDefinitions>
+          --><!--<dxlc:GroupBox Header="IndustryType Details"
+                         Background="White"
+                         Margin="5">
+           
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width="1*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                --><!--<RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />--><!--
+                <RowDefinition Height="auto" />
+              </Grid.RowDefinitions>
+              <Label Content="Industry Type "
+                     ToolTip="Industry Type Name"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Right" />
+              --><!--<Label Content="Symbol"
+                     ToolTip="Symbol"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="1" />-->
+              <!--textblock for displaying data in colunm 2 of grid from stored company data --><!--
+              <TextBox x:Name="txtIndustryTypeName"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Text="{Binding ElementName=grdIndustryType,Path=CurrentItem.name}"
+                       Margin="20,0" />
+              --><!--<TextBox          VerticalAlignment="Center"
+                         x:Name="txtSymbol"
+                                            ToolTip="Enter IndustryType Symbol"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         Margin="20,0" />
+              <Label Content="Abbrevation/Code"
+                     ToolTip="Abbrevation"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="2" />
+              --><!--textblock for displaying data in colunm 2 of grid from stored company data --><!--
+              <TextBox x:Name="txtAbrivation"
+                       Grid.Row="2"
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Margin="20,0" />
+              <Label Content="Country"
+                     ToolTip="Country"
+                     HorizontalAlignment="Right"
+                     VerticalAlignment="Center"
+                     Grid.Row="3" />
+              --><!--textblock for displaying data in colunm 2 of grid from stored company data --><!--
+              <TextBox x:Name="txtCountry"                   
+                       VerticalAlignment="Center"
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       Margin="20,0" />--><!--
+              
+              <Button Grid.Column="1"
+                      Grid.Row="4"
+                      Margin="20,10"
+                      Content="Add IndustryType"
+                      x:Name="btnaddIndustryType"
+                      Click="btnaddIndustryType_Click"/>
+            </Grid>
+          </dxlc:GroupBox>--><!--
+        </Grid>--><!--
+      </Grid>-->
+    </Grid>
+  </Grid>
+</Window>

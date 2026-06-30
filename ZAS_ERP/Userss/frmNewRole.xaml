@@ -1,0 +1,310 @@
+﻿<Window x:Class="ZAS_ERP.Userss.frmNewRole"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:local="clr-namespace:ZAS_ERP.Userss"
+xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+mc:Ignorable="d" Unloaded="Window_Unloaded"
+Title="Role" Height="550" Width="800" WindowState="Maximized" Loaded="Window_Loaded">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground"
+Value="Gray"></Setter>
+                <Setter Property="Margin"
+Value="10,5"></Setter>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="VerticalAlignment"
+Value="Center"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".6*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <dxlc:GroupBox Header="Role Information"
+DisplayMode="Light"
+AutomationProperties.IsRequiredForForm="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <!--<TextBlock Text="Parent Role" Grid.Row="0" HorizontalAlignment="Right"/>-->
+                <TextBlock Text="Company" Grid.Row="1" />
+                <TextBlock Text="Department" Grid.Row="1" Grid.Column="4" />
+                <TextBlock Text="Role" Grid.Row="2" />
+                <TextBlock Text="Role Name" Grid.Row="2" Grid.Column="4" />
+                <TextBlock Text="Description" Grid.Row="3" />
+                <dxe:CheckEdit x:Name="chkisActive" Content="isActive" Grid.Row="3"  Margin="5" Grid.Column="4" />
+                <dxe:CheckEdit Content="Has Parent"
+                        x:Name="chkHasParent"
+                    
+                       
+                        Grid.Row="4"
+                        Checked="ChkHasParent_Checked"
+                        Unchecked="ChkHasParent_Unchecked"
+                        Grid.Column="0"/>
+
+
+
+
+
+
+                <dxg:LookUpEdit Grid.Column="2"
+                                Margin="5"
+                        x:Name="lookupParentRole"
+                                SelectedIndexChanged="LookupParentRole_SelectedIndexChanged"
+                               IsEnabled="False"
+                        DisplayMember="Name"
+                        Grid.Row="4">
+                    <dxg:LookUpEdit.PopupContentTemplate>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+
+
+
+
+                                <dxg:GridControl Name="PART_GridControl"
+                                    AutoPopulateColumns="True"
+                                    Grid.Row="1">
+                                    <dxg:GridControl.View>
+                                        <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="parentId"/>
+                                    </dxg:GridControl.View>
+
+
+
+
+
+
+                                    <dxg:GridColumn Header="Name"
+                                  FieldName="Name">
+
+
+
+                                    </dxg:GridColumn>
+
+                                    <dxg:GridColumn
+                                        FieldName="Name"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="Description"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="Company"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="Id"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="Department"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                            FieldName="parentId"
+                                            UnboundType="Bound"
+                                            AllowEditing="false"
+                                            Visible ="False"
+                                            ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="parentRole"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="Added"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                            FieldName="LastModified"
+                                            UnboundType="Bound"
+                                            AllowEditing="false"
+                                            Visible ="False"
+                                            ShowInColumnChooser="false"/>
+                                    <dxg:GridColumn
+                                        FieldName="isActive"
+                                        UnboundType="Bound"
+                                        AllowEditing="false"
+                                        Visible ="False"
+                                        ShowInColumnChooser="false"/>
+
+
+
+
+
+
+
+                                </dxg:GridControl>
+                            </Grid>
+                        </ControlTemplate>
+                    </dxg:LookUpEdit.PopupContentTemplate>
+
+
+
+
+
+                </dxg:LookUpEdit>
+                <dxe:TextEdit Grid.Column="2" Margin="5" x:Name="txtCompany" EditValueChanged="TxtCompany_EditValueChanged" Grid.Row="1"  />
+                <dxe:TextEdit Grid.Column="6" Margin="5" x:Name="txtDepartment" Grid.Row="1" EditValueChanged="TxtDepartment_EditValueChanged"  />
+                <dxe:TextEdit Grid.Column="2" Margin="5" x:Name="txtRoles" EditValueChanged="TxtRoles_EditValueChanged" Grid.Row="2"  />
+                <dxe:TextEdit Grid.Column="6" Margin="5" Grid.Row="2" x:Name="txtRoleName" IsReadOnly="True"  />
+                <dxe:TextEdit Grid.Column="2" Margin="5" x:Name="txtDescription" Grid.Row="3"  VerticalAlignment="Center" TextWrapping="Wrap"/>
+            </Grid>
+        </dxlc:GroupBox>
+        <dxlc:GroupBox Header="Role Access and Permissions"
+                        Grid.Row="1"
+                        CornerRadius="0"
+                        DisplayMode="Light">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+
+                </Grid.RowDefinitions>
+              
+                <dxg:GridControl SelectionMode="MultipleRow"
+                            x:Name="grdPermissions" Grid.Row="2" Grid.ColumnSpan="2"
+                            AutoGenerateColumns="None"
+                            SelectionChanged="GrdPermissions_SelectionChanged"
+                            AllowInitiallyFocusedRow="False">
+
+
+
+                    <dxg:GridControl.View>
+                        <dxg:TreeListView x:Name="viewTable"
+                            AutoWidth="True"
+                            KeyFieldName="Id"
+                            ParentFieldName="ParentId"
+                            TreeDerivationMode="Selfreference"
+                            AutoExpandAllNodes="False"
+                            AllowEditing="False"
+                            ShowAutoFilterRow="True"
+                            FilterMode="Smart"
+                            UseIndicatorForSelection="True"
+                            ShowCheckboxes="True"
+
+
+
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True"></dxg:TreeListView>
+                    </dxg:GridControl.View>
+                  
+                    <dxg:GridColumn x:Name="Id"
+                                FieldName="Id"
+                                IsSmart="True"
+                                Visible="False"
+                                Width="100"/>
+                    <dxg:GridColumn FieldName="Name"
+                        IsSmart="True" Width="auto"/>
+                    <dxg:GridColumn FieldName="Description"
+                                IsSmart="True" Width="auto"/>
+                    <dxg:GridColumn FieldName="ParentId"
+                                IsSmart="True" Visible="False" Width="100"/>
+
+
+
+                    <!--<dxg:GridColumn FieldName="addressId" x:Name="coladressId" IsSmart="True" Visible="False" />-->
+                    <!--<dxg:GridColumn FieldName="address" IsSmart="True" x:Name="coladress" Visible="False" />-->
+                    <!--<dxg:GridColumn FieldName="contactId" Visible="False" x:Name="colcontactId" IsSmart="True" />-->
+                    <!--<dxg:GridColumn FieldName="contact" x:Name="colcontact" IsSmart="True" Visible="False" />-->
+                </dxg:GridControl>
+          <!--role Field grid start-->
+                <!--<dxg:GridControl SelectionMode="MultipleRow"
+                            x:Name="grdRoleField" Grid.Row="2"
+                            Grid.Column="1"
+                                 SelectionChanged="GrdRoleField_SelectionChanged"
+                            AutoGenerateColumns="None"
+                            AllowInitiallyFocusedRow="False">
+
+                    <dxg:GridControl.View>
+                        <dxg:TreeListView x:Name="treeListView"
+                            AutoWidth="True"
+                           NodeCheckStateChanged="TreeListView_NodeCheckStateChanged"
+                            AutoExpandAllNodes="False"
+                            AllowEditing="False"
+                            ShowAutoFilterRow="True"
+                            FilterMode="Smart"
+                            UseIndicatorForSelection="True"
+                            ShowCheckboxes="True"
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True"></dxg:TreeListView>
+                    </dxg:GridControl.View>
+
+                    <dxg:GridColumn x:Name="id"
+                                FieldName="Id"
+                                IsSmart="True"
+                                Visible="False"
+                                Width="100"/>
+                    <dxg:GridColumn 
+                        FieldName="Header"
+                        IsSmart="True" Width="auto"/>
+                    <dxg:GridColumn Header="Name"
+                        FieldName="FieldName"
+                                IsSmart="True" Width="auto"/>
+                    <dxg:GridColumn FieldName="ParentId"
+                                IsSmart="True" Visible="False" Width="100"/>
+                </dxg:GridControl>-->
+                <!--role field grid end-->
+            </Grid>
+        </dxlc:GroupBox>
+        <Button Content="Save"
+Grid.Row="2"
+FontSize="24"
+x:Name="btnSave"
+Click="BtnSave_Click"></Button>
+    </Grid>
+</Window>

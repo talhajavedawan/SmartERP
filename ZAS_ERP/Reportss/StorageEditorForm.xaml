@@ -1,0 +1,86 @@
+<Window x:Class="ZAS_ERP.Reportss.StorageEditorForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterOwner"
+        xmlns:local="clr-namespace:ZAS_ERP.Reportss"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        Title="Save" Height="300" Width="300">
+    <Grid Margin="5,0,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Label Content="Parent Group"
+           HorizontalAlignment="Right"
+           Grid.Row="0" VerticalAlignment="Center" Margin="10,5"/>
+            <dxg:LookUpEdit x:Name="lookupGroup"
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    VerticalAlignment="Center"
+                    
+                    SelectedIndexChanged="lookupGroup_SelectedIndexChanged"
+                    TabIndex="3">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="btnAddGroup"
+                    Click="btnAddGroup_Click"
+                    VerticalAlignment="Center"
+                    Content="Add New"
+                     />
+                            <dxg:GridControl Name="PART_GridControl"
+                             AutoPopulateColumns="True"
+                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TreeListView Name="treeListView1"
+                                  ShowAutoFilterRow="True"
+                                  TreeDerivationMode="Selfreference"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  />
+                                </dxg:GridControl.View>
+                                <dxg:GridColumn x:Name="colId"
+                              FieldName="Id"
+                              Visible="False" />
+                                <dxg:GridColumn FieldName="group"
+                              IsSmart="True"
+                              Width="auto" />
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+        </DockPanel>
+        <ListBox Margin="0,0,0,5" Name="listBox1" x:FieldModifier="public" Grid.Row="1">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <TextBlock Text="{Binding ReportName}" />
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <DockPanel Grid.Row="2">
+            <TextBlock Text="Report Name: " Margin="10,5" VerticalAlignment="Center"/>
+            <TextBox  HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="textBox1" x:FieldModifier="public" 
+                       Text="{Binding ElementName=listBox1, Path=SelectedItem.ReportName, Mode=OneWay}" 
+                       Tag="{Binding ElementName=listBox1, Path=SelectedItem.ReportName, Mode=OneWay}" 
+                       />
+        </DockPanel>
+        <Grid Grid.Row="3"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Content="OK" Grid.Column="1" Margin="0" VerticalAlignment="Center" Click="Button_Click" IsDefault="True" IsEnabled="{Binding ElementName=textBox1,Path=Text.Length}"/>
+            <Button Content="Cancel" Margin="5" VerticalAlignment="Center" IsCancel="True" />
+        </Grid>
+    </Grid>
+</Window>

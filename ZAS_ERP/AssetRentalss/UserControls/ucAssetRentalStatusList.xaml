@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="ZAS_ERP.AssetRentalss.UserControls.ucAssetRentalStatusList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.AssetRentalss.UserControls" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="Add">
+                <MenuItem Header="Add New" x:Name="mbtnAddNew" Click="BtnNewStatus_Click"/>
+                <MenuItem Header="Update" x:Name="mbtnUpdate" Click="BtnEditStatus_Click"/>
+            </MenuItem>
+            <MenuItem Header="Refresh" x:Name="mbtnRefresh" Click="MbtnRefresh_Click"/>
+        </Menu>
+
+        <TextBlock x:Name="lblHeading" Text="Status List" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+
+
+        <dxg:GridControl x:Name="grdStatus"
+                       MaxHeight="1300"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="2"
+                       SelectionMode="Row" 
+                       SelectionChanged="GrdStatus_SelectionChanged" >
+            <dxg:GridControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add New Status"
+                      x:Name="btnNewStatus"
+                      Click="BtnNewStatus_Click" />
+                    <MenuItem Header="Edit Status"
+                      x:Name="btnEditStatus"
+                      Click="BtnEditStatus_Click" />
+                    <!--<Separator />
+            <MenuItem Header="Delete Bill Status"
+                      x:Name="btnDeleteBillStatus" />-->
+                </ContextMenu>
+            </dxg:GridControl.ContextMenu>
+
+            <dxg:GridControl.View>
+                <dxg:TableView
+                        AllowEditing="False"
+                        AllowPerPixelScrolling="True"
+                        Name="tblViewStatus"
+                        RowAnimationKind="None"
+                        ShowAutoFilterRow="True"
+                        ShowTotalSummary="True"
+                        WaitIndicatorType="Panel">
+
+                </dxg:TableView>
+            </dxg:GridControl.View>
+
+            <dxg:GridColumn
+                FieldName="Id"
+                Visible="False"/>
+        </dxg:GridControl>
+    </Grid>
+</UserControl>

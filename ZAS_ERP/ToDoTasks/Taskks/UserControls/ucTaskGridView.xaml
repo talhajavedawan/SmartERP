@@ -1,0 +1,957 @@
+﻿<dx:DXWindow x:Class="ZAS_ERP.ToDoTasks.Taskks.UserControls.ucTaskGridView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.Taskks.UserControls" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        mc:Ignorable="d"
+        Title="ucTaskGridView" Height="450" Width="800" Loaded="UserControl_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <dxr:RibbonControl Grid.Row="0" DockPanel.Dock="Top"  RibbonStyle="TabletOffice" PageCategoryAlignment="Left" ToolbarShowMode="Hide" MinimizationButtonVisibility="Visible">
+            <dxr:RibbonDefaultPageCategory>
+                <dxr:RibbonPage x:Name="lblHeading1" ToolTip="Report Name" Caption="Home"  >
+                    <dxr:RibbonPageGroup  Caption="Clipboard">
+                        <dxb:BarButtonItem x:Name="btnDelete" KeyGesture="Delete" Cursor="Hand" Content="Delete Report" ItemClick="MbtnDeleteReport_Click" Glyph="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                        <dxb:BarButtonItem x:Name="btnPrintPreview" KeyGesture="Ctrl+P" Cursor="Hand" Content="Print Preview" ItemClick="BtnPrintPreview_ItemClick"  Glyph="{dx:DXImage Image=Printer_32x32.png}" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}"/>
+                        <dxb:BarButtonItem x:Name="btnSaveAsNew" KeyGesture="Ctrl+N" Cursor="Hand" Content="Save as new" ItemClick="MbtnSaveAsNew_Click" LargeGlyph="{dx:DXImage Image=Paste_32x32.png}" Glyph="{dx:DXImage Image=Paste_16x16.png}"/>
+                        <dxb:BarButtonItem x:Name="btnRename" KeyGesture="Ctrl+X" Cursor="Hand" Content="Rename" ItemClick="MbtnRenameReport_Click" Glyph="{dx:DXImage Image=Edit_32x32.png}" />
+                        <dxb:BarButtonItem x:Name="btnUpdate" KeyGesture="Ctrl+U" Cursor="Hand" Content="Update" ItemClick="MbtnUpdateReport_Click" Glyph="{dx:DXImage Image=Reset_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                        <dxb:BarButtonItem x:Name="btnRefresh" KeyGesture="Ctrl+R" Cursor="Hand" Content="Refresh" ItemClick="btnRefresh_ItemClick" Glyph="{dx:DXImage Image=RefreshAllPivotTable_32x32.png}" LargeGlyph="{dx:DXImage Image=RefreshAllPivotTable_32x32.png}"/>
+                        <dxb:BarButtonItem x:Name="mbtnExportToMemorizedReport1" Cursor="Hand" Content="Export to memorized" ItemClick="MbtnExportToMemorizedReport_Click" Glyph="{dx:DXImage Image=Previous_32x32.png}"/>
+                        <dxb:BarButtonItem x:Name="mbtnExportToStandardReport1" Cursor="Hand" ItemClick="MbtnExportToStandardReport_Click" Content="Export to standard" Glyph="{dx:DXImage Image=Previous_32x32.png}"/>
+
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+            </dxr:RibbonDefaultPageCategory>
+        </dxr:RibbonControl>
+        <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <dxe:ButtonClose Grid.Column="2"
+                       x:Name="btnclose"
+                       Click="Btnclose_Click"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top" Visibility="Collapsed"/>
+        <Border Grid.Column="0" BorderThickness="2" Padding="0" BorderBrush="Gray">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <dx:SimpleButton Style="{StaticResource Simplebutton}" Height="25" Content="By Pass Mode is Off" VerticalContentAlignment="Center" x:Name="btnByPassMode" 
+                        FontWeight="DemiBold" Click="BtnByPassMode_Click" Visibility="Collapsed"/>
+
+                    <Menu HorizontalAlignment="Center" Grid.Row="1" >
+                    <MenuItem x:Name="mbtnRefresh" Click="BtnRefresh_Click" Background="#bed6f6" >
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=RefreshAllPivotTable_32x32.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock  Text="Refresh" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="mbtnOpenTasks" Click="BtnOpenTasks_Click" Padding="5 0 0 0" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=Action_Open_12x12.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock  Text="Open Tasks" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="mbtnOpenTasksCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+
+                    <MenuItem x:Name="mbtnClosedTasks" Click="BtnClosedTasks_Click" Padding="5 0 0 0" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=Action_Open_12x12.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock  Text="Closed Tasks" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+
+                    <MenuItem x:Name="mbtnClosedTasksCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+
+                    <MenuItem x:Name="mbtnPendingForApproval" Click="MbtnPendingForApproval_Click" Padding="5 0 0 0" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=Action_Open_12x12.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock  Text="Approvals" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="mbtnUnderApprovalCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+
+                    <MenuItem x:Name="mbtnPendingForClosing" Click="MbtnPendingForClosing_Click" Padding="5 0 0 0" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=DeleteComment_32x32.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock Text="Pending For Closing" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="mbtnPendingForClosedTasksCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+                    <MenuItem x:Name="mbtnAssignedToMe" Click="BtnAssignedToMe_Click" Padding="5 0 0 0" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=AssignToMe_32x32.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock Text="Assigned To Me" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+
+                    <MenuItem x:Name="mbtnAssignedToMeCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+                    <MenuItem x:Name="mbtnTasksRegister" Click="BtnTasksRegister_Click" Padding="5 0 0 0" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="{dx:DXImage Image=BO_List_32x32.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock Text="Tasks Register" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="mbtnTaskRegisterCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+                    <MenuItem x:Name="mbtnVoid" Click="BtnVoid_Click" Background="#bed6f6">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Image Source="/ZAS_ERP;component/images/void_order.png" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                <TextBlock Text="Void" FontWeight="DemiBold" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="mbtnVoidCounter" FontWeight="Bold"  Foreground="WhiteSmoke" Background="#0a5d6b" Header="0"/>
+                </Menu>
+
+                <Label Padding="0" x:Name="lblHeading" Content="Open Tasks" Grid.Row="2" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+
+                <dxg:GridControl Grid.Row="3" AutoGenerateColumns="None" 
+                         SelectionMode="Row"
+                         Name="grdCntrlTasks"
+                         MouseDoubleClick="GrdCntrlTasks_MouseDoubleClick"                
+                         CustomUnboundColumnData="GrdCntrlTasks_CustomUnboundColumnData"
+                         ShowLoadingPanel="{Binding IsLoading}">
+
+                    <dxg:GridControl.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="mbtnAddTaxTask" Header="Add Tax Task" Click="MbtnAddTaxTask_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="mbtnAddNewTask" Header="Add Independent Task" Click="MbtnAddTask_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="mbtnUpdateTask" Header="Update" Click="MbtnUpdateTask_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <!--<MenuItem Header="Add Memo" Name="mbtnAddMemo" Click="MbtnAddMemo_Click"/>-->
+                        </ContextMenu>
+                    </dxg:GridControl.ContextMenu>
+
+                    <dxg:GridControl.View>
+                            <dxg:TableView AllowPerPixelScrolling="True" 
+                                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       RowAnimationKind="None" WaitIndicatorType="Panel"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       ShowFixedTotalSummary="True"
+                       ShowTotalSummary="True"
+                                       AllowEditing="False" 
+                                       CellValueChanged="TableViewTasks_CellValueChanged"       
+                                       ShowCheckBoxSelectorInGroupRow="True"
+                                       Name="tableViewTasks"
+                                       FocusedRowChanged="TableViewTasks_FocusedRowChanged">
+                            <dxg:TableView.FormatConditions>
+                                <dxg:FormatCondition FieldName="AgingDays" Value2="10000000" Value1="0" ValueRule="Between">
+                                    <dx:Format Background="#FF824240" Foreground="Yellow" FontWeight="Bold" Icon="{dx:IconSet Name=Flags3_3}" TextDecorations="{x:Null}"/>
+                                </dxg:FormatCondition>
+                                <dxg:FormatCondition FieldName="AgingDays" Value2="-1" Value1="-10000000" ValueRule="Between">
+                                    <dx:Format Background="#FF9BBB59" Foreground="Black" FontWeight="Bold" Icon="{dx:IconSet Name=Flags3_1}" TextDecorations="{x:Null}"/>
+                                </dxg:FormatCondition>
+                            </dxg:TableView.FormatConditions>
+                        </dxg:TableView>
+
+                    </dxg:GridControl.View>
+
+                    <dxg:GridColumn x:Name="colstatus"
+                      FieldName="Status.Status"
+                      Header="Status"
+                                    Image="{dx:DXImage Image=Status_16x16.png}"
+                                    IsSmart="True"
+                      UnboundType="Bound"
+                      Visible ="True"
+                      VisibleIndex="0"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.Status.backcolor}"/>
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.Status.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+
+
+                    <dxg:GridColumn FieldName="creationDate"
+                                    Header="Creation Date"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="1"/>
+
+                    <dxg:GridColumn FieldName="ModuleType"
+                                    Header="Module"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BOTask_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="1"/>
+
+                    <dxg:GridColumn FieldName="taskTemplate"
+                                    Header="Template"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BOTask_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                    <dxg:GridColumn FieldName="company.CompanyName"
+                                    Header="Company"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Home_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="2"/>
+                        <dxg:GridColumn Header="Stage"
+                            FieldName="Stage"
+                            UnboundType="String"  
+                            IsSmart="True"/>
+                        <dxg:GridColumn FieldName="department.DeptName"
+                                    Header="Department"
+                                        
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BO_Department.png}"
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                    <dxg:GridColumn FieldName="VendorName"
+                                    Header="Vendor"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BO_Department.png}"
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                    <dxg:GridColumn FieldName="Customer"
+                                    Header="Customer"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BO_Department.png}"
+                                    Width="auto" 
+                                    VisibleIndex="4"/>
+
+                        <dxg:GridColumn FieldName="TrackingNoIn"
+                                    Header="Tacking No | AWB | BL (In)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="ETDin"
+                                    Header="Estimated Dispatch Date (In)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="ETAin"
+                                    Header="Estimated Time of Arrival (In)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="warehouse.WarehouseName"
+                                    Header="Warehouse"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="LotNumberr"
+                                    Header="Lot No"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <!--<dxg:GridColumn FieldName="lotNumber.LotNo"
+                                    Header="LOT Number"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>-->
+
+                        <dxg:GridColumn FieldName="ADDin"
+                                    Header="Actual Receive Date"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="TrackingNoOut"
+                                    Header="Tacking No | AWB | BL (Out)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="ETDout"
+                                    Header="Estimated Dispatch Date (Out)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="ETAout"
+                                    Header="Estimated Time of Arrival (Out)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="ADDout"
+                                    Header="Actual Dispatch Date (Out)"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="3"/>
+
+                        <dxg:GridColumn FieldName="SOReferenceNo"
+                                    Header="SO Reference #"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BO_Department.png}"
+                                    Width="auto" 
+                                    VisibleIndex="4"/>
+
+                        <dxg:GridColumn FieldName="POReferenceNo"
+                                    Header="PO Reference #"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=BO_Department.png}"
+                                    Width="auto" 
+                                    VisibleIndex="4"/>
+
+                        <dxg:GridColumn FieldName="SupervisedBy"
+                                    Header="Supervised By"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=User_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="4"/>
+
+                    <dxg:GridColumn FieldName="Creator"
+                                    Header="Creator"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=User_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="5"/>
+
+                    <dxg:GridColumn FieldName="AssignedBy"
+                                    Header="Assigned By"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=User_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="6"/>
+
+                    <dxg:GridColumn FieldName="AssignedTo"
+                                    Header="Assigned To"
+                                    UnboundType="string"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=User_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="7"/>
+
+                    <dxg:GridColumn FieldName="currency.CurrencyName"
+                                    Header="Currency"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="7"/>
+
+                    <dxg:GridColumn FieldName="taskType.TypeName"
+                                    Header="Task Type"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Task_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="8"/>
+
+                    <dxg:GridColumn FieldName="SystemAmount"
+                                    Header="System Amount"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="9"
+                                    UnboundType="decimal">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="ManualAmount"
+                                    Header="Manual Amount"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="taxableIncome"
+                                    Header="Taxable Amount"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="chargeableTax"
+                                    Header="Chargeable Tax"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="TaxFrom"
+                                    Header="Tax From"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="11"/>
+
+                        <dxg:GridColumn FieldName="TaxTo"
+                                    Header="Tax To"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="12"/>
+
+                        <dxg:GridColumn FieldName="NTNno"
+                                    Header="NTNno"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Action_Show_PivotGrid_Designer.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10"/>
+
+
+
+
+                    <dxg:GridColumn FieldName="depositedTax"
+                                    Header="Deposited Tax"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+
+                        <dxg:GridColumn FieldName="InputTax"
+                                    Header="Input Tax"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="OutputTax"
+                                    Header="Output Tax"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="RefundAmountClaim"
+                                    Header="Refund Amount Claim"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="CreditCarriedForward"
+                                    Header="Credit Carried Forward"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="AccumulatedCredit"
+                                    Header="Accumulated Credit"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="AccumulatedDebit"
+                                    Header="Accumulated Debit"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="FEDpayable"
+                                    Header="FED Payable"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="PLpayable"
+                                    Header="PL Payable"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="SaleTaxPayable"
+                                    Header="Sale Tax Payable"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="TotalAmountPaid"
+                                    Header="Total Amount Paid"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Currency2_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+
+                        <dxg:GridColumn FieldName="FillerName"
+                                    UnboundType="string"
+                                    Header="Filer Name"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=User_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="10"/>
+
+                    <dxg:GridColumn FieldName="NoticeRefNo"
+                                    Header="Notice Ref No"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=HighlightField_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="11"/>
+
+                    <dxg:GridColumn FieldName="taxYear"
+                                    Header="Tax Year"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="12">
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings Mask="yyyy" MaskType="DateTime" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="TentativeCompletionDate"
+                                    Header="Target Date"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="12"/>
+
+                    <dxg:GridColumn FieldName="CompletionDate"
+                                    Header="Completion Date"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                        <dxg:GridColumn FieldName="ImportBillOfEntry"
+                                    Header="Imp. BE"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                        <dxg:GridColumn FieldName="ExportBillOfEntry"
+                                    Header="Exp. BE"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                        <dxg:GridColumn FieldName="isCompleted"
+                                    Header="Is Completed"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                    <dxg:GridColumn FieldName="AgingDays"
+                                    Header="Ageing Days"
+                                    IsSmart="True"
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto"
+                                    VisibleIndex="14"
+                                    UnboundType="integer"/>
+
+                    <dxg:GridColumn FieldName="SystemRef"
+                                    Header="System Ref"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=RenameDataSource_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="15" SortOrder="Ascending" SortIndex="0"/>
+
+                        <dxg:GridColumn FieldName="SDrefNo"
+                                    Header="SD Ref #"
+                                    UnboundType="String"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=RenameDataSource_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="15" 
+                                    SortOrder="Ascending"/>
+
+                        <dxg:GridColumn FieldName="SalesReference"
+                                    Header="SO-CUS-Ref #"
+                                    UnboundType="String"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=RenameDataSource_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="15" 
+                                    SortOrder="Ascending"/>
+
+                        <dxg:GridColumn FieldName="SOamount"
+                                    Header="SO (OC)"
+                                    UnboundType="Decimal"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=RenameDataSource_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="15" 
+                                    SortOrder="Ascending">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="SOcurrency"
+                                    Header="SO Currency"
+                                    UnboundType="String"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=RenameDataSource_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="15" 
+                                    SortOrder="Ascending"/>
+
+                        <dxg:GridColumn FieldName="TaskRef"
+                                    Header="Task Ref"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=EditTask_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="15" SortOrder="Ascending" SortIndex="0"/>
+
+                    <dxg:GridColumn FieldName="Description"
+                                    Header="Description"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="16"/>
+
+                    <dxg:GridColumn FieldName="OfficeSupportRequired"
+                                    Header="Office Support Required"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                    <dxg:GridColumn FieldName="LositicSupportRequired"
+                                    Header="Logistic Support Required"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                    <dxg:GridColumn FieldName="LogisticAreaFrom"
+                                    Header="Logistic Area From"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="16"/>
+
+                    <dxg:GridColumn FieldName="LogisticAreaTo"
+                                    Header="Logistic Area To"
+                                     IsSmart="True" 
+                                    Width="auto" 
+                                    VisibleIndex="16"/>
+
+                    <dxg:GridColumn FieldName="inHouseLogistics"
+                                    Header="inHouse Logistics"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                    <dxg:GridColumn FieldName="outsourceLogistics"
+                                    Header="outsource Logistics"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=CheckBox_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+                    <dxg:GridColumn FieldName="PlannedExecutionDate"
+                                    Header="Planned Execution Date"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+
+
+                    <dxg:GridColumn FieldName="FinalExecutionDate"
+                                    Header="Final Execution Date"
+                                     IsSmart="True" 
+                                    Image="{dx:DXImage Image=Time_16x16.png}"
+                                    Width="auto" 
+                                    VisibleIndex="13"/>
+                </dxg:GridControl>
+            </Grid>
+        </Border>
+        <GridSplitter x:Name="GridSplitter"  Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <Border Grid.Column="2"  BorderThickness="2" Padding="5" BorderBrush="Gray">
+            <Grid>
+                <!--<dx:SimpleButton Padding="0" x:Name="btnShowDetails" Click="BtnShowDetails_Click" ToolTip="Show Selected Task Details" Background="LightGray" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Panel.ZIndex="5">
+                    <Button.Content>
+                        <Image Source="{dx:DXImage Image=Prev_32x32.png}" />
+                    </Button.Content>
+                </dx:SimpleButton>
+                <dx:SimpleButton Padding="0"  x:Name="btnHideDetails" Click="BtnHideDetails_Click" ToolTip="Hide Selected Task Details" Visibility="Collapsed" Background="LightGray" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Panel.ZIndex="5">
+                    <Button.Content>
+                        <Image Source="{dx:DXImage Image=Next_32x32.png}"/>
+                    </Button.Content>
+                </dx:SimpleButton>-->
+                    <dx:DXTabControl Padding="5" x:Name="tabCntrlTaskDetails" Visibility="Collapsed">
+                    <dx:DXTabItem>
+                        <dx:DXTabItem.Header>
+                            <StackPanel Orientation="Horizontal" >
+                                <Image Source="{dx:DXImage Image=ModelEditor_DetailViewItems.png}" Height="15" Width="15" Margin="0,0,5,0"/>
+                                <TextBlock Text="Details" FontWeight="DemiBold" Padding="0 0 10 0"/>
+                            </StackPanel>
+                        </dx:DXTabItem.Header>
+                        <Grid Width="265" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="155"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <dxe:TextEdit x:Name="txtId" Visibility="Collapsed"/>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+
+                                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="3">
+                                    <Border Width="40" Height="40" CornerRadius="5,0,5,0" BorderBrush="DeepSkyBlue" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush  x:Name="imgSupervisedBy" ImageSource="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <!--<dxe:ImageEdit Grid.Column="0" Width="40" Height="40" ShowMenu="False" x:Name="imgSupervisedBy" HorizontalAlignment="Center"/>-->
+                                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
+                                        <TextBlock FontWeight="DemiBold" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="Supervised By"/>
+                                        <TextBlock x:Name="txtSupervisedBy" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="User Name"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="2">
+                                    <Border Width="40" Height="40" CornerRadius="5,0,5,0" BorderBrush="DeepSkyBlue" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush  x:Name="imgCreator" ImageSource="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <!--<dxe:ImageEdit Grid.Column="0" Width="40" Height="40" ShowMenu="False" x:Name="imgCreator" HorizontalAlignment="Center"/>-->
+                                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
+                                        <TextBlock FontWeight="DemiBold" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="Creator"/>
+                                        <TextBlock x:Name="txtCreator" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="User Name"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+
+
+                                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
+                                    <Border Width="40" Height="40" CornerRadius="5,0,5,0" BorderBrush="DeepSkyBlue" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush  x:Name="imgAssignedBy" ImageSource="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <!--<dxe:ImageEdit Grid.Column="0" Width="40" Height="40" ShowMenu="False" x:Name="imgAssignedBy" HorizontalAlignment="Center"/>-->
+                                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
+                                        <TextBlock FontWeight="DemiBold" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="Assigned By"/>
+                                        <TextBlock x:Name="txtAssignedBy" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="User Name"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2">
+                                    <Border Width="40" Height="40" CornerRadius="5,0,5,0" BorderBrush="DeepSkyBlue" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush  x:Name="imgAssignedTo" ImageSource="/ZAS_ERP;component/images/users-vector-icon-png_260862.jpg"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <!--<dxe:ImageEdit Grid.Column="0" Width="40" Height="40" ShowMenu="False" x:Name="imgAssignedTo" HorizontalAlignment="Center"/>-->
+                                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
+                                        <TextBlock FontWeight="DemiBold" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="Assigned To"/>
+                                        <TextBlock x:Name="txtAssignedTo" Margin="0 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" Text="User Name"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </Grid>
+
+                            <!--<StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock Text="Company: " Grid.Row="1" FontWeight="DemiBold" Height="22" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtCompany" TextWrapping="WrapWithOverflow" Text="Transaction Type" Grid.Row="1" FontWeight="DemiBold" Height="22" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <TextBlock Text="Deparment: " Grid.Row="1" FontWeight="DemiBold" Height="22" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="txtDepartment" Text="Transaction Type" Grid.Row="2" FontWeight="DemiBold" Height="22" VerticalAlignment="Center"/>
+                </StackPanel>-->
+                            <StackPanel Grid.Row="1" Orientation="Vertical">
+                                <Grid Grid.Column="4" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image Source="{dx:DXImage Image=Status_16x16.png}" Width="15" Height="15"  Margin="0,0,5,0"/>
+                                        <TextBlock Grid.Column="0" HorizontalAlignment="Left" Text="Status " VerticalAlignment="Center"/>
+
+
+                                    </StackPanel>
+                                    <ComboBox VerticalAlignment="Center" Grid.Column="1"
+                                        TabIndex="12" x:Name="cmbStatus" Height="22" >
+                                        <ComboBox.ItemTemplate>
+
+                                            <DataTemplate>
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="1*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding id}" Visibility="Hidden" />
+                                                    <TextBlock Text="   " Background="{Binding bcolor}"
+                                                Width="20" Margin="10,0" />
+                                                    <TextBlock Text="{Binding name}" Grid.Column="1"
+                                                Foreground="{Binding fcolor}"
+                                                HorizontalAlignment="Stretch"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
+                                    <!--<DatePicker Grid.Column="1" SelectedDate="" Name="datePickercreationDate"/>-->
+
+
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="{dx:DXImage Image=ModelEditor_DetailView.png}" Width="15" Height="15"  Margin="0,0,5,5"/>
+                                    <TextBlock Text="Description" Grid.Row="3" FontWeight="SemiBold" Height="22" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <TextBox IsReadOnly="True" TextWrapping="WrapWithOverflow" VerticalScrollBarVisibility="Visible"
+                 Grid.Row="2" Grid.RowSpan="2" x:Name="txtDescription" MinHeight="50"   ></TextBox>
+
+                            <dx:SimpleButton x:Name="btnSave" FontWeight="Bold" FontSize="18" Grid.Row="5" Click="BtnSave_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{dx:DXImage Image=Action_Validation_Validate_32x32.png}" Width="25" Height="25"  Margin="0,0,2,0"/>
+                                    <TextBlock Text="Save"/>
+                                </StackPanel>
+                            </dx:SimpleButton>
+                        </Grid>
+                    </dx:DXTabItem>
+
+                </dx:DXTabControl>
+            </Grid>
+        </Border>
+    </Grid>
+    </Grid>
+</dx:DXWindow>

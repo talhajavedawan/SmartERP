@@ -1,0 +1,584 @@
+﻿<dx:ThemedWindow 
+    x:Class="ZAS_ERP.Procurementss.Billss.UserControls.ucBillSharedReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Billss.UserControls"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:loc="clr-namespace:ZAS_ERP"
+        mc:Ignorable="d"
+        Title="ucBillSharedReport" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <loc:MyConv x:Key="valueconverter"/>
+    </Window.Resources>
+    <Grid>
+        <GroupBox>
+            <Grid x:Name="reportMainGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <dxr:RibbonControl Grid.Row="0" Grid.RowSpan="2" DockPanel.Dock="Top" RibbonStyle="TabletOffice" PageCategoryAlignment="Left" ToolbarShowMode="Hide" MinimizationButtonVisibility="Visible">
+                    <dxr:RibbonDefaultPageCategory>
+                        <dxr:RibbonPage  x:Name="lblHeading" Caption="Home" ToolTip="Report Name" >
+                            <dxr:RibbonPageGroup  Caption="Clipboard">
+
+                                <dxb:BarButtonItem x:Name="btnPrintPreview" KeyGesture="Ctrl+P"  Cursor="Hand" Content="Print Preview" ItemClick="BtnPrintPreview_ItemClick"  Glyph="{dx:DXImage Image=Printer_32x32.png}" LargeGlyph="{dx:DXImage Image=Printer_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnRename"  KeyGesture="Ctrl+X" Cursor="Hand" Content="Rename" ItemClick="MbtnRenameReport1_Click" Glyph="{dx:DXImage Image=Edit_16x16.png}" />
+                                <dxb:BarButtonItem x:Name="btnUpdate" KeyGesture="Ctrl+U" Cursor="Hand" Content="Update" ItemClick="MbtnUpdateReport1_Click" Glyph="{dx:DXImage Image=Reset_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="btnDelete" KeyGesture="Delete" Cursor="Hand" Content="Delete" ItemClick="MbtnDeleteReport1_Click" Glyph="/ZAS_ERP;component/images/Delete_32x32.png"/>
+                                <dxb:BarButtonItem x:Name="btnCopy2" KeyGesture="Ctrl+R" Cursor="Hand" Content="Refresh" ItemClick="MbtnRefreshReport1_Click"  Glyph="{dx:DXImage Image=Refresh2_32x32.png}" LargeGlyph="{dx:DXImage Image=Refresh2_32x32.png}"/>
+                                <dxb:BarSplitButtonItem Content="Viewers" RibbonStyle="SmallWithText" Glyph="{dx:DXImage Image=Team_16x16.png}" >
+                                    <dxb:BarSplitButtonItem.PopupControl>
+                                        <dxb:PopupControlContainerInfo>
+                                            <dxg:GridControl x:Name="grdEmployee"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2"
+                                             MaxHeight="1000"
+                                             MaxWidth="300"
+                                                             
+                                     Grid.Row="1"
+                                     SelectionMode="Row"
+                                      AllowInitiallyFocusedRow="False"
+                                     >
+                                                <dxg:GridControl.View>
+                                                    <dxg:TableView x:Name="viewTableEmployee"
+                               AutoWidth="True"
+                                 ShowGroupPanel="False"
+                              
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowSelectionRectangle="True">
+                                                    </dxg:TableView>
+
+                                                </dxg:GridControl.View>
+                                                <dxg:GridColumn x:Name="EmpId"
+                                    FieldName="EmpId"
+                                    IsSmart="True"
+                                    Visible="False" />
+                                                <dxg:GridColumn FieldName="person.Photo"
+                                                VisibleIndex="0"
+                                                    Header=" ">
+                                                    <dxg:GridColumn.EditSettings>
+                                                        <dxe:ImageEditSettings/>
+                                                    </dxg:GridColumn.EditSettings>
+                                                </dxg:GridColumn>
+                                                <dxg:GridColumn FieldName="person.FName"
+                                                  VisibleIndex="1"
+                                                    Header="First Name"/>
+                                                <dxg:GridColumn FieldName="person.LName"
+                                                  VisibleIndex="2"
+                                                    Header="Last Name"/>
+                                            </dxg:GridControl>
+                                        </dxb:PopupControlContainerInfo>
+                                    </dxb:BarSplitButtonItem.PopupControl>
+                                </dxb:BarSplitButtonItem>
+
+                            </dxr:RibbonPageGroup>
+                            <!--<dxr:RibbonPageGroup Caption="Font">
+                                <dxr:BarButtonGroup>
+                                    <dxb:BarButtonItem Content="Export to Standard" Glyph="{dx:DXImage Image=Bold_16x16.png}"/>
+                                    <dxb:BarButtonItem Content="Italic" Glyph="{dx:DXImage Image=Italic_16x16.png}"/>
+                                    <dxb:BarButtonItem Content="Underline" Glyph="{dx:DXImage Image=Underline_16x16.png}"/>
+                                </dxr:BarButtonGroup>
+
+                            </dxr:RibbonPageGroup>-->
+                        </dxr:RibbonPage>
+
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <dxe:ImageEdit Grid.Column="0" Width="100" Height="100" ShowMenu="False" x:Name="UserImage" />
+                    <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                        <Label Content="Organized By" FontWeight="DemiBold" />
+                        <TextBlock x:Name="txtUserName" FontWeight="SemiBold" Margin="10 0 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Text="User Name"/>
+                        <TextBlock x:Name="txtDesignation" Margin="10 5 0 0" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Text="Designation"/>
+                    </StackPanel>
+                </Grid>
+                <!--ReportGridControl-->
+                <dxg:GridControl Grid.Row="2" x:Name="grdbill"
+                     Grid.ColumnSpan="2"
+                 MouseDoubleClick="Grdinquiry_MouseDoubleClick"
+                     SelectionMode="Row"
+                     CustomUnboundColumnData="grid_CustomUnboundColumnData"
+                       MouseEnter="Grdbill_MouseEnter"          
+                      >
+                    <dxg:GridControl.View>
+                        <dxg:TableView x:Name="tableView"
+                             ShowGroupPanel="True" ShowIndicator="True" ShowVerticalLines="False"
+                             SwitchToCompactModeWidth="700"
+                             NavigationStyle="Row"
+                             ShowAutoFilterRow="True"          
+                             ShowFixedTotalSummary="True"
+                             ShowSearchPanelMode="Always"          
+                             SearchPanelNullText="Search"
+                             ShowTotalSummary="True"  >
+                            <dxg:TableView.FormatConditions>
+                                <dxg:FormatCondition ApplyToRow="True" Expression="[isApproved] = False">
+                                    <dxg:FormatCondition.Format>
+                                        <dxg:Format FontWeight="Bold" Foreground="#FF0072C6" />
+                                    </dxg:FormatCondition.Format>
+                                </dxg:FormatCondition>
+                            </dxg:TableView.FormatConditions>
+                            <!--#region CompactModeFilterItems-->
+                            <dxg:TableView.CompactModeFilterItems>
+                                <dxg:CompactModeFilterItem DisplayValue="All" />
+                                <dxg:CompactModeFilterItem DisplayValue="Approved" EditValue="[isApproved] = True" />
+                                <dxg:CompactModeFilterItem DisplayValue="Pending for Approvals" EditValue="[isApproved] = false" />
+                                <dxg:CompactModeFilterItem DisplayValue="Pending for Closing" EditValue="[PendingForClosing] = true" />
+                                <dxg:CompactModeFilterItem DisplayValue="Pending for ReApproval" EditValue="[PendingForReApproval] = true" />
+                            </dxg:TableView.CompactModeFilterItems>
+                        </dxg:TableView>
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn Header="Company"
+                            Binding="{Binding company.CompanyName}"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Customer"
+                            FieldName="customerCompany.company.CompanyName"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn
+                Header="Vendor" ColumnFilterMode="DisplayText"
+                            FieldName="vendor.company.CompanyName"
+                            IsSmart="True"
+                            Width="auto" >
+                        <!--<dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <ItemsControl  Grid.Column="1"   ItemsSource="{Binding row.vendor}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding company.CompanyName}" Padding="5,0" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>-->
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn FieldName="Department" 
+                            UnboundType="String"
+                            UnboundExpression="[department.parentDepartment.DeptName] +' '+ [department.DeptName]"
+                            />
+
+
+                    <!--<dxg:GridColumn Header="ParentDepartment"
+                            FieldName="department.parentDepartment.DeptName"
+                            IsSmart="True"
+                            Width="auto" />
+            <dxg:GridColumn Header="Department"
+                            FieldName="department.DeptName"
+                            IsSmart="True"
+                            Width="auto" />-->
+                    <dxg:GridColumn Header="Allocated To"
+                            FieldName="AllocateTo.person.FName"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Incoterm"
+                            FieldName="incoterm.term"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="PaymentTerm"
+                            FieldName="SoPaymentTerm.term"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Currency"
+                            FieldName="currency.CurrencyName"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="P.O (O/C)"
+                            FieldName="company.currency.CurrencyName"
+                            IsSmart="True"
+                            Width="auto" />
+                    <dxg:GridColumn Header="Vendor Payment Status"
+                            FieldName="vendorPaymentStatus.Status"
+                            IsSmart="True"
+                            Width="auto"  />
+                    <dxg:GridColumn Header="products"
+                            FieldName="productsvendorPaymentStatus.Status"
+                            IsSmart="True"
+                            Width="auto" ShowInColumnChooser="False" Visible="False"/>
+                    <dxg:GridColumn Header="S.E.R"
+                            FieldName="marginExchangeRate"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="M.E.R"
+                            FieldName="ExchangeRate"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Commision(O.C)"
+                            Binding="{Binding Commision}"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Commision(M.E)"
+                            FieldName="commisioninBase"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Budgeted Margin(O.C)"
+                            Binding="{Binding margin}"
+                            FieldName="margin"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Budgeted Margin(M.E)"
+                            FieldName="BudgetedMargininBase"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Budgeted Margin(S.E)"
+                            FieldName="SalesBudgetedMargin"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="B.M (%)"
+                            FieldName="BudgetedMarginPercent"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Actual Margin(O.C)"
+                            FieldName="ActualMargin"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="Actual Margin(M.E)"
+                            FieldName="ActualMargininBase"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Actual Margin(S.E)"
+                            FieldName="SalesActualMargin"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="A.M (%)"
+                            FieldName="ActualMarginPercent"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Revised Margin(O.C)"
+                            FieldName="RevisedMargin"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="Revised Margin(M.E)"
+                            FieldName="RevisedMargininBase"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Revied Margin(S.E)"
+                            FieldName="SalesRevisedMargin"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="R.M(%)"
+                            FieldName="RevisedMarginPercent"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Decimal"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="P.O FOB Amount(O.C)"
+                            FieldName="totalFOBValue"
+                            IsSmart="True"
+                            Width="auto" 
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="P.O Amount(O.C)"
+                            FieldName="totalCFRValue"
+                            IsSmart="True"
+                            Width="auto" EditFormVisible="False"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total Base FOB Value "
+                            FieldName="totalBaseFOBValue"
+                            IsSmart="True"
+                            Width="auto"
+                            ShowInColumnChooser="True" Visible="True"
+                           >
+                        <!--<dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <dxe:TextEdit Text="{Binding RowData.Row.totalBaseFOBValue}" MaskType="Numeric" Mask="n" MaskUseAsDisplayFormat="True"></dxe:TextEdit>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>-->
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="P.O Amount(M.E)"
+                            FieldName="totalBaseCFRValue"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="P.O Amount(S.E)"
+                            FieldName="POAmountSER"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn Header="Total Weight"
+                            FieldName="TotalWeight"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="Total Quantity"
+                            FieldName="TotalQuantity"
+                            IsSmart="True"
+                            Width="auto"
+                            
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="BillStatus.isActive"
+                      x:Name="colisOpen"
+                      IsSmart="True"
+                      Header="Open"
+                      Visible="False"
+                      Width="auto">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextAlignment="Center"
+                       Text="{Binding RowData.Row.BillStatus.isActive, Converter={StaticResource valueconverter}}" />
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <!--<dxg:GridColumn Header="P.Due Ageing Date"
+                            FieldName="PaymentDueAgeing"
+                            IsSmart="True"
+                            Width="auto"  UnboundType="DateTime"/>-->
+                    <dxg:GridColumn FieldName="PaymentDueAgeingDays" UnboundType="Integer" ReadOnly="True" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="SODateAgeing" UnboundType="Integer" ReadOnly="True" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="SODeliveryAgeing" UnboundType="Integer" ReadOnly="True" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <dxg:GridColumn FieldName="CreationAgeing" UnboundType="Integer" ReadOnly="True" >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+
+                    <dxg:GridColumn Header="Remaining CFR"
+                            FieldName="RemainingCFRValue"
+                            IsSmart="True"
+                            Width="auto"
+                            >
+                        <dxg:GridColumn.EditSettings>
+                            <dxe:ProgressBarEditSettings ContentDisplayMode="Value" Minimum="0" Maximum="{Binding totalCFRValue}" NullValue="0" />
+
+                        </dxg:GridColumn.EditSettings>
+                    </dxg:GridColumn>
+                    <!--<dxg:GridColumn x:Name="colstatus"
+                      FieldName="{Binding billStatus.Status}"
+                      Header="Status"
+                      IsSmart="True"
+                      Visible="False"
+                      VisibleIndex="6">
+        <dxg:GridColumn.CellTemplate>
+          <DataTemplate>
+            <Grid HorizontalAlignment="Stretch">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="1*" />
+              </Grid.ColumnDefinitions>
+              <TextBlock Name="PART_Editor">
+                <TextBlock x:Name="PART_Editor1"
+                           Width="20"
+                           Margin="10,0"
+                           Background="{Binding RowData.Row.billStatus.backcolor}"></TextBlock>
+                <TextBlock Name="PART_Editor2"
+                           Text="{Binding RowData.Row.billStatus.Status}"></TextBlock>
+</TextBlock>
+            </Grid>
+          </DataTemplate>
+        </dxg:GridColumn.CellTemplate>
+      </dxg:GridColumn>-->
+                    <dxg:GridColumn x:Name="colstatus"
+                      FieldName="BillStatus.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                     Visible ="True"
+                      VisibleIndex="6"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                        <dxg:GridColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.BillStatus.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.BillStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </dxg:GridColumn.CellTemplate>
+                    </dxg:GridColumn>
+                    <!--<dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Add New"
+                    x:Name="btnNewSaleOrder"
+                    Click="btnNewSaleOrder_Click" />
+                                <MenuItem Header="Edit SaleOrder"
+                    x:Name="btnEditSaleOrder"
+                    Click="btnEditSaleOrder_Click" />
+                                <Separator />
+                                <MenuItem Header="Delete SaleOrder"
+                    x:Name="btnDeleteSaleOrder" />
+                                <Separator />
+                                <MenuItem Header="Print"
+                              x:Name="mbtnPrintGrid" Click="Button_Click" />
+                                -->
+                    <!--<MenuItem Header="Create Report"
+                              x:Name="mbtnReportCreate"
+                              Click="MbtnReportCreate_Click" />-->
+                    <!--
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>-->
+                    <dxg:GridColumn x:Name="colBillReferenceNo"
+                      FieldName="BillRefNo.Reference"
+                      Header="Bill Ref No"
+                      UnboundType="Bound"
+                      Visible ="True"
+                            AllowEditing="false"
+                    />
+                </dxg:GridControl>
+
+
+
+                <TextBlock x:Name="reportId" Text="" Visibility="Hidden"/>
+            </Grid>
+        </GroupBox>
+
+
+    </Grid>
+</dx:ThemedWindow>

@@ -1,0 +1,114 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.Budget.frmBudgetCostSheetFieldList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Budget" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d" 
+        WindowStartupLocation="CenterScreen"
+        Loaded="winBudgetCostSheetFieldsList_Loaded"
+        Unloaded="WinBudgetCostSheetFieldsList_Loaded_Unloaded"
+        Title="Budget Cost Shet Fields"   Height="500"
+        Width="450">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+                <MenuItem Header="_ Budget Cost Sheet Fields"
+                  x:Name="mbtnCostSheetFields">
+                    <MenuItem Header="Add new Field"
+                    x:Name="mbtnNewCostSheetField"
+                    Click="mbtnNewCostSheetField_Click"></MenuItem>
+                    <MenuItem Header="Edit Field"
+                    x:Name="mbtnEditCostSheetField"
+                    Click="mbtnEditCostSheetField_Click"></MenuItem>
+                </MenuItem>
+
+            </Menu>
+            <dxg:GridControl x:Name="grdBudgetCostSheetField"
+                       AutoGenerateColumns="None"
+                       Grid.Row="1"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdBudgetCostSheetField_MouseDoubleClick">
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewCostSheetFields"
+                      Click="mbtnNewCostSheetField_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditCostSheetFields"
+                      Click="mbtnEditCostSheetField_Click" />
+
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+                <dxg:GridControl.View>
+
+                    <dxg:TreeListView x:Name="viewgrdCostSheetFields"
+                                                      KeyFieldName="Id"
+                            ParentFieldName="parentId"
+                             AllowEditing="False"
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoExpandAllNodes="True"
+                            AutoPopulateServiceColumns="True"
+                            ColumnFilterPopupMode="Excel"
+                            FilterMode="Extended" 
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True" />
+                </dxg:GridControl.View>
+                <dxg:GridColumn FieldName="Id"
+                              IsSmart="True"
+                              Header="Id"
+                                  VisibleIndex="0"
+                              Visible="True" SortOrder="Ascending" SortIndex="0"/>
+                <dxg:GridColumn FieldName="Creator.userName"
+                              IsSmart="True"
+                              Header="Added By"
+                                                                  VisibleIndex="1"
+
+                              Visible="True"/>
+
+                <dxg:GridColumn FieldName="HeadName"
+                              IsSmart="True"
+                              Header="Title"
+                                   VisibleIndex="3"
+                              Visible="True"/>
+                <dxg:GridColumn FieldName="SortId"
+                              IsSmart="True"
+                              Header="SortId"
+                                   VisibleIndex="4"
+                              Visible="True"/>
+            
+                <dxg:GridColumn FieldName="isActive"
+                              IsSmart="True"
+                              Header="isActive"
+                                   VisibleIndex="6"
+                              Visible="True"/>  
+                <dxg:GridColumn FieldName="isExpense"
+                              IsSmart="True"
+                              Header="isExpense"
+                                   VisibleIndex="7"
+                              Visible="True"/>
+                <dxg:GridColumn FieldName="isIncome"
+                              IsSmart="True"
+                              Header="isIncome"
+                                   VisibleIndex="8"
+                              Visible="True"/> 
+                <dxg:GridColumn FieldName="isCGS"
+                              IsSmart="True"
+                              Header="isCGS"
+                                   VisibleIndex="9"
+                              Visible="True"/>
+            </dxg:GridControl>
+
+        </Grid>
+    </Grid>
+</dx:DXWindow>

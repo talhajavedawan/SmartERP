@@ -1,0 +1,1166 @@
+﻿<dx:DXWindow x:Class="ZAS_ERP.Userss.frmUsersRoles"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Userss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d"
+        Title="Users and Roles" Height="450" Width="700"
+        Loaded="Window_Loaded" Unloaded="Window_Unloaded">
+
+    <Window.Resources>
+        <!--User Machines Tab Templates
+    Grid Control Buttons-->
+        <DataTemplate x:Key="ApproveTemp" >
+            <Button  Name="btnApproveMachine"  
+                     Click="btnApproveMachine_Click"  
+                     Height="30" 
+                      >
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}" >
+                        <Setter Property="Background" Value="Transparent" />
+
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid Margin="0,0,0,0" >
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Opacity" Value="0.8"/>
+
+
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" Value="0.3"/>
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/ZAS_ERP;component/images/approveIcon1.png" Height="20" Width="20"/>
+
+            </Button>
+
+        </DataTemplate>
+        <DataTemplate x:Key="declineTemp">
+            <Button  Name="btnDeclineMachine"  Click="btnDeclineMachine_Click"   Height="30" IsEnabled="True" >
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}" >
+                        <Setter Property="Background" Value="Transparent" />
+                        <!--<Setter Property="Foreground" Value="White" />-->
+                        <!--<Setter Property="FontSize" Value="15" />-->
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid Margin="0,0,0,0" >
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Opacity" Value="0.8"/>
+
+
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" Value="0.3"/>
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/ZAS_ERP;component/images/clear-icon.png" Height="20" Width="20"/>
+            </Button>
+
+        </DataTemplate>
+        <DataTemplate x:Key="blockTemp">
+            <Button   Name="btnBlockMachine" Click="btnBlockMachine_Click"  Width="27"  Height="30" >
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}" >
+                        <Setter Property="Background" Value="Transparent" />
+                        <!--<Setter Property="Foreground" Value="White" />-->
+                        <!--<Setter Property="FontSize" Value="15" />-->
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid Margin="0,0,0,0" >
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Opacity" Value="0.8"/>
+
+
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" Value="0.3"/>
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/ZAS_ERP;component/images/blockIcon.png" Height="20" Width="20"/>
+            </Button>
+
+        </DataTemplate>
+        <DataTemplate x:Key="ApproveRDCTemp" >
+            <Button  Name="btnApproveRDCMachine"  
+                     Click="btnApproveRDCMachine_Click"  
+                     Height="30" 
+                      >
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}" >
+                        <Setter Property="Background" Value="Transparent" />
+
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid Margin="0,0,0,0" >
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Opacity" Value="0.8"/>
+
+
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" Value="0.3"/>
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/ZAS_ERP;component/images/approveIcon1.png" Height="20" Width="20"/>
+
+            </Button>
+
+        </DataTemplate>
+        <DataTemplate x:Key="declineRDCTemp">
+            <Button  Name="btnDeclineRDCMachine"  Click="btnDeclineRDCMachine_Click"   Height="30" IsEnabled="True" >
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}" >
+                        <Setter Property="Background" Value="Transparent" />
+                        <!--<Setter Property="Foreground" Value="White" />-->
+                        <!--<Setter Property="FontSize" Value="15" />-->
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid Margin="0,0,0,0" >
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Opacity" Value="0.8"/>
+
+
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" Value="0.3"/>
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/ZAS_ERP;component/images/clear-icon.png" Height="20" Width="20"/>
+            </Button>
+
+        </DataTemplate>
+        <DataTemplate x:Key="blockRDCTemp">
+            <Button   Name="btnBlockRDCMachine" Click="btnBlockRDCMachine_Click"  Width="27"  Height="30" >
+
+                <Button.Resources>
+                    <Style TargetType="{x:Type Button}" >
+                        <Setter Property="Background" Value="Transparent" />
+                        <!--<Setter Property="Foreground" Value="White" />-->
+                        <!--<Setter Property="FontSize" Value="15" />-->
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                        <Grid Margin="0,0,0,0" >
+                                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                                        </Grid>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="Opacity" Value="0.8"/>
+
+
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Opacity" Value="0.3"/>
+                                        </Trigger>
+
+
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Resources>
+                <Image Source="/ZAS_ERP;component/images/blockIcon.png" Height="20" Width="20"/>
+            </Button>
+
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <dx:DXTabControl>
+            <dx:DXTabItem x:Name="tabUsers" Header="Users">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Users"  FontSize="16" FontWeight="DemiBold" />
+                    <Label Content="Roles" Grid.Column="0" Grid.Row="2" FontWeight="DemiBold"  HorizontalAlignment="Left" FontSize="16"/>
+                    <dxg:GridControl x:Name="grdUsers"
+                     SelectionMode="Row" Margin="5"
+                                     Grid.ColumnSpan="2"
+                     SelectionChanged="GrdUsers_SelectionChanged"
+                      CustomUnboundColumnData="GrdUsers_CustomUnboundColumnData"   
+                    AutoGenerateColumns="None"
+                     MouseDoubleClick="GrdUsers_MouseDoubleClick"   Grid.Row="1">
+                        <dxg:GridControl.View>
+                            <dxg:TableView x:Name="tableView"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                                           ShowGroupPanel="False"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       
+                       >
+
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                        <dxg:GridColumn Header="User Name"
+                            FieldName="userName"
+                            IsSmart="True"
+                            Width="auto" />
+                        <dxg:GridColumn FieldName="Name" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.person.FName" ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+
+                        <dxg:GridColumn FieldName="employee.person.LName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="isActive"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskTypesss="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="SupervisorName" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Supervisor.person.FName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Supervisor.person.LName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Departments" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Companies" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Companies"   Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.departments"   Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                    </dxg:GridControl>
+
+
+                    <!--new grid added in user tab-->
+                    <dxg:GridControl  Grid.Row="3"
+                                      x:Name="lstAssignedRoles"
+                  Margin="5"
+                     SelectionMode="Row"  
+                        SelectionChanged="lstAssignedRoles_SelectionChanged"
+                    AutoGenerateColumns="None"
+                    Grid.Column="0"
+                      
+                        >
+
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView 
+                          
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       KeyFieldName="Id"
+                       ParentFieldName="parentId">
+                            </dxg:TreeListView>
+                        </dxg:GridControl.View>
+
+
+                        <dxg:GridColumn 
+                      FieldName="Name"
+                                Header="Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="5"/>
+
+                        <dxg:GridColumn 
+                      FieldName="Description"
+                                Header="Description"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="4"/>
+
+                        <dxg:GridColumn 
+                      FieldName="Company"
+                                Header="Company"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="1"/>
+                        <dxg:GridColumn 
+                      FieldName="Department"
+                                Header="Department"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2"/>
+                        <dxg:GridColumn 
+                      FieldName="RoleName"
+                                Header="Role Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="3"/>
+                    </dxg:GridControl>
+                    <!--Grid end-->
+                    <Label Content="Permissions" Grid.Column="1" Grid.Row="2" FontWeight="DemiBold"  HorizontalAlignment="Left" FontSize="16"/>
+
+                    <dxg:GridControl SelectionMode="None" Grid.Column="1"
+                            x:Name="grdPermissions" Grid.Row="3" 
+                            AutoGenerateColumns="None"
+                            SelectionChanged="GrdPermissions_SelectionChanged"
+                            AllowInitiallyFocusedRow="False">
+
+
+
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView x:Name="viewTable"
+                            AutoWidth="True"
+                            KeyFieldName="Id"
+                            ParentFieldName="ParentId"
+                            TreeDerivationMode="Selfreference"
+                            AutoExpandAllNodes="True"
+                            AllowEditing="False"
+                            ShowAutoFilterRow="True"
+                            FilterMode="Smart"
+                            UseIndicatorForSelection="True"
+                            FadeSelectionOnLostFocus="False"
+                            ShowSelectionRectangle="True"></dxg:TreeListView>
+                        </dxg:GridControl.View>
+
+                        <dxg:GridColumn x:Name="Id"
+                                FieldName="Id"
+                                IsSmart="True"
+                                Visible="False"
+                                />
+                        <dxg:GridColumn FieldName="Name"
+                        IsSmart="True" Width="auto"/>
+                        <dxg:GridColumn FieldName="Description"
+                                IsSmart="True" />
+                        <dxg:GridColumn FieldName="ParentId"
+                                IsSmart="True" Visible="False" />
+                    </dxg:GridControl>
+
+
+
+
+
+                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal"  HorizontalAlignment="Center" Visibility="Visible">
+                        <dx:SimpleButton Content="Add New"
+                                   
+                                       Height="30"
+                                
+                                x:Name="btnUserNew" Click="BtnUserNew_Click"
+                                Margin="5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Edit" 
+                               
+                                       Height="30"
+                                Click="BtnUserEdit_Click"
+                                x:Name="btnUserEdit"
+                                Margin="5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Delete" 
+                                  
+                                       Height="30"
+                                Click="BtnUserDelete_Click"
+                                x:Name="btnUserDelete"
+                                Margin="5"></dx:SimpleButton>
+                    </StackPanel>
+
+                </Grid>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem x:Name="tabRoles"
+                          Header="Active Roles">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width=".4*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height=".5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Roles"
+                           Margin="10,0"
+                           FontSize="16"></Label>
+                    <!--grid control add-->
+                    <dxg:GridControl x:Name="grdRoles"
+                                     
+                    SelectedItemChanged="GrdRoles_SelectedItemChanged"
+                     SelectionMode="Row"  
+                    AutoGenerateColumns="None"
+                     MouseDoubleClick="GrdRoles_MouseDoubleClick"  Grid.RowSpan="2">
+
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView x:Name="treeViews"
+                                              ColumnHeaderClick="TreeViews_ColumnHeaderClick"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       KeyFieldName="Id"
+                       ParentFieldName="parentId">
+                            </dxg:TreeListView>
+                        </dxg:GridControl.View>
+
+
+                        <dxg:GridColumn x:Name="colName"
+                      FieldName="Name"
+                                Header="Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="5"/>
+
+                        <dxg:GridColumn x:Name="colDescription"
+                      FieldName="Description"
+                                Header="Description"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="4"/>
+
+                        <dxg:GridColumn x:Name="colCompany"
+                      FieldName="Company"
+                                Header="Company"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="1"/>
+                        <dxg:GridColumn x:Name="colDepartment"
+                      FieldName="Department"
+                                Header="Department"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2"/>
+                        <dxg:GridColumn x:Name="colRoleName"
+                      FieldName="RoleName"
+                                Header="Role Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="3"/>
+                    </dxg:GridControl>
+
+
+                    <!--end-->
+
+
+
+
+
+                    <!--<ListBox Grid.Row="1" x:Name="lstRoles"
+                             Margin="0,10" SelectionChanged="LstRoles_SelectionChanged"
+                             MouseDoubleClick="LstRoles_MouseDoubleClick">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>-->
+                    <TextBox x:Name="txtRoleDescription" Grid.Row="2" IsReadOnly="True"
+                           TextWrapping="WrapWithOverflow"  Margin="0,10"></TextBox>
+                    <ListBox Grid.Row="3"
+                             x:Name="lstAssignedUsers"
+                             Margin="0,10">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="1" Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Margin="10">
+                        <dx:SimpleButton Content="Add New"  FontWeight="Bold" 
+                                   
+                                       Height="30"
+                                
+                                Click="BtnRoleNew_Click"
+                                x:Name="btnRoleNew"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Edit"  FontWeight="Bold" 
+                                    
+                                       Height="30"
+                                x:Name="btnRoleEdit" Click="BtnRoleEdit_Click"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Copy Role"  FontWeight="Bold" 
+                                     
+                                       Height="30"
+                                
+                                
+                                x:Name="btnCopyRole" Click="BtnCopyRole_Click"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Delete"  FontWeight="Bold" 
+                                   
+                                       Height="30"
+                                x:Name="btnRoleDelete" Click="BtnRoleDelete_Click"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Height="30" x:Name="btnAddField"  FontWeight="Bold" 
+                                         Click="BtnAddField_Click"
+                                         Content="Change Header" Margin="10,5"/>
+                    </StackPanel>
+                    <!--<StackPanel Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="10">
+                        <Button x:Name="btnRoleViewPermissions"
+                                Margin="10,5" Click="BtnRoleViewPermissions_Click">
+                            <TextBlock TextWrapping="WrapWithOverflow">View Permissions</TextBlock>
+                        </Button>
+                        <Button Content="Close" IsCancel="True" 
+                                Margin="10,5"></Button>
+                    </StackPanel>-->
+                </Grid>
+            </dx:DXTabItem> 
+            <dx:DXTabItem x:Name="tabinActiveRoles"
+                          Header="inActive Roles">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width=".4*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height=".5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="Roles"
+                           Margin="10,0"
+                           FontSize="16"></Label>
+                    <!--grid control add-->
+                    <dxg:GridControl x:Name="grdinActiveRoles"
+                                     
+                    SelectedItemChanged="grdinActiveRoles_SelectedItemChanged"
+                     SelectionMode="Row"  
+                    AutoGenerateColumns="None"
+                     MouseDoubleClick="grdinActiveRoles_MouseDoubleClick"  Grid.RowSpan="2">
+
+                        <dxg:GridControl.View>
+                            <dxg:TreeListView x:Name="treeinActiveViews"
+                                              ColumnHeaderClick="treeinActiveViews_ColumnHeaderClick"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                       KeyFieldName="Id"
+                       ParentFieldName="parentId">
+                            </dxg:TreeListView>
+                        </dxg:GridControl.View>
+
+
+                        <dxg:GridColumn 
+                      FieldName="Name"
+                                Header="Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="5"/>
+
+                        <dxg:GridColumn 
+                      FieldName="Description"
+                                Header="Description"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="4"/>
+
+                        <dxg:GridColumn
+                      FieldName="Company"
+                                Header="Company"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="1"/>
+                        <dxg:GridColumn 
+                      FieldName="Department"
+                                Header="Department"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="2"/>
+                        <dxg:GridColumn
+                      FieldName="RoleName"
+                                Header="Role Name"
+                      UnboundType="Bound"
+                      AllowEditing="false"
+                      Visible ="True"
+                      VisibleIndex="3"/>
+                    </dxg:GridControl>
+
+
+                   
+                    <TextBox x:Name="txtinActiveRoleDescription" Grid.Row="2" IsReadOnly="True"
+                           TextWrapping="WrapWithOverflow"  Margin="0,10"></TextBox>
+                    <ListBox Grid.Row="3"
+                             x:Name="lstinActiveAssignedUsers"
+                             Margin="0,10">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="1" Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Margin="10">
+                        <dx:SimpleButton Content="Add New"  FontWeight="Bold" 
+                                   
+                                       Height="30"
+                                
+                                Click="BtnRoleNew_Click"
+                                x:Name="btninActiveRoleNew"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Edit"  FontWeight="Bold" 
+                                    
+                                       Height="30"
+                                x:Name="btninActiveRoleEdit" Click="btninActiveRoleEdit_Click"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Copy Role"  FontWeight="Bold" 
+                                     
+                                       Height="30"
+                                
+                                
+                                x:Name="btninActiveCopyRole" Click="btninActiveCopyRole_Click"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Content="Delete"  FontWeight="Bold" 
+                                   
+                                       Height="30"
+                                x:Name="btninActiveRoleDelete" Click="BtnRoleDelete_Click"
+                                Margin="10,5"></dx:SimpleButton>
+                        <dx:SimpleButton Height="30" x:Name="btninActiveAddField"  FontWeight="Bold" 
+                                         Click="BtnAddField_Click"
+                                         Content="Change Header" Margin="10,5"/>
+                    </StackPanel>
+
+                </Grid>
+            </dx:DXTabItem>
+
+            <dx:DXTabItem x:Name="tabMachines"
+                          Header="LAN Machines">
+                <Grid Margin="10,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width=".2*"></ColumnDefinition>-->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height=".4*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content=" LAN Machines" Margin="10,0" FontSize="16"></Label>
+                    <dxg:GridControl x:Name="grdMachines"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="1"
+                     SelectionMode="Row"
+                     SelectionChanged="GrdMachines_SelectionChanged"
+                     CustomUnboundColumnData="GrdMachines_CustomUnboundColumnData" 
+                     AutoPopulateColumns="True"
+                     ColumnsPopulated="GrdMachines_ColumnsPopulated"
+                     AutoGenerateColumns="None"
+                     MouseDoubleClick="GrdMachines_MouseDoubleClick">
+                        <dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="MbtnRefresh_Click" />
+
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>
+
+                        <dxg:GridControl.View >
+                            <dxg:TableView x:Name="userMachinesTableView"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       
+                       
+                       
+                       >
+                                <!--AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"-->
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                        <dxg:GridColumn Header="User Name"
+                            FieldName="userName"
+                            IsSmart="True"
+                            Width="auto" />
+                        <dxg:GridColumn FieldName="Name" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.person.FName" ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.person.LName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="isActive"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn Header="Machine Identity" FieldName="machineKey" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="isKeyApproved"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Supervisor.person.FName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Supervisor.person.LName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+
+                        <!--<dxg:GridColumn FieldName="Departments" UnboundType="String" ReadOnly="True" >
+                            -->
+                        <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        <!--
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Companies" UnboundType="String" ReadOnly="True" >
+                            -->
+                        <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        <!--
+
+                            <dxg:GridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <dxe:ButtonEdit x:Name="PART_Editor" />
+                                </DataTemplate>
+                            </dxg:GridColumn.CellTemplate>
+                        </dxg:GridColumn>-->
+                        <dxg:GridColumn FieldName="employee.Companies"   Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.departments"   Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Approve"  UnboundType="String" ReadOnly="True">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Clear" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Block"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                    </dxg:GridControl>
+                    <!--<ListBox Grid.Row="1"
+                             Margin="0,10"
+                             x:Name="lstUsers"
+                             SelectionChanged="LstUsers_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>-->
+                    <ListBox Grid.Row="2"
+                             x:Name="lstAssignedMachines"
+                             Margin="0,10">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--<StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+                        <Button Content="Add New" x:Name="btnMachineNew" Click="BtnUserNew_Click"
+                                Margin="5,5"></Button>
+                        <Button Content="Edit" Click="BtnUserEdit_Click"
+                                x:Name="btnMachineEdit"
+                                Margin="5,5"></Button>
+                        <Button Content="Delete" Click="BtnUserDelete_Click"
+                                x:Name="btnMachineDelete"
+                                Margin="5,5"></Button>
+                    </StackPanel>-->
+
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem x:Name="tabRDCMachines"
+                          Header="RDC Machines">
+                <Grid Margin="10,0,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <!--<ColumnDefinition Width=".2*"></ColumnDefinition>-->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height=".4*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Content="RDC Machines" Margin="10,0" FontSize="16"></Label>
+                    <dxg:GridControl x:Name="grdRDCMachines"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="1"
+                     SelectionMode="Row"
+                     SelectionChanged="grdRDCMachines_SelectionChanged"
+                     CustomUnboundColumnData="grdRDCMachines_CustomUnboundColumnData" 
+                     AutoPopulateColumns="True"
+                     ColumnsPopulated="grdRDCMachines_ColumnsPopulated"
+                     AutoGenerateColumns="None"
+                     MouseDoubleClick="grdRDCMachines_MouseDoubleClick">
+                        <dxg:GridControl.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Refresh"
+                      x:Name="mbtnRDCRefresh"
+                      Click="mbtnRDCRefresh_Click" />
+
+                            </ContextMenu>
+                        </dxg:GridControl.ContextMenu>
+
+                        <dxg:GridControl.View >
+                            <dxg:TableView x:Name="userRDCMachinesTableView"
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                       Width="auto"
+                       
+                       
+                       
+                       >
+                                <!--AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"-->
+                            </dxg:TableView>
+                        </dxg:GridControl.View>
+                        <dxg:GridColumn Header="User Name"
+                            FieldName="userName"
+                            IsSmart="True"
+                            Width="auto" />
+                        <dxg:GridColumn FieldName="Name" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.person.FName" ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.person.LName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="isActive"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Machine Identity" UnboundType="String" ReadOnly="True" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="isRDCKeyApproved" Header="isKeyApproved"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Supervisor.person.FName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.Supervisor.person.LName"  ReadOnly="True" Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+
+                        <!--<dxg:GridColumn FieldName="Departments" UnboundType="String" ReadOnly="True" >
+                            -->
+                        <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        <!--
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Companies" UnboundType="String" ReadOnly="True" >
+                            -->
+                        <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        <!--
+
+                            <dxg:GridColumn.CellTemplate>
+                                <DataTemplate>
+                                    <dxe:ButtonEdit x:Name="PART_Editor" />
+                                </DataTemplate>
+                            </dxg:GridColumn.CellTemplate>
+                        </dxg:GridColumn>-->
+                        <dxg:GridColumn FieldName="employee.Companies"   Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="employee.departments"   Visible="False" ShowInColumnChooser="False">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Approve"  UnboundType="String" ReadOnly="True">
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Clear" >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                        <dxg:GridColumn FieldName="Block"  >
+                            <!--<dxg:GridColumn.EditSettings>
+                                <dxe:TextEditSettings  Mask="n2" MaskType="Numeric" MaskUseAsDisplayFormat="True"/>
+                            </dxg:GridColumn.EditSettings>-->
+                        </dxg:GridColumn>
+                    </dxg:GridControl>
+                    <!--<ListBox Grid.Row="1"
+                             Margin="0,10"
+                             x:Name="lstUsers"
+                             SelectionChanged="LstUsers_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>-->
+                    <ListBox Grid.Row="2"
+                             x:Name="lstRDCAssignedMachines"
+                             Margin="0,10">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel  Orientation="Horizontal">
+                                    <TextBlock Text="{Binding id}"
+                                               Visibility="Hidden" />
+                                    <TextBlock Text="{Binding name}" />
+                                    <TextBlock Text="{Binding description}"
+                                               Visibility="Hidden" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--<StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+                        <Button Content="Add New" x:Name="btnMachineNew" Click="BtnUserNew_Click"
+                                Margin="5,5"></Button>
+                        <Button Content="Edit" Click="BtnUserEdit_Click"
+                                x:Name="btnMachineEdit"
+                                Margin="5,5"></Button>
+                        <Button Content="Delete" Click="BtnUserDelete_Click"
+                                x:Name="btnMachineDelete"
+                                Margin="5,5"></Button>
+                    </StackPanel>-->
+
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+    </Grid>
+</dx:DXWindow>

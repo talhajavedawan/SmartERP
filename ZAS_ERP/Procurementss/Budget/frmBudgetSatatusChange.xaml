@@ -1,0 +1,12 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.Budget.frmBudgetSatatusChange"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Budget"
+        mc:Ignorable="d"
+        Title="frmBudgetSatatusChange" Height="450" Width="800">
+    <Grid x:Name="statusGrid">
+
+    </Grid>
+</dx:DXWindow>

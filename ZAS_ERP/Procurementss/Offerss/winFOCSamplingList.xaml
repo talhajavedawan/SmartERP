@@ -1,0 +1,86 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.Offerss.winFOCSamplingList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Offerss" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d"
+            Height="450" Width="450" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top"
+              x:Name="menuGrid">
+            <MenuItem Header="Add New">
+                <MenuItem Header="Add New"
+                    Click="MbtnAdd_Click" >
+                    <MenuItem.Icon>
+                        <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit FOC/Sampling"
+                    Click="MbtnUpdate_Click" >
+                    <MenuItem.Icon>
+                        <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+
+            <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="BtnRefresh_Click"/>
+        </Menu>
+        <TextBlock x:Name="lblHeading" Text= "FOC/Sampling Name List" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+        <Grid Background="White" Grid.Row="2" Height="auto">
+            <dxg:GridControl AutoGenerateColumns="AddNew" 
+                         EnableSmartColumnsGeneration="False" 
+                         Name="grdCntrlFOCList">
+                <!--PreviewMouseDown="GrdCntrlDeductionList_PreviewMouseDown"-->
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                                Click="MbtnAdd_Click" x:Name="mbtnAdd">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Update FOC/Sampling"
+                                    x:Name="mbtnUpdate" Click="MbtnUpdate_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View >
+                    <dxg:TableView AllowPerPixelScrolling="True" 
+                               ShowTotalSummary="True"
+                               ShowAutoFilterRow="True" 
+                               RowAnimationKind="None" 
+                               WaitIndicatorType="Panel"
+                               AllowEditing="False"
+                               Name="tblViewTaxNameLst">
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                <dxg:GridColumn FieldName="Id"
+                                Visible="False"
+                                VisibleIndex="0"/>
+                <dxg:GridColumn FieldName="samplingtName"
+                                Header="Name"
+                                Visible="True"
+                                VisibleIndex="1"/>
+                <dxg:GridColumn FieldName="ChartofAccount.accountName"
+                                Header="Chart of Account"
+                                Visible="True"
+                                VisibleIndex="4"/>
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+</dx:DXWindow>

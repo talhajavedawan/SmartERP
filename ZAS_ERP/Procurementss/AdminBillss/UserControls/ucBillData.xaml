@@ -1,0 +1,385 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.AdminBillss.UserControls.ucBillData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.AdminBillss.UserControls"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="2385" x:Name="ucBillDataRow" Padding="0 0 0 0"
+             Loaded="UcBillDataRow_Loaded">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Center" x:Name="stackBillData">
+
+            <TextBlock x:Name="txtId" Text="0" Width="90" Visibility="Collapsed"/>
+            <TextBlock x:Name="txtGroupId" Width="90" Visibility="Collapsed"/>
+            
+            <!--<TextBox  Width="250"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>-->
+            <Grid Width="100" Height="22">
+                <!--<ProgressBar Minimum="0" Maximum="100" Name="pBarPayment" Foreground="#05628e" Background="LightGray"/>-->
+                <Border Background="Beige" BorderThickness="2" CornerRadius="5" BorderBrush="Gray">
+                <TextBlock IsHitTestVisible="False" x:Name="txtFullyPaid" Text="Not Paid" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5 5 5 5">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Border>
+            </Grid>
+            <dxg:LookUpEdit Width="130" Height="22" Visibility="Collapsed"
+                                            
+                                            IsTextEditable="False" 
+                                            AutoPopulateColumns="True" 
+                                            DisplayMember="DeptName"
+                                            x:Name="cmbxDepartment"
+                                            TabIndex="4">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="ParentID"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+            <dxg:LookUpEdit Width="130" x:Name="cmbxCOA" 
+                            Margin="5 0 0 0" Height="22"
+                            DisplayMember="accountName"
+                            ValueMember="Id">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="parentId"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+            <dxg:LookUpEdit Width="130" Margin="5 0 0 0" Height="22" x:Name="cmbxCOAcredit" 
+                            DisplayMember="accountName" 
+                            GotFocus="CmbxCOAcredit_GotFocus"
+                            ValueMember="Id">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="parentId"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+            <dxg:LookUpEdit Width="130" Margin="5 0 0 0" Height="22" DisplayMember="name" ValueMember="Id" x:Name="lookupAdminBillType" AutoPopulateColumns="False">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <dxg:GridControl Name="PART_GridControl" SelectionMode="Row" AutoGenerateColumns="None">
+                            <dxg:GridControl.View>
+                                <dxg:TableView/>
+                            </dxg:GridControl.View>
+
+                            <dxg:GridColumn Header="Type"
+                                    FieldName="name"
+                                                AllowEditing="false"/>
+                        </dxg:GridControl>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+            <dxg:LookUpEdit Margin="5 0 0 0"
+                            Width="130" Height="22"
+                            x:Name="cmbxVendor"
+                            DisplayMember="company.CompanyName"
+                            GotFocus="CmbxVendor_GotFocus"
+                            ValueMember="Id">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <dxg:GridControl Name="PART_GridControl"
+                                                        AutoPopulateColumns="True"
+                                                        Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView Name="tbleView1"
+                                                                ShowAutoFilterRow="True"/>
+                                </dxg:GridControl.View>
+                                <dxg:GridColumn FieldName="company.CompanyName"
+                                                                    Header="Company"
+                                                                IsSmart="True"
+                                                                Width="auto"
+                                                                    VisibleIndex="1"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="Id"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="isActive"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="IsSubsidary"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="ParentID"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="contactPerson"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="shippingAddress"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="billingAddres"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="contact"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="ParentVendor"
+                                                        Visible="False"/>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+            <dxg:LookUpEdit Width="130" Height="22"
+                            DisplayMember="PayeeName"
+                            Margin="5 0 0 0" x:Name="cmbxPayeeName"
+                            MouseEnter="CmbxPayeeName_MouseEnter"
+                            ValueMember="Id">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TreeListView Name="treeListView1"
+                                                                      ShowAutoFilterRow="True"
+                                                                      TreeDerivationMode="Selfreference"
+                                                                      KeyFieldName="Id"
+                                                                      ParentFieldName="ParentId"/>
+                                </dxg:GridControl.View>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+            <dx:SimpleButton x:Name="btnMaintenance" Content="Maintenance" Margin="5 0 0 0" Height="22" Width="90" IsEnabled="False"/>
+            <dx:SimpleButton x:Name="btnFuel" Content="Fuel" Margin="5 0 0 0" Height="22" Width="45" IsEnabled="False"/>
+
+            <dxg:LookUpEdit Margin="5 0 0 0"
+                            Width="130" Height="22"
+                            x:Name="lookupAdminBillNature"
+                            DisplayMember="Nature"
+                            ValueMember="Id">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+
+                            <dxg:GridControl Name="PART_GridControl"
+                                                        AutoPopulateColumns="True">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView Name="tbleView1"
+                                                                ShowAutoFilterRow="True"/>
+                                </dxg:GridControl.View>
+                                
+
+                                <dxg:GridColumn
+                                                        FieldName="Id"
+                                                        Visible="False"/>
+
+                                <dxg:GridColumn
+                                                        FieldName="isActive"
+                                                        Visible="False"/>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+
+            <dxg:LookUpEdit Width="130" Margin="5 0 0 0" 
+                            x:Name="cmbxEmployee" 
+                            Visibility="Collapsed"
+                            Grid.Column="1"
+                            TabIndex="5"
+                            Height="22"
+                            DisplayMember="person.FName"
+                            IsTextEditable="False"
+                            ValueMember="EmpId">
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <dxg:GridControl x:Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView AllowPerPixelScrolling="True" 
+                                                               ShowTotalSummary="True"
+                                                               ShowAutoFilterRow="True" 
+                                                               RowAnimationKind="None" 
+                                                                WaitIndicatorType="Panel"
+                                                                AllowEditing="False"
+                                                                ShowCheckBoxSelectorInGroupRow="True"
+                                                    x:Name="tblViewLandTypeLst"/>
+                                </dxg:GridControl.View>
+
+                                <dxg:GridColumn Header="EmpId"
+                                                            FieldName="EmpId"
+                                                            IsSmart="True"
+                                                            Width="auto" VisibleIndex="1"/>
+                                <dxg:GridColumn Header="First Name"
+                                                            FieldName="person.FName"
+                                                            IsSmart="True"
+                                                            Width="auto" VisibleIndex="2"/>
+                                <dxg:GridColumn Header="Last Name"
+                                                            FieldName="person.LName"
+                                                            IsSmart="True"
+                                                            Width="auto" VisibleIndex="3"/>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+
+            <!--<dxe:ComboBoxEdit Width="130" Margin="5 0 0 0" Visibility="Collapsed" x:Name="cmbxPayeeName1"/>
+            <dxe:ComboBoxEdit Width="130" Margin="5 0 0 0" Visibility="Collapsed" x:Name="cmbxPayeeName2"/>
+            <dxe:ComboBoxEdit Width="130" Margin="5 0 0 0" Visibility="Collapsed" x:Name="cmbxPayeeName3"/>
+            <dxe:ComboBoxEdit Width="130" Margin="5 0 0 0" Visibility="Collapsed" x:Name="cmbxPayeeName4"/>
+            <dxe:ComboBoxEdit Width="130" Margin="5 0 0 0" Visibility="Collapsed" x:Name="cmbxPayeeName5"/>-->
+
+            <dxe:TextEdit x:Name="txtBillNo" Margin="5 0 0 0" Width="130" Height="22"/>
+            <dxe:DateEdit x:Name="datBillingMonth" Margin="5 0 0 0" Height="22" Width="130" MaskUseAsDisplayFormat="True" Mask="MMMyyyy" 
+                                  ShowClearButton="True" UseLayoutRounding="True" 
+                                  PopupFooterButtons="OkCancel" 
+                                 Grid.Column="2"
+                              NullText="Month"
+                                  VerticalAlignment="Center"  >
+                <dxe:DateEdit.StyleSettings>
+                    <dxe:DateEditPickerStyleSettings/>
+                </dxe:DateEdit.StyleSettings>
+            </dxe:DateEdit>
+            <dxe:DateEdit x:Name="datDueDate" Height="22"  Margin="5 0 0 0" Width="130"/>
+
+            <dxe:TextEdit Width="100" Margin="5 0 0 0" Height="22" Text="0" MaskType="Numeric" 
+                          Mask="n2" MaskUseAsDisplayFormat="True" x:Name="txtAmountOC"
+                          EditValueChanged="TxtAmountOC_EditValueChanged"/>
+
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <dxe:CheckEdit Content="VAT" Width="90" Padding="20 0 0 0"
+                           Margin="5 0 0 0" Height="22" x:Name="chkVat"
+                           Checked="ChkVat_Checked" Unchecked="ChkVat_Unchecked"/>
+
+                <dxg:LookUpEdit Width="130" Padding="20 0 0 0" DisplayMember="Name"
+                           Margin="5 0 0 0" Height="22" x:Name="lookupVat"
+                            IsEnabled="False"
+                                ValueMember="Id"/>
+            
+                <dxe:TextEdit Width="100" Margin="5 0 0 0" Height="22" Text="0" MaskType="Numeric" 
+                          Mask="n" MaskUseAsDisplayFormat="True" x:Name="txtTaxAmount"
+                          IsReadOnly="True"/>
+
+                <dxe:TextEdit Width="100" Margin="5 0 0 0" Height="22" Text="0" MaskType="Numeric" 
+                          Mask="n" MaskUseAsDisplayFormat="True" x:Name="txtAmountWithTax"
+                          IsReadOnly="True"/>
+            </StackPanel>
+
+
+                <dxe:TextEdit Width="110" Margin="5 0 0 0" Height="22" Text="0" MaskType="Numeric" 
+                          Mask="n" MaskUseAsDisplayFormat="True" x:Name="txtApprovedLoanAdjustment" IsReadOnly="True"/>
+            <dxe:TextEdit Width="30" Margin="0 0 0 0" Height="22" Text="0" x:Name="txtApprovedAdjustmentCount" FontWeight="Bold" Foreground="Red" IsReadOnly="True"/>
+            <dxe:TextEdit Width="120" Margin="5 0 0 0" Height="22" Text="0" MaskType="Numeric" 
+                          Mask="n" MaskUseAsDisplayFormat="True" x:Name="txtUnApprovedLoanAdjustment" IsReadOnly="True"/>
+            <dxe:TextEdit Width="30" Margin="0 0 0 0" Height="22" Text="0" x:Name="txtUnApprovedAdjustmentCount" FontWeight="Bold" Foreground="Red" IsReadOnly="True"/>
+
+            <dxe:TextEdit Width="100" Margin="5 0 0 0" Height="22" Text="0" IsReadOnly="True" MaskType="Numeric" 
+                          Mask="n" MaskUseAsDisplayFormat="True" x:Name="txtAmountPaidOC"/>
+
+            <dxe:TextEdit Width="100" Margin="5 0 0 0" Text="0" Height="22" IsReadOnly="True" MaskType="Numeric" 
+                          Mask="n" MaskUseAsDisplayFormat="True" x:Name="txtRemainingAmountOC"/>
+            <!--<dxe:TextEdit Width="90" Margin="5 0 0 0" Text="1" KeyUp="TxtMER_KeyUp" MaskType="Numeric" 
+                          Mask="n2" MaskUseAsDisplayFormat="True" x:Name="txtMER"/>-->
+            <dxe:TextEdit Width="100" Margin="5 0 0 0" Text="0" Height="22" IsReadOnly="True" MaskType="Numeric" 
+                          Mask="n2" MaskUseAsDisplayFormat="True" x:Name="txtAmountMER"/>
+
+            <dxe:TextEdit  Width="250" Margin="5 0 0 0"  x:Name="txtMemo" Height="22" Visibility="Collapsed"/>
+            <dxe:TextEdit  Width="250" Margin="5 0 0 0"  x:Name="txtSummaryMemo" Height="22" Visibility="Collapsed"/>
+            <dxe:TextEdit  Width="250" Margin="5 0 0 0"  x:Name="txtManagementSummaryId" Text="0" Height="22" Visibility="Collapsed"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,137 @@
+﻿<Window x:Class="ZAS_ERP.TemplateFields.FieldSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.TemplateFields"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        
+        mc:Ignorable="d"
+        
+        Title="FieldSelector" Height="524.4" Width="800"
+        Loaded="Window_Loaded" Padding="10 5 10 5">
+    <!--<Window.DataContext>
+        <local:FieldSelector/>
+    </Window.DataContext>-->
+    <!--<Window.Resources>
+        <Style x:Key="listBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                
+                    <Setter Property="Background" Value="AliceBlue"></Setter>
+                --><!--<Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="LightBlue"></Setter>
+                </Trigger>--><!--
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>-->
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Template">
+                <MenuItem Header="Add Template" x:Name="mbtnAddTemplate" Click="MbtnAddTemplate_Click"/>
+                <MenuItem Header="Template List" x:Name="mbtnTemplateList" Click="MbtnTemplateList_Click"/>
+                <MenuItem Header="Open Bills" x:Name="mbtnOpenBills" Click="MbtnOpenBills_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <Button x:Name="btnInquiryWin"  Click="BtnInquiryWin_Click" Content="Inquiry" HorizontalAlignment="Left" Height="62" Margin="356,70,0,0" VerticalAlignment="Top" Width="75" Visibility="Collapsed"/>
+
+        <Border Padding="10 10 10 10" Grid.Row="1" BorderBrush="Transparent" Background="Transparent">
+            <Grid>
+                <Grid>
+
+                    
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+
+
+                <Grid Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <dxlc:LayoutItem Label="Module">
+                        <dxe:ComboBoxEdit SelectedIndexChanged="CmbModule_SelectedIndexChanged" Name="cmbModule"/>
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="Template"  Grid.Column="2">
+                        <dxg:LookUpEdit Name="cmbTemplate" DisplayMember="Name" SelectedIndexChanged="CmbTemplate_SelectedIndexChanged"/>
+                    </dxlc:LayoutItem>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                        <dxlc:LayoutGroup Header="All Fields" View="GroupBox">
+                            <dxlc:LayoutGroup.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!--<Image Source="{dx:DXImage Image=SolidOrangeDataBar_32x32.png}" Width="16" Height="16"/>-->
+                                        <Image Source="/ZAS_ERP;component/images/list.png" Width="16" Height="16"/>
+                                        <TextBlock Text="{Binding}" Margin="5 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </dxlc:LayoutGroup.HeaderTemplate>
+
+                            <ListBox  Name="lstAllFields">
+                                
+                            </ListBox>
+                        </dxlc:LayoutGroup>
+
+                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+
+                        <Button Click="BtnSendRight_Click" Name="btnSendRight" Height="40" Width="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0">
+                            <Image Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{dx:DXImage Image=DoubleNext_32x32.png}"/>
+                        </Button>
+
+                        <Button Click="BtnSendLeft_Click" Name="btnSendLeft"  Height="40" Width="40"  Padding="0" Margin="0 10 0 0">
+                            <Image Margin="0" Height="30" Width="30" Source="{dx:DXImage Image=DoublePrev_32x32.png}"/>
+                        </Button>
+
+                    </StackPanel>
+
+                    <dxlc:LayoutGroup Header="Selected Fields" View="GroupBox" Grid.Column="2">
+                            <dxlc:LayoutGroup.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/ZAS_ERP;component/images/list.png" Width="16" Height="16"/>
+                                        <TextBlock Text="{Binding}" Margin="5 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </dxlc:LayoutGroup.HeaderTemplate>
+
+                            <ListBox  Name="lstSelectedFields" >
+                                
+                            </ListBox>
+                    </dxlc:LayoutGroup>
+
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Button x:Name="btnSave"  Click="BtnSave_Click" Content="SAVE" FontSize="20" FontWeight="Bold"/>
+                </Grid>
+            </Grid>
+                
+                
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

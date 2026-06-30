@@ -1,0 +1,496 @@
+﻿<UserControl x:Class="ZAS_ERP.CustomReportsGroup.ucAddCustomGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.CustomReportsGroup"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+
+
+
+
+    <Grid Background="White">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Margin"
+                Value="10,0" />
+                <Setter Property="HorizontalAlignment"
+                Value="Left" />
+                <Setter Property="VerticalAlignment"
+                Value="Center" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"  />
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <TextBlock x:Name="lblHeading" Text="Custom Reports Group"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="17"
+                                       Foreground="Black"          
+                                       OpacityMask="Black"
+                                       FontWeight="DemiBold"/>
+            </Grid>
+
+
+
+        </Grid>
+        <Grid Grid.Row="1">
+
+
+            <dx:DXTabControl>
+                <dx:DXTabItem Header="Detail">
+                    <dxlc:LayoutGroup 
+                                          View="Group" 
+                                          IsCollapsible="False" 
+                                          IsCollapsed="False" 
+                                          Orientation="Vertical">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text=" Reports Title"  />
+                            <dxe:TextEdit  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"/>
+
+                            <TextBlock Text="Creation Date" Grid.Row="2" Grid.Column="0" />
+                            <dxe:DateEdit x:Name="datCreationDate" MaskType="DateTime"   MaskUseAsDisplayFormat="True" Mask="dd/MMMM/yyyy" IsEnabled="False" Grid.Column="1" Grid.Row="2"/>
+
+                            <TextBlock Text="Updated Date" Grid.Row="2" Grid.Column="3" />
+                            <dxe:DateEdit x:Name="datUpdateDate" MaskType="DateTime"    MaskUseAsDisplayFormat="True" Mask="dd/MMMM/yyyy" IsEnabled="False" Grid.Column="4" Grid.Row="2"/>
+
+
+
+                            <TextBlock Text="Creator"  Grid.Column="0" Grid.Row="4" />
+                            <dxe:TextEdit x:Name="txtCreator" Grid.Column="1" Grid.Row="4" IsReadOnly="True"/>
+
+                            <TextBlock Text="Updated By"  Grid.Column="3" Grid.Row="4" />
+                            <dxe:TextEdit x:Name="txtUpdator" Grid.Column="4" Grid.Row="4" IsReadOnly="True"/>
+
+
+                            <TextBlock Text="Module" Grid.Column="0" Grid.Row="6"/>
+                            <dxg:LookUpEdit x:Name="lookupModule" Grid.Column="1" Grid.Row="6"  SelectedIndexChanged="LookupModule_SelectedIndexChanged"/>
+
+                            <TextBlock Text="Report Type" Grid.Column="3" Grid.Row="6"/>
+                            <dxg:LookUpEdit x:Name="lookupReportType" Grid.Column="4" Grid.Row="6"/>
+
+                            <!--<TextBlock Text="Fields" Grid.Column="3" Grid.Row="2"/>
+                                <dxg:LookUpEdit x:Name="lookupFields" DisplayMember="name" IsTextEditable="False" Grid.Column="4" Grid.Row="2"/>-->
+
+
+
+
+
+
+                        </Grid>
+                    </dxlc:LayoutGroup>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+
+
+
+        </Grid>
+
+
+        <dxg:GridControl 
+                            x:Name="grdCustomReports"
+                            Grid.Row="2"
+                           
+                            SelectionMode="Cell"
+                           CustomColumnDisplayText="GrdCustomReports_CustomColumnDisplayText"
+                            TabIndex="45" >
+            <dxg:GridControl.View>
+                <dxg:TableView 
+                                               ShowGroupPanel="False"
+                                               NewItemRowPosition="Bottom"
+                                               AllowColumnFiltering="False"
+                                               ShowHorizontalLines="True"
+                                               ShowVerticalLines="True"
+                                               x:Name="view"
+                                              CellValueChanged="View_CellValueChanged"
+                   >
+                    <dxg:TableView.RowCellMenuCustomizations>
+                        <dxb:BarButtonItem Name="deleteRowItema"
+                                                           Content="Delete"
+                                                           Glyph="{dx:DXImage Image=Delete_32x32.png}"
+                                                           Command="{x:Static dxg:GridCommands.DeleteFocusedRow}" />
+                    </dxg:TableView.RowCellMenuCustomizations>
+                </dxg:TableView>
+            </dxg:GridControl.View>
+            <dxg:GridColumn FieldName="company" 
+                                            Header="Company"
+                                            IsSmart="True"
+                                            UnboundType="bound" 
+                                            UnboundExpression="[CompanyName]" VisibleIndex="2">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.company.CompanyName}" ></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupCompanyGrid" 
+                                                            AutoPopulateColumns="False"
+                                                            IsPopupAutoWidth="False"
+                                                          DisplayMember="CompanyName"
+                                                            NullText="Select Item"
+                                                LostFocus="LookupCompanyGrid_LostFocus" 
+                                                >
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                                                    ShowBorder="True"
+                                                                    MaxHeight="300"
+                                                                    Grid.Row="1">
+                                        <dxg:GridColumn FieldName="CompanyName" />
+
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="department"
+                            x:Name="colDepartment"
+                                            Header="Department"
+                                            IsSmart="True"
+                                            UnboundType="bound"
+                                            UnboundExpression="[DeptName]"
+                            
+                                VisibleIndex="3" SortOrder="Ascending" SortIndex="0">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock   Text="{Binding RowData.Row.department.DeptName}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupDepartmentGrid"
+                                            
+                                                            AutoPopulateColumns="False"
+                                                            IsPopupAutoWidth="False"
+                                                            DisplayMember="DeptName"
+                                                            NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                                     SelectedItemChanged="PART_GridControl_SelectedItemChanged"
+                                                     SelectionChanged="PART_GridControl_SelectionChanged"
+                                                    
+                                                                    ShowBorder="True"
+                                                                    MaxHeight="300"
+                                                                    Grid.Row="1">
+                                        <dxg:GridColumn FieldName="DeptName" />
+
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--<dxg:GridColumn FieldName="transactionItemType"
+                                            Header="Module"
+                                            IsSmart="True"
+                                            UnboundType="bound"
+                                            
+                                VisibleIndex="4">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.transactionItemType}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupModuleGrid"
+                                                            AutoPopulateColumns="False"
+                                                            IsPopupAutoWidth="False"
+                                                            DisplayMember="transactionItemType"
+                                                            NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                                                    ShowBorder="True"
+                                                                    MaxHeight="300"
+                                                                    Grid.Row="1">
+                                        <dxg:GridColumn FieldName="transactionItemType" />
+
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <dxg:GridColumn FieldName="customReportField"
+                                            Header="Field"
+                                            IsSmart="True"
+                                            UnboundType="bound"
+                                            VisibleIndex="5">
+                <dxg:GridColumn.DisplayTemplate>
+                    <ControlTemplate>
+                        <TextBlock Text="{Binding RowData.Row.customReportField}"></TextBlock>
+                    </ControlTemplate>
+                </dxg:GridColumn.DisplayTemplate>
+                <dxg:GridColumn.EditSettings>
+                    <dxg:LookUpEditSettings x:Name="lookupFieldGrid"
+                                                            AutoPopulateColumns="False"
+                                                            IsPopupAutoWidth="False"
+                                                            DisplayMember="customReportField"
+                                                            NullText="Select Item">
+                        <dxg:LookUpEditSettings.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"
+                                       MaxHeight="300"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl x:Name="PART_GridControl"
+                                                                    ShowBorder="True"
+                                                                    MaxHeight="300"
+                                                                    Grid.Row="1">
+                                        <dxg:GridColumn FieldName="customReportField" />
+
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEditSettings.PopupContentTemplate>
+                    </dxg:LookUpEditSettings>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>-->
+
+
+
+            <dxg:GridColumn FieldName="DateFrom" x:Name="colDateFrom" AllowEditing="True" 
+                          Header="Date From" VisibleIndex="0">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings MaskUseAsDisplayFormat="True" MaskType="Numeric" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn FieldName="DateTo" 
+                          Header="Date To" VisibleIndex="1">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:DateEditSettings MaskUseAsDisplayFormat="True" MaskType="Numeric" />
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--Amount Coloumns-->
+            <!--AmountPERsum Coloumns-->
+            <dxg:GridColumn FieldName="AmountPERsum"
+                                        x:Name="colAmountPERsum"
+                                        Header="PER Amount sum"
+                                        VisibleIndex="4"
+                                        UnboundType="Decimal"          
+                                        AllowMoving="false"  
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+            <!--SystemCost Coloumns-->
+
+            <dxg:GridColumn FieldName="SystemCost"
+                                        x:Name="colSystemCost"
+                                        Header="System Cost"
+                                        VisibleIndex="5"
+                                        UnboundType="Decimal"          
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--budgetCostSER Coloumns-->
+
+            <dxg:GridColumn FieldName="budgetCostSER"
+                                        x:Name="budgetCostSER"
+                                        Header="Budget Cost (S.E)"
+                            
+                                        VisibleIndex="6"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--budgetCostMER Coloumns-->
+            <dxg:GridColumn FieldName="budgetCostMER"
+                                        x:Name="budgetCostMER"
+                                        Header="Budget Cost (M.E)"
+                                        VisibleIndex="7"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--actualCostSER Coloumns-->
+            <dxg:GridColumn FieldName="actualCostSER"
+                                        x:Name="actualCostSER"
+                                        Header="Actual Cost (S.E)"
+                                        VisibleIndex="8"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--actualCostMER Coloumns-->
+            <dxg:GridColumn FieldName="actualCostMER"
+                                        x:Name="actualCostMER"
+                                        Header="Actual Cost (M.E)"
+                                        VisibleIndex="9"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False"
+                                        >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--totalCollectionSER Coloumns-->
+            <dxg:GridColumn FieldName="totalCollectionSER"
+                                        x:Name="totalCollectionSER"
+                                        Header="Total Collection (S.E)"
+                                        VisibleIndex="10"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--totalCollectionMER Coloumns-->
+
+            <dxg:GridColumn FieldName="totalCollectionMER"
+                                        x:Name="totalCollectionMER"
+                                        Header="Total Collection (M.E)"
+                                        VisibleIndex="11"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--pendingCollectionSER Coloumns-->
+
+            <dxg:GridColumn FieldName="pendingCollectionSER"
+                                        x:Name="pendingCollectionSER"
+                                        Header="Remaining Collection (S.E)"
+                                        VisibleIndex="12"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False"
+                                        >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+            <!--pendingCollectionMER Coloumns-->
+            <dxg:GridColumn FieldName="pendingCollectionMER"
+                                        x:Name="pendingCollectionMER"
+                                        Header="Remaining Collection (M.E)"
+                                        VisibleIndex="13"
+                                        UnboundType="Decimal"           
+                                        ReadOnly="True"
+                                        Visible="False"
+                                        >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+
+            <dxg:GridColumn FieldName="FieldValue" 
+                          Header="Field Value">
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+
+
+        </dxg:GridControl>
+
+
+        <Grid VerticalAlignment="Bottom" Height="30" Grid.Row="3">
+            <Button
+                     FontSize="17"
+                                               
+                                       OpacityMask="Black"
+                                       FontWeight="ExtraBold"         
+                Content="Save"  x:Name="btnSave" Click="BtnSave_Click"/>
+        </Grid>
+    </Grid>
+</UserControl>

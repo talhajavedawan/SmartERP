@@ -1,0 +1,78 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Reportss"
+        xmlns:dxrud="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesigner"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxrudw="http://schemas.devexpress.com/winfx/2008/xaml/reports/userdesigner/wizard"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:dxda="http://schemas.devexpress.com/winfx/2008/xaml/dataaccess"
+        xmlns:Wizard="clr-namespace:DevExpress.DataAccess.UI.Wizard;assembly=DevExpress.DataAccess.v21.2" xmlns:Databases="clr-namespace:ERP_BL.Databases;assembly=ERP_BL"
+        x:Class="ZAS_ERP.Reportss.frmReportPanel"
+        mc:Ignorable="d"
+        Title="Report"
+        MinHeight="650" WindowStartupLocation="CenterScreen" WindowState="Maximized" UseLayoutRounding="True" 
+        MinWidth="1000" Loaded="Window_Loaded">
+    <Grid>
+        <dxrud:ReportDesigner x:Name="reportDesign"
+                             
+                          DocumentOpened="ReportDesign_DocumentOpened"
+                          DocumentSaved="ReportDesign_DocumentSaved">
+            
+
+            <!--<dxrud:ReportDesigner.ServicesRegistry>
+                <dxda:TypeEntry ServiceType="{x:Type dxrudw:IWizardCustomizationService}" ConcreteType="{x:Type local:MyWizardCustomizationService}" />
+            </dxrud:ReportDesigner.ServicesRegistry>-->
+            <dxrud:ReportDesigner.RibbonCustomizationActions>
+
+                <!--<dxb:BarButtonItem x:Name="btnOpen" ItemClick="BtnOpen_ItemClick"></dxb:BarButtonItem>
+        <dxb:BarButtonItem x:Name="btnSave"
+                           ItemClick="BtnSave_ItemClick"></dxb:BarButtonItem>-->
+                <!--<dxb:RemoveAction ElementName="{x:Static dxrud:DefaultBarItemNames.New}" />
+                <dxb:RemoveAction ElementName="{x:Static dxrud:DefaultBarItemNames.Open}" />-->
+                <dxb:RemoveAction ElementName="{x:Static dxrud:DefaultBarItemNames.Save}" />
+                <!--<dxb:RemoveAction ElementName="{x:Static dxrud:DefaultBarItemNames.SaveAs}" />-->
+                <dxb:InsertAction ContainerName="{x:Static dxrud:DefaultBarItemNames.ReportGroup}">
+                    <dxb:InsertAction.Element>
+                        <dxb:BarButtonItem LargeGlyph="{dx:DXImage Image=Save_32x32.png}"
+                               Content="Save Layout" 
+                               ItemClick="BtnSave_ItemClick" />
+                    </dxb:InsertAction.Element>
+                </dxb:InsertAction>
+            </dxrud:ReportDesigner.RibbonCustomizationActions>
+            <dxrud:ReportDesigner.InputBindings>
+                <KeyBinding Key="Q"
+                    Modifiers="Control+Shift"
+                    Command="{Binding ActualCommands.ExitCommand, ElementName=designer}" />
+
+            </dxrud:ReportDesigner.InputBindings>
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand EventName="DocumentClosing" />
+            </dxmvvm:Interaction.Behaviors>
+            <dxrud:ReportDesigner.DataSourceWizardSettings>
+                <Wizard:DataSourceWizardSettings>
+                    <Wizard:DataSourceWizardSettings.EFWizardSettings>
+                        <Wizard:EFWizardSettings />
+                    </Wizard:DataSourceWizardSettings.EFWizardSettings>
+                    <Wizard:DataSourceWizardSettings.SqlWizardSettings>
+                        <Wizard:SqlWizardSettings AvailableDataProviders="MSSqlServer" DisableNewConnections="True" QueryBuilderLight="True" />
+                    </Wizard:DataSourceWizardSettings.SqlWizardSettings>
+                </Wizard:DataSourceWizardSettings>
+            </dxrud:ReportDesigner.DataSourceWizardSettings>
+            <!--<dxrud:ReportDesigner.DataContext>
+                --><!--<Databases:DBContextERP/>--><!--
+            </dxrud:ReportDesigner.DataContext>-->
+            <dxrud:ReportDesignerClassicView>
+                <!--<dxrud:ReportDesignerClasicView.CacheMode>
+          <BitmapCache />
+        </dxrud:ReportDesignerClasicView.CacheMode>-->
+            </dxrud:ReportDesignerClassicView>
+            
+
+
+        </dxrud:ReportDesigner>
+        
+    </Grid>
+</Window>

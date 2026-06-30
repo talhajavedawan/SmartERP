@@ -1,0 +1,356 @@
+﻿<Window x:Class="ZAS_ERP.HR.Leaves.winLeaveSummary"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.HR.Leaves"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        mc:Ignorable="d"
+        Title="Leave Summary" Height="450" Width="800"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <!--<Menu 
+              x:Name="menuGrid" Visibility="Collapsed">
+                <MenuItem Header="_Print Preview"
+                      x:Name="mbtnPrintPreview"
+                     Visibility="Collapsed" />
+                <MenuItem Header="Export To Report"
+                      x:Name="mbtnExportToReport"
+                      Visibility="Collapsed"/>
+
+                <MenuItem Header="Save Layout"
+                      x:Name="mbtnSaveLayout"
+                      Click="MbtnSaveLayout_Click"/>
+
+                <MenuItem Header="Refresh"
+                      x:Name="mbtnRefresh"
+                      Click="MbtnRefresh_Click"/>
+
+
+
+                <MenuItem Header="Direct Close"
+                      x:Name="mbtnDriectClose"
+                      Click="MbtnDriectClose_Click" Visibility="Collapsed"/>
+                <MenuItem Header="Approve"
+                          x:Name="mbtnApprove" Click="MbtnApprove_Click" Visibility="Collapsed"/>
+
+                <MenuItem x:Name="mbtnPending" VerticalAlignment="Center" 
+                                              Click="MbtnPending_Click">
+                    <MenuItem.Template>
+                        <dxg:DefaultControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Pending for Approval">
+
+                                    <TextBlock.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Background" Value="Transparent"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#c0ddeb"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </TextBlock.Resources>
+
+                                </TextBlock>
+                               
+                                <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtApprovalcount" Text="{Binding ApprovalCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </dxg:DefaultControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+                <MenuItem x:Name="mbtnPendingClosing" Click="MbtnPendingClosing_Click" VerticalAlignment="Center" Visibility="Collapsed">
+                    <MenuItem.Template>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Pending for Closing">
+                                    <TextBlock.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Background" Value="Transparent"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#c0ddeb"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </TextBlock.Resources>
+
+                                </TextBlock>
+                               
+                                <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtClosingcount" Text="{Binding ClosingCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+
+
+
+                <MenuItem x:Name="mbtnVoid" Click="MbtnVoid_Click" VerticalAlignment="Center">
+                    <MenuItem.Template>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Void">
+
+                                    <TextBlock.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Background" Value="Transparent"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#c0ddeb"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </TextBlock.Resources>
+
+                                </TextBlock>
+                                
+                                <TextBlock Margin="5,0"  FontWeight="Bold" x:Name="txtVoidcount" Text="{Binding VoidCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+                <MenuItem 
+                          x:Name="mbtnReApprovals"
+                          Click="MbtnReApprovals_Click"
+                VerticalAlignment="Center">
+                    <MenuItem.Template>
+                        <dxg:DefaultControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ReApprovals" ToolTip="List of Employees which needs ReApproval due to Editing">
+                                    <TextBlock.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Background" Value="Transparent"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#c0ddeb"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </TextBlock.Resources>
+
+                                </TextBlock>
+                              
+                                <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtReApprovalcount" Text="{Binding ReApprovalCount}" Foreground="Red"></TextBlock>
+                            </StackPanel>
+                        </dxg:DefaultControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+
+                <MenuItem 
+                                     x:Name="mbtnRegister"
+                                     Click="MbtnRegister_Click"
+                                     VerticalAlignment="Center">
+                    <MenuItem.Template>
+                        <dxg:DefaultControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Registers" ToolTip="List of All Leaves">
+                                    <TextBlock.Resources>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="Background" Value="Transparent"/>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#c0ddeb"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </TextBlock.Resources>
+
+                                </TextBlock>
+                                
+                                <TextBlock Margin="5,0" FontWeight="Bold" x:Name="txtRegisterCount" Text="{Binding ApproveunapprovedCount}" Foreground="Blue"></TextBlock>
+                            </StackPanel>
+                        </dxg:DefaultControlTemplate>
+                    </MenuItem.Template>
+                </MenuItem>
+            </Menu>
+            <TextBlock Name="lblLeaveSummary" 
+                       Text="Leaves Summary" FontSize="19" 
+                       FontWeight="Bold"  HorizontalAlignment="Center" 
+                       Grid.Row="1" FontFamily="Segoe UI Semibold"  />-->
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Year:   " VerticalAlignment="Center"/>
+                <ComboBox x:Name="cmbYears"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"
+                      Grid.Row="1"
+                      Width="100"            
+                      SelectionChanged="CmbYears_SelectionChanged"
+                                IsEnabled="True">
+
+                </ComboBox>
+                <TextBlock x:Name="lblHeading" Text="" FontSize="22" 
+                           FontWeight="Bold"  
+                           HorizontalAlignment="Center" 
+                           FontFamily="Segoe UI Semibold"  
+                           Margin="330 0 0 0 "></TextBlock>
+
+            </StackPanel>
+              
+
+            <dxg:GridControl
+                        Grid.Row="2"
+                        Name="grdLeavesSummary"
+                        Margin="0 0 0 0"
+                        AutoGenerateColumns="None"
+                        EnableSmartColumnsGeneration="True" 
+                        MouseDoubleClick="GrdLeavesSummary_MouseDoubleClick"
+                        CustomUnboundColumnData="GrdLeavesSummary_CustomUnboundColumnData">
+
+
+                <dxg:GridControl.View >
+                    <dxg:TableView 
+                                        AllowPerPixelScrolling="True" 
+                               ShowTotalSummary="True"
+                               ShowAutoFilterRow="True" 
+                               RowAnimationKind="None" 
+                               WaitIndicatorType="Panel"
+                               AllowEditing="False">
+
+                        <dxg:TableView.RowCellMenuCustomizations>
+                        </dxg:TableView.RowCellMenuCustomizations>
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+
+                <!--<dxg:GridColumn Header="Year"
+                            FieldName="ApplyDate"
+                            IsSmart="True"
+                            Width="auto" />-->
+                <dxg:GridColumn Header="First Name"
+                            FieldName="person.FName"
+                            IsSmart="True"
+                            Width="auto" />
+
+                <dxg:GridColumn Header="Last Name"
+                            FieldName="person.LName"
+                            IsSmart="True"
+                            Width="auto" />
+                
+                <dxg:GridColumn Header="Allowed Casual"
+                            FieldName="Desig.CasualLeaveDays"
+                            IsSmart="True"
+                            Width="auto"
+                            />
+                <dxg:GridColumn Header="Allowed Annual"
+                            FieldName="Desig.AnnualLeaveDays"
+                            IsSmart="True"
+                            Width="auto" />
+
+                <dxg:GridColumn Header="Allocated Casual"
+                            FieldName="allocatedCasual"
+                            IsSmart="True"
+                            Width="auto"
+                            UnboundType="Integer" 
+                            ReadOnly="True" />
+                <dxg:GridColumn Header="Allocated Annual"
+                            FieldName="allocatedAnnual"
+                            IsSmart="True"
+                            Width="auto" 
+                                UnboundType="Integer" 
+                            ReadOnly="True" />
+
+                <dxg:GridColumn Header="Utilized Casual"      
+                            FieldName="utilizedCasual"
+                            IsSmart="True"          
+                            Width="auto"    UnboundType="Integer" 
+                            ReadOnly="True" />
+
+                <dxg:GridColumn Header="Utilizaed Annual"      
+                            FieldName="utilizaedAnnual"
+                            IsSmart="True"          
+                            Width="auto"    UnboundType="Integer" 
+                            ReadOnly="True" />
+
+                
+
+                <dxg:GridColumn Header="Balance (Casual)"
+                            FieldName="casualBalance"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Integer" 
+                            ReadOnly="True"  />
+
+                <dxg:GridColumn Header="Balance (Annual)"
+                            FieldName="annualBalance"
+                            IsSmart="True"
+                            Width="auto" SortOrder="Ascending" SortIndex="0"  UnboundType="Integer" 
+                            ReadOnly="True" />
+
+                <dxg:GridColumn Header="Adjusted Leaves"
+                            FieldName="adjustedLeaves"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Integer" 
+                            ReadOnly="True"  />
+
+                <dxg:GridColumn Header="Total Balance"
+                            FieldName="totalBalance"
+                            IsSmart="True"
+                            Width="auto" UnboundType="Integer" 
+                            ReadOnly="True"  />
+
+                <!--<dxg:GridColumn x:Name="colstatus"
+                            FieldName="leaveStatus"
+                            Header="Status"
+                            UnboundType="Bound"
+                            Visible ="True"
+                            VisibleIndex="6"  AllowColumnFiltering="Default" ColumnFilterMode="DisplayText">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                                      <TextBlock x:Name="PART_Editor1"
+                                      Width="20"
+                                      Margin="10,0"
+                                      Background="{Binding RowData.Row.leaveStatus.backcolor}"
+                                       />
+                                     </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                                      <TextBlock x:Name="PART_Editor2"
+                                      Text="{Binding RowData.Row.leaveStatus.Status}"/>
+                                      </InlineUIContainer></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+
+                </dxg:GridColumn>-->
+
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <!--<MenuItem Header="Add Allocation"
+                                    x:Name="btnAllocateLeave"
+                                    Click="BtnAllocateLeave_Click"
+                                    IsEnabled="False"
+                                    />-->
+
+                        <MenuItem Header="Add/Edit Allocation"
+                                    x:Name="btnEditAllocation"
+                                    IsEnabled="True"
+                                    Click="BtnEditAllocation_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+            </dxg:GridControl>
+
+           
+        </Grid>
+    </Grid>
+</Window>

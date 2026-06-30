@@ -1,0 +1,371 @@
+﻿<Window xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  x:Class="ZAS_ERP.frmInputBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.BussinessLogicss"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="Input Box" Height="750"  Width="650" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <DrawingImage x:Key="MyImageSource" emoji:Image.Source="👻"/>
+    </Window.Resources>
+
+    <Grid>
+<!--comment added-->
+        <dxlc:LayoutGroup View="GroupBox" Header="Comment">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+
+
+        </Grid.RowDefinitions>
+
+                <Grid Grid.Row="6" Grid.ColumnSpan="2" x:Name="grdRecomendation" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="lblRecommendationHeader" Grid.Row="0" Grid.Column="1" Text="Reply Back Recommendations" FontWeight="DemiBold"   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center"   Text="Tag Recommendations" x:Name="lblTagRecomendation" Margin="10,5"/>
+                    <Grid x:Name="gridRecomended" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="2"    >
+                        <dxe:ComboBoxEdit x:Name="cmbTagRecomendUsers" Grid.Column="0"   Grid.Row="6" VerticalAlignment="Center"
+                                          AutoComplete="True" 
+                                          IncrementalSearch="True" 
+                                          ImmediatePopup="True"
+                                          DisplayMember="userName"
+                                          TabIndex="2" Margin="10">
+                            <dxe:ComboBoxEdit.StyleSettings>
+                                <dxe:TokenComboBoxStyleSettings />
+                            </dxe:ComboBoxEdit.StyleSettings>
+                            <dxe:ComboBoxEdit.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock Text="{Binding id}"
+                                                   Visibility="Hidden" />
+                                        <TextBlock Text="{Binding userName}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </dxe:ComboBoxEdit.ItemTemplate>
+                        </dxe:ComboBoxEdit>
+                    </Grid>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"   HorizontalAlignment="Center"  Text="CC Recommendations" x:Name="lblCCRecomendation"  Margin="10,5"/>
+                    <Grid x:Name="gridCCRecomended" 
+                          Grid.Row="3" 
+                          Grid.Column="1"  
+                          Grid.ColumnSpan="2"
+                           >
+                        <dxe:ComboBoxEdit  Grid.Column="0"   
+                                           Grid.Row="6" 
+                                           x:Name="cmbCCRecomendUsers" 
+                                           VerticalAlignment="Center"                   
+                                           AutoComplete="True" 
+                                           IncrementalSearch="True" 
+                                           ImmediatePopup="True"
+                                           DisplayMember="userName"
+                                           TabIndex="2" 
+                                           Margin="10">
+                            <dxe:ComboBoxEdit.StyleSettings>
+                                <dxe:TokenComboBoxStyleSettings />
+                            </dxe:ComboBoxEdit.StyleSettings>
+                            <dxe:ComboBoxEdit.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel  Orientation="Horizontal">
+                                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                                        <TextBlock Text="{Binding userName}"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </dxe:ComboBoxEdit.ItemTemplate>
+                        </dxe:ComboBoxEdit>
+                    </Grid>
+
+                    <Button Content="Apply Recommendations"
+                Grid.Row="0"
+                            Margin="30,0,30,0"
+                            Grid.Column="2"
+                x:Name="btnRecomendation" 
+                Click="btnRecomendation_Click" TabIndex="3"></Button>
+                </Grid>
+            
+            
+          
+
+               
+
+
+
+                <TextBlock x:Name="lblFlag" Text="Flag" Grid.Row="0" Visibility="Collapsed" Margin="10,5" Grid.Column="0" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="0" VerticalAlignment="Center" Grid.Column="1" Height="30"
+                                        TabIndex="10" x:Name="cmbNotificationFlag" Margin="10,5" Visibility="Collapsed">
+                    <ComboBox.ItemTemplate>
+
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding id}" Visibility="Hidden" />
+                                <!--<TextBlock Text="   " Background="{Binding bcolor}"
+                                                Width="20" Margin="10,0" />-->
+                                <Polygon Points="0,0 15,8, 0,15" Width="25" Margin="5 3 0 0" Height="22" Stroke="{Binding bcolor}" Fill="{Binding bcolor}"/>
+                                <TextBlock Text="{Binding name}" Grid.Column="1" Margin="5 3 0 0"
+                                                Foreground="{Binding fcolor}"
+                                                HorizontalAlignment="Stretch"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed" x:Name="checkBoxesPanel">
+                <dxe:CheckEdit x:Name="chkFlagForTag" Content="Set Flag for Tag"/>
+                    <dxe:CheckEdit x:Name="chkFlagForCC" Content="Set Flag for CC" Margin="30 0 0 0"/>
+                </StackPanel>
+
+                <TextBlock Text="" x:Name="lblMessage" Visibility="Collapsed" Margin="30,10" TextWrapping="WrapWithOverflow"  Grid.ColumnSpan="2"></TextBlock>
+        
+            <TextBlock VerticalAlignment="Center"
+                     Grid.Row="2" Grid.Column="0" Visibility="Collapsed"
+                     Text="Asignee" x:Name="lblAsignee" Margin="10,5"/>
+        <ComboBox x:Name="cmbEmployee"
+                    VerticalAlignment="Top"
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    TabIndex="8"
+                      Margin="10,5"
+                      Visibility="Collapsed"
+                      
+                     >
+            <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel  Orientation="Horizontal">
+                            <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                            <TextBlock Text="{Binding name}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+                <TextBlock VerticalAlignment="Center" Visibility="Collapsed"
+                     Grid.Row="3" Grid.Column="0"
+                     Text="Category" x:Name="lblCategory" Margin="10,5"/>
+        <ComboBox x:Name="cmbCategories"
+                    VerticalAlignment="Top"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    TabIndex="8"
+                      Margin="10,5"
+                  Visibility="Collapsed"
+                     >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                        <TextBlock Text="{Binding name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+                <TextBlock VerticalAlignment="Center" Visibility="Collapsed"
+                     Grid.Row="4" Grid.Column="0"
+                     Text="Subject" x:Name="lblSubject" Margin="10,5"/>
+                <dxe:TextEdit Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow" Visibility="Collapsed"
+                 Grid.Row="4"  x:Name="txtSubject" TabIndex="1" AcceptsTab="True" ></dxe:TextEdit>
+                <TextBlock VerticalAlignment="Center" Visibility="Collapsed"
+                     Grid.Row="5" Grid.Column="0"
+                     Text="Reply to" x:Name="lblReply" Margin="10,5"/>
+
+
+
+                <dxe:TextEdit Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow" Visibility="Collapsed"
+                 Grid.Row="5"  x:Name="txtReply" IsReadOnly="True" TabIndex="1" AcceptsTab="True" ></dxe:TextEdit>
+
+               
+
+
+
+
+
+                <TextBlock Text="Comment" Margin="10,0" 
+                           Grid.Row="7" VerticalAlignment="Center"></TextBlock>
+        <!--<TextBlock Text="Confirm Password"
+                           Grid.Row="2"></TextBlock>-->
+
+
+
+
+                <TextBox Grid.Column="1" Margin="10" FontSize="18" TextWrapping="WrapWithOverflow" SpellCheck.IsEnabled="True" Language="en-US"
+                 Grid.Row="7" AcceptsReturn="True" x:Name="txtComment" MinHeight="50" MinLines="2" TabIndex="1" AcceptsTab="True" ></TextBox>
+                
+            <emoji:Picker Grid.Column="1" Visibility="Collapsed" Grid.Row="6" Margin="0 0 20 20" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontSize="25" Height="40" x:Name="emojiPicker" SelectionChanged="Picker_SelectionChanged"/>
+
+                <TextBlock VerticalAlignment="Center"
+                     Grid.Column="0" x:Name="lblTagUser" Visibility="Collapsed"
+                     Grid.Row="8" HorizontalAlignment="Center"
+                     Text="Tag" />
+                <Grid Grid.Column="1" Grid.Row="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <dxg:LookUpEdit VerticalAlignment="Center" 
+                    x:Name="cmbTagUsers"
+                    Grid.Column="0"   Grid.Row="6"
+                           Visibility="Collapsed"
+                            TabIndex="2" Margin="10" AssignNullValueOnClearingEditText="True"
+                            AutoPopulateColumns="False" 
+                            DisplayMember="userName"
+                            Height="22"
+                            IncrementalSearch="True"
+                                AutoComplete="True" ImmediatePopup="True"
+                                         IncrementalFiltering="True">
+                        <!--<dxg:LookUpEdit.StyleSettings>
+                        <dxg:TokenLookUpEditStyleSettings/>
+                    </dxg:LookUpEdit.StyleSettings>-->
+
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"  AutoGenerateColumns="None"
+                                                          
+                                                             Grid.Row="1">
+                                        <dxg:GridControl.View>
+                                            <dxg:TableView AllowPerPixelScrolling="True" 
+                                                               ShowTotalSummary="True"
+                                                               ShowAutoFilterRow="True" 
+                                                               RowAnimationKind="None" 
+                                                                WaitIndicatorType="Panel"
+                                                                AllowEditing="False"
+                                                               
+                                                    Name="tblViewLandTypeLst"/>
+                                        </dxg:GridControl.View>
+
+                                        <dxg:GridColumn MaxWidth="60" Header="Photo"  FieldName="employee.person.Photo" HorizontalHeaderContentAlignment="Center" >
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:ImageEditSettings ShowMenu="False" MaxWidth="40" HorizontalContentAlignment="Center" />
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
+
+                                        <dxg:GridColumn Header="User Name"
+                                                            FieldName="userName"
+                                                            IsSmart="True"
+                                                            Width="auto" />
+
+
+
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+
+                    </dxg:LookUpEdit>
+                    <Button Visibility="Collapsed" Content="Clear" Grid.Column="1" Height="25" FontWeight="DemiBold" x:Name="btnClearTagUser" Click="btnClearTagUser_Click"/>
+                </Grid>
+               
+                <!--<dxe:ComboBoxEdit VerticalAlignment="Center" 
+                 
+                    Grid.Column="1" Visibility="Collapsed"
+                    Grid.Row="6" 
+                    AutoComplete="True" 
+                    IncrementalSearch="True" 
+                    ImmediatePopup="True"
+                          ItemsSource="{Binding taggedUsers}"
+                          DisplayMember="userName"
+                    TabIndex="2" Margin="10" 
+                   >
+            <dxe:ComboBoxEdit.StyleSettings>
+                <dxe:TokenComboBoxStyleSettings />
+            </dxe:ComboBoxEdit.StyleSettings>
+            <dxe:ComboBoxEdit.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                        <TextBlock Text="{Binding userName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </dxe:ComboBoxEdit.ItemTemplate>
+        </dxe:ComboBoxEdit>-->
+        <TextBlock VerticalAlignment="Center"
+                     Grid.Column="0" x:Name="lblCCUser" Visibility="Collapsed"
+                     Grid.Row="9" HorizontalAlignment="Center"
+                     Text="CC" />
+        <dxe:ComboBoxEdit VerticalAlignment="Center"
+                    x:Name="cmbCCUsers"
+                    Grid.Column="1" Visibility="Collapsed"
+                    Grid.Row="9" AutoComplete="True" 
+    IncrementalSearch="True" 
+    ImmediatePopup="True"
+                          DisplayMember="userName"
+                    TabIndex="2" Margin="10"
+                   >
+            <dxe:ComboBoxEdit.StyleSettings>
+                <dxe:TokenComboBoxStyleSettings />
+            </dxe:ComboBoxEdit.StyleSettings>
+            <dxe:ComboBoxEdit.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="{Binding id}"
+                             Visibility="Hidden" />
+                        <TextBlock Text="{Binding userName}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </dxe:ComboBoxEdit.ItemTemplate>
+        </dxe:ComboBoxEdit>
+
+                <Grid Grid.Row="10" x:Name="grdReferences" Visibility="Collapsed" Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="10,10,10,10">
+                <TextBlock x:Name="lblBillsRef" Text="Bill System References" />
+                <dxe:ComboBoxEdit x:Name="cmbBillReferences"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="10,10,10,10">
+                <TextBlock x:Name="lblPurchaseOrderRef" Text="PO System References" />
+                <dxe:ComboBoxEdit x:Name="cmbPOReferences"/>
+            </StackPanel>
+        </Grid>
+        <Button Content="Save"
+                Grid.Row="11" Grid.ColumnSpan="2"
+                FontSize="18"
+                x:Name="btnSave" 
+                Click="BtnSave_Click" TabIndex="3"></Button>
+        </Grid>
+        </dxlc:LayoutGroup>
+    </Grid>
+</Window>

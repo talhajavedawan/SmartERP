@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="ZAS_ERP.ToDoTasks.UserControls.ucFrmToDoTaskStatus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.UserControls"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="300"
+             Loaded="UserControl_Loaded">
+    <Grid Margin="0,20,0,0">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin"
+                Value="5,0" />
+                <Setter Property="Foreground"
+                Value="Black"/>
+                <Setter Property="VerticalAlignment"
+                Value="Center" />
+                <Setter Property="FontSize"
+                Value="10" />
+            </Style>
+            <Style TargetType="TextBox">
+
+                <Setter Property="Margin"
+                Value="0 10 0 10" />
+                <Setter Property="MaxWidth"
+                Value="350" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=" auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=" auto" />
+            <RowDefinition Height=" auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="Status"
+           ToolTip="Status Name"
+           HorizontalAlignment="Right" />
+        <Label Content="Status Color"
+           ToolTip="Select Color of status"
+           HorizontalAlignment="Right"
+           Grid.Row="1" />
+
+        <Label Content="Open"
+           ToolTip="Open/Closed Status"
+           HorizontalAlignment="Right"
+           Grid.Row="2" />
+
+        <Label Content="For Step"
+           ToolTip="Check to Use for Step"
+           HorizontalAlignment="Right"
+           Grid.Row="3" />
+
+        <TextBox x:Name="txtStatus"
+             Grid.Column="1" />
+        <Grid Grid.Column="1"
+          Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <dxe:PopupColorEdit Margin="0 10 0 10"
+                          HorizontalAlignment="Stretch"
+                          ColorChanged="ColorEdit_ColorChanged"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          x:Name="cpStatus" />
+        </Grid>
+        
+        <CheckBox x:Name="chkisactive"
+                Margin="0 10 0 10"
+                IsChecked="True" VerticalAlignment="Center" Visibility="Visible" Grid.Row="2" Grid.Column="1"/>
+
+        <Grid Grid.Row="3" Grid.Column="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="chkForStep"
+                  Margin="0 10 0 10"
+                  VerticalAlignment="Center" 
+                  Visibility="Visible" 
+                  Grid.Row="3" 
+                  Grid.Column="0"
+                  Checked="ChkForStep_Checked"
+                  Unchecked="ChkForStep_Unchecked"/>
+
+            <Label Content="For Task"
+           ToolTip="Check to Use for Task"
+           Grid.Column="1"/>
+
+            <CheckBox x:Name="chkForTast"
+                  Margin="0 10 0 10"
+                  VerticalAlignment="Center" 
+                  Visibility="Visible" 
+                  Grid.Row="3" 
+                  Grid.Column="2"/>
+        </Grid>
+
+        
+
+        <Label Content="Min %age"
+               x:Name="lblMinPercentage"
+               Grid.Row="4"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Visibility="Visible"/>
+
+        <Grid Grid.Row="4" Grid.Column="1" x:Name="grdPercentage">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <dxe:TextEdit x:Name="txtMinPercentage" 
+                      Grid.Row="4" 
+                      Margin="0 10 0 10"
+                      Mask="n0" 
+                      MaskType="Numeric" 
+                      Text="0"
+                      MaskUseAsDisplayFormat="True"
+                      Visibility="Visible"/>
+
+            <Label Content="Max %age"
+               x:Name="lblMaxPercentage"
+               Grid.Column="1"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Right"
+               Visibility="Visible"/>
+
+            <dxe:TextEdit x:Name="txtMaxPercentage" 
+                      Grid.Column="2"
+                      Margin="0 10 0 10"
+                      Mask="n0" 
+                      MaskType="Numeric" 
+                      Text="0"
+                      MaskUseAsDisplayFormat="True"
+                      Visibility="Visible"/>
+
+        </Grid>
+       
+
+        <Button Grid.ColumnSpan="2"
+            Grid.Row="5"
+            Content="Save"
+            FontSize="26"
+                VerticalAlignment="Bottom"
+            x:Name="btnStatusSave"
+            Click="btnStatusSave_Click" />
+    </Grid>
+</UserControl>

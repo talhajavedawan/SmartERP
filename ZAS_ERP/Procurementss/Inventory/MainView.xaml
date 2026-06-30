@@ -1,0 +1,16 @@
+﻿<dx:ThemedWindow
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+    x:Class="ZAS_ERP.Procurementss.Inventory.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Inventory"
+        xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="Inventory Center" Height="450" Width="800"  Loaded="ThemedWindow_Loaded" WindowStartupLocation="CenterScreen" WindowState="Maximized" TitleAlignment="Center" WindowKind="Ribbon"  >
+    <Grid>
+        <dxwui:NavigationFrame  Source="ucInventory" AnimationType="SlideHorizontal"/>
+    </Grid>
+</dx:ThemedWindow>

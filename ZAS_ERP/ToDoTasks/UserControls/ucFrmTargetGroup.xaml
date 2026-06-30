@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="ZAS_ERP.ToDoTasks.UserControls.ucFrmTargetGroup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.ToDoTasks.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="350" d:DesignWidth="500">
+    <Grid>
+        <!--comment-->
+        <dxlc:LayoutGroup View="GroupBox" Header="Group Level">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <dxlc:LayoutItem Label="Level Name: " VerticalAlignment="Center">
+                    <dxe:TextEdit x:Name="txtTargetGroup"/>
+                </dxlc:LayoutItem>
+
+                <dxlc:LayoutItem Label="Parent Group: " Grid.Row="1" VerticalAlignment="Center">
+                    <dxg:LookUpEdit x:Name="lookUpTargetGroup" 
+                                                IsTextEditable="False" 
+                                                DisplayMember="GroupName" 
+                                                Grid.Row="5" 
+                                                Grid.Column="1" 
+                                                Margin="0 2 0 0"
+                                    AllowNullInput="True"
+                                    AutoPopulateColumns="False">
+                        <dxg:LookUpEdit.PopupContentTemplate>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <dxg:GridControl Name="PART_GridControl"
+                                                             AutoPopulateColumns="True"
+                                                             Grid.Row="1">
+                                        <dxg:GridControl.View>
+                                            <dxg:TreeListView Name="treeListView1"
+                                                                      KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  TreeDerivationMode="Selfreference"
+                                  AutoExpandAllNodes="True"
+                                  IsSynchronizedWithCurrentItem="True"
+                                  AllowEditing="False"
+                                  UseIndicatorForSelection="True"
+                                  FadeSelectionOnLostFocus="False"
+                                  ShowAutoFilterRow="True"/>
+                                        </dxg:GridControl.View>
+                                        <dxg:GridColumn FieldName="Id"
+                                                        Header="Group Name"
+                                                        AllowEditing="false"
+                                                        Visible="False"/>
+
+                                        <dxg:GridColumn FieldName="GroupName"
+                                                        Header="Group Name"
+                                                        AllowEditing="false"
+                                                        Visible="True"
+                                                        VisibleIndex="1"/>
+
+                                        <dxg:GridColumn FieldName="forStep"
+                                                        Header="For Step"
+                                                        AllowEditing="false"
+                                                        Visible="True"
+                                                        VisibleIndex="2"/>
+                                    </dxg:GridControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </dxg:LookUpEdit.PopupContentTemplate>
+                    </dxg:LookUpEdit>
+                </dxlc:LayoutItem>
+
+                <Button Content="Save" x:Name="btnSave" Click="BtnSave_Click" Grid.Row="3"/>
+            </Grid>
+        </dxlc:LayoutGroup>
+    </Grid>
+</UserControl>

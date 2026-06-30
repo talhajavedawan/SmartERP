@@ -1,0 +1,238 @@
+﻿<dx:DXWindow  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="ZAS_ERP.Procurementss.SaleInvoicess.winSICustomerCredits"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.SaleInvoicess" 
+                     xmlns:loc="clr-namespace:ZAS_ERP"
+
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        mc:Ignorable="d"
+        Title="Customer Credits Report" WindowState="Maximized" WindowStartupLocation="CenterScreen" Height="450" Width="800" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <loc:MyConv x:Key="valueconverter"></loc:MyConv>
+        <!---->
+    </Window.Resources>
+    <Grid> 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="Customer Credits Report"/>
+        <dxg:GridControl x:Name="grdCustomerCredits"                        
+                                 Grid.Row="1" 
+                                 AutoGenerateColumns="None"
+                                 SelectionMode="Row"
+                                 DataContext="customerCredits"
+                                 AutoExpandAllGroups="True"
+                                 CustomUnboundColumnData="grid_CustomUnboundColumnData"   
+                                 MouseDoubleClick="grdCustomerCredits_MouseDoubleClick"
+                                 IsRecursiveExpand="True"
+                                 AllowInitiallyFocusedRow="False" >
+            <dxg:GridControl.View>
+                <dxg:TableView       
+                            x:Name="grdCustomerCreditsView"  
+                            ShowGroupPanel="True"
+                           NewItemRowPosition="Bottom"
+                           
+                           ShowTotalSummary="True"
+                           ShowHorizontalLines="True"
+                            ShowFixedTotalSummary="True"
+                           ShowVerticalLines="True">
+                </dxg:TableView>
+
+            </dxg:GridControl.View>
+            <dxg:GridColumn FieldName="SaleInvoice.company.CompanyName"
+                            VisibleIndex="0"
+                          Header="Company"
+                            ReadOnly="True"
+                          IsSmart="True"/>
+            <dxg:GridColumn FieldName="SaleInvoice.department.DeptName"
+                            VisibleIndex="0"
+                          Header="Department"
+                            ReadOnly="True"
+                          IsSmart="True"/>
+            <dxg:GridColumn x:Name="colVendor"
+                      FieldName="Vendorss"
+                      Header="Vendor"
+                      UnboundType="string"
+                      Visible ="True"
+                            AllowEditing="false"
+                      VisibleIndex="9"/>
+            <dxg:GridColumn FieldName="SaleInvoice.principal.company.CompanyName"
+                            VisibleIndex="0"
+                          Header="Principal"
+                            ReadOnly="True"
+                          IsSmart="True"/>
+
+            <dxg:GridColumn FieldName="CustomerCompany.company.CompanyName"
+                            VisibleIndex="0"
+                          Header="Customer"
+                            ReadOnly="True"
+                          IsSmart="True"/>
+            <dxg:GridColumn FieldName="SaleInvoice.offerReferenceNo"
+                            VisibleIndex="1"
+                          Header="Reference No."
+                            ReadOnly="True"
+                          IsSmart="True"/>
+
+            <dxg:GridColumn FieldName="SaleInvoice.BatchRefrenceNo"
+                            VisibleIndex="1"
+                          Header="Batch Ref No."
+                            ReadOnly="True"
+                          IsSmart="True"/>
+
+            <dxg:GridColumn x:Name="creditAmount"
+                            FieldName="creditAmount" 
+                            ReadOnly="True"
+                          Header="Credit Amount" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn x:Name="collectedCustomerCredit"
+                            FieldName="collectedCustomerCredit"
+                            ReadOnly="True"
+                            ColumnFilterMode="DisplayText"
+                            UnboundType="decimal"
+                          Header="Collected Amount" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn x:Name="balanceCustomerCredit"
+                            FieldName="balanceCustomerCredit"
+                                    ReadOnly="True"
+                            ColumnFilterMode="DisplayText"
+                            UnboundType="decimal"
+                          Header="Balance Amount" >
+                <dxg:GridColumn.EditSettings>
+                    <dxe:TextEditSettings MaskType="Numeric" Mask="n2" MaskUseAsDisplayFormat="True"/>
+                </dxg:GridColumn.EditSettings>
+            </dxg:GridColumn>
+            <dxg:GridColumn x:Name="colstatusClass"
+                      FieldName="SaleInvoice.StatusClass.ClassName"
+                      Header="Status Class"
+                      UnboundType="Bound"
+                     Visible ="True"
+                      >
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.SaleInvoice.StatusClass.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.SaleInvoice.StatusClass.ClassName}"/>
+                  </InlineUIContainer></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn x:Name="colstatus"
+                      FieldName="SaleInvoice.saleInvoiceStatus.Status"
+                      Header="Status"
+                      UnboundType="Bound"
+                     Visible ="True"
+                      VisibleIndex="6"  >
+                <dxg:GridColumn.CellTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="PART_Editor"><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor1"
+                          Width="20"
+                          Margin="10,0"
+                          Background="{Binding RowData.Row.SaleInvoice.saleInvoiceStatus.backcolor}"
+                           />
+                  </InlineUIContainer><Run Text=" "/><InlineUIContainer>
+                      <TextBlock x:Name="PART_Editor2"
+                          Text="{Binding RowData.Row.SaleInvoice.saleInvoiceStatus.Status}"/>
+                  </InlineUIContainer></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </dxg:GridColumn.CellTemplate>
+            </dxg:GridColumn>
+            <dxg:GridColumn Header="Offer Reference"
+                            FieldName="SaleInvoice.offerReferenceNo"
+                            IsSmart="True"
+                             />
+            <dxg:GridColumn Header="SO Reference"
+                            FieldName="SaleInvoice.referenceNo"
+                            IsSmart="True"
+                             />
+            <dxg:GridColumn Header="SO Date"
+                            FieldName="SaleInvoice.SaleOrder.CreationDate"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="SO Delivery Date"
+                            FieldName="SaleInvoice.SaleOrder.deliveryDate"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="PaymentTerm"
+                            FieldName="SaleInvoice.paymentTerm.term"
+                            IsSmart="True"
+                             />
+            <dxg:GridColumn Header="Own Description"
+                            FieldName="SaleInvoice.OwnDescription"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="Finance Refrence No"
+                            FieldName="SaleInvoice.FinanceRefrenceNo"
+                            IsSmart="True"
+                             />
+
+            <dxg:GridColumn Header="Payment Due Start Date"
+                            FieldName="SaleInvoice.PaymentDueStartDate"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="Credit Days"
+                            FieldName="SaleInvoice.CreditDays"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="Payment Due Ageing"
+                            FieldName="SaleInvoice.PaymentDueAgeing"
+                            IsSmart="True"
+                           />
+            <dxg:GridColumn Header="Expected Collection Date"
+                            FieldName="SaleInvoice.ExpectedPayment"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="ED Days Left"
+                            FieldName="EdDaysLeft"
+                            UnboundType="Decimal"
+                            IsSmart="True"
+                            />
+            <dxg:GridColumn Header="Maker"
+                            FieldName="SaleInvoice.maker"
+                            IsSmart="True"
+                            Width="auto" />
+            <dxg:GridColumn Header="Origin"
+                            FieldName="SaleInvoice.origin"
+                            IsSmart="True"
+                            Width="auto" />  
+            <dxg:GridColumn Header="Batch No."
+                            FieldName="SaleInvoice.BatchRefrenceNo"
+                            IsSmart="True"
+                            Width="auto" />
+            <dxg:GridControl.TotalSummary >
+                <dxg:GridSummaryItem FieldName="creditAmount" SummaryType="Sum" DisplayFormat="{}{0:n2}" />
+                <dxg:GridSummaryItem FieldName="collectedCustomerCredit" SummaryType="Sum" DisplayFormat="{}{0:n2}" />
+                <dxg:GridSummaryItem FieldName="balanceCustomerCredit" SummaryType="Sum" DisplayFormat="{}{0:n2}" />
+
+            </dxg:GridControl.TotalSummary>
+        </dxg:GridControl>
+    </Grid>
+</dx:DXWindow>

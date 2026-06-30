@@ -1,0 +1,66 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.ModuleContract.frmModuleContractStatusList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.ModuleContract"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        mc:Ignorable="d"
+        Title="Module Contract Statuses List"
+        x:Name="winModuleContractStatusList"
+        Loaded="winModuleContractStatusList_Loaded"
+        Unloaded="WinModuleContractStatusList_Unloaded"
+        Height="450"
+        Width="450">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+                <MenuItem Header="_ModuleContract Status"
+                  x:Name="mbtnModuleContractStatus">
+                    <MenuItem Header="Add new ModuleContract Status"
+                    x:Name="mbtnNewModuleContractStatus"
+                    Click="mbtnNewModuleContractStatus_Click"></MenuItem>
+                    <MenuItem Header="Edit ModuleContract Status"
+                    x:Name="mbtnEditModuleContractStatus"
+                    Click="mbtnEditModuleContractStatus_Click"></MenuItem>
+                </MenuItem>
+
+            </Menu>
+
+            <dxg:GridControl x:Name="grdModuleContractStatus"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdModuleContractStatus_MouseDoubleClick"
+                       
+                       >
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewModuleContractStatus"
+                      Click="mbtnNewModuleContractStatus_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditModuleContractStatus"
+                      Click="mbtnEditModuleContractStatus_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+            </dxg:GridControl>
+
+        </Grid>
+    </Grid>
+</Window>

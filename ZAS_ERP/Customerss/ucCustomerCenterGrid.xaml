@@ -1,0 +1,154 @@
+﻿<UserControl x:Class="ZAS_ERP.Customerss.ucCustomerCenterGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Customerss"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <dxr:RibbonControl Grid.Row="0" DockPanel.Dock="Top"  RibbonStyle="TabletOffice" PageCategoryAlignment="Left" ToolbarShowMode="Hide" MinimizationButtonVisibility="Visible">
+                <dxr:RibbonDefaultPageCategory>
+                    <dxr:RibbonPage x:Name="lblHeading"  Caption="Customer center" ToolTip="Customer center">
+                        <dxr:RibbonPageGroup  Caption="Clipboard">
+                            <dxb:BarButtonItem x:Name="mbtnAddNew" Content="Add New" ItemClick="MbtnAddNew_ItemClick" Glyph="{dx:DXImage Image=AddNewDataSource_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                            <dxb:BarButtonItem x:Name="mbtnUpdate" Content="Update" ItemClick="MbtnUpdate_ItemClick" Glyph="{dx:DXImage Image=EditDataSource_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                            <dxb:BarButtonItem x:Name="mbtnSaveLayout" Content="Save Layout" ItemClick="MbtnSaveLayout_ItemClick" LargeGlyph="{dx:DXImage Image=Paste_32x32.png}" Glyph="{dx:DXImage Image=Paste_16x16.png}"/>
+                            <!--<dxb:BarButtonItem x:Name="btnRename" Content="Rename" ItemClick="MbtnRenameReport1_Click" Glyph="{dx:DXImage Image=Edit_32x32.png}" />-->
+
+                            <dxb:BarButtonItem x:Name="mbtnRefresh" Content="Refresh" ItemClick="MbtnRefresh_Click" Glyph="{dx:DXImage Image=Refresh2_32x32.png}" LargeGlyph="{dx:DXImage Image=Refresh2_32x32.png}"/>
+                            <dxb:BarItemSeparator/>
+
+
+                            <dxb:BarButtonItem x:Name="mbtnAddContact" Content="Add Contact Person" ItemClick="MbtnAddContactPerson_Click" Glyph="{dx:DXImage Image=AddNewDataSource_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                            <dxb:BarButtonItem  Content="View Contact Person" ItemClick="MbtnViewContact_ItemClick" Glyph="{dx:DXImageGrayscale Image=Show_32x32.png}"/>
+                        </dxr:RibbonPageGroup>
+
+                    </dxr:RibbonPage>
+                </dxr:RibbonDefaultPageCategory>
+            </dxr:RibbonControl>
+
+
+        </Grid>
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid  HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <dx:SimpleButton x:Name="btnCollaps" Margin="0,0,20,2"  Cursor="Hand"  Content="Collaps All" Grid.Column="0" Click="BtnCollaps_Click" />
+                <dx:SimpleButton x:Name="btnExpand" Margin="0,0,20,2"  Cursor="Hand" Content="Expand All"  Grid.Column="1" Click='BtnExpand_Click' />
+            </Grid>
+
+            <TextBlock  Text="Customer Center Register" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" FontFamily="Segoe UI Semibold" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="307*"/>
+                <ColumnDefinition Width="493*"/>
+            </Grid.ColumnDefinitions>
+            <dxg:GridControl 
+            AutoGenerateColumns="None"
+            EnableSmartColumnsGeneration="True"
+            Name="grdCutomerCompanies" Grid.ColumnSpan="2" Margin="0,0,0,-0.4"
+           
+                             >
+
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Click="btnNewCustomer_Click" Header="Add New" x:Name="btnNewCustomer" />
+                        <MenuItem Click="btnEditCustomer_Click" Header="Edit Company" x:Name="btnEditCustomer" />
+
+
+                        <Separator />
+                        <MenuItem Header="Add Contact Person"
+                                  Click="Add_New_ContactClick">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/14.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="View Contact Person"
+                                  Click="View_contact_person_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/14.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+
+
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.View>
+                    <dxg:TreeListView MouseDoubleClick="TreeListView1_MouseDoubleClick" TreeDerivationMode="Selfreference" 
+                                                          CustomUnboundColumnData="TreeListView1_CustomUnboundColumnData"
+                                                          ShowSearchPanelMode="Always" ShowSelectionRectangle="True" ParentFieldName="ParentID" 
+                                                          x:Name="treeListView1" KeyFieldName="Id" FilterMode="Smart" FadeSelectionOnLostFocus="False" 
+                                                           AutoExpandAllNodes="False" AllowDragDrop="True"
+                                                          AutoPopulateServiceColumns="True" AllowEditing="False"/>
+                </dxg:GridControl.View>
+
+
+
+
+
+                <dxg:GridColumn Visible="False" x:Name="colId" IsSmart="True" FieldName="Id" ShowInColumnChooser="False" />
+                <!--<dxg:GridColumn Visible="False" x:Name="colId" IsSmart="True" FieldName="Id" ShowInColumnChooser="False" />-->
+                <dxg:GridColumn IsSmart="True" Header="Customer Company" FieldName="company.CompanyName" />
+
+
+
+                <dxg:GridColumn  x:Name="colDepartm"  Header="Linked Department" UnboundType="String" FieldName="linkedDepartmentsss"  />
+                <dxg:GridColumn Header="Linked Companies"  UnboundType="String" FieldName="linkedCompaniesss" />
+                <dxg:GridColumn    Header="Multiple industry" UnboundType="String" FieldName="multiIndustry" />
+
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Currency" FieldName="company.currency.CurrencyName" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Business Type" FieldName="company.BizType" SortOrder="Descending" SortIndex="0" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Industry Type" FieldName="company.industryType.name" />
+
+
+
+                <dxg:GridColumn  Visible="True" x:Name="colcontactno" IsSmart="True" Header="Phone" FieldName="contact.ContactNo" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Email" FieldName="contact.Email" />
+
+                <dxg:GridColumn Visible="False" x:Name="colFax" IsSmart="True" Header="Fax" FieldName="contact.Fax" />
+                <dxg:GridColumn Visible="False" x:Name="colEmail" IsSmart="True" Header="Email" FieldName="contact.Email" />
+
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping Address" FieldName="shippingAddress.Line1" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping Country" FieldName="shippingAddress.Country" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping City" FieldName="shippingAddress.City" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping State" FieldName="shippingAddress.State" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Shipping Region" FieldName="shippingAddress.region" />
+
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing Address" FieldName="billingAddres.Line1" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing Country" FieldName="billingAddres.Country" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing City" FieldName="billingAddres.City" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing State" FieldName="billingAddres.State" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Billing Region" FieldName="billingAddres.region" />
+
+
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="VAT" FieldName="company.CustomerVAT" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="Sale Tax Registration" FieldName="company.SaleTaxRegistrationNumber" />
+                <dxg:GridColumn Visible="True"  IsSmart="True" Header="NTN Number" FieldName="company.EmployeerNo" />
+
+                <dxg:GridColumn Visible="False" x:Name="colFname" IsSmart="True" Header="First Name" FieldName="contactPerson.FName" ShowInColumnChooser="False" />
+                <dxg:GridColumn Visible="False" x:Name="colLname" IsSmart="True" Header="Last Name" FieldName="contactPerson.LName" ShowInColumnChooser="False"/>
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,88 @@
+﻿<dx:DXWindow x:Class="ZAS_ERP.Procurementss.SaleOrderss.UserControls.ucSelectParentSOKey"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.SaleOrderss.UserControls" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        mc:Ignorable="d"
+        Title="ucSelectParentSOKey" Height="450" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+
+        <TextBlock x:Name="lblHeading" Text= "Select SO Reference Key" Background="White" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+        <Grid Background="White" Grid.Row="2" Height="auto">
+            <dxg:GridControl x:Name="grdRefKeys"
+                    
+                     Grid.Row="4"
+                     Grid.ColumnSpan="3"
+                     SelectionMode="Row"
+                     AutoGenerateColumns="None"
+                     ShowLoadingPanel="False"
+                    >
+
+                <dxg:GridControl.View>
+                    <dxg:TableView x:Name="tableView"
+                       
+                       ColumnFilterPopupMode="Excel"
+                       NavigationStyle="Row"
+                       ShowAutoFilterRow="True"
+                      ShowCheckBoxSelectorColumn="True"
+                       RowAnimationKind="None" WaitIndicatorType="Panel"
+                       AlternateRowBackground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"              
+                       ShowFixedTotalSummary="True"
+                       ShowTotalSummary="True"
+                               >
+
+
+                    </dxg:TableView>
+                </dxg:GridControl.View>
+                <dxg:GridColumn Header="Key Date"
+                            FieldName="keyDate"
+                            Visible="True"
+                                VisibleIndex="0"
+                            />
+                <dxg:GridColumn Header="key"
+                            FieldName="key"
+                            Visible="True"
+                                VisibleIndex="1"
+                            />
+                <dxg:GridColumn Header="Company"
+                            FieldName="Company.CompanyName"
+                                VisibleIndex="2"
+                            Visible="True"
+                            />
+            
+                <dxg:GridColumn Header="Department"
+                            FieldName="department.DeptName"
+                            Visible="True"
+                                VisibleIndex="3"
+                            />
+                <dxg:GridColumn Header="Creator"
+                            FieldName="Creator"
+                                VisibleIndex="4"
+                            />
+                <dxg:GridColumn Header="Amount(OC)"
+                            FieldName="amountOC"
+                                VisibleIndex="6"
+                            />  
+                <dxg:GridColumn Header="Sales Ref#"
+                            FieldName="salesRefNo"
+                                VisibleIndex="5"
+                            />
+
+
+           
+
+      
+
+            </dxg:GridControl>
+        </Grid>
+        <dx:SimpleButton x:Name="btnContinue" Content="Continue" Grid.Row="3" Click="btnContinue_Click"/>
+    </Grid>
+</dx:DXWindow>

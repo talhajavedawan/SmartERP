@@ -1,0 +1,61 @@
+﻿<Window x:Class="ZAS_ERP.Employee.winAddFunctionList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Employee"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="Add Function"        Height="450"
+        Width="450" Loaded="Window_Loaded">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="124*" />
+                <ColumnDefinition Width="273*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+            <Menu
+            x:Name="menuFormList"
+            Grid.ColumnSpan="2" Margin="0,0,0.286,0.286">
+                <MenuItem Header="Function"
+                  x:Name="mbtnFunction">
+                    <MenuItem Header="Add Function"
+                    x:Name="mbtnNewFunction"
+                    Click="MbtnNewFunction_Click"></MenuItem>
+                    <!--<MenuItem Header="Edit Asset Status"
+                    x:Name="mbtnEditAssetStatus"
+                    Click=""></MenuItem>-->
+                </MenuItem>
+
+            </Menu>
+
+            <dxg:GridControl x:Name="grdFunctionsLst"
+                       AutoGenerateColumns="AddNew"
+                       SelectionMode="Row" Grid.ColumnSpan="2" 
+                       Margin="0,18,0.286,-0.286" Grid.RowSpan="2"
+                      
+                       >
+                <dxg:GridControl.View>
+                    <dxg:TableView AllowEditing="False"
+                                    />
+                </dxg:GridControl.View>
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewFunction"
+                      Click="BtnNewFunction_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditFunction"
+                      Click="BtnEditFunction_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+            </dxg:GridControl>
+
+        </Grid>
+    </Grid>
+</Window>

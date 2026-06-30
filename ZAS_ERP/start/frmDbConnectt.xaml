@@ -1,0 +1,44 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.start"
+          xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+    x:Class="ZAS_ERP.start.frmDbConnectt"
+        utilities:WindowUtilities.CloseOnEscape="True"
+         WindowStartupLocation="CenterScreen"
+          WindowStyle="None"
+          AllowsTransparency="True"
+            
+        mc:Ignorable="d"
+        Title="frmDbConnectt" Height="430" Width="330" Loaded="Window_Loaded">
+    <Grid>
+        <Frame x:Name="main" Grid.Row="0" NavigationUIVisibility="Hidden"/>
+        <dxb:MainMenuControl x:Name="grdMenu" Caption="Machine Authentication" Visibility="Collapsed" BarItemDisplayMode="Content" >
+            <dxb:BarButtonItem x:Name="barLanAuthentication" Content="LAN Authentication" ItemClick="barLanAuthentication_ItemClick"/>
+            <dxb:BarButtonItem x:Name="barRDCAuthentication" Content="RDC Authentication" ItemClick="barRDCAuthentication_ItemClick"/>
+        </dxb:MainMenuControl>
+        <Button 
+                Background="AliceBlue" 
+                x:Name="btnlogindb"
+                Margin="0,310,0,60" 
+                Click="btnlogindb_Click"
+                Width="70" Height="25"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom" Visibility="Hidden">
+            <Image HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch" Source="{dx:DXImageOffice2013 Image=DoubleNext_32x32.png}"/>
+        </Button>
+        <dxe:ButtonClose Grid.Column="2"
+                       x:Name="btnclose"
+                       Click="btncloseclick"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"/>
+
+
+    </Grid>
+
+</Window>

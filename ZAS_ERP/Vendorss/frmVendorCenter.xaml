@@ -1,0 +1,453 @@
+﻿<Window x:Class="ZAS_ERP.Vendorss.frmVendorCenter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Vendorss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        mc:Ignorable="d"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        utilities:WindowUtilities.CloseOnEscape="True"
+        WindowStartupLocation="CenterScreen"
+        Title="Vendor Center"
+        Height="550"
+        Width="900"
+        x:Name="winVendorCenter"
+        Unloaded="WinVendorCenter_Unloaded"
+        Loaded="winVendorCenter_Loaded">
+  <Grid>
+    <DockPanel>
+      <Grid>
+        <Grid.Resources>
+          <Style TargetType="{x:Type Label}">
+            <Setter Property="Margin"
+                    Value="10,0" />
+            <Setter Property="Foreground"
+                    Value="Gray" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center"></Setter>
+          </Style>
+          <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment"
+                    Value="Left"></Setter>
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="10,0" />
+          </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+          <RowDefinition MinHeight="25"
+                         Height="1*"
+                         MaxHeight="35" />
+          <RowDefinition Height="7*" />
+          <RowDefinition Height="5" />
+          <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="1.5*"
+                            MinWidth="280" />
+          <ColumnDefinition Width="5" />
+          <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="3">
+          <dxb:MainMenuControl Height="30"
+                               VerticalAlignment="Top"
+                               BarItemDisplayMode="ContentAndGlyph">
+            <dxb:BarSubItem Content="Add new"
+                            x:Name="mbtnaddcomp"
+                            
+                            Glyph="/ZAS_ERP;component/images/appbar.user.add.png">
+              <dxb:BarButtonItem Content="Add new"
+                                 ItemClick="mbtnaddcomp_ItemClick"
+                                 Glyph="/ZAS_ERP;component/images/appbar.user.add.png" />
+              <dxb:BarButtonItem  Content="New Transactions"></dxb:BarButtonItem>
+            </dxb:BarSubItem>
+            <dxb:BarSubItem Content="New Transactions">
+              <dxb:BarButtonItem x:Name="btnestimates"
+                                 Content="Estimates" />
+              <dxb:BarButtonItem x:Name="btnsalesOrders"
+                                 Content="New" />
+            </dxb:BarSubItem>
+          </dxb:MainMenuControl>
+        </DockPanel>
+        <DockPanel Grid.Row="1"
+                   Grid.RowSpan="3"
+                   Grid.Column="0">
+          <dx:DXTabControl>
+            <dx:DXTabItem Header="Vendors">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  
+                  <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height=".1*" />
+                  <RowDefinition Height="1.4*" />
+                </Grid.RowDefinitions>
+                <dx:DXDockPanel Grid.Row="0"
+                                Grid.ColumnSpan="3">
+                  <dx:DropDownButton HorizontalAlignment="Right"
+                                     MinWidth="210" />
+                  <dx:SimpleButton Content="GO"
+                                   HorizontalAlignment="Right" />
+                </dx:DXDockPanel>
+                <dxg:GridControl x:Name="grdVendorcompanies"
+                                 Grid.Row="1"
+                                 Grid.ColumnSpan="3" >
+                  <dxg:GridControl.View>
+                                        <dxg:TreeListView  TreeDerivationMode="Selfreference" 
+                                                          
+                                                          ShowSearchPanelMode="Always" ShowSelectionRectangle="True" ParentFieldName="ParentID" 
+                                                          x:Name="treeListView1" KeyFieldName="Id" FilterMode="Extended" FadeSelectionOnLostFocus="False" 
+                                                          ColumnFilterPopupMode="Excel" AutoExpandAllNodes="True" 
+                                                          AutoPopulateServiceColumns="True" AllowEditing="False" />
+                                    </dxg:GridControl.View>
+                  <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                      <MenuItem Header="Add New"
+                                x:Name="btnNewVendor"
+                                Click="btnNewVendor_Click" />
+                      <MenuItem Header="Edit Company"
+                                x:Name="btnEditVendor"
+                                Click="btnEditVendor_Click" />
+                      <Separator />
+                      <MenuItem Header="Delete Vendor"
+                                x:Name="btnDeleteVendor"
+                                />
+                    </ContextMenu>
+                  </dxg:GridControl.ContextMenu>
+                  <dxg:GridColumn x:Name="colId"
+                                  FieldName="Id"
+                                  IsSmart="True"
+                                  Visible="False" />
+                  <dxg:GridColumn FieldName="company.CompanyName"
+                                  IsSmart="True"
+                                  Width="auto" />
+                  <dxg:GridColumn FieldName="company.IndustryType"
+                                  IsSmart="True"
+                                  Visible="False" />
+                  <dxg:GridColumn x:Name="colBizType"
+                                  FieldName="company.BizType"
+                                  Visible="False"
+                                  IsSmart="True" />
+                  <dxg:GridColumn FieldName="contactPerson.FName"
+                                  x:Name="colFname"
+                                  IsSmart="True"
+                                  Visible="True"
+                                  Header="First Name"
+                                  Width="auto" />
+                  <dxg:GridColumn FieldName="contactPerson.LName"
+                                  x:Name="colLname"
+                                  IsSmart="True"
+                                  Visible="True"
+                                  Header="Last Name"
+                                  Width="auto" />
+                  <dxg:GridColumn FieldName="contact.ContactNo"
+                                  IsSmart="True"
+                                  x:Name="colcontactno"
+                                  Visible="True"
+                                  Header="Phone"
+                                  Width="auto" />
+                  <dxg:GridColumn FieldName="company.currency.CurrencyName"
+                                  x:Name="colCurrency"
+                                  IsSmart="True"
+                                  Visible="False"
+                                  Header="Currency" />
+                  <dxg:GridColumn FieldName="contact.Fax"
+                                  Visible="False"
+                                  x:Name="colFax"
+                                  IsSmart="True"
+                                  Header="Fax" />
+                  <dxg:GridColumn FieldName="contact.Email"
+                                  x:Name="colEmail"
+                                  IsSmart="True"
+                                  Visible="False"
+                                  Header="Email" />
+                </dxg:GridControl>
+              </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="Transactions" />
+          </dx:DXTabControl>
+        </DockPanel>
+        <Grid Grid.Column="2"
+              Grid.Row="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="auto" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="1*" />
+          </Grid.ColumnDefinitions>
+          <StackPanel Orientation="Horizontal"
+                      Grid.Row="0"
+                      Grid.Column="0"
+                      Margin="10,0">
+            <TextBlock x:Name="lblinfoheader"
+                       Text="Vendor Information"
+                       FontSize="36"
+                       VerticalAlignment="Center"
+                       TextDecorations="{x:Null}" />
+            <!--<Button HorizontalAlignment="Right"
+                    Margin="10,0"
+                    Width="50"
+                    Height="50"
+                    VerticalAlignment="Stretch"
+                    ToolTip="Attach"
+                    Background="Transparent">
+              <Image Source="/ZAS_ERP;component/images/appbar.paperclip.rotated.png"
+                     Height="40"
+                     Width="40"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+            </Button>
+            <Button Margin="10,0"
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    ToolTip="Edit">
+              <Image Source="/ZAS_ERP;component/images/appbar.edit.png"
+                     Height="40"
+                     Width="40"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center" />
+            </Button>-->
+          </StackPanel>
+          <Rectangle Height="3"
+                     Fill="Gray"
+                     VerticalAlignment="Bottom"
+                     Margin="10,0" />
+          <StackPanel  Orientation="Horizontal"
+                       Grid.Column="1">
+            <Image Source="/ZAS_ERP;component/images/appbar.pin.png"
+                   HorizontalAlignment="Left"
+                   Width="30" />
+            <TextBlock Text="NOTE"
+                       FontSize="16"
+                       VerticalAlignment="Center" />
+          </StackPanel>
+          <Rectangle Height="3"
+                     Grid.Column="1"
+                     Fill="Gray"
+                     VerticalAlignment="Bottom"
+                     Margin="10,0" />
+          <StackPanel Grid.Column="2"
+                      Grid.Row="1"></StackPanel>
+          <dxlc:GroupBox Header="Vendor Information"
+                         Background="White"
+                         Margin="5" Grid.Row="1">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="1*" />
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Label Content=" Company Name"
+                     ToolTip="Name"
+                     HorizontalAlignment="Right" />
+              <Label Content="First Name"
+                     ToolTip="CINC"
+                     HorizontalAlignment="Right"
+                     Grid.Row="1" />
+              <Label Content="Main Phone"
+                     ToolTip="Phone#"
+                     HorizontalAlignment="Right"
+                     Grid.Row="2" />
+              <Label Content="FAX"
+                     ToolTip="FAX#"
+                     HorizontalAlignment="Right"
+                     Grid.Row="3" />
+              <Label Content="Email"
+                     ToolTip="Email"
+                     HorizontalAlignment="Right"
+                     Grid.Row="4" />
+              <!--<Label Content="Website"
+                     ToolTip="Website"
+                     HorizontalAlignment="Right"
+                     Grid.Row="5" />-->
+              <!--textblock for displaying data in colunm 2 of grid from stored company data -->
+              <TextBlock x:Name="lblconatctname"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.company.CompanyName}"
+                         ToolTip="Company Name"
+                         HorizontalAlignment="Left"
+                         Grid.Column="1" />
+              <TextBlock x:Name="lblcnic"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.contactPerson.FName}"
+                         ToolTip="Contact Person"
+                         Grid.Row="1"
+                         Grid.Column="1" />
+              <TextBlock x:Name="lblmainPhone"
+                         ToolTip="Phone#"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.contact.ContactNo}"
+                         Grid.Row="2"
+                         Grid.Column="1" />
+              <TextBlock x:Name="lblfax"
+                         ToolTip="FAX#"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.contact.Fax}"
+                         Grid.Row="3"
+                         Grid.Column="1" />
+              <TextBlock x:Name="lblemail"
+                         ToolTip="Email"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.contact.Email}"
+                         Grid.Row="4"
+                         Grid.Column="1" />
+              <!--<TextBlock x:Name="lblwebsite"
+                         ToolTip="Email"
+                         Text="{Binding ElementName=grdemployee,Path=CurrentItem.contact.Website}"
+                         Grid.Row="5"
+                         Grid.Column="1" />-->
+              <!-- column 3 labels-->
+              <Label Content="Country"
+                     ToolTip="Country"
+                     HorizontalAlignment="Right"
+                     Grid.Column="2" />
+              <Label Content="Last Name"
+                     ToolTip="Last Name"
+                     HorizontalAlignment="Right"
+                     Grid.Column="2"
+                     Grid.Row="1" />
+              <Label Content="Website"
+                     ToolTip="Website"
+                     HorizontalAlignment="Right"
+                     Grid.Column="2"
+                     Grid.Row="2" />
+              <!--<Label Content="Industry Type"
+                       ToolTip="Industry"
+                       HorizontalAlignment="Right"
+                       Grid.Column="2"
+                       Grid.Row="3" />
+                <Label Content="Bussines Type"
+                       ToolTip="Bussines"
+                       HorizontalAlignment="Right"
+                       Grid.Column="2"
+                       Grid.Row="4" />-->
+              <!--textblock for displaying data in colunm 4 of grid from stored company data -->
+              <TextBlock x:Name="lblcountry"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.billingAddres.Country}"
+                         ToolTip="State Name"
+                         HorizontalAlignment="Left"
+                         Grid.Column="3" />
+              <TextBlock x:Name="lbllstname"
+                         ToolTip="Last Name"
+                         Grid.Row="1"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.contactPerson.FName}"
+                         Grid.Column="3" />
+              <TextBlock x:Name="lbljoinedDate"
+                         ToolTip="joining date"
+                         HorizontalAlignment="Left"
+                         Text="{Binding ElementName=grdVendorcompanies,Path=CurrentItem.contact.Website}"
+                         Grid.Row="2"
+                         Grid.Column="3" />
+              <!--<TextBlock x:Name="lblindustry"
+                           ToolTip="Industry"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.IndustryType}"
+                           HorizontalAlignment="Left"
+                           Grid.Row="3"
+                           Grid.Column="3" />
+                <TextBlock x:Name="lblBizType"
+                           ToolTip="Bussines Type"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.BizType}"
+                           HorizontalAlignment="Left"
+                           Grid.Row="4"
+                           Grid.Column="3" />
+                <TextBlock x:Name="llbadressid"
+                           ToolTip="Contact Adress"
+                           Visibility="Hidden"
+                           Grid.Row="6"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.address.Id}"
+                           Grid.Column="3" />
+                <TextBlock x:Name="lblcontactid"
+                           ToolTip="Contact Adress"
+                           Visibility="Hidden"
+                           Grid.Row="7"
+                           Text="{Binding ElementName=gridCompany,Path=CurrentItem.contact.Id}"
+                           Grid.Column="2" />-->
+            </Grid>
+          </dxlc:GroupBox>
+        </Grid>
+        <DockPanel Grid.Column="2"
+                   Grid.Row="3">
+          <Grid Grid.Column="2"
+                Grid.Row="3"
+                VerticalAlignment="Stretch"
+                MaxHeight="600">
+            <Grid.Resources>
+              <Style TargetType="Label">
+                <Setter Property="Foreground"
+                        Value="DarkGray"></Setter>
+                <Setter Property="Margin"
+                        Value="10,0"></Setter>
+              </Style>
+              <Style TargetType="dx:DropDownButton">
+                <Setter Property="Margin"
+                        Value="10,5"></Setter>
+              </Style>
+            </Grid.Resources>
+            <dx:DXTabControl>
+              <dx:DXTabItem Header="Transactions" />
+              <dx:DXTabItem Header="Contacts" />
+              <dx:DXTabItem Header="To Do's">
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="40"
+                                   MaxHeight="60" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition MinHeight="40"
+                                   MaxHeight="60" />
+                  </Grid.RowDefinitions>
+                  <StackPanel Orientation="Horizontal">
+                    <Label Content="TYPE"
+                           Grid.Row="0"></Label>
+                    <dx:DropDownButton x:Name="dbtnType"></dx:DropDownButton  >
+                    <Label Content="STATUS"></Label>
+                    <dx:DropDownButton x:Name="dbtnStatus"></dx:DropDownButton>
+                    <Label Content="DATE"></Label>
+                    <dx:DropDownButton x:Name="dbtnDate"></dx:DropDownButton>
+                  </StackPanel>
+                  <dxg:GridControl Margin="10"
+                                   Grid.Row="1"
+                                   MaxHeight="800"
+                                   MinHeight="150" />
+                  <StackPanel  Orientation="Horizontal"
+                               Grid.Row="2">
+                    <dx:DropDownButton Content="Manage To Do's"
+                                       x:Name="dbtnmanagetodo"
+                                       MinWidth="80"></dx:DropDownButton>
+                    <dx:DropDownButton MinWidth="80"
+                                       x:Name="dbtnrunReports"
+                                       Content="Run Reports"></dx:DropDownButton>
+                  </StackPanel>
+                </Grid>
+              </dx:DXTabItem>
+              <dx:DXTabItem Header="Notes" />
+              <dx:DXTabItem Header="Sent Email" />
+            </dx:DXTabControl>
+          </Grid>
+        </DockPanel>
+        <GridSplitter Grid.Row="2"
+                      Grid.Column="2"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Stretch" />
+        <GridSplitter Grid.Column="1"
+                      Grid.Row="1"
+                      Grid.RowSpan="3"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Center" />
+      </Grid>
+    </DockPanel>
+  </Grid>
+</Window>

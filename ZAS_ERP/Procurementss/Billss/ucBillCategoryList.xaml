@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.Billss.ucBillCategoryList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Billss"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!--comment-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="Add">
+                <MenuItem Header="Add New" Click="MbtnAddBillCategory_Click"/>
+                <MenuItem Header="Update Bill Category" Click="MbtnEditBillCategory_Click"/>
+            </MenuItem>
+            <MenuItem Header="Refresh" x:Name="mbtnRefresh" Click="MbtnRefresh_Click"/>
+        </Menu>
+
+        <TextBlock x:Name="lblHeading" Text="Bill Category List" FontSize="22" 
+                   FontWeight="Bold"  HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe UI Semibold"  />
+
+
+        <Grid Background="White" Grid.Row="2" Height="auto">
+            <dxg:GridControl AutoGenerateColumns="AddNew" 
+                         EnableSmartColumnsGeneration="True" 
+                         Name="grdCntrlBillCategoryList">
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New Bill Category"
+                            x:Name="mbtnAddBillCategory"
+                            Click="MbtnAddBillCategory_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-Add-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Edit Bill Category"
+                            x:Name="mbtnEditBillCategory"
+                            Click="MbtnEditBillCategory_Click">
+                            <MenuItem.Icon>
+                                <Image Source="/ZAS_ERP;component/images/icon-edit-ReportGroups.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="Id" Visible="False" ShowInColumnChooser="False" AllowEditing="false"/>
+                    <dxg:GridColumn FieldName="Category" Header="Bill Category" AllowEditing="false"/>
+                </dxg:GridControl.Columns>
+            </dxg:GridControl>
+        </Grid>
+    </Grid>
+</UserControl>

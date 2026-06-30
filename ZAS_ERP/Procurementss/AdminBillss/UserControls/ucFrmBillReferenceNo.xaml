@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="ZAS_ERP.Procurementss.AdminBillss.UserControls.ucFrmBillReferenceNo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Procurementss.AdminBillss.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <dxlc:LayoutGroup Padding="10" View="GroupBox" Header="Bill Ref No">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                <dxlc:LayoutItem VerticalAlignment="Center" Grid.Row="0" Label="Company ">
+                    <dxg:LookUpEdit x:Name="cmbxCompany"
+                                    DisplayMember="CompanyName"/>
+                </dxlc:LayoutItem>
+                
+                <dxlc:LayoutItem VerticalAlignment="Center" Grid.Row="1" Label="Bill Ref No ">
+                    <dxe:TextEdit x:Name="txtBillRefNo"/>
+                </dxlc:LayoutItem>
+
+                <dxe:CheckEdit Grid.Row="2" Content="Is Active" VerticalAlignment="Center" 
+                               x:Name="chkIsActive" Margin="60 0 0 0"/>
+
+                <Button Grid.Row="3" Content="Save" x:Name="btnSave" Click="BtnSave_Click"/>
+            </Grid>    
+        </dxlc:LayoutGroup>
+    </Grid>
+</UserControl>

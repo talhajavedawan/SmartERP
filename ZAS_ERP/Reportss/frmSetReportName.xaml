@@ -1,0 +1,179 @@
+﻿<dx:DXWindow
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"  x:Class="ZAS_ERP.Reportss.frmSetReportName"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Reportss"
+        xmlns:dxlc="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:vali="clr-namespace:ZAS_ERP.Validations"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        mc:Ignorable="d"
+         
+        WindowStartupLocation="CenterScreen"       
+        Title="Report Name" Height="180" Width="440" MaxHeight="217" MaxWidth="440" Icon="/ZAS_ERP;component/images/icon-ReportForm.png" Loaded="Window_Loaded"  ResizeMode="CanMinimize" >
+
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Report Title"
+                Grid.Row="2"
+                Grid.Column="0"
+                      
+                       VerticalAlignment="Center"
+                ToolTip="Set name of the ReportGroup"/>
+            <TextBlock Text="Report Name"
+                           Grid.Row="1"
+                       Margin="0,5"
+                           Grid.Column="0"
+                           ToolTip="Set name of the Report"
+                           HorizontalAlignment="Center" VerticalAlignment="Center"  />
+            <TextBlock Text="Report Type"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                          
+                           VerticalAlignment="Center"
+                           ToolTip="Set name of the Report"
+                         />
+            <TextBlock Text="Report Group"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           ToolTip="Set name of the ReportGroup"
+                           HorizontalAlignment="Center"  
+                           VerticalAlignment="Center"
+                       />
+            <TextBox x:Name="txtName"
+                  Grid.Row="1" 
+                     Margin="5"
+                  Grid.Column="1" TabIndex="1"  >
+                <TextBox.Text>
+                    <Binding Path="onlychar"
+                         UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <vali:onlyalphareq />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <dxe:ComboBoxEdit x:Name="reportTypes" Grid.Row="0" 
+                           TabIndex="2"
+                                 Margin="5"
+                           EditValueChanged="ReportTypes_EditValueChanged"       
+                          
+                           Grid.Column="1"   />
+            <dxg:LookUpEdit x:Name="lookupGroup"
+                            Grid.Row="3"
+                                Grid.Column="1"
+                               Margin="5"
+                            SelectedIndexChanged="lookupGroup_SelectedIndexChanged"
+                            TabIndex="3"  >
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <dxg:GridControl Name="PART_GridControl"
+                             AutoPopulateColumns="True"
+                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TreeListView Name="treeListView1"
+                                  ShowAutoFilterRow="True"
+                                  TreeDerivationMode="Selfreference"
+                                  KeyFieldName="Id"
+                                  ParentFieldName="parentId"
+                                  />
+                                </dxg:GridControl.View>
+                                <dxg:GridColumn x:Name="colId"
+                              FieldName="Id"
+                              Visible="False" />
+                                <dxg:GridColumn FieldName="parent"
+                              IsSmart="True"
+                              Width="auto" Visible="False"/>
+                                <dxg:GridColumn FieldName="isActive"
+                              IsSmart="True"
+                              Width="auto" Visible="False"/>
+                                <dxg:GridColumn FieldName="userId"
+                              IsSmart="True"
+                              Width="auto" Visible="False"/>
+                                <dxg:GridColumn FieldName="user"
+                              IsSmart="True"
+                              Width="auto" Visible="False"/>
+                                <dxg:GridColumn FieldName="gridReportType"
+                              IsSmart="True"
+                              Width="auto" Visible="False"/>
+                                <dxg:GridColumn FieldName="groupName"
+                              IsSmart="True"
+                              MinWidth="100"
+                              Visible="true"/>
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+            <dxg:LookUpEdit x:Name="lookupReportTitle"
+                            Grid.Row="2"
+                              AutoPopulateColumns="False"
+                               Margin="5"
+                                                      DisplayMember="titleName"
+
+                                Grid.Column="1"
+                             >
+                <dxg:LookUpEdit.PopupContentTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <dxg:GridControl Name="PART_GridControl"
+                             AutoPopulateColumns="False"
+                                            
+                             Grid.Row="1">
+                                <dxg:GridControl.View>
+                                    <dxg:TableView 
+                                       
+                                  ShowAutoFilterRow="True"
+                                  />
+                                </dxg:GridControl.View>
+                                <dxg:GridColumn x:Name="colTitle"
+                                                Header="Title"
+                              FieldName="titleName"
+                               />
+                      
+                             
+                            </dxg:GridControl>
+                        </Grid>
+                    </ControlTemplate>
+                </dxg:LookUpEdit.PopupContentTemplate>
+            </dxg:LookUpEdit>
+  
+        </Grid>
+        <Button 
+                Grid.Row="1"
+                Content="Save"
+                x:Name="btnSave"
+                Click="BtnSave_Click" />
+    </Grid>
+            
+
+
+</dx:DXWindow>

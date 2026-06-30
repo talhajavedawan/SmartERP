@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="ZAS_ERP.Principalss.ucPrincipalRegister"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.Principalss" xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon" xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <dxr:RibbonControl Grid.Row="0" DockPanel.Dock="Top"  RibbonStyle="TabletOffice" PageCategoryAlignment="Left" ToolbarShowMode="Hide" MinimizationButtonVisibility="Visible">
+                    <dxr:RibbonDefaultPageCategory>
+                        <dxr:RibbonPage x:Name="lblHeading"  Caption="Principal center  " ToolTip="Principal center">
+                            <dxr:RibbonPageGroup  Caption="Clipboard">
+                                <dxb:BarButtonItem x:Name="mbtnAddNew" Content="Add New" ItemClick="MbtnAddNew_ItemClick" Glyph="{dx:DXImage Image=AddNewDataSource_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnUpdate" Content="Update" ItemClick="mbtnUpdate_ItemClick" Glyph="{dx:DXImage Image=EditDataSource_32x32.png}" LargeGlyph="{dx:DXImage Image=Reset_32x32.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnSaveLayout" Content="Save Layout" ItemClick="mbtnSaveLayout_ItemClick" LargeGlyph="{dx:DXImage Image=Paste_32x32.png}" Glyph="{dx:DXImage Image=Paste_16x16.png}"/>
+                                <dxb:BarButtonItem x:Name="mbtnRefresh" Content="Refresh" ItemClick="MbtnRefresh_Click" Glyph="{dx:DXImage Image=Refresh2_32x32.png}" LargeGlyph="{dx:DXImage Image=Refresh2_32x32.png}"/>
+                                <dxb:BarItemSeparator/>
+                            </dxr:RibbonPageGroup>
+
+                        </dxr:RibbonPage>
+                    </dxr:RibbonDefaultPageCategory>
+                </dxr:RibbonControl>
+            </Grid>
+            <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid  HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <dx:SimpleButton x:Name="btnCollaps" Margin="0,0,20,2"  Cursor="Hand"  Content="Collapse All" Grid.Column="0" Click="btnCollaps_Click" />
+                    <dx:SimpleButton x:Name="btnExpand" Margin="0,0,20,2"  Cursor="Hand" Content="Expand All"  Grid.Column="1" Click='btnExpand_Click' />
+                </Grid>
+
+                <TextBlock  Text="Principal Center Register" FontSize="22" FontWeight="Bold"  HorizontalAlignment="Center" FontFamily="Segoe UI Semibold" />
+            </Grid>
+            <Grid Grid.Row="2">
+                <dxg:GridControl x:Name="grdPrincipalcompanies"
+                                 Grid.Row="1"   AutoGenerateColumns="None"
+            EnableSmartColumnsGeneration="True"
+                                   >
+                    <dxg:GridControl.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Add New"
+                                x:Name="btnNewPrincipal"
+                                Click="MbtnAddNew_ItemClick" />
+                            <MenuItem Header="Edit Company"
+                                x:Name="btnEditPrincipal"
+                                Click="mbtnUpdate_ItemClick" />
+                            <Separator />
+                            
+                        </ContextMenu>
+                    </dxg:GridControl.ContextMenu>
+                    <dxg:GridControl.View>
+                        <dxg:TreeListView MouseDoubleClick="TreeListView1_MouseDoubleClick" 
+                                                          CustomUnboundColumnData="TreeListView1_CustomUnboundColumnData"
+                                                         Name="treeListView1"
+                                                ShowAutoFilterRow="True"
+                                                FadeSelectionOnLostFocus="False"
+                                                ShowSelectionRectangle="True"
+                                                TreeDerivationMode="Selfreference"
+                                                KeyFieldName="Id"
+                                                ParentFieldName="ParentID" />
+                    </dxg:GridControl.View>
+                    <dxg:GridColumn x:Name="colId"
+                                  FieldName="Id"
+                                  IsSmart="True" Width="auto"
+                                  Visible="False" />
+                    <dxg:GridColumn FieldName="company.CompanyName" Header="Company Name"
+                                  IsSmart="True" 
+                                  />
+                    <dxg:GridColumn FieldName="company.IndustryType"
+                                  IsSmart="True"
+                                  Visible="False" />
+                    <dxg:GridColumn x:Name="colBizType"
+                                  FieldName="company.BizType"
+                                  Visible="False"
+                                  IsSmart="True" />
+                    <dxg:GridColumn FieldName="contactPerson.FName"
+                                  x:Name="colFname"
+                                  IsSmart="True"
+                                  Visible="True"
+                                  Header="First Name"
+                                   />
+                    <dxg:GridColumn FieldName="contactPerson.LName"
+                                  x:Name="colLname"
+                                  IsSmart="True"
+                                  Visible="True"
+                                  Header="Last Name"
+                                   />
+                    <dxg:GridColumn FieldName="contact.ContactNo"
+                                  IsSmart="True"
+                                  x:Name="colcontactno"
+                                  Visible="True"
+                                  Header="Phone Number"
+                                   />
+                    <dxg:GridColumn FieldName="company.currency.CurrencyName"
+                                  x:Name="colCurrency"
+                                  IsSmart="True"
+                                  Visible="False"
+                                  Header="Currency" />
+                    <dxg:GridColumn FieldName="contact.Fax"
+                                  Visible="False"
+                                  x:Name="colFax"
+                                  IsSmart="True"
+                                  Header="Fax" />
+                    <dxg:GridColumn FieldName="contact.Email"
+                                  x:Name="colEmail"
+                                  IsSmart="True"
+                                  Visible="False"
+                                  Header="Email" />
+                </dxg:GridControl>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

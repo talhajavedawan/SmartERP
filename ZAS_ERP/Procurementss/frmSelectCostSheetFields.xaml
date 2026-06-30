@@ -1,0 +1,57 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.frmSelectCostSheetFields"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss"
+        xmlns:dxlc="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+         Title="Select CostSheet Fields" Height="450" Width="400" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <dxlc:GroupBox Header="Select Costsheet Fields to Change actual Cost">
+            <dxg:GridControl x:Name="grdCostSheetField"
+                             
+                       Grid.Row="0"
+                       SelectionMode="MultipleRow"
+                       AutoGenerateColumns="None"
+                               AllowInitiallyFocusedRow="False"  
+                >
+                <dxg:GridControl.View>
+                    <dxg:TreeListView x:Name="viewgrdCostSheetFields"
+                                                      KeyFieldName="Id"
+                            ParentFieldName="parentId"
+                             AllowEditing="False"
+                            ShowSearchPanelMode="Default"
+                            TreeDerivationMode="Selfreference"
+                            AutoExpandAllNodes="True"
+                            AutoPopulateServiceColumns="True"
+                            ColumnFilterPopupMode="Excel"
+                            FilterMode="Extended"
+                            FadeSelectionOnLostFocus="False"
+                            ShowCheckboxes="True"
+                            ShowSelectionRectangle="True" />
+                </dxg:GridControl.View>
+                <dxg:GridColumn Header="Id"
+                            Binding="{Binding Id}"
+                            IsSmart="True"
+                            Visible="False"
+                            VisibleIndex="0"
+                            Width="auto" />
+                <dxg:GridColumn Header="Title"
+                            Binding="{Binding Title}"
+                            IsSmart="True"
+                            Visible="True"
+                            VisibleIndex="0"
+                            Width="auto" />
+            </dxg:GridControl>
+        </dxlc:GroupBox>
+
+
+        <Button x:Name="btnContinue" Grid.Row="1" Content="Continue" Click="BtnContinue_Click"/>
+    </Grid>
+</Window>

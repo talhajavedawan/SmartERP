@@ -1,0 +1,67 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+        x:Class="ZAS_ERP.Procurementss.Offerss.frmOfferStatusList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.Offerss"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+        WindowStartupLocation="CenterScreen"
+        xmlns:utilities="clr-namespace:ZAS_ERP.BussinessLogicss"
+        mc:Ignorable="d"
+        Title="Offer Statuses List"
+        x:Name="winOfferStatusList"
+        Loaded="winOfferStatusList_Loaded"
+        Unloaded="WinOfferStatusList_Unloaded"
+        Height="450"
+        Width="450">
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".7*" />
+        
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto" />
+        <RowDefinition Height="1.4*" />
+      </Grid.RowDefinitions>
+      <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+        <MenuItem Header="_Offer Status"
+                  x:Name="mbtnOfferStatus">
+          <MenuItem Header="Add new Offer Status"
+                    x:Name="mbtnNewOfferStatus"
+                    Click="mbtnNewOfferStatus_Click"></MenuItem>
+          <MenuItem Header="Edit Offer Status"
+                    x:Name="mbtnEditOfferStatus"
+                    Click="mbtnEditOfferStatus_Click"></MenuItem>
+        </MenuItem>
+        
+      </Menu>
+     
+      <dxg:GridControl x:Name="grdOfferStatus"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="grdOfferStatus_MouseDoubleClick"
+                       
+                       >
+        <dxg:GridControl.ContextMenu>
+          <ContextMenu>
+            <MenuItem Header="Add New"
+                      x:Name="btnNewOfferStatus"
+                      Click="mbtnNewOfferStatus_Click" />
+            <MenuItem Header="Edit"
+                      x:Name="btnEditOfferStatus"
+                      Click="mbtnEditOfferStatus_Click" />
+          </ContextMenu>
+        </dxg:GridControl.ContextMenu>
+      </dxg:GridControl>
+     
+    </Grid>
+  </Grid>
+</Window>

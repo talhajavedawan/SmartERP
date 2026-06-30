@@ -1,0 +1,61 @@
+﻿<Window x:Class="ZAS_ERP.Procurementss.PurchaseInvoice.frmPurchaseInvoiceStatusList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZAS_ERP.Procurementss.PurchaseInvoice"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        mc:Ignorable="d"
+        Title="Purchase Invoice Status List" 
+        Loaded="Window_Loaded"
+        Unloaded="Window_Unloaded"
+        Height="450"
+        Width="450">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".7*" />
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.4*" />
+            </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top"
+            x:Name="menuFormList"
+            Grid.ColumnSpan="3">
+                <MenuItem Header="_Purchase Invoice Status"
+                  x:Name="mbtnPurchaseInvoiceStatus">
+                    <MenuItem Header="Add new Purchase Invoice Status"
+                    x:Name="mbtnNewPurchaseInvoiceStatus"
+                    Click="MbtnNewPurchaseInvoiceStatus_Click"></MenuItem>
+                    <MenuItem Header="Edit Purchase Invoice Status"
+                    x:Name="mbtnEditPurchaseInvoiceStatus"
+                    Click="MbtnEditPurchaseInvoiceStatus_Click"></MenuItem>
+                </MenuItem>
+
+            </Menu>
+
+            <dxg:GridControl x:Name="grdPurchaseInvoiceStatus"
+                       AutoGenerateColumns="AddNew"
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       SelectionMode="Row"
+                       MouseDoubleClick="GrdPurchaseInvoiceStatus_MouseDoubleClick"
+                       
+                       >
+                <dxg:GridControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add New"
+                      x:Name="btnNewPurchaseInvoiceStatus"
+                      Click="MbtnNewPurchaseInvoiceStatus_Click" />
+                        <MenuItem Header="Edit"
+                      x:Name="btnEditSaleInvoiceStatus"
+                      Click="MbtnEditPurchaseInvoiceStatus_Click" />
+                    </ContextMenu>
+                </dxg:GridControl.ContextMenu>
+            </dxg:GridControl>
+
+        </Grid>
+    </Grid>
+</Window>

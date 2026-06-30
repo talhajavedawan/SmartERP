@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="ZAS_ERP.CreditCards.UserControls.ucFrmCreditCardType"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZAS_ERP.CreditCards.UserControls"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <dxlc:LayoutGroup View="GroupBox" Header="Credit Card Type" Orientation="Horizontal" Padding="5 5 5 5">
+            <TextBlock Text="Type:" Width="50" Height="25" TextAlignment="Center" VerticalAlignment="Center"/>
+            <dxe:TextEdit x:Name="txtType" Height="25" VerticalAlignment="Center"/>
+        </dxlc:LayoutGroup>
+
+        <Button x:Name="btnSave" Click="BtnSave_Click" Content="Save" Grid.Row="1"/>
+    </Grid>
+</UserControl>
