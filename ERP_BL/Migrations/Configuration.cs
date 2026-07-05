@@ -687,65 +687,65 @@ namespace ERP_BL.Migrations
             }
 
             //// Sale Invoices
-            //{
-            //    permissions.Add(new Permission() { Id = 701, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 50, Name = "Sale Invoices", Description = "Sale Invoices" });
+            {
+                permissions.Add(new Permission() { Id = 16000, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 50, Name = "Sale Invoices", Description = "Sale Invoices" });
 
-            //    permissions.Add(new Permission() { Id = 702, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Add Sale Invoice", Description = "Allow User To Add Sale Invoice" });
-            //    permissions.Add(new Permission() { Id = 703, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sale Invoice", Description = "Allow User To Edit Sale Invoice" });
-            //    permissions.Add(new Permission() { Id = 704, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Sale Invoice", Description = "Allow User To View Sale Invoice" });
-            //    permissions.Add(new Permission() { Id = 705, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "List of Sale Invoices", Description = "Allow User To View List of Sale Invoice" });
+            permissions.Add(new Permission() { Id = 702, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Add Sale Invoice", Description = "Allow User To Add Sale Invoice" });
+            permissions.Add(new Permission() { Id = 703, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit Sale Invoice", Description = "Allow User To Edit Sale Invoice" });
+            permissions.Add(new Permission() { Id = 704, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View Sale Invoice", Description = "Allow User To View Sale Invoice" });
+            permissions.Add(new Permission() { Id = 705, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "List of Sale Invoices", Description = "Allow User To View List of Sale Invoice" });
 
-            //    permissions.Add(new Permission() { Id = 706, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Add Sale Invoice Status", Description = "Allow User To Add new status for Sale Invoice" });
-            //    permissions.Add(new Permission() { Id = 707, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Add Sale Invoice without Approval", Description = "Allow User To Add New Sale Invoice without Approval" });
+            permissions.Add(new Permission() { Id = 706, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Add Sale Invoice Status", Description = "Allow User To Add new status for Sale Invoice" });
+            permissions.Add(new Permission() { Id = 707, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Add Sale Invoice without Approval", Description = "Allow User To Add New Sale Invoice without Approval" });
 
-            //    permissions.Add(new Permission() { Id = 708, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View InActive Sale Invoices", Description = "Allow User To View InActive Sale Invoices" });
-            //    permissions.Add(new Permission() { Id = 709, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Close Sale Invoice", Description = "Allow User To Close Sale Invoice" });
-            //    permissions.Add(new Permission() { Id = 710, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sale Invoice Status", Description = "Allow User To Edit Sale Invoice Status" });
-            //    permissions.Add(new Permission() { Id = 711, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View InActive Sale Invoice Statuses", Description = "Allow User To View InActive Sale Invoice Statuses" });
+            permissions.Add(new Permission() { Id = 708, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View InActive Sale Invoices", Description = "Allow User To View InActive Sale Invoices" });
+            permissions.Add(new Permission() { Id = 709, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Close Sale Invoice", Description = "Allow User To Close Sale Invoice" });
+            permissions.Add(new Permission() { Id = 710, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit Sale Invoice Status", Description = "Allow User To Edit Sale Invoice Status" });
+            permissions.Add(new Permission() { Id = 711, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View InActive Sale Invoice Statuses", Description = "Allow User To View InActive Sale Invoice Statuses" });
 
-            //    permissions.Add(new Permission() { Id = 713, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Close Sale Invoice without Approval", Description = "Allow User To Close Sale Invoice without Approval" });
-            //    permissions.Add(new Permission() { Id = 714, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Unapproved Sale Invoice", Description = "Allow User To Edit Unapproved Sale Invoice without Approval" });
+            permissions.Add(new Permission() { Id = 713, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Close Sale Invoice without Approval", Description = "Allow User To Close Sale Invoice without Approval" });
+            permissions.Add(new Permission() { Id = 714, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit Unapproved Sale Invoice", Description = "Allow User To Edit Unapproved Sale Invoice without Approval" });
 
-            //    permissions.Add(new Permission() { Id = 716, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Reviewer Level 1 SaleInvoice", Description = "Allow User to mark SaleInvoice as Reviewed once" });
-            //    permissions.Add(new Permission() { Id = 717, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Reviewer Level 2 SaleInvoice", Description = "Allow User To Mark SaleInvoice as Reviewed and move it to Approved List" });
+            permissions.Add(new Permission() { Id = 716, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Reviewer Level 1 SaleInvoice", Description = "Allow User to mark SaleInvoice as Reviewed once" });
+            permissions.Add(new Permission() { Id = 717, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Reviewer Level 2 SaleInvoice", Description = "Allow User To Mark SaleInvoice as Reviewed and move it to Approved List" });
 
-            //    permissions.Add(new Permission() { Id = 718, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Approver for Closing SaleInvoice", Description = "Allow User To Close SaleInvoice which is in pending state" });
-            //    permissions.Add(new Permission() { Id = 719, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Approver for new added SaleInvoice", Description = "Allow User To Approve Offer which is in pending state" });
+            permissions.Add(new Permission() { Id = 718, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Approver for Closing SaleInvoice", Description = "Allow User To Close SaleInvoice which is in pending state" });
+            permissions.Add(new Permission() { Id = 719, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Approver for new added SaleInvoice", Description = "Allow User To Approve Offer which is in pending state" });
 
-            //    permissions.Add(new Permission() { Id = 720, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit closed SaleInvoice", Description = "Allow User To Edit Closed Sale Invoice" });
+            permissions.Add(new Permission() { Id = 720, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit closed SaleInvoice", Description = "Allow User To Edit Closed Sale Invoice" });
 
-            //    permissions.Add(new Permission() { Id = 721, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View(Pending for closing) SaleInvoice List", Description = "Allow User To View Pending Closing SaleInvoices" });
-            //    permissions.Add(new Permission() { Id = 722, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View(Pending for Approval) SaleInvoice List", Description = "Allow User To View Pending Approval SaleInvoices" });
+            permissions.Add(new Permission() { Id = 721, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View(Pending for closing) SaleInvoice List", Description = "Allow User To View Pending Closing SaleInvoices" });
+            permissions.Add(new Permission() { Id = 722, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View(Pending for Approval) SaleInvoice List", Description = "Allow User To View Pending Approval SaleInvoices" });
 
-            //    permissions.Add(new Permission() { Id = 723, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Creation Date of SaleInvoice", Description = "Allow User To Edit Creation Date of SaleInvoice" });
-            //    permissions.Add(new Permission() { Id = 724, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Attach a file with SaleInvoice", Description = "Allow User To Attach a file with SaleInvoice" });
-            //    permissions.Add(new Permission() { Id = 725, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View list of attached files with SaleInvoice", Description = "Allow User To View attached files" });
+            permissions.Add(new Permission() { Id = 723, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit Creation Date of SaleInvoice", Description = "Allow User To Edit Creation Date of SaleInvoice" });
+            permissions.Add(new Permission() { Id = 724, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Attach a file with SaleInvoice", Description = "Allow User To Attach a file with SaleInvoice" });
+            permissions.Add(new Permission() { Id = 725, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View list of attached files with SaleInvoice", Description = "Allow User To View attached files" });
 
-            //    permissions.Add(new Permission() { Id = 726, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Mark as Void SaleInvoice", Description = "Allow User To Mark as Void SaleInvoice" });
-            //    permissions.Add(new Permission() { Id = 727, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Unmark Void SaleInvoice", Description = "Allow User To Unmark Void SaleInvoice" });
-            //    permissions.Add(new Permission() { Id = 728, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View list of Void SaleInvoices", Description = "View void invoices" });
+            permissions.Add(new Permission() { Id = 726, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Mark as Void SaleInvoice", Description = "Allow User To Mark as Void SaleInvoice" });
+            permissions.Add(new Permission() { Id = 727, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Unmark Void SaleInvoice", Description = "Allow User To Unmark Void SaleInvoice" });
+            permissions.Add(new Permission() { Id = 728, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View list of Void SaleInvoices", Description = "View void invoices" });
 
-            //    permissions.Add(new Permission() { Id = 744, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Move SaleInvoice to Inter Company", Description = "Allow User To Move SaleInvoice to Inter Company mapped to his Department" });
+            permissions.Add(new Permission() { Id = 744, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Move SaleInvoice to Inter Company", Description = "Allow User To Move SaleInvoice to Inter Company mapped to his Department" });
 
-            //    permissions.Add(new Permission() { Id = 730, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Close Invoice without receiving fully Collection", Description = "Allow User To Close Invoice without full payment" });
-            //    permissions.Add(new Permission() { Id = 731, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Sales Invoice Register", Description = "Allow User To View Sales Invoice Register" });
-            //    permissions.Add(new Permission() { Id = 732, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sales Invoice Value after approval", Description = "Allow User To Edit after approval" });
-            //    permissions.Add(new Permission() { Id = 733, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sales Invoice Value before approval", Description = "Allow User To Edit before approval" });
+            permissions.Add(new Permission() { Id = 730, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Close Invoice without receiving fully Collection", Description = "Allow User To Close Invoice without full payment" });
+            permissions.Add(new Permission() { Id = 731, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View Sales Invoice Register", Description = "Allow User To View Sales Invoice Register" });
+            permissions.Add(new Permission() { Id = 732, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit Sales Invoice Value after approval", Description = "Allow User To Edit after approval" });
+            permissions.Add(new Permission() { Id = 733, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit Sales Invoice Value before approval", Description = "Allow User To Edit before approval" });
 
-            //    permissions.Add(new Permission() { Id = 734, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Can attach document when Sale Invoice Closed", Description = "Allow attachments after close" });
+            permissions.Add(new Permission() { Id = 734, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Can attach document when Sale Invoice Closed", Description = "Allow attachments after close" });
 
-            //    permissions.Add(new Permission() { Id = 735, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "SI Exchange Rates", Description = "Exchange rate permissions group" });
-            //    permissions.Add(new Permission() { Id = 736, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 735, Name = "Edit SI SER", Description = "Allow SER edit" });
-            //    permissions.Add(new Permission() { Id = 737, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 735, Name = "Edit SI MER", Description = "Allow MER edit" });
+            permissions.Add(new Permission() { Id = 735, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "SI Exchange Rates", Description = "Exchange rate permissions group" });
+            permissions.Add(new Permission() { Id = 736, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 735, Name = "Edit SI SER", Description = "Allow SER edit" });
+            permissions.Add(new Permission() { Id = 737, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 735, Name = "Edit SI MER", Description = "Allow MER edit" });
 
-            //    permissions.Add(new Permission() { Id = 738, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Market Exchange Rate in Sale Invoice", Description = "Allow viewing exchange rates" });
+            permissions.Add(new Permission() { Id = 738, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View Market Exchange Rate in Sale Invoice", Description = "Allow viewing exchange rates" });
 
-            //    permissions.Add(new Permission() { Id = 739, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Update CostSheet from Sales Invoice", Description = "Sync cost sheet" });
-            //    permissions.Add(new Permission() { Id = 740, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit is-InterCompany receivable check", Description = "Intercompany control" });
-            //    permissions.Add(new Permission() { Id = 741, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit STL stamp", Description = "Edit stamp" });
-            //    permissions.Add(new Permission() { Id = 742, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit STL discount", Description = "Edit discount" });
-            //    permissions.Add(new Permission() { Id = 743, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Customer Credits Report", Description = "View credit report" });
-            //}
+            permissions.Add(new Permission() { Id = 739, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Update CostSheet from Sales Invoice", Description = "Sync cost sheet" });
+            permissions.Add(new Permission() { Id = 740, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit is-InterCompany receivable check", Description = "Intercompany control" });
+            permissions.Add(new Permission() { Id = 741, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit STL stamp", Description = "Edit stamp" });
+            permissions.Add(new Permission() { Id = 742, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "Edit STL discount", Description = "Edit discount" });
+            permissions.Add(new Permission() { Id = 743, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 16000, Name = "View Customer Credits Report", Description = "View credit report" });
+        }
 
             ////////////////////
             /// Purcahse order

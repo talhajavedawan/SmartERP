@@ -87,7 +87,7 @@
                       SelectedIndex="1"
                       TabIndex="0"
                       SelectedIndexChanged="cmbdbSelect_SelectedIndexChanged"  />
-                <dxe:PasswordBoxEdit x:Name="txtUsername"
+                <dxe:TextEdit x:Name="txtUsername"
             KeyUp="TxtUsername_KeyUp"
              TabIndex="1"
              NullText="Enter Your User Name"
@@ -104,7 +104,7 @@
                        Height="22"   Width="250" 
                        x:Name="txtPassword" 
                        Visibility="Collapsed"
-                    EditValue="{Binding Password, ElementName=txtpasswordBox}"
+                   
                     />
 
 

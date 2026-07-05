@@ -7616,7 +7616,7 @@ namespace ZAS_ERP
                     }
             }
             SYSTEM_STATIC.isLoadingPermissions = false;
-            SYSTEM_STATIC.LoadOutlookEmails();
+            //SYSTEM_STATIC.LoadOutlookEmails();
 
         }
 

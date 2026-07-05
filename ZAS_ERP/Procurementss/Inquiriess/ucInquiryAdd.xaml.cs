@@ -3139,42 +3139,42 @@ CCRecomenndedList = ccUsersRecommendation
         {
             try
             {
-                if (editOrder != 0 && OrderId != 0 && SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Edit Inquiry") != null)
-                {
+                //if (editOrder != 0 && OrderId != 0 && SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Edit Inquiry") != null)
+                //{
 
-                    EmployeeRepo empRepo = new EmployeeRepo();
-                    var employee = empRepo.GetEmployee(SYSTEM_STATIC.currentUser.employee.EmpId);
-                    List<string> lstAllRecipients = new List<string>();
-                    //Below is hardcoded - can be replaced with db data
-                    lstAllRecipients.Add("test@testmail.com");
-                    lstAllRecipients.Add("test1a@testmail.com");
+                //    EmployeeRepo empRepo = new EmployeeRepo();
+                //    var employee = empRepo.GetEmployee(SYSTEM_STATIC.currentUser.employee.EmpId);
+                //    List<string> lstAllRecipients = new List<string>();
+                //    //Below is hardcoded - can be replaced with db data
+                //    lstAllRecipients.Add("test@testmail.com");
+                //    lstAllRecipients.Add("test1a@testmail.com");
 
-                    Outlook.Application outlookApp = new Outlook.Application();
-                    Outlook._MailItem oMailItem = (Outlook._MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-                    Outlook.Inspector oInspector = oMailItem.GetInspector;
-                    // Thread.Sleep(10000);
+                //    Outlook.Application outlookApp = new Outlook.Application();
+                //    Outlook._MailItem oMailItem = (Outlook._MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+                //    Outlook.Inspector oInspector = oMailItem.GetInspector;
+                //    // Thread.Sleep(10000);
 
-                    // Recipient
-                    Outlook.Recipients oRecips = (Outlook.Recipients)oMailItem.Recipients;
-                    foreach (String recipient in lstAllRecipients)
-                    {
-                        Outlook.Recipient oRecip = (Outlook.Recipient)oRecips.Add(recipient);
-                        oRecip.Resolve();
-                    }
+                //    // Recipient
+                //    Outlook.Recipients oRecips = (Outlook.Recipients)oMailItem.Recipients;
+                //    foreach (String recipient in lstAllRecipients)
+                //    {
+                //        Outlook.Recipient oRecip = (Outlook.Recipient)oRecips.Add(recipient);
+                //        oRecip.Resolve();
+                //    }
 
-                    //Add CC
-                    Outlook.Recipient oCCRecip = oRecips.Add("testN@testmail.com");
-                    oCCRecip.Type = (int)Outlook.OlMailRecipientType.olCC;
-                    oCCRecip.Resolve();
+                //    //Add CC
+                //    Outlook.Recipient oCCRecip = oRecips.Add("testN@testmail.com");
+                //    oCCRecip.Type = (int)Outlook.OlMailRecipientType.olCC;
+                //    oCCRecip.Resolve();
 
-                    //Add Subject
-                    //oMailItem.Subject = "Test Mail";
-                    oMailItem.Body = txtBody.Text;
-                    // body, bcc etc...
+                //    //Add Subject
+                //    //oMailItem.Subject = "Test Mail";
+                //    oMailItem.Body = txtBody.Text;
+                //    // body, bcc etc...
 
-                    //Display the mailbox
-                    oMailItem.Display(true);
-                }
+                //    //Display the mailbox
+                //    oMailItem.Display(true);
+                //}
             }
             catch (Exception objEx)
             {
