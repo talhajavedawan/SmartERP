@@ -205,7 +205,7 @@ namespace ZAS_ERP
                 InitializeInactivityTracker();
 
 
-                mainWindow.Title = "ZAS-ERP " + "(" + getRunningVersion() + ")";
+                mainWindow.Title = "Smart-ERP " + "(" + getRunningVersion() + ")";
             }
             catch (Exception ex)
             {
