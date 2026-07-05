@@ -65,7 +65,7 @@ namespace ERP_BL.Databases
         [ForeignKey("user_Id")]
         public virtual User user { get; set; }
 
-        public int allocation_Id { get; set; }
+        public int? allocation_Id { get; set; }
         [ForeignKey("allocation_Id")]
         public virtual Employee employee {get;set;}
         

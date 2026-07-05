@@ -1864,7 +1864,7 @@ namespace ZAS_ERP.FilesAndDocss.Documentss
         private object GetFilePreview(string fileName)
         {
             string ftpPath = "";
-            if (SYSTEM_STATIC.server == "192.168.10.91,1411")
+            if (SYSTEM_STATIC.server == "Fsociety96")
                 //For LAN
                 ftpPath = $"ftp://192.168.10.91/{fileName}";
             else if (SYSTEM_STATIC.server == "119.156.232.242,1411")

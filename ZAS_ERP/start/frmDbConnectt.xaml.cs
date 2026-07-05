@@ -343,43 +343,46 @@ namespace ZAS_ERP.start
 
         private void barLanAuthentication_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {
-            if (user != null)
-            {
-                if (string.IsNullOrEmpty(user.machineKey))
-                {
-                    string productName = "ZASERP";
-                    var userKey = machineAPI.GenKey(productName);
+            //if (user != null)
+            //{
 
-                    if (userKey != null)
-                    {
-                        user.machineKey = userKey;
-                        try
-                        {
-                            rolesRepo.updateUserKey(user, userKey);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error in getting machine key " + ex.Message);
-                        }
+            //    if (string.IsNullOrEmpty(user.machineKey))
+            //    {
+            //        string productName = "SmartERP";
+            //        var userKey = machineAPI.GenKey(productName);
 
-                        MessageBox.Show("Please contact admin for system approval.", "Unapproved system", MessageBoxButton.OK, MessageBoxImage.Hand);
-                        this.Close();
-                    }
+            //        if (userKey != null)
+            //        {
+            //            user.machineKey = userKey;
+            //            try
+            //            {
+            //                rolesRepo.updateUserKey(user, userKey);
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                MessageBox.Show("Error in getting machine key " + ex.Message);
+            //            }
 
-                }
-                else if (user.isKeyApproved != true)
-                {
-                    MessageBox.Show("Please contact admin for system approval.", "Unapproved system", MessageBoxButton.OK, MessageBoxImage.Hand);
-                    this.Close();
-                }
-                else
-                {
-                    validate = machineAPI.validatekey(user.machineKey, "ZASERP");
-                    grdMenu.Visibility = Visibility.Collapsed;
-                    pagedbpassword.txtpasswordBox.IsEnabled = true;
-                }
+            //            MessageBox.Show("Please contact admin for system approval.", "Unapproved system", MessageBoxButton.OK, MessageBoxImage.Hand);
+            //            this.Close();
+            //        }
 
-            }
+            //    }
+            //    else if (user.isKeyApproved != true)
+            //    {
+            //        MessageBox.Show("Please contact admin for system approval.", "Unapproved system", MessageBoxButton.OK, MessageBoxImage.Hand);
+            //        this.Close();
+            //    }
+            //    else
+            //    {
+            //        validate = machineAPI.validatekey(user.machineKey, "ZASERP");
+            //        grdMenu.Visibility = Visibility.Collapsed;
+            //        pagedbpassword.txtpasswordBox.IsEnabled = true;
+            //    }
+
+            //}
+          pagedbpassword.txtpasswordBox.IsEnabled = true;
+
         }
         private void barRDCAuthentication_ItemClick(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
         {

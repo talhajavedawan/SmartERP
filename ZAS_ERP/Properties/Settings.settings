@@ -23,11 +23,11 @@
     </Setting>
     <Setting Name="MK_ERPConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=124.109.48.224,1422;Initial Catalog=MK_ERP;User ID=sa;Password=sa&lt;/ConnectionString&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Data Source=Fsociety96;Initial Catalog=MK_ERP;User ID=sa;Password=sa&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=124.109.48.224,1422;Initial Catalog=MK_ERP;User ID=sa;Password=sa</Value>
+      <Value Profile="(Default)">Data Source=Fsociety96;Initial Catalog=MK_ERP;User ID=sa;Password=sa</Value>
     </Setting>
   </Settings>
 </SettingsFile>

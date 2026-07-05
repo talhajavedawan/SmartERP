@@ -894,53 +894,6 @@
     <Compile Include="ChartofAccounts\Windows\winTrialBalanceReport.xaml.cs">
       <DependentUpon>winTrialBalanceReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Chat\ChatApplication.xaml.cs">
-      <DependentUpon>ChatApplication.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucContacts.xaml.cs">
-      <DependentUpon>ucContacts.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucGroupReceiver.xaml.cs">
-      <DependentUpon>ucGroupReceiver.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucGroupSender.xaml.cs">
-      <DependentUpon>ucGroupSender.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucLogin.xaml.cs">
-      <DependentUpon>ucLogin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucReceiver.xaml.cs">
-      <DependentUpon>ucReceiver.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucReceiverPicture.xaml.cs">
-      <DependentUpon>ucReceiverPicture.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucRecentChats.xaml.cs">
-      <DependentUpon>ucRecentChats.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucSender.xaml.cs">
-      <DependentUpon>ucSender.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ChatUsercontrols\ucSenderPicture.xaml.cs">
-      <DependentUpon>ucSenderPicture.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\frmAddGroup.xaml.cs">
-      <DependentUpon>frmAddGroup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\HeaderBinding.cs" />
-    <Compile Include="Chat\MakeGroup.xaml.cs">
-      <DependentUpon>MakeGroup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ucContactsBinding.cs" />
-    <Compile Include="Chat\ucGroupReceiverBinding.cs" />
-    <Compile Include="Chat\ucGroupSenderBinding.cs" />
-    <Compile Include="Chat\ucLoginBinding.cs" />
-    <Compile Include="Chat\ucReceiverBinding.cs" />
-    <Compile Include="Chat\ucRecentBinding.cs" />
-    <Compile Include="Chat\ucReplyMsg.xaml.cs">
-      <DependentUpon>ucReplyMsg.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Chat\ucSenderBinding.cs" />
     <Compile Include="Commentss\frmCommentCategoryAdd.xaml.cs">
       <DependentUpon>frmCommentCategoryAdd.xaml</DependentUpon>
     </Compile>
@@ -3302,58 +3255,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Chat\ChatApplication.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucContacts.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucGroupReceiver.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucGroupSender.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucLogin.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucReceiver.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucReceiverPicture.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucRecentChats.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucSender.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\ChatUsercontrols\ucSenderPicture.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Chat\frmAddGroup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\MakeGroup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Chat\ucReplyMsg.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Commentss\frmCommentCategoryAdd.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -5597,8 +5498,6 @@
     <Resource Include="images\Left_32x32.png" />
     <Resource Include="images\Right_16x16.png" />
     <Resource Include="images\Right_32x32.png" />
-    <Resource Include="Chat\Images\iconChat.png" />
-    <Resource Include="Chat\Images\iconreadchat.png" />
     <Resource Include="images\gridReportGroup_16x16.png" />
     <Resource Include="images\deleteTicker.png" />
     <Resource Include="images\pushTicker.png" />
@@ -6017,22 +5916,6 @@
     <Resource Include="images\Mail\Unread_Glyph.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Chat\Images\iconAdd.png" />
-    <Resource Include="Chat\Images\iconCall.png" />
-    <Resource Include="Chat\Images\iconChats.png" />
-    <Resource Include="Chat\Images\iconClose.png" />
-    <Resource Include="Chat\Images\iconContact.png" />
-    <Resource Include="Chat\Images\iconCreateGroup.png" />
-    <Resource Include="Chat\Images\iconExpression.png" />
-    <Resource Include="Chat\Images\iconMaximize.png" />
-    <Resource Include="Chat\Images\iconMinimize.png" />
-    <Resource Include="Chat\Images\iconNotifications.png" />
-    <Resource Include="Chat\Images\iconRecord.png" />
-    <Resource Include="Chat\Images\iconSendContacts.png" />
-    <Resource Include="Chat\Images\iconTitle.png" />
-    <Resource Include="Chat\Images\iconVideoCall.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\Chat\iconActive.png" />
     <Resource Include="images\Chat\iconAdd.png" />
     <Resource Include="images\Chat\iconCall.png" />
@@ -6050,18 +5933,6 @@
     <Resource Include="images\Chat\iconSearch.png" />
     <Resource Include="images\Chat\iconSendContacts.png" />
     <Resource Include="images\Chat\iconVideoCall.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Chat\Images\imgChatbox.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Chat\Images\iconGroups.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Chat\Images\iconContacts.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Chat\Images\iconRecentChats.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\FixedAssetsImages\AddAsset.png" />

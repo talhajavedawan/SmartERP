@@ -212,7 +212,7 @@ namespace ERP_BL.Databases
         public int currency_Id { get; set; }
         [ForeignKey("currency_Id")]
         public virtual Currency currency { get; set; }
-        public int SOCurrency_Id { get; set; }
+        public int? SOCurrency_Id { get; set; }
         [ForeignKey("SOCurrency_Id")]
         public virtual Currency SOCurrency { get; set; }
         public int incoterm_Id { get; set; }

@@ -26,7 +26,7 @@ namespace ERP_BL.Databases
 
         public bool isActive { get; set; } = true;
 
-        public int user_Id { get; set; }
+        public int? user_Id { get; set; }
         [ForeignKey("user_Id")]
         public virtual User user { get; set; }
 

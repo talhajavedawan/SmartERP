@@ -32,3 +32,7 @@ E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.csproj.AssemblyR
 E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.exe.config
 E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
 E:\Projects\ZAS-ERP-Repo\MK-ERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache
+D:\MSC\Dissertation\Project\SmartERP\ERPService\obj\Debug\ERPService.csproj.AssemblyReference.cache
+D:\MSC\Dissertation\Project\SmartERP\ERPService\obj\Debug\ERPService.exe.config
+D:\MSC\Dissertation\Project\SmartERP\ERPService\obj\Debug\ERPService.ProjectInstaller.resources
+D:\MSC\Dissertation\Project\SmartERP\ERPService\obj\Debug\ERPService.csproj.GenerateResource.cache

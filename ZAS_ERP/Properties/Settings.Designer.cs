@@ -12,7 +12,7 @@ namespace ZAS_ERP.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -95,7 +95,7 @@ namespace ZAS_ERP.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=124.109.48.224,1422;Initial Catalog=MK_ERP;User ID=sa;Password=sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=Fsociety96;Initial Catalog=MK_ERP;User ID=sa;Password=sa")]
         public string MK_ERPConnectionString {
             get {
                 return ((string)(this["MK_ERPConnectionString"]));

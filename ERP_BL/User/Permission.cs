@@ -23,7 +23,7 @@ namespace ERP_BL.Databases
         public virtual Permission ParentPermission { get; set; }
         //public int? RoleId { get; set; }
         //[ForeignKey("RoleId")]
-        public virtual List<Role> Roles { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
     public class AccessLevel
     {

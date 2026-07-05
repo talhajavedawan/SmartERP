@@ -325,7 +325,7 @@ namespace ZAS_ERP
                 {
 
 
-                    if (SYSTEM_STATIC.server == "192.168.10.91,1411")
+                    if (SYSTEM_STATIC.server == "Fsociety96")
                     {
                         connection = new HubConnectionBuilder()
                                       .WithUrl(urlLAN)

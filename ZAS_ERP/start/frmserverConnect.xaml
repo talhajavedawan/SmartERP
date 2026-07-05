@@ -252,7 +252,7 @@
         
             <Grid Grid.Row="4" Background="#05628e">
 
-                <TextBlock Text="Welcome to ZAS-ERP"
+                <TextBlock Text="Welcome to Smart-ERP"
                        Foreground="White"
                            TextWrapping="Wrap"
                            FontFamily="aries"

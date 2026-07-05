@@ -19,26 +19,169 @@ namespace ERP_BL.Migrations
         }
         protected override void Seed(ERP_BL.Databases.DBContextERP context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
             IList<IndustryType> industryTypes = new List<IndustryType>();
-
             industryTypes.Add(new IndustryType() { Id = 1, name = "Information Technology", isActive = true, isApproved = true, addedDate = System.DateTime.Now, user_Id = null });
             industryTypes.Add(new IndustryType() { Id = 2, name = "Service Provider", isActive = true, isApproved = true, addedDate = System.DateTime.Now, user_Id = null });
             industryTypes.Add(new IndustryType() { Id = 3, name = "Contractor", isActive = true, isApproved = true, addedDate = System.DateTime.Now, user_Id = null });
             industryTypes.Add(new IndustryType() { Id = 4, name = "Procurement", isActive = true, isApproved = true, addedDate = System.DateTime.Now, user_Id = null });
             industryTypes.Add(new IndustryType() { Id = 5, name = "Engineering & Services", isActive = true, isApproved = true, addedDate = System.DateTime.Now, user_Id = null });
-            //industryTypes.Add(new IndustryType() { name = "Telecommunications", isActive = true, isApproved = true, addedDate = System.DateTime.Now, user_Id = null });
             IList<Currency> currencies = new List<Currency>();
             currencies.Add(new Currency() { Id = 1, CurrencyName = "Dollar", Symbol = "$", Abbrivation = "USD", Country = "USA" });
             currencies.Add(new Currency() { Id = 2, CurrencyName = "Euro", Symbol = "€", Abbrivation = "EUR", Country = "Europe" });
             currencies.Add(new Currency() { Id = 3, CurrencyName = "Pound", Symbol = "£", Abbrivation = "GBP", Country = "United Kingdom" });
             currencies.Add(new Currency() { Id = 4, CurrencyName = "Pakistani Rupee", Symbol = "Rs", Abbrivation = "PKR", Country = "Pakistan" });
-
-
             IList<Permission> permissions = new List<Permission>();
+            //Comapny Related
+            permissions.Add(new Permission() { Id = 1, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Company Center", Description = "Allow User To Open Company Center" });
+            permissions.Add(new Permission() { Id = 2, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Add New Comapny", Description = "Allow User To Open New Company" });
+            permissions.Add(new Permission() { Id = 3, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Edit Company", Description = "Allow User To Edit Company Information" });
+            permissions.Add(new Permission() { Id = 4, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Add New Department", Description = "Allow User To Open New Department" });
+            permissions.Add(new Permission() { Id = 5, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Edit Department", Description = "Allow User To Edit Department Information" });
+            permissions.Add(new Permission() { Id = 6, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "View InActive Companies", Description = "Allow User To View InActive Companies" });
+            permissions.Add(new Permission() { Id = 7, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "View InActive Departments", Description = "Allow User To View InActive Departments" });
+            permissions.Add(new Permission() { Id = 8, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Mark Company as  InActive", Description = "Allow User To Mark Company as InActive." });
+            permissions.Add(new Permission() { Id = 9, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Mark Department as InActive", Description = "Allow User To Mark Department as InActive." });
+
+
+            //Employee 
+            permissions.Add(new Permission() { Id = 10, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Employee Center", Description = "Allow User To Open Employee Center" });
+            permissions.Add(new Permission() { Id = 11, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 10, Name = "Add New Employee", Description = "Allow User To Add New Employee " });
+            permissions.Add(new Permission() { Id = 12, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 10, Name = "Edit Employee", Description = "Allow User To Edit Employee Information" });
+            permissions.Add(new Permission() { Id = 13, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 10, Name = "View InActive Employees", Description = "Allow User To View InActive Employees" });
+            permissions.Add(new Permission() { Id = 14, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 10, Name = "Mark Employee as InActive", Description = "Allow User To Mark Employee as InActive." });
+
+            //Customer
+            permissions.Add(new Permission() { Id = 20, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Customer Center", Description = "Allow User To Open Customer Center" });
+            permissions.Add(new Permission() { Id = 21, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "Add New Customer", Description = "Allow User To Add New Customer" });
+            permissions.Add(new Permission() { Id = 22, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "Edit Customer", Description = "Allow User To Edit Customer" });
+            permissions.Add(new Permission() { Id = 23, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "See Transactions", Description = "Allow User To View Transaction done From his Account" });
+            permissions.Add(new Permission() { Id = 24, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "View InActive Customers", Description = "Allow User To View InActive Customers" });
+            permissions.Add(new Permission() { Id = 25, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "Mark Customer as InActive", Description = "Allow User To Mark Customer as InActive." });
+
+
+            //Vendor
+            permissions.Add(new Permission() { Id = 30, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Vendor Center", Description = "Allow User To Open Vendor Center" });
+            permissions.Add(new Permission() { Id = 31, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "Add New Vendor", Description = "Allow User To Add Vendor" });
+            permissions.Add(new Permission() { Id = 32, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "Edit Vendor", Description = "Allow User To Edit Vendor Information" });
+            permissions.Add(new Permission() { Id = 33, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "View InActive Vendor", Description = "Allow User To View InActive Vendors" });
+            permissions.Add(new Permission() { Id = 34, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "Mark Vendor as InActive", Description = "Allow User To Mark Vendor as InActive." });
+            permissions.Add(new Permission() { Id = 35, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "View InActive Vendor Payment Statuses", Description = "Allow User To View InActive Vendors" });
+            permissions.Add(new Permission() { Id = 36, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "Add Vendor Payment Status", Description = "Allow User To Add New Vendor Payment Status" });
+            permissions.Add(new Permission() { Id = 37, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 30, Name = "Edit Vendor Payment Status", Description = "Allow User To edit Vendor Payment Status" });
+
+
+            //Principal
+            permissions.Add(new Permission() { Id = 40, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Principal Center", Description = "Allow User To Open Principal Center" });
+            permissions.Add(new Permission() { Id = 41, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "Add New Principal", Description = "Allow User To Add New Principal" });
+            permissions.Add(new Permission() { Id = 42, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "Edit Principal", Description = "Allow User To Edit Principal" });
+            permissions.Add(new Permission() { Id = 43, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "View InActive Principal", Description = "Allow User To View InActive Principals" });
+            permissions.Add(new Permission() { Id = 44, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "Mark Prinicpal as InActive", Description = "Allow User To Mark Principal as InActive." });
+
+            //procurment
+            permissions.Add(new Permission() { Id = 50, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Procurment Panel", Description = "Allow User To Open Procurmant Panel" });
+            permissions.Add(new Permission() { Id = 51, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Inquiries", Description = "Inquiries" });
+
+            permissions.Add(new Permission() { Id = 52, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Add Inquiry", Description = "Allow User To Add New Inquiry" });
+            permissions.Add(new Permission() { Id = 53, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Edit Inquiry", Description = "Allow User To Edit Inquiry" });
+            permissions.Add(new Permission() { Id = 54, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "View Inquiry Details", Description = "Allow User To View Inquiry Details" });
+            permissions.Add(new Permission() { Id = 55, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "List Of Inquiries", Description = "Allow User To View List Of Inquiries" });
+            permissions.Add(new Permission() { Id = 56, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Add Inquiry Status", Description = "Allow User to Add New Status for Inquiry" });
+            permissions.Add(new Permission() { Id = 57, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Create Offer from Inquiry", Description = "Allow User To Create Offer from an Existing Inquiry" });
+            permissions.Add(new Permission() { Id = 58, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Edit Inquiry Status", Description = "Allow User To Edit Inquiry Status" });
+            permissions.Add(new Permission() { Id = 59, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "View InActive Inquiry Statuses", Description = "Allow User To View InActive Inquiry Statuses" });
+            permissions.Add(new Permission() { Id = 60, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Add Inquiry without Approval", Description = "Allow User To Add New Inquiry without Approval" });
+            permissions.Add(new Permission() { Id = 61, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "View InActive Inquiries", Description = "Allow User To View InActive Inquiries" });
+            permissions.Add(new Permission() { Id = 62, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 51, Name = "Close Inquiry without Approval", Description = "Allow User To Close Inquiry without Approval" });
+
+            permissions.Add(new Permission() { Id = 301, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Offers", Description = "Offers" });
+
+            permissions.Add(new Permission() { Id = 302, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Add New Offer ", Description = "Allow User To Add New Offer" });
+            permissions.Add(new Permission() { Id = 303, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Edit Offer", Description = "Allow User To Edit Offer Details" });
+            permissions.Add(new Permission() { Id = 304, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Offer Details", Description = "Allow User To View Offer Details" });
+            permissions.Add(new Permission() { Id = 305, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "List Of Offers", Description = "Allow User To view List of Offers" });
+            permissions.Add(new Permission() { Id = 306, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Add Offer Status", Description = "Allow User To Add new Status for Offer" });
+            permissions.Add(new Permission() { Id = 307, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "View InActive Offers", Description = "Allow User To View InActive Offers" });
+            permissions.Add(new Permission() { Id = 308, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Add Offer without Approval", Description = "Allow User To Add New Offer without Approval" });
+            permissions.Add(new Permission() { Id = 309, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Edit Offer Status", Description = "Allow User To Edit Offer Status" });
+            permissions.Add(new Permission() { Id = 310, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "View InActive Offer Statuses", Description = "Allow User To View InActive Offer Statuses" });
+            permissions.Add(new Permission() { Id = 311, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Create Sale Order from Offer", Description = "Allow User To Create Purchase Order from an existing Offer" });
+            permissions.Add(new Permission() { Id = 312, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 301, Name = "Close Offer without Approval", Description = "Allow User To Close Offer without Approval" });
+
+            permissions.Add(new Permission() { Id = 331, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Sale Orders", Description = "Sale Orders" });
+            permissions.Add(new Permission() { Id = 332, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Add Sale Order", Description = "Allow User To Add Sale Order" });
+            permissions.Add(new Permission() { Id = 333, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Edit Sale Order", Description = "Allow User To Edit Sale Order" });
+            permissions.Add(new Permission() { Id = 334, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "View Sale Order", Description = "Allow User To View Sale Order" });
+            permissions.Add(new Permission() { Id = 335, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "List of Sale Orders", Description = "Allow User To View List of Sale Order" });
+            permissions.Add(new Permission() { Id = 336, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Add Sale Order Status", Description = "Allow User To Add new status for Sale Order" });
+            permissions.Add(new Permission() { Id = 337, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Add Sale Order without Approval", Description = "Allow User To Add New Sale Order without Approval" });
+            permissions.Add(new Permission() { Id = 338, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "View InActive Sale Orders", Description = "Allow User To View InActive Sale Orders" });
+            permissions.Add(new Permission() { Id = 339, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Close Sale Order", Description = "Allow User To Close Sale Order" });
+            permissions.Add(new Permission() { Id = 340, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Edit Sale Order Status", Description = "Allow User To Edit Sale Order Status" });
+            permissions.Add(new Permission() { Id = 341, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "View InActive Sale Order Statuses", Description = "Allow User To View InActive Sale Order Statuses" });
+            permissions.Add(new Permission() { Id = 342, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Create Po from Sale Order", Description = "Allow User To Create Purchase Order from an existing SaleOrder" });
+            permissions.Add(new Permission() { Id = 343, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Close Sale Order without Approval", Description = "Allow User To Close Sale Order without Approval" });
+            permissions.Add(new Permission() { Id = 344, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "Edit Unapproved Sale Order", Description = "Allow User To Edit Unapproved Sale Order without Approval" });
+            permissions.Add(new Permission() { Id = 344, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 331, Name = "View Market Exchange Rate in Sale Order", Description = "Allow User To View Market Exchange Rate in Sale Order" });
+
+
+            permissions.Add(new Permission() { Id = 361, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Purchase Orders", Description = "Purchase Orders" });
+
+            permissions.Add(new Permission() { Id = 362, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Add Purchase Order", Description = "Allow User To Add Purchase Order" });
+            permissions.Add(new Permission() { Id = 363, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Edit Purchase Order", Description = "Allow User To Edit Purchase Order" });
+            permissions.Add(new Permission() { Id = 364, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "View Purchase Order", Description = "Allow User To View Purchase Order" });
+            permissions.Add(new Permission() { Id = 365, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "List of Purchase Orders", Description = "Allow User To View List of Purchase Order" });
+            permissions.Add(new Permission() { Id = 366, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Add Purchase Order Status", Description = "Allow User To Add new status for Purchase Order" });
+            permissions.Add(new Permission() { Id = 367, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Close Inquiry", Description = "Allow User To Close Inquiry" });
+            permissions.Add(new Permission() { Id = 368, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Close Offer", Description = "Allow User To Close Offer" });
+            permissions.Add(new Permission() { Id = 369, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Close Purchase Order", Description = "Allow User To Close Purchase Order" });
+            permissions.Add(new Permission() { Id = 370, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "View InActive Purchase Orders", Description = "Allow User To View InActive Purchase Orders" });
+            permissions.Add(new Permission() { Id = 370, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Add Purchase Order without Approval", Description = "Allow User To Add New Purchase Order without Approval" });
+            permissions.Add(new Permission() { Id = 371, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Edit Purchase Order Status", Description = "Allow User To Edit Purchase Order Status" });
+            permissions.Add(new Permission() { Id = 372, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "View InActive Purchase Order Statuses", Description = "Allow User To View InActive Purchase Order Statuses" });
+            permissions.Add(new Permission() { Id = 373, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Close Purchase Order without Approval", Description = "Allow User To Close Purchase Order without Approval" });
+
+
+
+
+            //    ////Reports
+            //    //permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" });
+            //    //permissions.Add(new Permission() { Id = 81, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" });
+            //    //permissions.Add(new Permission() { Id = 82, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Report Center", Description = "Allow User To create new reports in Reports Center " });
+            //    //permissions.Add(new Permission() { Id = 83, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "User Procurment Reports", Description = "Allow User To Edit template for User Procurment reports" });
+            //    //Lists
+            //    permissions.Add(new Permission() { Id = 90, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Lists", Description = "Allow User To View Lists" });
+            //    permissions.Add(new Permission() { Id = 91, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Currencies", Description = "Allow User To View List of Currencies" });
+            //    permissions.Add(new Permission() { Id = 92, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Items", Description = "Allow User To View List of Items" });
+            //    permissions.Add(new Permission() { Id = 93, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Industry Types", Description = "Allow User To View List of Industry Types" });
+            //    permissions.Add(new Permission() { Id = 94, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Payment Terms", Description = "Allow User To View List of Payment Terms" });
+            //    permissions.Add(new Permission() { Id = 95, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Incoterms", Description = "Allow User To View List of Incoterms" });
+            //    permissions.Add(new Permission() { Id = 96, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Procurment Statuses ", Description = "Allow User To View List of Procurment Statuses" });
+            //    permissions.Add(new Permission() { Id = 97, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Inquiry Statuses", Description = "Allow User To View List of Inquiry Statuses" });
+            //    permissions.Add(new Permission() { Id = 98, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Offer Statuses", Description = "Allow User To View List of Offer Statuses" });
+            //    permissions.Add(new Permission() { Id = 99, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 90, Name = "List of Purchase Order Statuses", Description = "Allow User To View List of Purchase Order Statuses" });
+
+            //users
+            permissions.Add(new Permission() { Id = 110, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Users", Description = "Allow User To view Users List" });
+
+            permissions.Add(new Permission() { Id = 111, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 110, Name = "Manage Users And Roles", Description = "Allow User To Manage Users And Roles" });
+            permissions.Add(new Permission() { Id = 112, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 110, Name = "Add New User", Description = "Allow User To Add New User" });
+            permissions.Add(new Permission() { Id = 113, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 110, Name = "Add New Role", Description = "Allow User To Add New Role" });
+            permissions.Add(new Permission() { Id = 114, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 110, Name = "Edit Role", Description = "Allow User To Edit Role" });
+            permissions.Add(new Permission() { Id = 115, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 110, Name = "Edit User", Description = "Allow User To Edit User" });
+            //permissions.Add(new Permission() { Id = 116, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 110, Name = "Mark Role as InActive", Description = "Allow User To Mark Role as InActive." });
+
+            //Currencies
+            permissions.Add(new Permission() { Id = 400, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Currencies", Description = "Allow User To Access Currencies" });
+
+            permissions.Add(new Permission() { Id = 401, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 400, Name = "Add Currency", Description = "Allow User To add Currency" });
+            permissions.Add(new Permission() { Id = 402, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 400, Name = "Edit Currency", Description = "Allow User To add Currency" });
+            permissions.Add(new Permission() { Id = 403, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 400, Name = "Add Exchange Rates", Description = "Allow User To add Exchange Rates" });
+            permissions.Add(new Permission() { Id = 404, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 400, Name = "Edit Exchange Rates", Description = "Allow User To Edit Exchange Rates" });
+            permissions.Add(new Permission() { Id = 405, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 400, Name = "Add Sales Exchange Rates", Description = "Allow User To Add Sales Exchange Rates" });
+            permissions.Add(new Permission() { Id = 406, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 400, Name = "Edit Sales Exchange Rates", Description = "Allow User To Edit Sales Exchange Rates" });
+
+
+
             //Comapny Related
             permissions.Add(new Permission() { Id = 2, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Add New Comapny", Description = "Allow User To Open New Company" });
             permissions.Add(new Permission() { Id = 3, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Edit Company", Description = "Allow User To Edit Company Information" });
@@ -47,8 +190,8 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 6, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "View InActive Companies", Description = "Allow User To View InActive Companies" });
             permissions.Add(new Permission() { Id = 7, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "View InActive Departments", Description = "Allow User To View InActive Departments" });
             permissions.Add(new Permission() { Id = 8, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1, Name = "Mark Company as  InActive", Description = "Allow User To Mark Company as InActive." });
-           
-           
+
+
 
 
             //Employee 
@@ -57,7 +200,7 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 3101, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3100, Name = "Access Employment Centre", Description = "Allow User To Open Employee Center" });
 
             permissions.Add(new Permission() { Id = 3103, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3101, Name = "Add New Employee", Description = "Allow User To Add New Employee " });//
-          
+
             //View Employee Permissions
             permissions.Add(new Permission() { Id = 3104, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3101, Name = "View Employee Register", Description = "Allow User To View All Employee Register." });//
 
@@ -98,11 +241,11 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 3134, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3101, Name = "Edit Employee Status", Description = "Allow User To Edit Employee Status" });//
             permissions.Add(new Permission() { Id = 3135, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3101, Name = "View Employee Status List", Description = "Allow User To View Employee Status List" });//
             permissions.Add(new Permission() { Id = 3136, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3101, Name = "Edit Employee", Description = "Allow User To Edit Employee Information" });//
-            //16-19 resserved
-            //Edit Employee persmissions
+                                                                                                                                                                                                                               //16-19 resserved
+                                                                                                                                                                                                                               //Edit Employee persmissions
             permissions.Add(new Permission() { Id = 3137, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3136, Name = "Edit Personal Info", Description = "Allow User To Edit Personal Info." });
 
-           // permissions.Add(new Permission() { Id = 7001, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3137, Name = "Edit Personal Photo", Description = "Allow User To Edit Personal Photo." });
+            // permissions.Add(new Permission() { Id = 7001, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3137, Name = "Edit Personal Photo", Description = "Allow User To Edit Personal Photo." });
 
             permissions.Add(new Permission() { Id = 3138, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3136, Name = "Edit Company and Department", Description = "Allow User To Edit Company and Department" });
             permissions.Add(new Permission() { Id = 3139, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3136, Name = "Edit Qualification", Description = "Allow User To Edit Qualification." });
@@ -181,7 +324,7 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 24, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "View InActive Customers", Description = "Allow User To View InActive Customers" });
             permissions.Add(new Permission() { Id = 25, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "Mark Customer as InActive", Description = "Allow User To Mark Customer as InActive." });
 
-            
+
             //Add Customer info tabs
             permissions.Add(new Permission() { Id = 26, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "Add Customer Info", Description = "Allow User To Add Customer Information" });
             //Add [Customer info tabs] Child permission start
@@ -213,7 +356,7 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 5101, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 28, Name = "Add NTN number", Description = "Allow User To Add NTN number" });
             permissions.Add(new Permission() { Id = 5102, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 28, Name = "Add Customer sale tax registration Number", Description = "Allow User To Add Customer sale tax registration Number" });
 
-            
+
             permissions.Add(new Permission() { Id = 5001, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 20, Name = "Add Customer Contact Info", Description = "Allow User To Add Customer Contact Information" });
 
             permissions.Add(new Permission() { Id = 5202, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 5001, Name = "Add First Name", Description = "Allow User To Add Customer First Name" });
@@ -314,19 +457,6 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 42, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "Edit Principal", Description = "Allow User To Edit Principal" });
             permissions.Add(new Permission() { Id = 43, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "View InActive Principal", Description = "Allow User To View InActive Principals" });
             permissions.Add(new Permission() { Id = 44, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 40, Name = "Mark Prinicpal as InActive", Description = "Allow User To Mark Principal as InActive." });
-
-            /// Targets {
-            {
-                //permissions.Add(new Permission() { Id = 140, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Targets", Description = "Allow User View Targets" });
-                //permissions.Add(new Permission() { Id = 141, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "Add New Target", Description = "Allow User To Add New Target" });
-                //permissions.Add(new Permission() { Id = 142, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "Edit Target", Description = "Allow User To Edit Target" });
-                //permissions.Add(new Permission() { Id = 143, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "View List of Targets", Description = "Allow User To View List of Targets" });
-                //permissions.Add(new Permission() { Id = 144, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "Add Target Type", Description = "Allow User To Add target Type." });
-                //permissions.Add(new Permission() { Id = 145, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "Edit Target Type", Description = "Allow User To Edit target Type." });
-                //permissions.Add(new Permission() { Id = 146, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "View List of Target Types", Description = "Allow User To View List of Target Types" });
-                //permissions.Add(new Permission() { Id = 147, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "View List of Target Achivement", Description = "Allow User To View List of Target Achivements" });
-                //permissions.Add(new Permission() { Id = 148, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 140, Name = "View List of All Achived Targets", Description = "Allow User To View List of all Achived Targets" });
-            }
             //procurment
             permissions.Add(new Permission() { Id = 50, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Procurment Panel", Description = "Allow User To Open Procurmant Panel" });
             //// 360 View 
@@ -556,76 +686,70 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 628, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 601, Name = "Edit FOB and CFR value for products in MemorandumSale", Description = "Allow User To Edit FOB and CFR value for products in MemorandumSale" });
             }
 
+            //// Sale Invoices
+            //{
+            //    permissions.Add(new Permission() { Id = 701, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 50, Name = "Sale Invoices", Description = "Sale Invoices" });
 
-            ///////////////////////
-            ///Sale Invoices Permissions 
-            ///
-            {
-                permissions.Add(new Permission() { Id = 701, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Sale Invoices", Description = "Sale Invoices" });
-                permissions.Add(new Permission() { Id = 702, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Add Sale Invoice", Description = "Allow User To Add Sale Invoice" });
-                permissions.Add(new Permission() { Id = 703, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit Sale Invoice", Description = "Allow User To Edit Sale Invoice" });
-                permissions.Add(new Permission() { Id = 704, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View Sale Invoice", Description = "Allow User To View Sale Invoice" });
-                permissions.Add(new Permission() { Id = 705, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "List of Sale Invoices", Description = "Allow User To View List of Sale Invoice" });
-                permissions.Add(new Permission() { Id = 706, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Add Sale Invoice Status", Description = "Allow User To Add new status for Sale Invoice" });
-                permissions.Add(new Permission() { Id = 707, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Add Sale Invoice without Approval", Description = "Allow User To Add New Sale Invoice without Approval" });
-                permissions.Add(new Permission() { Id = 708, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View InActive Sale Invoices", Description = "Allow User To View InActive Sale Invoices" });
-                permissions.Add(new Permission() { Id = 709, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Close Sale Invoice", Description = "Allow User To Close Sale Invoice" });
-                permissions.Add(new Permission() { Id = 710, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit Sale Invoice Status", Description = "Allow User To Edit Sale Invoice Status" });
-                permissions.Add(new Permission() { Id = 711, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View InActive Sale Invoice Statuses", Description = "Allow User To View InActive Sale Invoice Statuses" });
+            //    permissions.Add(new Permission() { Id = 702, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Add Sale Invoice", Description = "Allow User To Add Sale Invoice" });
+            //    permissions.Add(new Permission() { Id = 703, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sale Invoice", Description = "Allow User To Edit Sale Invoice" });
+            //    permissions.Add(new Permission() { Id = 704, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Sale Invoice", Description = "Allow User To View Sale Invoice" });
+            //    permissions.Add(new Permission() { Id = 705, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "List of Sale Invoices", Description = "Allow User To View List of Sale Invoice" });
 
-                permissions.Add(new Permission() { Id = 713, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Close Sale Invoice without Approval", Description = "Allow User To Close Sale Invoice without Approval" });
-                permissions.Add(new Permission() { Id = 714, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit Unapproved Sale Invoice", Description = "Allow User To Edit Unapproved Sale Invoice without Approval" });
+            //    permissions.Add(new Permission() { Id = 706, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Add Sale Invoice Status", Description = "Allow User To Add new status for Sale Invoice" });
+            //    permissions.Add(new Permission() { Id = 707, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Add Sale Invoice without Approval", Description = "Allow User To Add New Sale Invoice without Approval" });
 
-                permissions.Add(new Permission() { Id = 716, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Reviewer Level 1 SaleInvoice", Description = "Allow User to mark SaleInvoice as Reviewed once" });
-                permissions.Add(new Permission() { Id = 717, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Reviewer Level 2 SaleInvoice", Description = "Allow User To Mark SaleInvoice as Reviewed and move it to Approved List" });
-                permissions.Add(new Permission() { Id = 718, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Approver for Closing SaleInvoice", Description = "Allow User To Close SaleInvoice which is in pending state" });
-                permissions.Add(new Permission() { Id = 719, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Approver for new added SaleInvoice", Description = "Allow User To Approve Offer which is in pending state" });
-                permissions.Add(new Permission() { Id = 720, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit closed SaleInvoice", Description = "Allow User To Edit Closed Sale Invoice" });
-                permissions.Add(new Permission() { Id = 721, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View(Pending for closing) SaleInvoice List", Description = "Allow User To View List of All(Pending for Closing) SaleInvoices mapped to his Department" });
-                permissions.Add(new Permission() { Id = 722, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View(Pending for Approval) SaleInvoice List", Description = "Allow User To View List of All(Pending for Approval) SaleInvoices mapped to his Department" });
-                permissions.Add(new Permission() { Id = 723, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit Creation Date of SaleInvoice", Description = "Allow User To Edit Creation Date of SaleInvoice" });
-                permissions.Add(new Permission() { Id = 724, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Attach a file with SaleInvoice", Description = "Allow User To Attach a file with SaleInvoice" });
-                permissions.Add(new Permission() { Id = 725, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View list of attached files with SaleInvoice", Description = "Allow User To View list of attached files with SaleInvoice" });
-                permissions.Add(new Permission() { Id = 726, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Mark as Void SaleInvoice", Description = "Allow User To Mark as Void SaleInvoice" });
-                permissions.Add(new Permission() { Id = 727, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Unmark Void SaleInvoice", Description = "Allow User To unmark as Void SaleInvoice" });
-                permissions.Add(new Permission() { Id = 728, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View list of Void SaleInvoices", Description = "View list of Void SaleInvoices" });
-                permissions.Add(new Permission() { Id = 729, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Move SaleInvoice to Inter Company", Description = "Allow User To Move SaleInvoice to Inter Company mapped to his Department" });
-                permissions.Add(new Permission() { Id = 729, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit FOB and CFR value for products in SaleInvoice", Description = "Allow User To Edit FOB and CFR value for products in SaleInvoice" });
-                permissions.Add(new Permission() { Id = 730, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Close Invoice without receiving fully Collection", Description = "Allow User To Close Invoice without receiving fully Collection" });
-                permissions.Add(new Permission() { Id = 731, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View Sales Invoice Register", Description = "Allow User To View Sales Invoice Register" });
-                permissions.Add(new Permission() { Id = 732, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit Sales Invoice Value after approval", Description = "Allow User To Edit Sales Invoice Value after approval" });
-                permissions.Add(new Permission() { Id = 733, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit Sales Invoice Value before approval", Description = "Allow User To Edit Sales Invoice Value before approval" });
-                permissions.Add(new Permission() { Id = 734, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Can attach document when Sale Invoice Closed", Description = "Allow User To attach document when Sale Invoice Closed" });
-                permissions.Add(new Permission() { Id = 735, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "SI Exchange Rates", Description = "Allow User To SI Exchange Rates" });
-                permissions.Add(new Permission() { Id = 736, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 735, Name = "Edit SI SER", Description = "Allow User To Edit SER" });
-                permissions.Add(new Permission() { Id = 737, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 735, Name = "Edit SI MER", Description = "Allow User To Edit MER" });
-                permissions.Add(new Permission() { Id = 714, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 735, Name = "View Market Exchange Rate in Sale Invoice", Description = "Allow User To View Market Exchange Rate in Sale Invoice" });
-                permissions.Add(new Permission() { Id = 738, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit GL Posting Date of SaleInvoice", Description = "Allow User To Edit GL Posting Date of SaleInvoice" });
-                permissions.Add(new Permission() { Id = 739, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Update CostSheet from Sales Invoice", Description = "Update CostSheet from Sales Invoice" });
-                permissions.Add(new Permission() { Id = 740, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit is-InterCompany receivable check", Description = "Allow user to Edit is-InterCompany receivable check" });
-                permissions.Add(new Permission() { Id = 741, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit STL stamp", Description = "Allow user to Edit STL Stamp" });
-                permissions.Add(new Permission() { Id = 742, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit STL discount", Description = "Allow user to Edit STL discount" });
-                permissions.Add(new Permission() { Id = 743, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "View Customer Credits Report", Description = "Allow user View Customer Credits Report" });
+            //    permissions.Add(new Permission() { Id = 708, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View InActive Sale Invoices", Description = "Allow User To View InActive Sale Invoices" });
+            //    permissions.Add(new Permission() { Id = 709, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Close Sale Invoice", Description = "Allow User To Close Sale Invoice" });
+            //    permissions.Add(new Permission() { Id = 710, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sale Invoice Status", Description = "Allow User To Edit Sale Invoice Status" });
+            //    permissions.Add(new Permission() { Id = 711, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View InActive Sale Invoice Statuses", Description = "Allow User To View InActive Sale Invoice Statuses" });
 
-            }
+            //    permissions.Add(new Permission() { Id = 713, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Close Sale Invoice without Approval", Description = "Allow User To Close Sale Invoice without Approval" });
+            //    permissions.Add(new Permission() { Id = 714, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Unapproved Sale Invoice", Description = "Allow User To Edit Unapproved Sale Invoice without Approval" });
+
+            //    permissions.Add(new Permission() { Id = 716, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Reviewer Level 1 SaleInvoice", Description = "Allow User to mark SaleInvoice as Reviewed once" });
+            //    permissions.Add(new Permission() { Id = 717, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Reviewer Level 2 SaleInvoice", Description = "Allow User To Mark SaleInvoice as Reviewed and move it to Approved List" });
+
+            //    permissions.Add(new Permission() { Id = 718, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Approver for Closing SaleInvoice", Description = "Allow User To Close SaleInvoice which is in pending state" });
+            //    permissions.Add(new Permission() { Id = 719, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Approver for new added SaleInvoice", Description = "Allow User To Approve Offer which is in pending state" });
+
+            //    permissions.Add(new Permission() { Id = 720, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit closed SaleInvoice", Description = "Allow User To Edit Closed Sale Invoice" });
+
+            //    permissions.Add(new Permission() { Id = 721, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View(Pending for closing) SaleInvoice List", Description = "Allow User To View Pending Closing SaleInvoices" });
+            //    permissions.Add(new Permission() { Id = 722, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View(Pending for Approval) SaleInvoice List", Description = "Allow User To View Pending Approval SaleInvoices" });
+
+            //    permissions.Add(new Permission() { Id = 723, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Creation Date of SaleInvoice", Description = "Allow User To Edit Creation Date of SaleInvoice" });
+            //    permissions.Add(new Permission() { Id = 724, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Attach a file with SaleInvoice", Description = "Allow User To Attach a file with SaleInvoice" });
+            //    permissions.Add(new Permission() { Id = 725, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View list of attached files with SaleInvoice", Description = "Allow User To View attached files" });
+
+            //    permissions.Add(new Permission() { Id = 726, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Mark as Void SaleInvoice", Description = "Allow User To Mark as Void SaleInvoice" });
+            //    permissions.Add(new Permission() { Id = 727, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Unmark Void SaleInvoice", Description = "Allow User To Unmark Void SaleInvoice" });
+            //    permissions.Add(new Permission() { Id = 728, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View list of Void SaleInvoices", Description = "View void invoices" });
+
+            //    permissions.Add(new Permission() { Id = 744, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Move SaleInvoice to Inter Company", Description = "Allow User To Move SaleInvoice to Inter Company mapped to his Department" });
+
+            //    permissions.Add(new Permission() { Id = 730, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Close Invoice without receiving fully Collection", Description = "Allow User To Close Invoice without full payment" });
+            //    permissions.Add(new Permission() { Id = 731, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Sales Invoice Register", Description = "Allow User To View Sales Invoice Register" });
+            //    permissions.Add(new Permission() { Id = 732, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sales Invoice Value after approval", Description = "Allow User To Edit after approval" });
+            //    permissions.Add(new Permission() { Id = 733, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit Sales Invoice Value before approval", Description = "Allow User To Edit before approval" });
+
+            //    permissions.Add(new Permission() { Id = 734, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Can attach document when Sale Invoice Closed", Description = "Allow attachments after close" });
+
+            //    permissions.Add(new Permission() { Id = 735, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "SI Exchange Rates", Description = "Exchange rate permissions group" });
+            //    permissions.Add(new Permission() { Id = 736, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 735, Name = "Edit SI SER", Description = "Allow SER edit" });
+            //    permissions.Add(new Permission() { Id = 737, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 735, Name = "Edit SI MER", Description = "Allow MER edit" });
+
+            //    permissions.Add(new Permission() { Id = 738, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Market Exchange Rate in Sale Invoice", Description = "Allow viewing exchange rates" });
+
+            //    permissions.Add(new Permission() { Id = 739, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Update CostSheet from Sales Invoice", Description = "Sync cost sheet" });
+            //    permissions.Add(new Permission() { Id = 740, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit is-InterCompany receivable check", Description = "Intercompany control" });
+            //    permissions.Add(new Permission() { Id = 741, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit STL stamp", Description = "Edit stamp" });
+            //    permissions.Add(new Permission() { Id = 742, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "Edit STL discount", Description = "Edit discount" });
+            //    permissions.Add(new Permission() { Id = 743, Added = DateTime.Now, LastModified = DateTime.Now, ParentId = 701, Name = "View Customer Credits Report", Description = "View credit report" });
+            //}
 
             ////////////////////
             /// Purcahse order
-            //{
-            //    permissions.Add(new Permission() { Id = 361, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Purchase Orders", Description = "Purchase Orders" });
 
-            //    permissions.Add(new Permission() { Id = 362, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Add Purchase Order", Description = "Allow User To Add Purchase Order" });
-            //    permissions.Add(new Permission() { Id = 363, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Edit Purchase Order", Description = "Allow User To Edit Purchase Order" });
-            //    permissions.Add(new Permission() { Id = 364, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "View Purchase Order", Description = "Allow User To View Purchase Order" });
-            //    permissions.Add(new Permission() { Id = 365, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "List of Purchase Orders", Description = "Allow User To View List of Purchase Order" });
-            //    permissions.Add(new Permission() { Id = 366, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Add Purchase Order Status", Description = "Allow User To Add new status for Purchase Order" });
-            //    permissions.Add(new Permission() { Id = 369, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Close Purchase Order", Description = "Allow User To Close Purchase Order" });
-            //    permissions.Add(new Permission() { Id = 370, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "View InActive Purchase Orders", Description = "Allow User To View InActive Purchase Orders" });
-            //    permissions.Add(new Permission() { Id = 370, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Add Purchase Order without Approval", Description = "Allow User To Add New Purchase Order without Approval" });
-            //    permissions.Add(new Permission() { Id = 371, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Edit Purchase Order Status", Description = "Allow User To Edit Purchase Order Status" });
-            //    permissions.Add(new Permission() { Id = 372, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "View InActive Purchase Order Statuses", Description = "Allow User To View InActive Purchase Order Statuses" });
-            //    permissions.Add(new Permission() { Id = 373, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 361, Name = "Close Purchase Order without Approval", Description = "Allow User To Close Purchase Order without Approval" });
-            //}
             {
                 permissions.Add(new Permission() { Id = 1001, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Purchase Orders", Description = "Purchase Orders" });
                 permissions.Add(new Permission() { Id = 1002, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1001, Name = "Add Purchase Order", Description = "Allow User To Add Purchase Order" });
@@ -673,7 +797,7 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 1041, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1001, Name = "Can Edit Basic Information After Approval in PO", Description = "Allow User To Edit Basic Information After Approval in PO" });
                 permissions.Add(new Permission() { Id = 1042, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1001, Name = "Can Edit Vendor in Purchase Order", Description = "Allow User To Edit Vendor in Purchase Order" });
                 permissions.Add(new Permission() { Id = 1043, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1001, Name = "Copy Purchase Order Template", Description = "Allow User To Copy Purchase Order Template" });
-                
+
 
             }
             {
@@ -760,7 +884,7 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 4510, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "Add New Step", Description = "Allow User To Add New Step" });
                 permissions.Add(new Permission() { Id = 4511, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "Edit Step", Description = "Allow User To Edit Steps" });
                 permissions.Add(new Permission() { Id = 4512, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "View Step", Description = "Allow User To View Step" });
-            
+
                 permissions.Add(new Permission() { Id = 4513, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "Target Status", Description = "Target Status" });
                 permissions.Add(new Permission() { Id = 4514, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4513, Name = "Add Target Status", Description = "Allow User To Add Target Status" });
                 permissions.Add(new Permission() { Id = 4515, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4513, Name = "Edit Target Status", Description = "Allow User To Edit Target Status" });
@@ -769,7 +893,7 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 4516, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "Mark as Void Target", Description = "Allow User To Mark as Void Target" });
                 permissions.Add(new Permission() { Id = 4517, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "Unmark Void Target", Description = "Allow User To unmark as Void Target" });
                 permissions.Add(new Permission() { Id = 4518, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "View list of Void Target", Description = "View list of Void Target" });
-            
+
                 permissions.Add(new Permission() { Id = 4519, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "View Group Target Register", Description = "Allow User To View Group Target Register" });
                 permissions.Add(new Permission() { Id = 4520, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4500, Name = "View Target Register", Description = "Allow User To View Target Register" });
 
@@ -869,7 +993,7 @@ namespace ERP_BL.Migrations
             {
 
                 permissions.Add(new Permission() { Id = 4601, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Petty Cash", Description = "Petty Cash" });
-                permissions.Add(new Permission() { Id = 4602, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId= 4601 , Name = "Can view Petty Cash Enteries without Departmental Authority", Description = "Allow User to view Petty Cash Enteries without Departmental Authority" });
+                permissions.Add(new Permission() { Id = 4602, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4601, Name = "Can view Petty Cash Enteries without Departmental Authority", Description = "Allow User to view Petty Cash Enteries without Departmental Authority" });
                 permissions.Add(new Permission() { Id = 4603, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4601, Name = "Can Open Transactions without Authority from Petty Cash", Description = "Allow User to Open Transactions without Authority" });
                 permissions.Add(new Permission() { Id = 4604, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4601, Name = "Can view Petty Cash Enteries without Company & Departmental Authority", Description = "Allow User to view Petty Cash Enteries without Company & Departmental Authority" });
             }
@@ -883,7 +1007,7 @@ namespace ERP_BL.Migrations
             permissions.Add(new Permission() { Id = 4709, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4705, Name = "List of VAT Book Reference", Description = "Allow User To View List of VAT Book Reference" });
 
 
-            permissions.Add(new Permission() { Id = 4800, Added = System.DateTime.Now, ParentId= 3600, LastModified = System.DateTime.Now, Name = "CashFlow", Description = "CashFlow" });
+            permissions.Add(new Permission() { Id = 4800, Added = System.DateTime.Now, ParentId = 3600, LastModified = System.DateTime.Now, Name = "CashFlow", Description = "CashFlow" });
             permissions.Add(new Permission() { Id = 4801, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4800, Name = "Can view Cashflow statement", Description = "Allow User to view Cashflow statement" });
             permissions.Add(new Permission() { Id = 4802, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4800, Name = "Can view sales invoice from Cashflow statement", Description = "Allow User to view sales invoice from Cashflow statement" });
             permissions.Add(new Permission() { Id = 4803, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4800, Name = "Can view purchase orders from Cashflow statement", Description = "Allow User to view purchase orders from Cashflow statement" });
@@ -894,79 +1018,79 @@ namespace ERP_BL.Migrations
 
 
 
-            //Reports
+            //    //Reports
 
-            //{
-            //    var reportObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" };
-            //    permissions.Add(reportObj);
+            //    //{
+            //    //    var reportObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" };
+            //    //    permissions.Add(reportObj);
 
-            //    var reportCenterObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Report Center", Description = "Allow User To create new reports in Reports Center " };
-            //    permissions.Add(reportCenterObj);
+            //    //    var reportCenterObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Report Center", Description = "Allow User To create new reports in Reports Center " };
+            //    //    permissions.Add(reportCenterObj);
 
-            //    var memorizedReports = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Memorized Reports", Description = "Allow User To Memorized Reports" };
-            //    permissions.Add(memorizedReports);
+            //    //    var memorizedReports = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Memorized Reports", Description = "Allow User To Memorized Reports" };
+            //    //    permissions.Add(memorizedReports);
 
-            //    var memorizedReportObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReports, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" };
-            //    permissions.Add(memorizedReportObj);
+            //    //    var memorizedReportObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReports, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" };
+            //    //    permissions.Add(memorizedReportObj);
 
-            //    var standardReports= new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Standard Reports", Description = "Allow user to Standard Reports" };
-            //    permissions.Add(standardReports);
+            //    //    var standardReports= new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Standard Reports", Description = "Allow user to Standard Reports" };
+            //    //    permissions.Add(standardReports);
 
-            //    var standardReportObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReports, Name = "View Standard Reports", Description = "Allow user to View Standard Reports" };
-            //    permissions.Add(standardReportObj);
+            //    //    var standardReportObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReports, Name = "View Standard Reports", Description = "Allow user to View Standard Reports" };
+            //    //    permissions.Add(standardReportObj);
 
-            //    var reportGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Access to Report Group", Description = "Allow User To Access Report Group" };
-            //    permissions.Add(reportGroupObj);
+            //    //    var reportGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Access to Report Group", Description = "Allow User To Access Report Group" };
+            //    //    permissions.Add(reportGroupObj);
 
-            //    var standardGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportGroupObj, Name = "Access to View Standard Groups", Description = "Allow User To View Standard Groups" };
-            //    permissions.Add(standardGroupObj);
+            //    //    var standardGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportGroupObj, Name = "Access to View Standard Groups", Description = "Allow User To View Standard Groups" };
+            //    //    permissions.Add(standardGroupObj);
 
-            //    var MemorizedGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportGroupObj, Name = "Access to View Memorized Groups", Description = "Allow User To View Memorized Groups" };
-            //    permissions.Add(MemorizedGroupObj);
+            //    //    var MemorizedGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportGroupObj, Name = "Access to View Memorized Groups", Description = "Allow User To View Memorized Groups" };
+            //    //    permissions.Add(MemorizedGroupObj);
 
-            //    // New Permissions
+            //    //    // New Permissions
 
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Inquiries Reports", Description = "Allow User To Export Inquiry report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Offers Reports", Description = "Allow User To Export Offers report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Sale Orders Reports", Description = "Allow User To Export Sale Orders report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Purchase Orders Reports", Description = "Allow User To Export Purchase Orders report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Bills Reports", Description = "Allow User To Export Bills report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Sale Invoices Reports", Description = "Allow User To Export Sale Invoices report" });
-
-
-            //    //permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" });
-
-            //    //View Memorized Reports
-            //    //permissions.Add(new Permission() { Id = 81, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Save as new Memorized Report", Description = "Allow user to Save as new after view report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Rename Memorized Report", Description = "Allow User To Rename Memorized Report " });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Update Memorized Report", Description = "Allow User to Update Memorized Report " });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Delete Memorized Report", Description = "Allow User to Delete Memorized Report " });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Export to Standard Report", Description = "Allow User to Export to Standard Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Inquiries Reports", Description = "Allow User To Export Inquiry report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Offers Reports", Description = "Allow User To Export Offers report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Sale Orders Reports", Description = "Allow User To Export Sale Orders report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Purchase Orders Reports", Description = "Allow User To Export Purchase Orders report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Bills Reports", Description = "Allow User To Export Bills report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Export Sale Invoices Reports", Description = "Allow User To Export Sale Invoices report" });
 
 
-            //    //permissions.Add(new Permission() { Id = 82, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Report Center", Description = "Allow User To create new reports in Reports Center " });
+            //    //    //permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" });
 
-            //    //View Standard Reports
-            //    //permissions.Add(new Permission() { Id = 83, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Standard Reports", Description = "Allow user to View Standard Reports" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Save as new Standard Report", Description = "Allow user to Save as new after view report" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Rename Standard Report", Description = "Allow User To Rename Standard Report " });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Update Standard Report", Description = "Allow User to Update Standard Report " });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Delete Standard Report", Description = "Allow User to Delete Standard Report " });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Export to Memorized Report", Description = "Allow User to Export to Memorized Report" });
-
-            //    //permissions.Add(new Permission() { Id = 84, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to Report Group", Description = "Allow User To Access Report Group" });
+            //    //    //View Memorized Reports
+            //    //    //permissions.Add(new Permission() { Id = 81, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Save as new Memorized Report", Description = "Allow user to Save as new after view report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Rename Memorized Report", Description = "Allow User To Rename Memorized Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Update Memorized Report", Description = "Allow User to Update Memorized Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Delete Memorized Report", Description = "Allow User to Delete Memorized Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = memorizedReportObj, Name = "Access to Export to Standard Report", Description = "Allow User to Export to Standard Report " });
 
 
-            //    // Standard Groups
-            //    //permissions.Add(new Permission() { Id = 85, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Standard Groups", Description = "Allow User To View Standard Groups" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardGroupObj, Name = "Access to Add new Standard Group", Description = "Allow User To Add new Standard Group" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardGroupObj, Name = "Access to Edit Standard Group", Description = "Allow User To Edit Standard Group" });
-            //    //Memorized Groups
-            //    //permissions.Add(new Permission() { Id = 86, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Memorized Groups", Description = "Allow User To View Memorized Groups" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = MemorizedGroupObj, Name = "Access to Add new Memorized Group", Description = "Allow User To Add new Memorized Group" });
-            //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = MemorizedGroupObj, Name = "Access to Edit Memorized Groups", Description = "Allow User To Add new Memorized Group" });
-            //}
+            //    //    //permissions.Add(new Permission() { Id = 82, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Report Center", Description = "Allow User To create new reports in Reports Center " });
+
+            //    //    //View Standard Reports
+            //    //    //permissions.Add(new Permission() { Id = 83, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Standard Reports", Description = "Allow user to View Standard Reports" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Save as new Standard Report", Description = "Allow user to Save as new after view report" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Rename Standard Report", Description = "Allow User To Rename Standard Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Update Standard Report", Description = "Allow User to Update Standard Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Delete Standard Report", Description = "Allow User to Delete Standard Report " });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardReportObj, Name = "Access to Export to Memorized Report", Description = "Allow User to Export to Memorized Report" });
+
+            //    //    //permissions.Add(new Permission() { Id = 84, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to Report Group", Description = "Allow User To Access Report Group" });
+
+
+            //    //    // Standard Groups
+            //    //    //permissions.Add(new Permission() { Id = 85, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Standard Groups", Description = "Allow User To View Standard Groups" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardGroupObj, Name = "Access to Add new Standard Group", Description = "Allow User To Add new Standard Group" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = standardGroupObj, Name = "Access to Edit Standard Group", Description = "Allow User To Edit Standard Group" });
+            //    //    //Memorized Groups
+            //    //    //permissions.Add(new Permission() { Id = 86, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Memorized Groups", Description = "Allow User To View Memorized Groups" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = MemorizedGroupObj, Name = "Access to Add new Memorized Group", Description = "Allow User To Add new Memorized Group" });
+            //    //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = MemorizedGroupObj, Name = "Access to Edit Memorized Groups", Description = "Allow User To Add new Memorized Group" });
+            //    //}
 
             {
 
@@ -1038,199 +1162,50 @@ namespace ERP_BL.Migrations
 
 
             }
-            //Chat Module 
+
+            permissions.Add(new Permission() { Id = 8000, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Inventory", Description = "View Inventory" });
             {
-                //One to One Parent
+                permissions.Add(new Permission() { Id = 8001, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8000, Name = "Inventory Adjustment", Description = "Inventory Adjustments" });
+                permissions.Add(new Permission() { Id = 8002, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Add Inventory Adjustment", Description = "Allow User To Add Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8003, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Inventory Adjustment", Description = "Allow User To Edit Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8004, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View Inventory Adjustment", Description = "Allow User To View Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8005, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "List of Inventory Adjustments", Description = "Allow User To View List of Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8006, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Add Inventory Adjustment Status", Description = "Allow User To Add new status for Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8007, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Add Inventory Adjustment without Approval", Description = "Allow User To Add New Inventory Adjustment without Approval" });
+                permissions.Add(new Permission() { Id = 8008, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View InActive Inventory Adjustments", Description = "Allow User To View InActive Inventory Adjustments" });
+                permissions.Add(new Permission() { Id = 8009, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Close Inventory Adjustment", Description = "Allow User To Close Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8010, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Inventory Adjustment Status", Description = "Allow User To Edit Inventory Adjustment Status" });
+                permissions.Add(new Permission() { Id = 8011, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View InActive Inventory Adjustment Statuses", Description = "Allow User To View InActive Inventory Adjustment Statuses" });
 
-                permissions.Add(new Permission() { Id = 800, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 450, Name = "One to One Chat", Description = "Allow User To Access One to One Chat" });
-                //One to One Childs permissions
+                permissions.Add(new Permission() { Id = 8012, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Close Inventory Adjustment without Approval", Description = "Allow User To Close Inventory Adjustment without Approval" });
+                permissions.Add(new Permission() { Id = 8013, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Unapproved Inventory Adjustment", Description = "Allow User To Edit Unapproved Inventory Adjustment without Approval" });
+                permissions.Add(new Permission() { Id = 8014, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View Market Exchange Rate in Inventory Adjustment", Description = "Allow User To View Market Exchange Rate in Inventory Adjustment" });
 
-                permissions.Add(new Permission() { Id = 801, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 800, Name = "Receive Chat", Description = "Allow User To Receive Chat" });
-                permissions.Add(new Permission() { Id = 802, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 800, Name = "Send Message", Description = "Allow User To Send Message" });
-                permissions.Add(new Permission() { Id = 803, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 800, Name = "Edit Name", Description = "Allow User To Edit Name" });
-                //Ticker Parent Permmissoon
-
-                permissions.Add(new Permission() { Id = 850, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 450, Name = "Ticker", Description = "Allow User To Access Ticker" });
-
-                //Ticker Childs Permissions
-
-                permissions.Add(new Permission() { Id = 851, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 850, Name = "Add Ticker", Description = "Allow User To Add Ticker" });
-                permissions.Add(new Permission() { Id = 852, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 850, Name = "View Ticket", Description = "Allow User To View Ticker" });
-                permissions.Add(new Permission() { Id = 853, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 850, Name = "Edit Ticker", Description = "Allow User To Edit Ticker" });
-                permissions.Add(new Permission() { Id = 854, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 850, Name = "Delete Ticker", Description = "Allow User To Delete Ticker" });
-
-                //Notifications Parent
-
-                permissions.Add(new Permission() { Id = 900, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 450, Name = "Notifications", Description = "Allow User To Access Notifications" });
-
-                //Notifications Childs Permissions
-
-                permissions.Add(new Permission() { Id = 901, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 900, Name = " Send Notifications", Description = "Allow User To Send Notifications" });
-                permissions.Add(new Permission() { Id = 902, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 900, Name = "Receive Notifications", Description = "Allow User To Receive Notifications" });
-                permissions.Add(new Permission() { Id = 903, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 900, Name = "Delete Notifications", Description = "Allow User To Delete Notifications" });
-
-                //Notification Flags
-                permissions.Add(new Permission() { Id = 910, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 900, Name = "Add Notifications Flag", Description = "Allow User To Add new Flag for Notifications" });
-                permissions.Add(new Permission() { Id = 911, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 900, Name = "Edit Notifications Flag", Description = "Allow User To Edit Notification Flag" });
-                permissions.Add(new Permission() { Id = 912, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 900, Name = "View InActive Notification Flags", Description = "Allow User To View InActive Notifications Flags" });
-
-                //Group Chat Parent
-
-                permissions.Add(new Permission() { Id = 950, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 450, Name = "Group Chat", Description = "Allow User To Access Group Chat" });
-
-                //Group Chat Childs Permissions
-
-                permissions.Add(new Permission() { Id = 951, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 950, Name = "Receive Group Chat", Description = "Allow User To Receive Group Chat" });
-                permissions.Add(new Permission() { Id = 952, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 950, Name = "Reply Group Chat", Description = "Allow User To Reply Group Chat Message" });
-
-
-
+                permissions.Add(new Permission() { Id = 8015, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Reviewer Level 1 Inventory Adjustment", Description = "Allow User to mark Inventory Adjustment as Reviewed once" });
+                permissions.Add(new Permission() { Id = 8016, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Reviewer Level 2 Inventory Adjustment", Description = "Allow User To Mark Inventory Adjustment as Reviewed and move it to Approved List" });
+                permissions.Add(new Permission() { Id = 8017, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Approver for Closing Inventory Adjustment", Description = "Allow User To Close Inventory Adjustment which is in pending state" });
+                permissions.Add(new Permission() { Id = 8018, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Approver for new added Inventory Adjustment", Description = "Allow User To Approve Inventory Adjustment which is in pending state" });
+                permissions.Add(new Permission() { Id = 8019, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit closed Inventory Adjustment", Description = "Allow User To Edit Closed Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8020, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View(Pending for closing) Inventory Adjustment List", Description = "Allow User To View List of All(Pending for Closing) Inventory Adjustment mapped to his Department" });
+                permissions.Add(new Permission() { Id = 8021, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View(Pending for Approval) Inventory Adjustment List", Description = "Allow User To View List of All(Pending for Approval) Inventory Adjustment mapped to his Department" });
+                permissions.Add(new Permission() { Id = 8022, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Creation Date of Inventory Adjustment", Description = "Allow User To Edit Creation Date of Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8023, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Attach a file with Inventory Adjustment", Description = "Allow User To Attach a file with Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8024, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View list of attached files with Inventory Adjustment", Description = "Allow User To View list of attached files with Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8025, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Mark as Void Inventory Adjustment", Description = "Allow User To Mark as Void Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8026, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Unmark Void Inventory Adjustment", Description = "Allow User To unmark as Void Inventory Adjustment" });
+                permissions.Add(new Permission() { Id = 8027, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View list of Void Inventory Adjustments", Description = "View list of Void SaleInvoices" });
+                permissions.Add(new Permission() { Id = 8028, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View Inventory Adjustment Register", Description = "Allow User To View Inventory Adjustment Register" });
+                permissions.Add(new Permission() { Id = 8029, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Export Inventory Adjustments Reports", Description = "Allow User To Export Inventory Adjustments Reports" });
+                permissions.Add(new Permission() { Id = 8030, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Mark as Void Inventory Adjustments", Description = "Allow User To Mark as Void Inventory Adjustments" });
+                permissions.Add(new Permission() { Id = 8031, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Unmark Void Inventory Adjustments", Description = "Allow User To Unmark Void Inventory Adjustments" });
+                //permissions.Add(new Permission() { Id = 4033, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit GL Posting Date of Inventory Adjustment", Description = "Allow User To Edit GL Posting Date of Inventory Adjustment" });
 
             }
-            //Fixed Asset Permissions (ID = 1500 and onwards)
-            {
-
-                //Open Fixed Asset
-                permissions.Add(new Permission() { Id = 1500, Added = System.DateTime.Now, LastModified = DateTime.Now, Name = "Fixed Assets", Description = "Allow User To access Fixed Assets" });
-
-                //Opem Fixed Asset Adjustment
-
-                //Add Land and Building
-                permissions.Add(new Permission() { Id = 1510, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "Add Land and Building", Description = "Allow User To access  add Land and Building through form" });
-
-                //Add Vehicles
-                permissions.Add(new Permission() { Id = 1511, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "Add Vehicle", Description = "Allow User To access  add Vehicle through form" });
-
-                //Edit Land and Building
-                permissions.Add(new Permission() { Id = 1520, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "Edit Land and Building", Description = "Allow User To Land and Building" });
-                //Edit Vehicles
-                permissions.Add(new Permission() { Id = 1521, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "Edit Vehicle", Description = "Allow User To Edit Vehicle" });
-
-
-
-                //View Land and Building
-                permissions.Add(new Permission() { Id = 1530, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "View Land and Building", Description = "Allow User To View Land and Building" });
-                //View Vehicles
-                permissions.Add(new Permission() { Id = 1531, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "View Vehicles", Description = "Allow User To View Vehicles" });
-
-
-                //View List Land and Building
-                permissions.Add(new Permission() { Id = 1540, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "View List of Land and Building", Description = "Allow User To View Land and Building" });
-                //View Vehicles
-                permissions.Add(new Permission() { Id = 1541, Added = System.DateTime.Now, LastModified = DateTime.Now, ParentId = 1500, Name = "View List of Vehicles", Description = "Allow User To View Vehicles" });
-
-                //Other permissions
-
-                //Fixed Asset Status
-                permissions.Add(new Permission() { Id = 1545, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1500, Name = "View Fixed Asset Status List", Description = "Allow User To view Fixed Assets status lists" });
-
-                permissions.Add(new Permission() { Id = 1546, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1545, Name = "Add Fixed Assets Status", Description = "Allow User To Add new status for Fixed Assets" });
-                permissions.Add(new Permission() { Id = 1547, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1545, Name = "Edit Fixed Assets Status", Description = "Allow User To Edit Fixed Assets Status" });
-
-                //Land and Building  Grid permissions
-                //  permissions.Add(new Permission() { Id = 1548, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1500, Name = "View Land and Buildings Register", Description = "Allow User To View Land and Building Grid/Register" });
-
-                permissions.Add(new Permission() { Id = 1549, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Add Land and Buildings without Approval", Description = "Allow User To Add New Land and Buildings without Approval" });
-                // permissions.Add(new Permission() { Id = 1550, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Add Land and Buildings without Approval", Description = "Allow User To Add New Land and Buildings without Approval" });
-                permissions.Add(new Permission() { Id = 1551, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "View InActive Land and Buildings", Description = "Allow User To View InActive Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1552, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Close Land and Buildings", Description = "Allow User To Close Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1553, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "View InActive Land and Buildings Statuses", Description = "Allow User To View InActive Land and Buildings Statuses" });
-
-
-                permissions.Add(new Permission() { Id = 1554, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Close Land and Buildings without Approval", Description = "Allow User To Close  Land and Buildings without Approval" });
-                permissions.Add(new Permission() { Id = 1555, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Edit Unapproved Land and Buildings", Description = "Allow User To Edit Unapproved  Land and Buildings without Approval" });
-                permissions.Add(new Permission() { Id = 1556, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Reviewer Level 1 Land and Buildings", Description = "Allow User to mark  Land and Buildings as Reviewed once" });
-                permissions.Add(new Permission() { Id = 1557, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Reviewer Level 2 Land and Buildings", Description = "Allow User To Mark  Land and Buildings as Reviewed and move it to Approved List" });
-                permissions.Add(new Permission() { Id = 1558, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Approver for Closing Land and Buildings", Description = "Allow User To Close  Land and Buildings which is in pending state" });
-
-                permissions.Add(new Permission() { Id = 1559, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Approver for new added Land and Buildings", Description = "Allow User To Approve  Land and Buildings which is in pending state" });
-                permissions.Add(new Permission() { Id = 1560, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Edit closed Land and Building", Description = "Allow User To Edit Closed  Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1561, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "View(Pending for closing) Land and Building List", Description = "Allow User To View List of All(Pending for Closing)  Land and Buildings mapped to his/her Department" });
-                permissions.Add(new Permission() { Id = 1562, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "View(Pending for Approval) Land and Building List", Description = "Allow User To View List of All(Pending for Approval)  Land and Buildings mapped to his/her Department" });
-                permissions.Add(new Permission() { Id = 1563, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Edit Creation Date of Land and Building", Description = "Allow User To Edit Creation Date of  Land and Buildings" });
-
-                permissions.Add(new Permission() { Id = 1564, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Attach a file with Land and Building", Description = "Allow User To Attach a file with  Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1565, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "View list of attached files with Land and Building", Description = "Allow User To View list of attached files with  Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1566, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Mark as Void Land and Building", Description = "Allow User To Mark as Void  Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1567, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "Unmark Void Land and Building", Description = "Allow User To unmark as Void  Land and Buildings" });
-                permissions.Add(new Permission() { Id = 1568, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1530, Name = "View list of Void Land and Buildings", Description = "View list of Void  Land and Buildings" });
-
-                //Vehicles  Grid permissions
-
-                permissions.Add(new Permission() { Id = 1570, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Add Vehicles without Approval", Description = "Allow User To Add New Vehicles without Approval" });
-                //  permissions.Add(new Permission() { Id = 1571, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Add Vehicles without Approval", Description = "Allow User To Add New Vehicles without Approval" });
-                permissions.Add(new Permission() { Id = 1572, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "View InActive Vehicles", Description = "Allow User To View InActive Vehicles" });
-                permissions.Add(new Permission() { Id = 1573, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Close Vehicles", Description = "Allow User To Close Vehicles" });
-                permissions.Add(new Permission() { Id = 1574, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "View InActive Vehicles Statuses", Description = "Allow User To View InActive Vehicles Statuses" });
-
-
-                permissions.Add(new Permission() { Id = 1575, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Close Vehicles without Approval", Description = "Allow User To Close Vehicles without Approval" });
-                permissions.Add(new Permission() { Id = 1576, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Edit Unapproved Vehicles", Description = "Allow User To Edit Unapproved Vehicles without Approval" });
-                permissions.Add(new Permission() { Id = 1577, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Reviewer Level 1 Vehicles", Description = "Allow User to mark Vehicles as Reviewed once" });
-                permissions.Add(new Permission() { Id = 1578, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Reviewer Level 2 Vehicles", Description = "Allow User To Mark  Vehicles as Reviewed and move it to Approved List" });
-                permissions.Add(new Permission() { Id = 1579, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Approver for Closing Vehicles", Description = "Allow User To Close  Vehicles which is in pending state" });
-
-                permissions.Add(new Permission() { Id = 1580, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Approver for new added Vehicles", Description = "Allow User To Approve  Vehicles which is in pending state" });
-                permissions.Add(new Permission() { Id = 1581, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Edit closed Vehicles", Description = "Allow User To Edit Closed  Vehicles" });
-                permissions.Add(new Permission() { Id = 1582, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "View(Pending for closing) Vehicles List", Description = "Allow User To View List of All(Pending for Closing)  Vehicles mapped to his/her Department" });
-                permissions.Add(new Permission() { Id = 1583, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "View(Pending for Approval) Vehicles List", Description = "Allow User To View List of All(Pending for Approval)  Vehicles mapped to his/her Department" });
-                permissions.Add(new Permission() { Id = 1584, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Edit Creation Date of Vehicles", Description = "Allow User To Edit Creation Date of  Vehicles" });
-
-                permissions.Add(new Permission() { Id = 1585, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Attach a file with Vehicles", Description = "Allow User To Attach a file with  Vehicles" });
-                permissions.Add(new Permission() { Id = 1586, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "View list of attached files with Vehicles", Description = "Allow User To View list of attached files with  Vehicles" });
-                permissions.Add(new Permission() { Id = 1587, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Mark as Void Vehicles", Description = "Allow User To Mark as Void  Vehicles" });
-                permissions.Add(new Permission() { Id = 1588, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "Unmark Void Vehicles", Description = "Allow User To unmark as Void  Vehicles" });
-                permissions.Add(new Permission() { Id = 1589, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1531, Name = "View list of Void Vehicles", Description = "View list of Void  Vehicles" });
-
-                permissions.Add(new Permission() { Id = 1590, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1500, Name = "View Building Register", Description = "Allow User To View Building Register" });
-                permissions.Add(new Permission() { Id = 1591, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1500, Name = "View Vehicle Register", Description = "View Vehicle Register" });
 
 
 
 
-                permissions.Add(new Permission() { Id = 8000, Added = System.DateTime.Now, LastModified = System.DateTime.Now,  Name = "Inventory", Description = "View Inventory" });
-                {
-                    permissions.Add(new Permission() { Id = 8001, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8000, Name = "Inventory Adjustment", Description = "Inventory Adjustments" });
-                    permissions.Add(new Permission() { Id = 8002, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Add Inventory Adjustment", Description = "Allow User To Add Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8003, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Inventory Adjustment", Description = "Allow User To Edit Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8004, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View Inventory Adjustment", Description = "Allow User To View Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8005, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "List of Inventory Adjustments", Description = "Allow User To View List of Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8006, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Add Inventory Adjustment Status", Description = "Allow User To Add new status for Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8007, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Add Inventory Adjustment without Approval", Description = "Allow User To Add New Inventory Adjustment without Approval" });
-                    permissions.Add(new Permission() { Id = 8008, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View InActive Inventory Adjustments", Description = "Allow User To View InActive Inventory Adjustments" });
-                    permissions.Add(new Permission() { Id = 8009, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Close Inventory Adjustment", Description = "Allow User To Close Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8010, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Inventory Adjustment Status", Description = "Allow User To Edit Inventory Adjustment Status" });
-                    permissions.Add(new Permission() { Id = 8011, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View InActive Inventory Adjustment Statuses", Description = "Allow User To View InActive Inventory Adjustment Statuses" });
 
-                    permissions.Add(new Permission() { Id = 8012, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Close Inventory Adjustment without Approval", Description = "Allow User To Close Inventory Adjustment without Approval" });
-                    permissions.Add(new Permission() { Id = 8013, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Unapproved Inventory Adjustment", Description = "Allow User To Edit Unapproved Inventory Adjustment without Approval" });
-                    permissions.Add(new Permission() { Id = 8014, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View Market Exchange Rate in Inventory Adjustment", Description = "Allow User To View Market Exchange Rate in Inventory Adjustment" });
-
-                    permissions.Add(new Permission() { Id = 8015, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Reviewer Level 1 Inventory Adjustment", Description = "Allow User to mark Inventory Adjustment as Reviewed once" });
-                    permissions.Add(new Permission() { Id = 8016, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Reviewer Level 2 Inventory Adjustment", Description = "Allow User To Mark Inventory Adjustment as Reviewed and move it to Approved List" });
-                    permissions.Add(new Permission() { Id = 8017, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Approver for Closing Inventory Adjustment", Description = "Allow User To Close Inventory Adjustment which is in pending state" });
-                    permissions.Add(new Permission() { Id = 8018, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Approver for new added Inventory Adjustment", Description = "Allow User To Approve Inventory Adjustment which is in pending state" });
-                    permissions.Add(new Permission() { Id = 8019, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit closed Inventory Adjustment", Description = "Allow User To Edit Closed Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8020, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View(Pending for closing) Inventory Adjustment List", Description = "Allow User To View List of All(Pending for Closing) Inventory Adjustment mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 8021, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View(Pending for Approval) Inventory Adjustment List", Description = "Allow User To View List of All(Pending for Approval) Inventory Adjustment mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 8022, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Edit Creation Date of Inventory Adjustment", Description = "Allow User To Edit Creation Date of Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8023, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Attach a file with Inventory Adjustment", Description = "Allow User To Attach a file with Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8024, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View list of attached files with Inventory Adjustment", Description = "Allow User To View list of attached files with Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8025, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Mark as Void Inventory Adjustment", Description = "Allow User To Mark as Void Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8026, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Unmark Void Inventory Adjustment", Description = "Allow User To unmark as Void Inventory Adjustment" });
-                    permissions.Add(new Permission() { Id = 8027, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View list of Void Inventory Adjustments", Description = "View list of Void SaleInvoices" });
-                    permissions.Add(new Permission() { Id = 8028, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "View Inventory Adjustment Register", Description = "Allow User To View Inventory Adjustment Register" });
-                    permissions.Add(new Permission() { Id = 8029, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Export Inventory Adjustments Reports", Description = "Allow User To Export Inventory Adjustments Reports" });
-                    permissions.Add(new Permission() { Id = 8030, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Mark as Void Inventory Adjustments", Description = "Allow User To Mark as Void Inventory Adjustments" });
-                    permissions.Add(new Permission() { Id = 8031, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8001, Name = "Unmark Void Inventory Adjustments", Description = "Allow User To Unmark Void Inventory Adjustments" });
-                    //permissions.Add(new Permission() { Id = 4033, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 701, Name = "Edit GL Posting Date of Inventory Adjustment", Description = "Allow User To Edit GL Posting Date of Inventory Adjustment" });
-
-                }
-
-
-
-
-            }
 
             //Fixed Asset Adjustment (ID = 1600 and onwards)
             {
@@ -1247,7 +1222,7 @@ namespace ERP_BL.Migrations
 
             //Bank Lists (ID = 1700 and onwards)
             {
-                
+
                 ////Old
 
                 //Open Bank lists Sub-menu
@@ -1577,22 +1552,22 @@ namespace ERP_BL.Migrations
 
 
 
-            //Online USers Permissions(ID 1000 and onwards)
-            permissions.Add(new Permission() { Id = 1100, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Online Utility", Description = "Allow to view Online users" });
-            permissions.Add(new Permission() { Id = 1000, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1100, Name = "View Online Users", Description = "Allow user to view online users" });
-            permissions.Add(new Permission() { Id = 1101, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1100, Name = "View User History", Description = "Allow user to view online users History" });
+            //    //Online USers Permissions(ID 1000 and onwards)
+            //    permissions.Add(new Permission() { Id = 1100, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Online Utility", Description = "Allow to view Online users" });
+            //    permissions.Add(new Permission() { Id = 1000, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1100, Name = "View Online Users", Description = "Allow user to view online users" });
+            //    permissions.Add(new Permission() { Id = 1101, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 1100, Name = "View User History", Description = "Allow user to view online users History" });
 
-           
-            
+
+
             //Background Images
             permissions.Add(new Permission() { Id = 3550, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Upload Background Image", Description = "Allow user to upload Background Image" });
-           
+
             //This permission is set to access Rental module Tenancy contract
             permissions.Add(new Permission() { Id = 3900, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Rental Assets", Description = "Allow user to Access Rental Assets" });
             permissions.Add(new Permission() { Id = 3901, ParentId = 3900, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Add Rental Asset Status", Description = "Allow user to Add rental assets status" });
             permissions.Add(new Permission() { Id = 3902, ParentId = 3900, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Edit Rental Asset Status", Description = "Allow user to Edit rental assets status" });
             permissions.Add(new Permission() { Id = 3903, ParentId = 3900, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "View InActive Rental Asset Statuses", Description = "Allow user to View InActive rental assets status" });
-            
+
             ////User Profile realted permissions
             {
                 permissions.Add(new Permission() { Id = 3200, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "User Profile", Description = "Permissions related User Profiles" });
@@ -1623,7 +1598,7 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 3223, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3206, Name = "Add New own Leave Adjustment", Description = "Allow User To Add New Leave Adjustment" });//
             }
 
-            //COA permissions(3600 -3699)
+            //    //COA permissions(3600 -3699)
             permissions.Add(new Permission() { Id = 3600, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Accountant Center", Description = "Allow User To Open Accountant Center" });
             permissions.Add(new Permission() { Id = 3601, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "Add Chart of Account", Description = "Allow User To Add Chart of Account" });
             permissions.Add(new Permission() { Id = 3602, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "Edit Chart of Account", Description = "Allow User To Edit Chart of Account" });
@@ -1694,14 +1669,14 @@ namespace ERP_BL.Migrations
 
                 permissions.Add(new Permission() { Id = 3728, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3700, Name = "View list of Void Journal Vouchers", Description = "View list of Void Journal Vouchers" });
             }
-          
 
-            //Trial-Balance Permission (3800 to 3850)
 
-            permissions.Add(new Permission() { Id = 3800, Added = System.DateTime.Now, LastModified = System.DateTime.Now,ParentId= 3600, Name = "Trial Balance", Description = "Allow User To Open Trial Balance" });
+            //    //Trial-Balance Permission (3800 to 3850)
+
+            permissions.Add(new Permission() { Id = 3800, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "Trial Balance", Description = "Allow User To Open Trial Balance" });
             permissions.Add(new Permission() { Id = 3801, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "Profit & Loss", Description = "Allow User To Open Profit & Loss" });
-            permissions.Add(new Permission() { Id = 3802, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "View Balance Sheet Detail",  Description = "Allow User To View Balance Sheet Detail" });
-            permissions.Add(new Permission() { Id = 3803, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Export Trial Balance Reports", ParentId= 3800, Description = "Allow User To Export Trial Balance Reports" });
+            permissions.Add(new Permission() { Id = 3802, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "View Balance Sheet Detail", Description = "Allow User To View Balance Sheet Detail" });
+            permissions.Add(new Permission() { Id = 3803, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Export Trial Balance Reports", ParentId = 3800, Description = "Allow User To Export Trial Balance Reports" });
 
 
             permissions.Add(new Permission() { Id = 3804, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 3600, Name = "Chart of Account Group", Description = "Allow user to Access Chart of Account Group" });
@@ -1713,7 +1688,7 @@ namespace ERP_BL.Migrations
 
 
             ///////////////////////
-            ///Sale Invoices Permissions 
+            ///Purchase Invoices Permissions 
             ///
             {
                 permissions.Add(new Permission() { Id = 4000, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Purchase Invoices", Description = "Purchase Invoices" });
@@ -1844,12 +1819,12 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 6036, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6033, Name = "Add Adjustments without Approval", Description = "Allow User to Add Adjustments without Approval" });
                 permissions.Add(new Permission() { Id = 6037, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6033, Name = "View(Pending for Approval) Adjustments List", Description = "Allow User to View(Pending for Approval) Adjustments List" });
 
-                
+
                 permissions.Add(new Permission() { Id = 6039, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6000, Name = "Can Create Admin Bill From Loans Advances", Description = "Allow User to Create Admin Bill From Loans Advances" });
 
                 permissions.Add(new Permission() { Id = 6040, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 5999, Name = "Can Edit MER in Loans Advances", Description = "Allow User To Edit MER in Loans Advances" });
 
-                
+
 
                 permissions.Add(new Permission() { Id = 6042, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 5999, Name = "Vendor Bill Loans Advances", Description = "Vendor Bill Loans Advances" });
                 permissions.Add(new Permission() { Id = 6043, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6042, Name = "Add Vendor Bill Loans Advances", Description = "Allow User To Add Vendor Bill Loans Advances" });
@@ -2253,407 +2228,398 @@ namespace ERP_BL.Migrations
                 permissions.Add(new Permission() { Id = 8852, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 8850, Name = "Can View Performance Review Summary", Description = "Allow User to View Performance Review Summary" });
             }
 
-            //var reportsHead = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-            //permissions.Add(new Permission() { Id = 4200, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = reportsHead.Id, Name = "Shared Reports", Description = "Allow User access Shared Reports" });
-            //permissions.Add(new Permission() { Id = 4201, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4200, Name = "Shared Report Groups", Description = "Allow User to access Shared Report Groups" });
-            //permissions.Add(new Permission() { Id = 4202, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "Add Shared Report Groups", Description = "Allow User to Add Shared Report Groups" });
-            //permissions.Add(new Permission() { Id = 4203, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "Edit Shared Report Groups", Description = "Allow User to Edit Shared Report Groups" });
-            //permissions.Add(new Permission() { Id = 4204, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "View Shared Report Groups Register", Description = "Allow User to View Shared Report Groups Register" });
-            //permissions.Add(new Permission() { Id = 4205, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "Bypass shared group permissions", Description = "Allow User to Bypass shared group permissions" });
-            //permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = reportsHead.Id, Name = "Share Inquiry Report", Description = "Allow User To Share Inquiry Report" });
-            //permissions.Add(new Permission() { Id = 82, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = reportsHead.Id, Name = "Share Purchase Orders Report", Description = "Allow User To Share Sale Orders Report" });
+            //    //var reportsHead = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //    //permissions.Add(new Permission() { Id = 4200, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = reportsHead.Id, Name = "Shared Reports", Description = "Allow User access Shared Reports" });
+            //    //permissions.Add(new Permission() { Id = 4201, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4200, Name = "Shared Report Groups", Description = "Allow User to access Shared Report Groups" });
+            //    //permissions.Add(new Permission() { Id = 4202, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "Add Shared Report Groups", Description = "Allow User to Add Shared Report Groups" });
+            //    //permissions.Add(new Permission() { Id = 4203, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "Edit Shared Report Groups", Description = "Allow User to Edit Shared Report Groups" });
+            //    //permissions.Add(new Permission() { Id = 4204, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "View Shared Report Groups Register", Description = "Allow User to View Shared Report Groups Register" });
+            //    //permissions.Add(new Permission() { Id = 4205, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4201, Name = "Bypass shared group permissions", Description = "Allow User to Bypass shared group permissions" });
+            //    //permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = reportsHead.Id, Name = "Share Inquiry Report", Description = "Allow User To Share Inquiry Report" });
+            //    //permissions.Add(new Permission() { Id = 82, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = reportsHead.Id, Name = "Share Purchase Orders Report", Description = "Allow User To Share Sale Orders Report" });
 
 
+            //    {
+
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Reports") == null)
+            //        //{
+            //        //    permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" });
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to Report Group", Description = "Allow User To Access Report Group" });
+
+            //        //    if (context.Permissions.FirstOrDefault(x => x.Name == "Memorized Reports") == null)
+            //        //    {
+            //        //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Memorized Reports", Description = "Allow User To Memorized Reports" });
+
+            //        //        if (context.Permissions.FirstOrDefault(x => x.Name == "View Memorized Reports") == null)
+            //        //        {
+            //        //            permissions.Add(new Permission() { Id = 81, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Save as new Memorized Report", Description = "Allow user to Save as new after view report" });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Rename Memorized Report", Description = "Allow User To Rename Memorized Report " });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Update Memorized Report", Description = "Allow User to Update Memorized Report " });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Delete Memorized Report", Description = "Allow User to Delete Memorized Report " });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Export to Standard Report", Description = "Allow User to Export to Standard Report " });
+
+            //        //        }
+            //        //    }
+            //        //    if (context.Permissions.FirstOrDefault(x => x.Name == "Standard Reports") == null)
+            //        //    {
+            //        //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Standard Reports", Description = "Allow user to Standard Reports" });
+
+            //        //        if (context.Permissions.FirstOrDefault(x => x.Name == "View Standard Reports") == null)
+            //        //        {
+            //        //            permissions.Add(new Permission() { Id = 83, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Standard Reports", Description = "Allow user to View Standard Reports" });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Save as new Standard Report", Description = "Allow user to Save as new after view report" });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Rename Standard Report", Description = "Allow User To Rename Standard Report " });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Update Standard Report", Description = "Allow User to Update Standard Report " });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Delete Standard Report", Description = "Allow User to Delete Standard Report " });
+            //        //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Export to Memorized Report", Description = "Allow User to Export to Memorized Report" });
+            //        //        }
+            //        //    }
+            //        //    if (context.Permissions.FirstOrDefault(x => x.Name == "Access to View Standard Groups") == null)
+            //        //    {
+            //        //        permissions.Add(new Permission() { Id = 85, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Standard Groups", Description = "Allow User To View Standard Groups" });
+            //        //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 85, Name = "Access to Add new Standard Group", Description = "Allow User To Add new Standard Group" });
+            //        //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 85, Name = "Access to Edit Standard Group", Description = "Allow User To Edit Standard Group" });
+
+
+            //        //    }
+            //        //    if (context.Permissions.FirstOrDefault(x => x.Name == "Access to View Memorized Groups") == null)
+            //        //    {
+            //        //        permissions.Add(new Permission() { Id = 86, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Memorized Groups", Description = "Allow User To View Memorized Groups" });
+            //        //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 86, Name = "Access to Add new Memorized Group", Description = "Allow User To Add new Memorized Group" });
+            //        //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 86, Name = "Access to Edit Memorized Groups", Description = "Allow User To Add new Memorized Group" });
+            //        //    }
+            //        //}
+
+
+
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Inquiries Reports") == null)
+            //        //{
+            //        //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Inquiries Reports", Description = "Allow User To export Inquiries report" });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //        //}
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Offers Reports") == null)
+            //        //{
+            //        //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Inquiries Reports", Description = "Allow User To export Offers report" });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //        //}
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Sale Orders Reports") == null)
+            //        //{
+            //        //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Sale Orders Reports", Description = "Allow User To Export Sale Orders report" });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //        //}
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Purchase Orders Reports") == null)
+            //        //{
+            //        //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Purchase Orders Reports", Description = "Allow User To Export Purchase Orders report" });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //        //}
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Bills Reports") == null)
+            //        //{
+            //        //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Bills Reports", Description = "Allow User To Export Bills report" });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //        //}
+            //        //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Sale Invoices Reports") == null)
+            //        //{
+            //        //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //        //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Sale Invoices Reports", Description = "Allow User To Export Sale Invoices report" });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //        //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //        //}
+            permissions.Add(new Permission() { Id = 6300, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Budget", Description = "Budget" });
+            permissions.Add(new Permission() { Id = 6301, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget", Description = "Allow User To Add Budget" });
+            permissions.Add(new Permission() { Id = 6302, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Budget", Description = "Allow User To Edit Budget" });
+            permissions.Add(new Permission() { Id = 6303, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View Budget", Description = "Allow User To View Budget" });
+            permissions.Add(new Permission() { Id = 6304, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "List of Budget", Description = "Allow User To View List of Budget" });
+            permissions.Add(new Permission() { Id = 6305, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget Status", Description = "Allow User To Add new status for Budget" });
+            permissions.Add(new Permission() { Id = 6306, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget without Approval", Description = "Allow User To Add New Budget without Approval" });
+            permissions.Add(new Permission() { Id = 6307, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View InActive Budget", Description = "Allow User To View InActive Budget" });
+            permissions.Add(new Permission() { Id = 6308, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Close Budget", Description = "Allow User To Close Budget" });
+            permissions.Add(new Permission() { Id = 6309, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Budget Status", Description = "Allow User To Edit Budget Status" });
+            permissions.Add(new Permission() { Id = 6310, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View InActive Budget Statuses", Description = "Allow User To View InActive Budget Statuses" });
+            permissions.Add(new Permission() { Id = 6311, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Close Budget without Approval", Description = "Allow User To Close Budget without Approval" });
+            permissions.Add(new Permission() { Id = 6312, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Unapproved Budget", Description = "Allow User To Edit Unapproved Budget without Approval" });
+            permissions.Add(new Permission() { Id = 6313, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Reviewer Level 1 Budget", Description = "Allow User to mark Budget as Reviewed once" });
+            permissions.Add(new Permission() { Id = 6314, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Reviewer Level 2 Budget", Description = "Allow User To Mark Budget as Reviewed and move it to Approved List" });
+            permissions.Add(new Permission() { Id = 6315, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Approver for Closing Budget", Description = "Allow User To Close Budget which is in pending state" });
+            permissions.Add(new Permission() { Id = 6316, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Approver for new added Budget", Description = "Allow User To Approve Budget which is in pending state" });
+            permissions.Add(new Permission() { Id = 6317, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit closed Budget", Description = "Allow User To Edit Closed Budget" });
+            permissions.Add(new Permission() { Id = 6318, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View(Pending for closing) Budget List", Description = "Allow User To View List of All(Pending for Approval) Budget mapped to his Department" });
+            permissions.Add(new Permission() { Id = 6319, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View(Pending for Approval) Budget List", Description = "Allow User To View List of All(Pending for Approval) Budget mapped to his Department" });
+            permissions.Add(new Permission() { Id = 6320, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View Budget Register", Description = "Allow User To View Sale Register List" });
+            permissions.Add(new Permission() { Id = 6321, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Creation Date of Budget", Description = "Allow User To Edit Creation Date of Budget" });
+            permissions.Add(new Permission() { Id = 6322, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Attach a file with Budget", Description = "Allow User To Attach a file with Budget" });
+            permissions.Add(new Permission() { Id = 6323, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View list of attached files with Budget", Description = "Allow User To View list of attached files with Budget" });
+            permissions.Add(new Permission() { Id = 6324, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "ReApprover for new added Budget", Description = "Allow User To ReApprove Budget which is in pending state" });
+            permissions.Add(new Permission() { Id = 6325, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget without ReApproval", Description = "Allow User To Add New Sale Order without ReApproval" });
+            permissions.Add(new Permission() { Id = 6326, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View(Pending for ReApproval) Budget List", Description = "Allow User To View List of All(Pending for ReApproval) Budget mapped to his Department" });
+            permissions.Add(new Permission() { Id = 6327, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Mark as Void Budget", Description = "Allow User To Mark as Void Budget" });
+            permissions.Add(new Permission() { Id = 6328, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Unmark Void Budget", Description = "Allow User To unmark as Void Budget" });
+            permissions.Add(new Permission() { Id = 6329, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View list of Void Budget", Description = "View list of Void Budget" });
+            permissions.Add(new Permission() { Id = 6330, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit (Pending for closing) Budget", Description = "Allow User To Edit (Pending for Closing) Budget mapped to his Department" });
+            permissions.Add(new Permission() { Id = 6331, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit RSBC from Budget", Description = "Edit RSBC from Budget" });
+            permissions.Add(new Permission() { Id = 6332, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can attach document when Budget Closed", Description = "Allow User To attach document when Budget Closed" });
+            permissions.Add(new Permission() { Id = 6333, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can revised budget from SO", Description = "Allow User To revised budget from SO" });
+            permissions.Add(new Permission() { Id = 6334, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can Link SO with Budget", Description = "Allow User To Link SO with Budget" });
+            permissions.Add(new Permission() { Id = 6335, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Punch Budget System Cost", Description = "Allow User To Punch Budget System Cost" });
+            permissions.Add(new Permission() { Id = 6336, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can Link PO with Budget", Description = "Allow User To Link PO with Budget" });
+
+            //STL
             {
-
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Reports") == null)
-                //{
-                //    permissions.Add(new Permission() { Id = 80, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Reports", Description = "Allow User To View Reports Menu" });
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to Report Group", Description = "Allow User To Access Report Group" });
-
-                //    if (context.Permissions.FirstOrDefault(x => x.Name == "Memorized Reports") == null)
-                //    {
-                //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Memorized Reports", Description = "Allow User To Memorized Reports" });
-
-                //        if (context.Permissions.FirstOrDefault(x => x.Name == "View Memorized Reports") == null)
-                //        {
-                //            permissions.Add(new Permission() { Id = 81, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Memorized Reports", Description = "Allow User To View Memorized Reports" });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Save as new Memorized Report", Description = "Allow user to Save as new after view report" });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Rename Memorized Report", Description = "Allow User To Rename Memorized Report " });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Update Memorized Report", Description = "Allow User to Update Memorized Report " });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Delete Memorized Report", Description = "Allow User to Delete Memorized Report " });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 81, Name = "Access to Export to Standard Report", Description = "Allow User to Export to Standard Report " });
-
-                //        }
-                //    }
-                //    if (context.Permissions.FirstOrDefault(x => x.Name == "Standard Reports") == null)
-                //    {
-                //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Standard Reports", Description = "Allow user to Standard Reports" });
-
-                //        if (context.Permissions.FirstOrDefault(x => x.Name == "View Standard Reports") == null)
-                //        {
-                //            permissions.Add(new Permission() { Id = 83, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "View Standard Reports", Description = "Allow user to View Standard Reports" });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Save as new Standard Report", Description = "Allow user to Save as new after view report" });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Rename Standard Report", Description = "Allow User To Rename Standard Report " });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Update Standard Report", Description = "Allow User to Update Standard Report " });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Delete Standard Report", Description = "Allow User to Delete Standard Report " });
-                //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 83, Name = "Access to Export to Memorized Report", Description = "Allow User to Export to Memorized Report" });
-                //        }
-                //    }
-                //    if (context.Permissions.FirstOrDefault(x => x.Name == "Access to View Standard Groups") == null)
-                //    {
-                //        permissions.Add(new Permission() { Id = 85, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Standard Groups", Description = "Allow User To View Standard Groups" });
-                //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 85, Name = "Access to Add new Standard Group", Description = "Allow User To Add new Standard Group" });
-                //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 85, Name = "Access to Edit Standard Group", Description = "Allow User To Edit Standard Group" });
-
-
-                //    }
-                //    if (context.Permissions.FirstOrDefault(x => x.Name == "Access to View Memorized Groups") == null)
-                //    {
-                //        permissions.Add(new Permission() { Id = 86, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 80, Name = "Access to View Memorized Groups", Description = "Allow User To View Memorized Groups" });
-                //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 86, Name = "Access to Add new Memorized Group", Description = "Allow User To Add new Memorized Group" });
-                //        permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 86, Name = "Access to Edit Memorized Groups", Description = "Allow User To Add new Memorized Group" });
-                //    }
-                //}
-
-
-
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Inquiries Reports") == null)
-                //{
-                //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Inquiries Reports", Description = "Allow User To export Inquiries report" });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                //}
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Offers Reports") == null)
-                //{
-                //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Inquiries Reports", Description = "Allow User To export Offers report" });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                //}
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Sale Orders Reports") == null)
-                //{
-                //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Sale Orders Reports", Description = "Allow User To Export Sale Orders report" });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                //}
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Purchase Orders Reports") == null)
-                //{
-                //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Purchase Orders Reports", Description = "Allow User To Export Purchase Orders report" });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                //}
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Bills Reports") == null)
-                //{
-                //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Bills Reports", Description = "Allow User To Export Bills report" });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                //}
-                //if (context.Permissions.FirstOrDefault(x => x.Name == "Export Sale Invoices Reports") == null)
-                //{
-                //    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                //    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = parentReport.Id, Name = "Export Sale Invoices Reports", Description = "Allow User To Export Sale Invoices report" });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                //    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                //}
-                permissions.Add(new Permission() { Id = 6300, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "Budget", Description = "Budget" });
-                permissions.Add(new Permission() { Id = 6301, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget", Description = "Allow User To Add Budget" });
-                permissions.Add(new Permission() { Id = 6302, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Budget", Description = "Allow User To Edit Budget" });
-                permissions.Add(new Permission() { Id = 6303, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View Budget", Description = "Allow User To View Budget" });
-                permissions.Add(new Permission() { Id = 6304, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "List of Budget", Description = "Allow User To View List of Budget" });
-                permissions.Add(new Permission() { Id = 6305, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget Status", Description = "Allow User To Add new status for Budget" });
-                permissions.Add(new Permission() { Id = 6306, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget without Approval", Description = "Allow User To Add New Budget without Approval" });
-                permissions.Add(new Permission() { Id = 6307, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View InActive Budget", Description = "Allow User To View InActive Budget" });
-                permissions.Add(new Permission() { Id = 6308, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Close Budget", Description = "Allow User To Close Budget" });
-                permissions.Add(new Permission() { Id = 6309, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Budget Status", Description = "Allow User To Edit Budget Status" });
-                permissions.Add(new Permission() { Id = 6310, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View InActive Budget Statuses", Description = "Allow User To View InActive Budget Statuses" });
-                permissions.Add(new Permission() { Id = 6311, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Close Budget without Approval", Description = "Allow User To Close Budget without Approval" });
-                permissions.Add(new Permission() { Id = 6312, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Unapproved Budget", Description = "Allow User To Edit Unapproved Budget without Approval" });
-                permissions.Add(new Permission() { Id = 6313, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Reviewer Level 1 Budget", Description = "Allow User to mark Budget as Reviewed once" });
-                permissions.Add(new Permission() { Id = 6314, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Reviewer Level 2 Budget", Description = "Allow User To Mark Budget as Reviewed and move it to Approved List" });
-                permissions.Add(new Permission() { Id = 6315, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Approver for Closing Budget", Description = "Allow User To Close Budget which is in pending state" });
-                permissions.Add(new Permission() { Id = 6316, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Approver for new added Budget", Description = "Allow User To Approve Budget which is in pending state" });
-                permissions.Add(new Permission() { Id = 6317, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit closed Budget", Description = "Allow User To Edit Closed Budget" });
-                permissions.Add(new Permission() { Id = 6318, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View(Pending for closing) Budget List", Description = "Allow User To View List of All(Pending for Approval) Budget mapped to his Department" });
-                permissions.Add(new Permission() { Id = 6319, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View(Pending for Approval) Budget List", Description = "Allow User To View List of All(Pending for Approval) Budget mapped to his Department" });
-                permissions.Add(new Permission() { Id = 6320, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View Budget Register", Description = "Allow User To View Sale Register List" });
-                permissions.Add(new Permission() { Id = 6321, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit Creation Date of Budget", Description = "Allow User To Edit Creation Date of Budget" });
-                permissions.Add(new Permission() { Id = 6322, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Attach a file with Budget", Description = "Allow User To Attach a file with Budget" });
-                permissions.Add(new Permission() { Id = 6323, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View list of attached files with Budget", Description = "Allow User To View list of attached files with Budget" });
-                permissions.Add(new Permission() { Id = 6324, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "ReApprover for new added Budget", Description = "Allow User To ReApprove Budget which is in pending state" });
-                permissions.Add(new Permission() { Id = 6325, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Add Budget without ReApproval", Description = "Allow User To Add New Sale Order without ReApproval" });
-                permissions.Add(new Permission() { Id = 6326, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View(Pending for ReApproval) Budget List", Description = "Allow User To View List of All(Pending for ReApproval) Budget mapped to his Department" });
-                permissions.Add(new Permission() { Id = 6327, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Mark as Void Budget", Description = "Allow User To Mark as Void Budget" });
-                permissions.Add(new Permission() { Id = 6328, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Unmark Void Budget", Description = "Allow User To unmark as Void Budget" });
-                permissions.Add(new Permission() { Id = 6329, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "View list of Void Budget", Description = "View list of Void Budget" });
-                permissions.Add(new Permission() { Id = 6330, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit (Pending for closing) Budget", Description = "Allow User To Edit (Pending for Closing) Budget mapped to his Department" });
-                permissions.Add(new Permission() { Id = 6331, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Edit RSBC from Budget", Description = "Edit RSBC from Budget" });
-                permissions.Add(new Permission() { Id = 6332, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can attach document when Budget Closed", Description = "Allow User To attach document when Budget Closed" });
-                permissions.Add(new Permission() { Id = 6333, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can revised budget from SO", Description = "Allow User To revised budget from SO" });
-                permissions.Add(new Permission() { Id = 6334, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can Link SO with Budget", Description = "Allow User To Link SO with Budget" });
-                permissions.Add(new Permission() { Id = 6335, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Punch Budget System Cost", Description = "Allow User To Punch Budget System Cost" });
-                permissions.Add(new Permission() { Id = 6336, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6300, Name = "Can Link PO with Budget", Description = "Allow User To Link PO with Budget" });
-
-                //STL
-                {
-                    permissions.Add(new Permission() { Id = 6500, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4100, Name = "STL", Description = "STL" });
-                    permissions.Add(new Permission() { Id = 6501, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL", Description = "Allow User To Add STL" });
-                    permissions.Add(new Permission() { Id = 6502, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit STL", Description = "Allow User To Edit STL" });
-                    permissions.Add(new Permission() { Id = 6503, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View STL", Description = "Allow User To View STL" });
-                    permissions.Add(new Permission() { Id = 6504, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "List of STL", Description = "Allow User To View List of STL" });
-                    permissions.Add(new Permission() { Id = 6505, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL Status", Description = "Allow User To Add new status for STL" });
-                    permissions.Add(new Permission() { Id = 6506, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL without Approval", Description = "Allow User To Add New STL without Approval" });
-                    permissions.Add(new Permission() { Id = 6507, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View InActive STL", Description = "Allow User To View InActive STL" });
-                    permissions.Add(new Permission() { Id = 6508, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Close STL", Description = "Allow User To Close STL" });
-                    permissions.Add(new Permission() { Id = 6509, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit STL Status", Description = "Allow User To Edit STL Status" });
-                    permissions.Add(new Permission() { Id = 6510, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View InActive STL Statuses", Description = "Allow User To View InActive STL Statuses" });
-                    permissions.Add(new Permission() { Id = 6511, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Close STL without Approval", Description = "Allow User To Close STL without Approval" });
-                    permissions.Add(new Permission() { Id = 6512, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit Unapproved STL", Description = "Allow User To Edit Unapproved STL without Approval" });
-                    permissions.Add(new Permission() { Id = 6513, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Reviewer Level 1 STL", Description = "Allow User to mark STL as Reviewed once" });
-                    permissions.Add(new Permission() { Id = 6514, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Reviewer Level 2 STL", Description = "Allow User To Mark STL as Reviewed and move it to Approved List" });
-                    permissions.Add(new Permission() { Id = 6515, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Approver for Closing STL", Description = "Allow User To Close STL which is in pending state" });
-                    permissions.Add(new Permission() { Id = 6516, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Approver for new added STL", Description = "Allow User To Approve STL which is in pending state" });
-                    permissions.Add(new Permission() { Id = 6517, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit closed STL", Description = "Allow User To Edit Closed STL" });
-                    permissions.Add(new Permission() { Id = 6518, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View(Pending for closing) STL List", Description = "Allow User To View List of All(Pending for Approval) STL mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 6519, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View(Pending for Approval) STL List", Description = "Allow User To View List of All(Pending for Approval) STL mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 6520, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View STL Register", Description = "Allow User To View STL Register List" });
-                    permissions.Add(new Permission() { Id = 6521, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit Creation Date of STL", Description = "Allow User To Edit Creation Date of STL" });
-                    permissions.Add(new Permission() { Id = 6523, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Attach a file with STL", Description = "Allow User To Attach a file with STL" });
-                    permissions.Add(new Permission() { Id = 6524, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View list of attached files with STL", Description = "Allow User To View list of attached files with STL" });
-                    permissions.Add(new Permission() { Id = 6525, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "ReApprover for new added STL", Description = "Allow User To ReApprove STL which is in pending state" });
-                    permissions.Add(new Permission() { Id = 6526, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL without ReApproval", Description = "Allow User To Add New STL without ReApproval" });
-                    permissions.Add(new Permission() { Id = 6527, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View(Pending for ReApproval) STL List", Description = "Allow User To View List of All(Pending for ReApproval) STL mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 6528, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Mark as Void STL", Description = "Allow User To Mark as Void STL" });
-                    permissions.Add(new Permission() { Id = 6529, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Unmark Void STL", Description = "Allow User To unmark as Void SaleOrder" });
-                    permissions.Add(new Permission() { Id = 6530, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View list of Void STL", Description = "View list of Void STL" });
-                    permissions.Add(new Permission() { Id = 6531, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit (Pending for closing) STL", Description = "Allow User To Edit (Pending for Closing) STL mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 6532, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Export STL Reports", Description = "Allow User To Export STL Reports" });
-                    permissions.Add(new Permission() { Id = 6533, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Can attach document when STL Closed", Description = "Allow User To attach document when STL Closed" });
-                    permissions.Add(new Permission() { Id = 6534, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit GL-Posting Date", Description = "Allow User To Edit GL-Posting Date" });
-                    permissions.Add(new Permission() { Id = 6535, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL Remarks", Description = "Allow User To Add STL Remarks" });
-                }
-
-                //Polling
-                {
-                    permissions.Add(new Permission() { Id = 6700, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Polling", Description = "Polling" });
-
-                    permissions.Add(new Permission() { Id = 6701, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "View List of Pollings", Description = "Allow User To View List of Pollings" });
-                    permissions.Add(new Permission() { Id = 6702, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "Create New Poll", Description = "Allow User To Create New Poll" });
-                    permissions.Add(new Permission() { Id = 6703, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "Edit Poll", Description = "Allow User To Edit Poll" });
-                    permissions.Add(new Permission() { Id = 6704, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "By Pass Hidden Polling Permissions", Description = "Allow User To By Pass Hidden Polling Permissions" });
-                    permissions.Add(new Permission() { Id = 6705, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "View InActive Pollings List", Description = "Allow User To View InActive Pollings List" });
-                    permissions.Add(new Permission() { Id = 6706, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "View List of All Pollings", Description = "Allow User To View List of All Pollings" });
-                    permissions.Add(new Permission() { Id = 6707, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "Delete Polling", Description = "Allow User To Delete Pollings" });
-                }
-
-
-
-                if (context.Permissions.FirstOrDefault(x => x.Name == "Export Sale Receipts Reports") == null)
-                {
-                    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = parentReport, Name = "Export Sale Receipts Reports", Description = "Allow User To export sale receipt report" });
-                    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Receipts", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Receipts", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                }
-                if (context.Permissions.FirstOrDefault(x => x.Name == "Export Inter-Bank Transfers Reports") == null)
-                {
-                    var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
-                    permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = parentReport, Name = "Export Inter-Bank Transfers Reports", Description = "Allow User To export Inter-Bank Transfer report" });
-                    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inter-Bank Transfers", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-                    context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inter-Bank Transfers", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-                }
-                {
-                    permissions.Add(new Permission() { Id = 9500, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "ModuleContract", Description = "ModuleContract" });
-
-                    permissions.Add(new Permission() { Id = 9501, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add New ModuleContract ", Description = "Allow User To Add New ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9502, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit ModuleContract", Description = "Allow User To Edit ModuleContract Details" });
-                    permissions.Add(new Permission() { Id = 9503, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "ModuleContract Details", Description = "Allow User To View ModuleContract Details" });
-                    permissions.Add(new Permission() { Id = 9504, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "List Of ModuleContracts", Description = "Allow User To view List of ModuleContracts" });
-                    permissions.Add(new Permission() { Id = 9505, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add ModuleContract Status", Description = "Allow User To Add new Status for ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9506, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View InActive ModuleContracts", Description = "Allow User To View InActive ModuleContracts" });
-                    permissions.Add(new Permission() { Id = 9507, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add ModuleContract without Approval", Description = "Allow User To Add New ModuleContract without Approval" });
-                    permissions.Add(new Permission() { Id = 9508, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit ModuleContract Status", Description = "Allow User To Edit ModuleContract Status" });
-                    permissions.Add(new Permission() { Id = 9509, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View InActive ModuleContract Statuses", Description = "Allow User To View InActive ModuleContract Statuses" });
-                    permissions.Add(new Permission() { Id = 9510, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Create Sale Order from ModuleContract", Description = "Allow User To Create Purchase Order from an existing ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9511, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Close ModuleContract without Approval", Description = "Allow User To Close ModuleContract without Approval" });
-                    permissions.Add(new Permission() { Id = 9512, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Close ModuleContract", Description = "Allow User To Close ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9513, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Reviewer Level 1 ModuleContract", Description = "Allow User to mark ModuleContract as Reviewed once" });
-                    permissions.Add(new Permission() { Id = 9514, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Reviewer Level 2 ModuleContract", Description = "Allow User To Mark ModuleContract as Reviewed and move it to Approved  List" });
-                    permissions.Add(new Permission() { Id = 9515, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Approver for Closing ModuleContract", Description = "Allow User To Close ModuleContract which is in pending state" });
-                    permissions.Add(new Permission() { Id = 9516, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Approver for new added ModuleContract", Description = "Allow User To Approve ModuleContract which is in pending state" });
-                    permissions.Add(new Permission() { Id = 9517, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit closed ModuleContract", Description = "Allow User To Edit Closed ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9518, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View(Pending for Approval) ModuleContract List", Description = "Allow User To View List of All(Pending for Approval) ModuleContracts mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 9519, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View(Pending for closing) ModuleContract List", Description = "Allow User To View List of All(Pending for Closing) ModuleContract mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 9520, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit Creation Date of ModuleContract", Description = "Allow User To Edit Creation Date of ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9521, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Attach a file with ModuleContract", Description = "Allow User To Attach a file with ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9522, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View list of attached files with ModuleContract", Description = "Allow User To View list of attached files with ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9523, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Mark as Void ModuleContract", Description = "Allow User To Mark as Void ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9524, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Unmark Void ModuleContract", Description = "Allow User To unmark as Void ModuleContract" });
-                    permissions.Add(new Permission() { Id = 9525, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View list of Void ModuleContracts", Description = "View list of Void ModuleContracts" });
-                    permissions.Add(new Permission() { Id = 9526, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Move ModuleContract to Inter Company", Description = "Allow User To Move ModuleContract to Inter Company mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 9527, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add Vendor Comparative Statement", Description = "Allow User To Add Vendor Comparative Statement" });
-                    permissions.Add(new Permission() { Id = 9528, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View Vendor Comparative Statement", Description = "Allow User To View Vendor Comparative Statement" });
-                    permissions.Add(new Permission() { Id = 9529, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Import ModuleContract Items", Description = "Allow User To Import ModuleContract Items" });
-                    permissions.Add(new Permission() { Id = 9530, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View ModuleContract Register", Description = "Allow User To View ModuleContract Register" });
-
-                }
-
-
-                {
-                    permissions.Add(new Permission() { Id = 9800, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "File", Description = "File" });
-                }
-
-
-                {
-                    permissions.Add(new Permission() { Id = 9700, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Documents", Description = "Documents" });
-                    permissions.Add(new Permission() { Id = 9701, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Add Document", Description = "Allow User To Add Document" });
-                    permissions.Add(new Permission() { Id = 9702, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Document", Description = "Allow User To Edit Document" });
-                    permissions.Add(new Permission() { Id = 9703, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View Document", Description = "Allow User To View Document" });
-                    permissions.Add(new Permission() { Id = 9704, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "List of Documents", Description = "Allow User To View List of Document" });
-                    
-                    permissions.Add(new Permission() { Id = 9706, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Add Document without Approval", Description = "Allow User To Add New Document without Approval" });
-                    permissions.Add(new Permission() { Id = 9707, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View InActive Documents", Description = "Allow User To View InActive Documents" });
-                    permissions.Add(new Permission() { Id = 9708, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Close Document", Description = "Allow User To Close Document" });
-                    
-                    
-                    permissions.Add(new Permission() { Id = 9709, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Close Document without Approval", Description = "Allow User To Close Document without Approval" });
-                    permissions.Add(new Permission() { Id = 9710, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Unapproved Document", Description = "Allow User To Edit Unapproved Document without Approval" });
-
-                    permissions.Add(new Permission() { Id = 9711, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Reviewer Level 1 Document", Description = "Allow User to mark Document as Reviewed once" });
-                    permissions.Add(new Permission() { Id = 9712, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Reviewer Level 2 Document", Description = "Allow User To Mark Document as Reviewed and move it to Approved List" });
-                    permissions.Add(new Permission() { Id = 9713, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Approver for Closing Document", Description = "Allow User To Close Document which is in pending state" });
-                    permissions.Add(new Permission() { Id = 9714, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Approver for new Added Document", Description = "Allow User To Approve Document which is in pending state" });
-                    permissions.Add(new Permission() { Id = 9715, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Closed Document", Description = "Allow User To Edit Closed Document" });
-                    permissions.Add(new Permission() { Id = 9716, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View(Pending for closing) Document List", Description = "Allow User To View List of All(Pending for Approval) Document mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 9717, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View(Pending for Approval) Document List", Description = "Allow User To View List of All(Pending for Approval) Document mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 9718, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View Document Register", Description = "Allow User To View Document Register List" });
-                    permissions.Add(new Permission() { Id = 9719, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Creation Date of Document", Description = "Allow User To Edit Creation Date of Document" });
-                    permissions.Add(new Permission() { Id = 9720, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Attach a file with Document", Description = "Allow User To Attach a file with Document" });
-                    permissions.Add(new Permission() { Id = 9721, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View List of Attached files with Document", Description = "Allow User To View List of Attached files with Document" });
-
-                    permissions.Add(new Permission() { Id = 9722, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "ReApprover for new Added Document", Description = "Allow User To ReApprove Document which is in pending state" });
-                    permissions.Add(new Permission() { Id = 9723, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Add Document Without ReApproval", Description = "Allow User To Add New Document without ReApproval" });
-                    permissions.Add(new Permission() { Id = 9724, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View(Pending for ReApproval) Document List", Description = "Allow User To View List of All(Pending for ReApproval) Document mapped to his Department" });
-                    permissions.Add(new Permission() { Id = 9725, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Mark as Void Document", Description = "Allow User To Mark as Void Document" });
-                    permissions.Add(new Permission() { Id = 9726, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Unmark Void Document", Description = "Allow User To unmark as Void Document" });
-                    permissions.Add(new Permission() { Id = 9727, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View list of Void Documents", Description = "View list of Void Documents" });
-                    permissions.Add(new Permission() { Id = 9728, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit (Pending for closing) Document", Description = "Allow User To Edit (Pending for Closing) Document mapped to his Department" });
-
-                    permissions.Add(new Permission() { Id = 9729, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Document Status", Description = "Document Status" });
-                    permissions.Add(new Permission() { Id = 9730, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "Add Document Status", Description = "Allow User To Add new status for Document" });
-                    permissions.Add(new Permission() { Id = 9731, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "Edit Document Status", Description = "Allow User To Edit Document Status" });
-                    permissions.Add(new Permission() { Id = 9732, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "View List of Document Statuses", Description = "Allow User To View List of Document Statuses" });
-                    permissions.Add(new Permission() { Id = 9733, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "View InActive Document Statuses", Description = "Allow User To View InActive Document Statuses" });
-                }
-
-
+                permissions.Add(new Permission() { Id = 6500, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 4100, Name = "STL", Description = "STL" });
+                permissions.Add(new Permission() { Id = 6501, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL", Description = "Allow User To Add STL" });
+                permissions.Add(new Permission() { Id = 6502, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit STL", Description = "Allow User To Edit STL" });
+                permissions.Add(new Permission() { Id = 6503, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View STL", Description = "Allow User To View STL" });
+                permissions.Add(new Permission() { Id = 6504, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "List of STL", Description = "Allow User To View List of STL" });
+                permissions.Add(new Permission() { Id = 6505, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL Status", Description = "Allow User To Add new status for STL" });
+                permissions.Add(new Permission() { Id = 6506, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL without Approval", Description = "Allow User To Add New STL without Approval" });
+                permissions.Add(new Permission() { Id = 6507, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View InActive STL", Description = "Allow User To View InActive STL" });
+                permissions.Add(new Permission() { Id = 6508, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Close STL", Description = "Allow User To Close STL" });
+                permissions.Add(new Permission() { Id = 6509, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit STL Status", Description = "Allow User To Edit STL Status" });
+                permissions.Add(new Permission() { Id = 6510, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View InActive STL Statuses", Description = "Allow User To View InActive STL Statuses" });
+                permissions.Add(new Permission() { Id = 6511, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Close STL without Approval", Description = "Allow User To Close STL without Approval" });
+                permissions.Add(new Permission() { Id = 6512, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit Unapproved STL", Description = "Allow User To Edit Unapproved STL without Approval" });
+                permissions.Add(new Permission() { Id = 6513, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Reviewer Level 1 STL", Description = "Allow User to mark STL as Reviewed once" });
+                permissions.Add(new Permission() { Id = 6514, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Reviewer Level 2 STL", Description = "Allow User To Mark STL as Reviewed and move it to Approved List" });
+                permissions.Add(new Permission() { Id = 6515, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Approver for Closing STL", Description = "Allow User To Close STL which is in pending state" });
+                permissions.Add(new Permission() { Id = 6516, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Approver for new added STL", Description = "Allow User To Approve STL which is in pending state" });
+                permissions.Add(new Permission() { Id = 6517, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit closed STL", Description = "Allow User To Edit Closed STL" });
+                permissions.Add(new Permission() { Id = 6518, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View(Pending for closing) STL List", Description = "Allow User To View List of All(Pending for Approval) STL mapped to his Department" });
+                permissions.Add(new Permission() { Id = 6519, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View(Pending for Approval) STL List", Description = "Allow User To View List of All(Pending for Approval) STL mapped to his Department" });
+                permissions.Add(new Permission() { Id = 6520, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View STL Register", Description = "Allow User To View STL Register List" });
+                permissions.Add(new Permission() { Id = 6521, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit Creation Date of STL", Description = "Allow User To Edit Creation Date of STL" });
+                permissions.Add(new Permission() { Id = 6523, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Attach a file with STL", Description = "Allow User To Attach a file with STL" });
+                permissions.Add(new Permission() { Id = 6524, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View list of attached files with STL", Description = "Allow User To View list of attached files with STL" });
+                permissions.Add(new Permission() { Id = 6525, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "ReApprover for new added STL", Description = "Allow User To ReApprove STL which is in pending state" });
+                permissions.Add(new Permission() { Id = 6526, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL without ReApproval", Description = "Allow User To Add New STL without ReApproval" });
+                permissions.Add(new Permission() { Id = 6527, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View(Pending for ReApproval) STL List", Description = "Allow User To View List of All(Pending for ReApproval) STL mapped to his Department" });
+                permissions.Add(new Permission() { Id = 6528, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Mark as Void STL", Description = "Allow User To Mark as Void STL" });
+                permissions.Add(new Permission() { Id = 6529, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Unmark Void STL", Description = "Allow User To unmark as Void SaleOrder" });
+                permissions.Add(new Permission() { Id = 6530, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "View list of Void STL", Description = "View list of Void STL" });
+                permissions.Add(new Permission() { Id = 6531, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit (Pending for closing) STL", Description = "Allow User To Edit (Pending for Closing) STL mapped to his Department" });
+                permissions.Add(new Permission() { Id = 6532, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Export STL Reports", Description = "Allow User To Export STL Reports" });
+                permissions.Add(new Permission() { Id = 6533, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Can attach document when STL Closed", Description = "Allow User To attach document when STL Closed" });
+                permissions.Add(new Permission() { Id = 6534, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Edit GL-Posting Date", Description = "Allow User To Edit GL-Posting Date" });
+                permissions.Add(new Permission() { Id = 6535, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6500, Name = "Add STL Remarks", Description = "Allow User To Add STL Remarks" });
             }
-                //SharedGridGroup Report Groups
-                List<SharedGridGroup> sharedGroups = new List<SharedGridGroup>();
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Inquiries", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Sale Orders", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Offers", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Purchase Orders", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Bills", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Sale Invoices", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Sale Receipts", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Inter-Bank Transfers", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Admin Bills", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Payments", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Purchase Invoices", isVoid = false });
-            sharedGroups.Add(new SharedGridGroup() { groupName = "Chart of Accounts", isVoid = false });
 
-            var dbParentGroups = context.sharedGridGroups.Where(x => x.parentId == null).ToList();
-            if (dbParentGroups.Count == 0)
+            //Polling
             {
-                context.sharedGridGroups.AddRange(sharedGroups);
+                permissions.Add(new Permission() { Id = 6700, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Polling", Description = "Polling" });
+
+                permissions.Add(new Permission() { Id = 6701, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "View List of Pollings", Description = "Allow User To View List of Pollings" });
+                permissions.Add(new Permission() { Id = 6702, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "Create New Poll", Description = "Allow User To Create New Poll" });
+                permissions.Add(new Permission() { Id = 6703, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "Edit Poll", Description = "Allow User To Edit Poll" });
+                permissions.Add(new Permission() { Id = 6704, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "By Pass Hidden Polling Permissions", Description = "Allow User To By Pass Hidden Polling Permissions" });
+                permissions.Add(new Permission() { Id = 6705, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "View InActive Pollings List", Description = "Allow User To View InActive Pollings List" });
+                permissions.Add(new Permission() { Id = 6706, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "View List of All Pollings", Description = "Allow User To View List of All Pollings" });
+                permissions.Add(new Permission() { Id = 6707, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 6700, Name = "Delete Polling", Description = "Allow User To Delete Pollings" });
             }
 
 
 
-            //    permissions.Add(standardReports);
-            //    var reportGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Access to Report Group", Description = "Allow User To Access Report Group" };
-            //    permissions.Add(reportGroupObj);
-
-
-
-            //GridReportGroups seeding
-            //    IList<GridReportGroup> groups = new List<GridReportGroup>();
-            //if (context.GridReportGroups.Count() == 0)
-            //{
-            //    groups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Sale Receipt", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
-            //    groups.Add(new GridReportGroup() { groupName = "Sale Receipt", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
-
-            //}
-
-            //if (groups.Count != context.GridReportGroups.Count())
-            //{
-            //    context.GridReportGroups.AddRange(groups);
-            //}
-            //Asset Nature Seeding
-
-
-
-            ////if(context.fields.Count() == 0)
-            ////{
-            ////    //Fields Seeding
-            //    fields.Add(new Field() { Id = 1, Identity = 1, Name = "cmbInquiryType", elementType = "ComboBox", Description = "Inquiry Type List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 2, Identity = 2, Name = "lookupCompany", elementType = "LookUpEdit", Description = "Company List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 3, Identity = 3, Name = "lookupDepartment", elementType = "LookUpEdit", Description = "Department List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 4, Identity = 4, Name = "lookupCustomer", elementType = "LookUpEdit", Description = "Customer List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 5, Identity = 5, Name = "cmbEmployee", elementType = "ComboBox", Description = "Employee List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            ////}
-
-            //if (context.fields.Count() != fields.Count()+1)
-            //{
-            //    IList<Field> fieldsToAdd = new List<Field>();
-
-            //    foreach(var _field in fields)
-            //    {
-            //        if(context.fields.FirstOrDefault(x=>x.Identity == _field.Identity) == null)
+            //        if (context.Permissions.FirstOrDefault(x => x.Name == "Export Sale Receipts Reports") == null)
             //        {
-            //            fieldsToAdd.Add(_field);
+            //            var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = parentReport, Name = "Export Sale Receipts Reports", Description = "Allow User To export sale receipt report" });
+            //            context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Receipts", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //            context.GridReportGroups.Add(new GridReportGroup() { groupName = "Sale Receipts", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
             //        }
-            //    }
-            //    context.fields.AddRange(fieldsToAdd);
-            //}
-
-            //    fields.Add(new Field() { Id = 1, Identity = 1, Name = "cmbInquiryType", elementType = "ComboBox", Description = "Inquiry Type List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 2, Identity = 2, Name = "lookupCompany", elementType = "LookUpEdit", Description = "Company List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 3, Identity = 3, Name = "lookupDepartment", elementType = "LookUpEdit", Description = "Department List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 4, Identity = 4, Name = "lookupCustomer", elementType = "LookUpEdit", Description = "Customer List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-            //    fields.Add(new Field() { Id = 5, Identity = 5, Name = "cmbEmployee", elementType = "ComboBox", Description = "Employee List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
-
-            //    if (context.fields.Count() != fields.Count() + 1)
-            //    {
-            //        IList<Field> fieldsToAdd = new List<Field>();
-
-            //        foreach (var _field in fields)
+            //        if (context.Permissions.FirstOrDefault(x => x.Name == "Export Inter-Bank Transfers Reports") == null)
             //        {
-            //            if (context.fields.FirstOrDefault(x => x.Identity == _field.Identity) == null)
-            //            {
-            //                fieldsToAdd.Add(_field);
-            //            }
+            //            var parentReport = context.Permissions.FirstOrDefault(x => x.Name == "Reports");
+            //            permissions.Add(new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = parentReport, Name = "Export Inter-Bank Transfers Reports", Description = "Allow User To export Inter-Bank Transfer report" });
+            //            context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inter-Bank Transfers", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //            context.GridReportGroups.Add(new GridReportGroup() { groupName = "Inter-Bank Transfers", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
             //        }
-            //        context.fields.AddRange(fieldsToAdd);
+            //        {
+            permissions.Add(new Permission() { Id = 9500, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 50, Name = "ModuleContract", Description = "ModuleContract" });
+
+            permissions.Add(new Permission() { Id = 9501, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add New ModuleContract ", Description = "Allow User To Add New ModuleContract" });
+            permissions.Add(new Permission() { Id = 9502, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit ModuleContract", Description = "Allow User To Edit ModuleContract Details" });
+            permissions.Add(new Permission() { Id = 9503, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "ModuleContract Details", Description = "Allow User To View ModuleContract Details" });
+            permissions.Add(new Permission() { Id = 9504, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "List Of ModuleContracts", Description = "Allow User To view List of ModuleContracts" });
+            permissions.Add(new Permission() { Id = 9505, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add ModuleContract Status", Description = "Allow User To Add new Status for ModuleContract" });
+            permissions.Add(new Permission() { Id = 9506, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View InActive ModuleContracts", Description = "Allow User To View InActive ModuleContracts" });
+            permissions.Add(new Permission() { Id = 9507, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add ModuleContract without Approval", Description = "Allow User To Add New ModuleContract without Approval" });
+            permissions.Add(new Permission() { Id = 9508, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit ModuleContract Status", Description = "Allow User To Edit ModuleContract Status" });
+            permissions.Add(new Permission() { Id = 9509, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View InActive ModuleContract Statuses", Description = "Allow User To View InActive ModuleContract Statuses" });
+            permissions.Add(new Permission() { Id = 9510, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Create Sale Order from ModuleContract", Description = "Allow User To Create Purchase Order from an existing ModuleContract" });
+            permissions.Add(new Permission() { Id = 9511, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Close ModuleContract without Approval", Description = "Allow User To Close ModuleContract without Approval" });
+            permissions.Add(new Permission() { Id = 9512, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Close ModuleContract", Description = "Allow User To Close ModuleContract" });
+            permissions.Add(new Permission() { Id = 9513, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Reviewer Level 1 ModuleContract", Description = "Allow User to mark ModuleContract as Reviewed once" });
+            permissions.Add(new Permission() { Id = 9514, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Reviewer Level 2 ModuleContract", Description = "Allow User To Mark ModuleContract as Reviewed and move it to Approved  List" });
+            permissions.Add(new Permission() { Id = 9515, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Approver for Closing ModuleContract", Description = "Allow User To Close ModuleContract which is in pending state" });
+            permissions.Add(new Permission() { Id = 9516, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Approver for new added ModuleContract", Description = "Allow User To Approve ModuleContract which is in pending state" });
+            permissions.Add(new Permission() { Id = 9517, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit closed ModuleContract", Description = "Allow User To Edit Closed ModuleContract" });
+            permissions.Add(new Permission() { Id = 9518, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View(Pending for Approval) ModuleContract List", Description = "Allow User To View List of All(Pending for Approval) ModuleContracts mapped to his Department" });
+            permissions.Add(new Permission() { Id = 9519, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View(Pending for closing) ModuleContract List", Description = "Allow User To View List of All(Pending for Closing) ModuleContract mapped to his Department" });
+            permissions.Add(new Permission() { Id = 9520, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Edit Creation Date of ModuleContract", Description = "Allow User To Edit Creation Date of ModuleContract" });
+            permissions.Add(new Permission() { Id = 9521, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Attach a file with ModuleContract", Description = "Allow User To Attach a file with ModuleContract" });
+            permissions.Add(new Permission() { Id = 9522, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View list of attached files with ModuleContract", Description = "Allow User To View list of attached files with ModuleContract" });
+            permissions.Add(new Permission() { Id = 9523, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Mark as Void ModuleContract", Description = "Allow User To Mark as Void ModuleContract" });
+            permissions.Add(new Permission() { Id = 9524, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Unmark Void ModuleContract", Description = "Allow User To unmark as Void ModuleContract" });
+            permissions.Add(new Permission() { Id = 9525, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View list of Void ModuleContracts", Description = "View list of Void ModuleContracts" });
+            permissions.Add(new Permission() { Id = 9526, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Move ModuleContract to Inter Company", Description = "Allow User To Move ModuleContract to Inter Company mapped to his Department" });
+            permissions.Add(new Permission() { Id = 9527, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Add Vendor Comparative Statement", Description = "Allow User To Add Vendor Comparative Statement" });
+            permissions.Add(new Permission() { Id = 9528, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View Vendor Comparative Statement", Description = "Allow User To View Vendor Comparative Statement" });
+            permissions.Add(new Permission() { Id = 9529, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "Import ModuleContract Items", Description = "Allow User To Import ModuleContract Items" });
+            permissions.Add(new Permission() { Id = 9530, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9500, Name = "View ModuleContract Register", Description = "Allow User To View ModuleContract Register" });
+            permissions.Add(new Permission() { Id = 9800, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "File", Description = "File" });
+            permissions.Add(new Permission() { Id = 9700, Added = System.DateTime.Now, LastModified = System.DateTime.Now, Name = "Documents", Description = "Documents" });
+                        permissions.Add(new Permission() { Id = 9701, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Add Document", Description = "Allow User To Add Document" });
+                        permissions.Add(new Permission() { Id = 9702, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Document", Description = "Allow User To Edit Document" });
+                        permissions.Add(new Permission() { Id = 9703, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View Document", Description = "Allow User To View Document" });
+                        permissions.Add(new Permission() { Id = 9704, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "List of Documents", Description = "Allow User To View List of Document" });
+
+                        permissions.Add(new Permission() { Id = 9706, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Add Document without Approval", Description = "Allow User To Add New Document without Approval" });
+                        permissions.Add(new Permission() { Id = 9707, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View InActive Documents", Description = "Allow User To View InActive Documents" });
+                        permissions.Add(new Permission() { Id = 9708, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Close Document", Description = "Allow User To Close Document" });
+
+
+                        permissions.Add(new Permission() { Id = 9709, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Close Document without Approval", Description = "Allow User To Close Document without Approval" });
+                        permissions.Add(new Permission() { Id = 9710, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Unapproved Document", Description = "Allow User To Edit Unapproved Document without Approval" });
+
+                        permissions.Add(new Permission() { Id = 9711, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Reviewer Level 1 Document", Description = "Allow User to mark Document as Reviewed once" });
+                        permissions.Add(new Permission() { Id = 9712, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Reviewer Level 2 Document", Description = "Allow User To Mark Document as Reviewed and move it to Approved List" });
+                        permissions.Add(new Permission() { Id = 9713, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Approver for Closing Document", Description = "Allow User To Close Document which is in pending state" });
+                        permissions.Add(new Permission() { Id = 9714, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Approver for new Added Document", Description = "Allow User To Approve Document which is in pending state" });
+                        permissions.Add(new Permission() { Id = 9715, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Closed Document", Description = "Allow User To Edit Closed Document" });
+                        permissions.Add(new Permission() { Id = 9716, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View(Pending for closing) Document List", Description = "Allow User To View List of All(Pending for Approval) Document mapped to his Department" });
+                        permissions.Add(new Permission() { Id = 9717, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View(Pending for Approval) Document List", Description = "Allow User To View List of All(Pending for Approval) Document mapped to his Department" });
+                        permissions.Add(new Permission() { Id = 9718, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View Document Register", Description = "Allow User To View Document Register List" });
+                        permissions.Add(new Permission() { Id = 9719, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit Creation Date of Document", Description = "Allow User To Edit Creation Date of Document" });
+                        permissions.Add(new Permission() { Id = 9720, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Attach a file with Document", Description = "Allow User To Attach a file with Document" });
+                        permissions.Add(new Permission() { Id = 9721, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View List of Attached files with Document", Description = "Allow User To View List of Attached files with Document" });
+
+                        permissions.Add(new Permission() { Id = 9722, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "ReApprover for new Added Document", Description = "Allow User To ReApprove Document which is in pending state" });
+                        permissions.Add(new Permission() { Id = 9723, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Add Document Without ReApproval", Description = "Allow User To Add New Document without ReApproval" });
+                        permissions.Add(new Permission() { Id = 9724, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View(Pending for ReApproval) Document List", Description = "Allow User To View List of All(Pending for ReApproval) Document mapped to his Department" });
+                        permissions.Add(new Permission() { Id = 9725, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Mark as Void Document", Description = "Allow User To Mark as Void Document" });
+                        permissions.Add(new Permission() { Id = 9726, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Unmark Void Document", Description = "Allow User To unmark as Void Document" });
+                        permissions.Add(new Permission() { Id = 9727, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "View list of Void Documents", Description = "View list of Void Documents" });
+                        permissions.Add(new Permission() { Id = 9728, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Edit (Pending for closing) Document", Description = "Allow User To Edit (Pending for Closing) Document mapped to his Department" });
+
+                        permissions.Add(new Permission() { Id = 9729, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9700, Name = "Document Status", Description = "Document Status" });
+                        permissions.Add(new Permission() { Id = 9730, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "Add Document Status", Description = "Allow User To Add new status for Document" });
+                        permissions.Add(new Permission() { Id = 9731, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "Edit Document Status", Description = "Allow User To Edit Document Status" });
+                        permissions.Add(new Permission() { Id = 9732, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "View List of Document Statuses", Description = "Allow User To View List of Document Statuses" });
+                        permissions.Add(new Permission() { Id = 9733, Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentId = 9729, Name = "View InActive Document Statuses", Description = "Allow User To View InActive Document Statuses" });
+                    
+
+
+                
+            //        //SharedGridGroup Report Groups
+            //        List<SharedGridGroup> sharedGroups = new List<SharedGridGroup>();
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Inquiries", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Sale Orders", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Offers", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Purchase Orders", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Bills", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Sale Invoices", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Sale Receipts", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Inter-Bank Transfers", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Admin Bills", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Payments", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Purchase Invoices", isVoid = false });
+            //    sharedGroups.Add(new SharedGridGroup() { groupName = "Chart of Accounts", isVoid = false });
+
+            //    var dbParentGroups = context.sharedGridGroups.Where(x => x.parentId == null).ToList();
+            //    if (dbParentGroups.Count == 0)
+            //    {
+            //        context.sharedGridGroups.AddRange(sharedGroups);
             //    }
-            //}
+
+
+
+            //    //    permissions.Add(standardReports);
+            //    //    var reportGroupObj = new Permission() { Added = System.DateTime.Now, LastModified = System.DateTime.Now, ParentPermission = reportObj, Name = "Access to Report Group", Description = "Allow User To Access Report Group" };
+            //    //    permissions.Add(reportGroupObj);
+
+
+
+            //    //GridReportGroups seeding
+            //    //    IList<GridReportGroup> groups = new List<GridReportGroup>();
+            //    //if (context.GridReportGroups.Count() == 0)
+            //    //{
+            //    //    groups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Inquiries", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Sale Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Offers", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Purchase Orders", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Bills", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Sale Invoices", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Sale Receipt", isActive = true, gridReportType = Enums.GridReportType.StandardReport });
+            //    //    groups.Add(new GridReportGroup() { groupName = "Sale Receipt", isActive = true, gridReportType = Enums.GridReportType.MemorizedReport });
+
+            //    //}
+
+            //    //if (groups.Count != context.GridReportGroups.Count())
+            //    //{
+            //    //    context.GridReportGroups.AddRange(groups);
+            //    //}
+            //    //Asset Nature Seeding
+
+
+
+            //    ////if(context.fields.Count() == 0)
+            //    ////{
+            //    ////    //Fields Seeding
+            //    //    fields.Add(new Field() { Id = 1, Identity = 1, Name = "cmbInquiryType", elementType = "ComboBox", Description = "Inquiry Type List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 2, Identity = 2, Name = "lookupCompany", elementType = "LookUpEdit", Description = "Company List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 3, Identity = 3, Name = "lookupDepartment", elementType = "LookUpEdit", Description = "Department List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 4, Identity = 4, Name = "lookupCustomer", elementType = "LookUpEdit", Description = "Customer List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 5, Identity = 5, Name = "cmbEmployee", elementType = "ComboBox", Description = "Employee List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    ////}
+
+            //    //if (context.fields.Count() != fields.Count()+1)
+            //    //{
+            //    //    IList<Field> fieldsToAdd = new List<Field>();
+
+            //    //    foreach(var _field in fields)
+            //    //    {
+            //    //        if(context.fields.FirstOrDefault(x=>x.Identity == _field.Identity) == null)
+            //    //        {
+            //    //            fieldsToAdd.Add(_field);
+            //    //        }
+            //    //    }
+            //    //    context.fields.AddRange(fieldsToAdd);z
+            //    //}
+
+            //    //    fields.Add(new Field() { Id = 1, Identity = 1, Name = "cmbInquiryType", elementType = "ComboBox", Description = "Inquiry Type List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 2, Identity = 2, Name = "lookupCompany", elementType = "LookUpEdit", Description = "Company List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 3, Identity = 3, Name = "lookupDepartment", elementType = "LookUpEdit", Description = "Department List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 4, Identity = 4, Name = "lookupCustomer", elementType = "LookUpEdit", Description = "Customer List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+            //    //    fields.Add(new Field() { Id = 5, Identity = 5, Name = "cmbEmployee", elementType = "ComboBox", Description = "Employee List", transactionType = Enums.TransactionItemType.Inquiry, LastModified = DateTime.Now });
+
+            //    //    if (context.fields.Count() != fields.Count() + 1)
+            //    //    {
+            //    //        IList<Field> fieldsToAdd = new List<Field>();
+
+            //    //        foreach (var _field in fields)
+            //    //        {
+            //    //            if (context.fields.FirstOrDefault(x => x.Identity == _field.Identity) == null)
+            //    //            {
+            //    //                fieldsToAdd.Add(_field);
+            //    //            }
+            //    //        }
+            //    //        context.fields.AddRange(fieldsToAdd);
+            //    //    }
+            //    //}
 
             if (context.currencies.Count() == 0)
             {
@@ -2661,6 +2627,7 @@ namespace ERP_BL.Migrations
             }
             if (context.IndustryTypes.Count() == 0)
                 context.IndustryTypes.AddRange(industryTypes);
+
             if (context.Permissions.Count() != permissions.Count() + 1)
                 if (context.Permissions.Count() == 0)
                 {
@@ -2704,14 +2671,6 @@ namespace ERP_BL.Migrations
                 }
             base.Seed(context);
             context.SaveChanges();
-
-            //Reports
-            {
-
-
-
-            }
-
         }
 
 

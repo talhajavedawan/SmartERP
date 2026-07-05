@@ -154,10 +154,12 @@ namespace ZAS_ERP.start
 
         private void BtnLan_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            SYSTEM_STATIC.server = "192.168.10.91,1411";
+            //SYSTEM_STATIC.server = "Fsociety96";
+            SYSTEM_STATIC.server = "Fsociety96";
             Properties.Settings.Default["serverip"] = SYSTEM_STATIC.server.ToString();
             Properties.Settings.Default.Save();
-            ERP_BL.Databases.SystemLog.LogInfo(this.GetType(), "Connecting to  SQL Servers Adress selected value =" + "192.168.10.91,1411");
+            //ERP_BL.Databases.SystemLog.LogInfo(this.GetType(), "Connecting to  SQL Servers Adress selected value =" + "Fsociety96");
+            ERP_BL.Databases.SystemLog.LogInfo(this.GetType(), "Connecting to  SQL Servers Adress selected value =" + "Fsociety96");
             connecttoserver();
         }
         private void BtnWan_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

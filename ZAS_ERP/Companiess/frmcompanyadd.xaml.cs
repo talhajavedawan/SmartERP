@@ -371,6 +371,7 @@ namespace ZAS_ERP.Companiess
                     };
                     company.contact = contact;
                     // other info about comapny 
+                    if(company.ParentID!=null)
                     company.ParentID = comp.Id;
                     company.openingDate = System.DateTime.Now;
                     company.closingDate = null;
