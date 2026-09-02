@@ -1,36 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\MSC\\Dissertation\\Project\\SmartERP\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{1D7F8D5C-AE2F-4A7A-993D-574EC9CDF55D}|ERP_BL\\ERP_BL.csproj|d:\\msc\\dissertation\\project\\smarterp\\erp_bl\\procurements\\inquiry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D7F8D5C-AE2F-4A7A-993D-574EC9CDF55D}|ERP_BL\\ERP_BL.csproj|solutionrelative:erp_bl\\procurements\\inquiry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|D:\\MSC\\Dissertation\\Project\\SmartERP\\zas_erp\\procurementss\\inquiriess\\ucinquiryadd.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|solutionrelative:zas_erp\\procurementss\\inquiriess\\ucinquiryadd.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D7F8D5C-AE2F-4A7A-993D-574EC9CDF55D}|ERP_BL\\ERP_BL.csproj|D:\\MSC\\Dissertation\\Project\\SmartERP\\erp_bl\\migrations\\configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1D7F8D5C-AE2F-4A7A-993D-574EC9CDF55D}|ERP_BL\\ERP_BL.csproj|solutionrelative:erp_bl\\migrations\\configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1D7F8D5C-AE2F-4A7A-993D-574EC9CDF55D}|ERP_BL\\ERP_BL.csproj|D:\\MSC\\Dissertation\\Project\\SmartERP\\erp_bl\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{1D7F8D5C-AE2F-4A7A-993D-574EC9CDF55D}|ERP_BL\\ERP_BL.csproj|solutionrelative:erp_bl\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|D:\\MSC\\Dissertation\\Project\\SmartERP\\zas_erp\\start\\pagedbconnect.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|solutionrelative:zas_erp\\start\\pagedbconnect.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|D:\\MSC\\Dissertation\\Project\\SmartERP\\zas_erp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|solutionrelative:zas_erp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|D:\\MSC\\Dissertation\\Project\\SmartERP\\zas_erp\\start\\frmdbconnectt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{80337047-D767-4E36-BE2B-9E3EBE4F6BA3}|ZAS_ERP\\ZAS_ERP.csproj|solutionrelative:zas_erp\\start\\frmdbconnectt.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -38,93 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ucInquiryAdd.xaml.cs",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\Procurementss\\Inquiriess\\ucInquiryAdd.xaml.cs",
-              "RelativeDocumentMoniker": "ZAS_ERP\\Procurementss\\Inquiriess\\ucInquiryAdd.xaml.cs",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\Procurementss\\Inquiriess\\ucInquiryAdd.xaml.cs",
-              "RelativeToolTip": "ZAS_ERP\\Procurementss\\Inquiriess\\ucInquiryAdd.xaml.cs",
-              "ViewState": "AgIAAIkHAAAAAAAAAAAawKAHAADwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-05T21:33:25.399Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Inquiry.cs",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ERP_BL\\Procurements\\Inquiry.cs",
-              "RelativeDocumentMoniker": "ERP_BL\\Procurements\\Inquiry.cs",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ERP_BL\\Procurements\\Inquiry.cs",
-              "RelativeToolTip": "ERP_BL\\Procurements\\Inquiry.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAA5wD8AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-05T21:18:20.863Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "App.config",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ERP_BL\\App.config",
-              "RelativeDocumentMoniker": "ERP_BL\\App.config",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ERP_BL\\App.config",
-              "RelativeToolTip": "ERP_BL\\App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-07-05T21:16:21.645Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "App.xaml",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\App.xaml",
-              "RelativeDocumentMoniker": "ZAS_ERP\\App.xaml",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\App.xaml",
-              "RelativeToolTip": "ZAS_ERP\\App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-07-05T21:09:21.346Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "pageDbConnect.xaml",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\start\\pageDbConnect.xaml",
-              "RelativeDocumentMoniker": "ZAS_ERP\\start\\pageDbConnect.xaml",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\start\\pageDbConnect.xaml",
-              "RelativeToolTip": "ZAS_ERP\\start\\pageDbConnect.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-07-05T21:04:04.484Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "frmDbConnectt.xaml",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\start\\frmDbConnectt.xaml",
-              "RelativeDocumentMoniker": "ZAS_ERP\\start\\frmDbConnectt.xaml",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ZAS_ERP\\start\\frmDbConnectt.xaml",
-              "RelativeToolTip": "ZAS_ERP\\start\\frmDbConnectt.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-07-05T21:03:47.939Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Configuration.cs",
-              "DocumentMoniker": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ERP_BL\\Migrations\\Configuration.cs",
-              "RelativeDocumentMoniker": "ERP_BL\\Migrations\\Configuration.cs",
-              "ToolTip": "D:\\MSC\\Dissertation\\Project\\SmartERP\\ERP_BL\\Migrations\\Configuration.cs",
-              "RelativeToolTip": "ERP_BL\\Migrations\\Configuration.cs",
-              "ViewState": "AgIAAPkCAAAA+MzMzMwYwNsCAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-05T20:58:26.755Z"
             }
           ]
         }
