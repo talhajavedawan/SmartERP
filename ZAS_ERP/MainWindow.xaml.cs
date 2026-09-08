@@ -921,11 +921,11 @@ namespace ZAS_ERP
                 //});
                 //th.Start(); 
                 // StartTimer();
-                Dispatcher.Invoke(() =>
-                {
-                    ZAS_ERP.Reportss.FavouriteReports.Windows.winFavouriteReports reports = new ZAS_ERP.Reportss.FavouriteReports.Windows.winFavouriteReports();
-                    reports.Show();
-                }, DispatcherPriority.ContextIdle);
+                //Dispatcher.Invoke(() =>
+                //{
+                //    ZAS_ERP.Reportss.FavouriteReports.Windows.winFavouriteReports reports = new ZAS_ERP.Reportss.FavouriteReports.Windows.winFavouriteReports();
+                //    reports.Show();
+                //}, DispatcherPriority.ContextIdle);
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += OnDoWork;
                 worker.RunWorkerAsync();
@@ -935,13 +935,13 @@ namespace ZAS_ERP
 
 
                 enableMenu();
-                getCountAllUnreadNotifications();
-                getCountAllUnreadMemoNotifications();
+                //getCountAllUnreadNotifications();
+                //getCountAllUnreadMemoNotifications();
 
 
-                Thread t = new Thread(new ThreadStart(TaskTimer));
-                t.IsBackground = true;
-                t.Start();
+                //Thread t = new Thread(new ThreadStart(TaskTimer));
+                //t.IsBackground = true;
+                //t.Start();
                 var loginUser = SYSTEM_STATIC.currentUser;
 
 
@@ -951,22 +951,22 @@ namespace ZAS_ERP
                 userDetails.userId = loginUser.id;
                 rolesRepo.updateLoginUser(loginUser.id, userDetails);
 
-                connectToUrl();
-                if (!Debugger.IsAttached)
-                    await connection.InvokeAsync("SendMessage", unicodeConnected, currentOnlieUserId);
-                else
-                    await connection.InvokeAsync("SendMessage", unicodeConnected, currentOnlieUserId);
+                //connectToUrl();
+                //if (!Debugger.IsAttached)
+                //    await connection.InvokeAsync("SendMessage", unicodeConnected, currentOnlieUserId);
+                //else
+                //    await connection.InvokeAsync("SendMessage", unicodeConnected, currentOnlieUserId);
 
 
                 //UI thread exception handling event
 
-                this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
+                //this.DispatcherUnhandledException += new DispatcherUnhandledExceptionEventHandler(App_DispatcherUnhandledException);
 
 
-                //Exception  in task thread
-                TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-                //Exception caught by non UI thread
-                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                ////Exception  in task thread
+                //TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+                ////Exception caught by non UI thread
+                //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
                 //BackgroundImagesRepo repo = new BackgroundImagesRepo();
                 //var user = SYSTEM_STATIC.currentUser.id;
                 //var groupImage = repo.GetUserTaskGroup(user);
@@ -981,19 +981,19 @@ namespace ZAS_ERP
                 //if (groupImage != null)
                 //{
 
-                if (SYSTEM_STATIC.currentUser.isBlink == true)
-                {
-                    mbtnBackgroundImage.Foreground = Brushes.Yellow;
-                    blinkButton(mbtnBackgroundImage, 300, 20.0);
-                }
+                //if (SYSTEM_STATIC.currentUser.isBlink == true)
+                //{
+                //    mbtnBackgroundImage.Foreground = Brushes.Yellow;
+                //    blinkButton(mbtnBackgroundImage, 300, 20.0);
+                //}
 
                 //}
 
 
 
                 //blinkButton(btnGlow, 500, 60000.0);
-                UrgentNotificationGlow();
-                PollingsGlow();
+                //UrgentNotificationGlow();
+                //PollingsGlow();
 
             }
             catch (Exception ex)
@@ -3831,7 +3831,7 @@ namespace ZAS_ERP
                     mbtnMemorizedReport.IsEnabled = (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "View Memorized Reports") != null) ? true : false;
                     //System.Threading.Thread.Sleep(500);
 
-                    //mheadLoans.IsEnabled = (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Loans") != null) ? true : false;
+                    mheadLoans.IsEnabled = (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Loans") != null) ? true : false;
 
                     mheadToDoTask.IsVisible = (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Target Module") != null) ? true : false;
                     barSharedReports.IsVisible = (SYSTEM_STATIC.AllowedPermissions.FirstOrDefault(x => x.Name == "Shared Reports") != null) ? true : false;
@@ -3843,6 +3843,7 @@ namespace ZAS_ERP
                     barVATBook.IsVisible = (SYSTEM_STATIC.AllowedPermissions.FirstOrDefault(x => x.Name == "VAT Book") != null) ? true : false;
                     mHeadVATBook.IsVisible = (SYSTEM_STATIC.AllowedPermissions.FirstOrDefault(x => x.Name == "VAT Book") != null) ? true : false;
 
+                    mbtnEmploymeesDataRetrievalRegister.IsVisible = (SYSTEM_STATIC.AllowedPermissions.FirstOrDefault(x => x.Name == "Access Data Retrieval Dates Structure") != null) ? true : false;
                     mbtnEmploymeesDataRetrievalRegister.IsVisible = (SYSTEM_STATIC.AllowedPermissions.FirstOrDefault(x => x.Name == "Access Data Retrieval Dates Structure") != null) ? true : false;
 
                     if (SYSTEM_STATIC.AllowedPermissions.FirstOrDefault(x => x.Name == "Advances") != null)
@@ -4255,7 +4256,7 @@ namespace ZAS_ERP
             }
             else
             {
-                var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to close ZAS-ERP ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                var inputfromUser = DXMessageBox.Show("Are you sure? \nDo you want to close Smart-ERP ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (inputfromUser == MessageBoxResult.Yes)
                 {
 

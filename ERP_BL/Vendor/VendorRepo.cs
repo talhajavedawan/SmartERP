@@ -90,7 +90,6 @@ namespace ERP_BL.Databases
             List<int> deptIds = new List<int>();
             //foreach (var dpt in employee.departments)
             //    deptIds.Add(dpt.Id);
-            employee.departments.Add( context.Departments.FirstOrDefault(x => x.DeptName == "VDummy")); 
             deptIds = employee.departments.Select(x=>x.Id).ToList();
             
             var vendors = context.Vendors

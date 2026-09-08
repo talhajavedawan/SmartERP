@@ -139,7 +139,6 @@ namespace ZAS_ERP.Procurementss.Billss
                 }
                 grdBillItems.ItemsSource = billItems;
                 grdPOItems.ItemsSource = procurementProducts;
-                grdAdjustments.ItemsSource = adjustments;
                 
                 costSheetFields = SYSTEM_STATIC.GetCostSheetFields();
                 lookupCostSheetFieldsinGrid.ItemsSource = costSheetFields;
@@ -1231,31 +1230,10 @@ namespace ZAS_ERP.Procurementss.Billss
             {
                 loansAdvanceId = bill.LoansAdvanceId.Value;
 
-                layoutGrpAdjustments.Visibility = Visibility.Visible;
             
                 loansAdvanceId = bill.LoansAdvanceId.Value;
 
                 adjustments = bill.Adjustments.ToList();
-                grdAdjustments.ItemsSource = adjustments;
-                txtApprovedAdjustmentsCount.Text = bill.Adjustments.Where(x => x.isApproved == true).Count().ToString();
-                txtPendingAdjustmentsCount.Text = bill.Adjustments.Where(x => x.isApproved != true).Count().ToString();
-
-                grdAdjustments.FilterCriteria = new BinaryOperator("isApproved", true, BinaryOperatorType.Equal);
-
-                //var aprvdAdjustments = bill.Adjustments.Where(x => x.isApproved == true);
-                //var unaprvdAdjustments = bill.Adjustments.Where(x => x.isApproved == false);
-                //if(bill.loansAdvance.saleOrderId!=null)
-                //saleOrder = bill.loansAdvance.saleOrder;
-                ////billElement.adjustments = bill.Adjustments;
-                //txtApprovedLoanAdjustment.Text = aprvdAdjustments.Sum(x => x.AdjustmentAmount).ToString();
-                //txtUnApprovedLoanAdjustment.Text = unaprvdAdjustments.Sum(x => x.AdjustmentAmount).ToString();
-                //txtApprovedAdjustmentCount.Text = aprvdAdjustments.Count().ToString();
-                //txtUnApprovedAdjustmentCount.Text = unaprvdAdjustments.Count().ToString();
-
-                if (SYSTEM_STATIC.AllowedPermissions.Find(x => x.Name == "Can Approve Adjustments in Vendor Bills") != null)
-                    grdAdjustments.Columns["isApproved"].AllowEditing = DevExpress.Utils.DefaultBoolean.True;
-
-
             }
 
 
@@ -8728,17 +8706,11 @@ CCRecomenndedList = ccUsersRecommendation
         private void btnApprovedAdjustments_Click(object sender, RoutedEventArgs e)
         {
             //grdAdjustments.ItemsSource = bill.Adjustments.Where(x => x.isApproved == true).ToList();
-            grdAdjustments.FilterCriteria = new BinaryOperator("isApproved", true, BinaryOperatorType.Equal);
         }
 
         private void btnPendingAdjustments_Click(object sender, RoutedEventArgs e)
         {
-            //grdAdjustments.ItemsSource = bill.Adjustments.Where(x => x.isApproved != true).ToList();
-            grdAdjustments.FilterCriteria = new GroupOperator(
-    GroupOperatorType.Or,
-    new BinaryOperator("isApproved", false, BinaryOperatorType.Equal),
-    new UnaryOperator(UnaryOperatorType.IsNull, new OperandProperty("isApproved"))
-);
+           
         }
     }
 }
