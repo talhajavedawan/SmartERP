@@ -1,21 +1,24 @@
 # SmartERP
 
-**Enterprise Resource Planning system built with C#, WPF, Entity Framework 6 and SQL Server.**
+**Enterprise ERP platform built with C#, WPF, Entity Framework 6, SQL Server and DevExpress.**
 
-SmartERP is a bespoke ERP platform designed to centralise finance, accounting, procurement, inventory and operational workflows across multiple businesses. The repository demonstrates hands-on work on a mature, business-critical desktop application rather than a tutorial or small CRUD project.
+SmartERP is a mature desktop ERP codebase covering finance, accounting, procurement, inventory, reporting and internal operations. It represents real-world enterprise application engineering: large domain models, long-lived business rules, data-heavy desktop UI, SQL-backed workflows, third-party integrations and legacy-system modernisation.
 
-## Tech Stack
+> **Portfolio focus:** this repository is presented for technical review by recruiters and engineering teams. Environment-specific credentials and deployment details are intentionally excluded.
 
-- C# / .NET Framework
-- WPF / XAML
-- Entity Framework 6
-- SQL Server
-- DevExpress WPF
-- LINQ
-- Microsoft Office / Outlook Interop
-- Git
+## At a Glance
 
-## Core Modules
+| Area | Implementation |
+| --- | --- |
+| Language | C# |
+| Platform | .NET Framework / WPF |
+| UI | XAML, DevExpress WPF |
+| Data | SQL Server, Entity Framework 6, LINQ |
+| Integrations | Microsoft Outlook / Office Interop |
+| Architecture | Desktop presentation layer + business/domain layer + EF data access |
+| Domain | ERP, accounting, procurement, inventory, cash flow and reporting |
+
+## Core Business Modules
 
 - Sales Orders and Sales Invoices
 - Purchase Orders and Purchase Invoices
@@ -23,75 +26,102 @@ SmartERP is a bespoke ERP platform designed to centralise finance, accounting, p
 - Accounting and Journal Vouchers
 - Chart of Accounts
 - Payments and Sales Receipts
-- Inventory Management
+- Inventory and Product Management
 - Vendor Management
 - Cash Flow Management
-- VAT
+- VAT workflows
 - Loans and Advances
 - Cost Sheets
 - Financial and Operational Reporting
 - Employee, Department and Company Management
-- Role and Permission Management
-- Notifications
+- Roles and Permissions
+- Notifications and User Tagging
 - Microsoft Outlook integration
 
-## Selected Engineering Work
+## Engineering Highlights
 
-### Multi-company ERP architecture
-Designed and maintained functionality supporting multiple companies, departments, employees and business workflows within a shared ERP ecosystem.
+### Multi-company ERP domain
+The system models companies, departments, employees, vendors, customers, products, financial transactions and operational workflows in a shared ERP ecosystem.
 
-### Financial and cash-flow functionality
-Implemented cash-flow functionality, accounting workflows and reporting used to improve visibility over operational and financial transactions.
+### Finance and cash-flow workflows
+SmartERP includes accounting-oriented workflows, cash-flow management and financial reporting designed around day-to-day business operations rather than generic demo data.
 
 ### Microsoft Outlook integration
-Integrated Microsoft Outlook into ERP workflows using Office Interop, including access to inbox and sent-mail functionality from within the desktop application.
+The desktop client integrates Microsoft Outlook through Office Interop so email can participate directly in ERP workflows, including inbox and sent-mail access.
 
-### Enterprise desktop UI
-Built data-heavy desktop interfaces with WPF, XAML and DevExpress controls for procurement, accounting, reporting and operational workflows.
+### Enterprise WPF UI
+The application contains large, data-heavy WPF screens built with XAML and DevExpress controls for finance, procurement, reporting and administration.
 
 ### Entity Framework and SQL Server
-Developed and maintained a substantial relational domain model with Entity Framework 6, LINQ and SQL Server, including repositories, relationships, migrations and transactional business logic.
+The business layer uses Entity Framework 6, LINQ and SQL Server across a substantial relational domain model with repositories, relationships, migrations and business rules.
 
 ### Legacy modernisation
-Worked on the ongoing modernisation of a mature ERP codebase, including performance fixes, database changes, maintainability improvements and preparation for migration toward a modern web-based architecture.
+The codebase demonstrates the realities of maintaining and evolving a mature enterprise system: defect fixes, schema changes, performance work, maintainability improvements and staged modernisation.
 
-## High-level Architecture
+## Architecture
+
+```mermaid
+flowchart TD
+    UI[WPF / XAML / DevExpress UI] --> BL[Business & Domain Layer]
+    BL --> EF[Entity Framework 6 / Repositories]
+    EF --> DB[(SQL Server)]
+    UI --> OUTLOOK[Microsoft Outlook / Office Interop]
+```
+
+For a deeper walkthrough, see [Architecture Notes](docs/ARCHITECTURE.md).
+
+## Recruiter Code Tour
+
+If you only have a few minutes, these areas are representative of the codebase:
+
+- [Entity Framework database context](ERP_BL/DBContext/DBContextERP.cs)
+- [Cash-flow domain model](ERP_BL/CashFlow/CashFlow.cs)
+- [Cash-flow reporting repository](ERP_BL/Reports/CashFlowReportRepo.cs)
+- [Cash Flow Center UI](ZAS_ERP/CashFlow/Windows/winCashFlowCenter.xaml)
+- [Outlook integration entry points](ZAS_ERP/BussinessLogicss/SYSTEM_STATIC.cs)
+- [Chart of Accounts administration](ZAS_ERP/ChartofAccounts/Windows/winCOAAdminPanel.xaml.cs)
+- [Procurement / Admin Bills repository](ERP_BL/Procurements/AdminBills/AdminBillsRepo.cs)
+
+## Repository Structure
 
 ```text
-Presentation Layer
-        |
-        v
-WPF / XAML / DevExpress
-        |
-        v
-Business & Domain Layer
-        |
-        v
-Entity Framework 6
-        |
-        v
-SQL Server
+SmartERP/
+├── ERP_BL/      # Business/domain entities, repositories and EF data access
+├── ZAS_ERP/     # WPF desktop client (legacy project/namespace name retained)
+├── MachineAPI/  # Supporting API/service component
+├── docs/        # Portfolio-oriented architecture and setup notes
+└── README.md
 ```
+
+### Why is the desktop project still named `ZAS_ERP`?
+
+`ZAS_ERP` is a legacy internal project/namespace name retained to avoid introducing a broad breaking rename into a mature WPF application. The repository and product are presented publicly as **SmartERP**. A full namespace migration would be handled as a separately tested refactor.
+
+## Local Configuration
+
+Credentials are not stored in source control. SQL-authenticated development environments can supply the password through the `SMARTERP_SQL_PASSWORD` environment variable and local connection-string configuration.
+
+See [Local Setup](docs/LOCAL_SETUP.md) for the portfolio-safe setup notes.
 
 ## What This Project Demonstrates
 
-- Enterprise application development
-- Business-domain modelling
-- Financial and accounting software
-- Relational database design
-- Legacy-system maintenance
-- Debugging and production support
-- Desktop UI engineering
-- Third-party integrations
-- Performance optimisation
-- Software modernisation
+- Enterprise C#/.NET development
+- WPF and XAML engineering
+- Relational domain modelling
+- Entity Framework 6 and LINQ
+- SQL Server-backed business systems
+- Accounting and ERP workflows
+- Integration with Microsoft Office / Outlook
+- Debugging and maintenance of mature software
+- Legacy modernisation and incremental refactoring
+- Working with a large, non-trivial codebase
 
-## Repository Notes
+## Portfolio Notes
 
-This is a portfolio-safe version of a long-running ERP codebase. Environment-specific credentials and deployment details should not be committed to source control. Local database settings should be supplied through secure configuration appropriate to the target environment.
+This public repository is a recruiter-facing representation of a long-running ERP codebase. Sensitive environment details are excluded, and local IDE/build artefacts are ignored. Some UI dependencies, including DevExpress components, may require the appropriate licensed tooling to build the desktop client locally.
 
 ## Author
 
 **Talha Javed**  
-Software Engineer | C# / .NET | ERP Systems  
-London, UK
+Software Engineer — C# / .NET / ERP Systems  
+London, United Kingdom
